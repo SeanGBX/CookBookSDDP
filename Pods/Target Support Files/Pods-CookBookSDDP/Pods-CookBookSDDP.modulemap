@@ -1,0 +1,6 @@
+framework module Pods_CookBookSDDP {
+  umbrella header "Pods-CookBookSDDP-umbrella.h"
+
+  export *
+  module * { export * }
+}

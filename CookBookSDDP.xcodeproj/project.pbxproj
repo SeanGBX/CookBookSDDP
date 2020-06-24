@@ -15,6 +15,9 @@
 		1441A16624937708007B47B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1441A16424937708007B47B6 /* LaunchScreen.storyboard */; };
 		1441A17124937708007B47B6 /* CookBookSDDPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1441A17024937708007B47B6 /* CookBookSDDPTests.swift */; };
 		1441A17C24937708007B47B6 /* CookBookSDDPUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1441A17B24937708007B47B6 /* CookBookSDDPUITests.swift */; };
+		303C8936FDC98872032F3C8D /* Pods_CookBookSDDP_CookBookSDDPUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FEBBB84141C846B0083DAE6 /* Pods_CookBookSDDP_CookBookSDDPUITests.framework */; };
+		BE586716B81853EAF709929D /* Pods_CookBookSDDPTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B49CF4B7D43AB0C4E20631E3 /* Pods_CookBookSDDPTests.framework */; };
+		F74A03E20C7281493E3D457B /* Pods_CookBookSDDP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C6DC0786A9E0C323D5A35A /* Pods_CookBookSDDP.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,15 @@
 		1441A17724937708007B47B6 /* CookBookSDDPUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookBookSDDPUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1441A17B24937708007B47B6 /* CookBookSDDPUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookBookSDDPUITests.swift; sourceTree = "<group>"; };
 		1441A17D24937708007B47B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		292DA11CFC153A7FB898A69F /* Pods-CookBookSDDP-CookBookSDDPUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookBookSDDP-CookBookSDDPUITests.debug.xcconfig"; path = "Target Support Files/Pods-CookBookSDDP-CookBookSDDPUITests/Pods-CookBookSDDP-CookBookSDDPUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		32D4DBD4A31EC8EF7BE6F4C9 /* Pods-CookBookSDDP-CookBookSDDPUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookBookSDDP-CookBookSDDPUITests.release.xcconfig"; path = "Target Support Files/Pods-CookBookSDDP-CookBookSDDPUITests/Pods-CookBookSDDP-CookBookSDDPUITests.release.xcconfig"; sourceTree = "<group>"; };
+		4FEBBB84141C846B0083DAE6 /* Pods_CookBookSDDP_CookBookSDDPUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CookBookSDDP_CookBookSDDPUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		63C6DC0786A9E0C323D5A35A /* Pods_CookBookSDDP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CookBookSDDP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A5B370EF65786DD67D22E84 /* Pods-CookBookSDDPTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookBookSDDPTests.debug.xcconfig"; path = "Target Support Files/Pods-CookBookSDDPTests/Pods-CookBookSDDPTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8957D548E7A95F5426E55ECB /* Pods-CookBookSDDP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookBookSDDP.debug.xcconfig"; path = "Target Support Files/Pods-CookBookSDDP/Pods-CookBookSDDP.debug.xcconfig"; sourceTree = "<group>"; };
+		91BE37AB765985B6D5390EE0 /* Pods-CookBookSDDPTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookBookSDDPTests.release.xcconfig"; path = "Target Support Files/Pods-CookBookSDDPTests/Pods-CookBookSDDPTests.release.xcconfig"; sourceTree = "<group>"; };
+		B49CF4B7D43AB0C4E20631E3 /* Pods_CookBookSDDPTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CookBookSDDPTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6B216DFAA283423E314697C /* Pods-CookBookSDDP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookBookSDDP.release.xcconfig"; path = "Target Support Files/Pods-CookBookSDDP/Pods-CookBookSDDP.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F74A03E20C7281493E3D457B /* Pods_CookBookSDDP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE586716B81853EAF709929D /* Pods_CookBookSDDPTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				303C8936FDC98872032F3C8D /* Pods_CookBookSDDP_CookBookSDDPUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +98,8 @@
 				1441A16F24937708007B47B6 /* CookBookSDDPTests */,
 				1441A17A24937708007B47B6 /* CookBookSDDPUITests */,
 				1441A15724937706007B47B6 /* Products */,
+				6726690411AE48DA405BACEB /* Pods */,
+				D858D35B2D48E8AF751606D8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,6 +145,30 @@
 			path = CookBookSDDPUITests;
 			sourceTree = "<group>";
 		};
+		6726690411AE48DA405BACEB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8957D548E7A95F5426E55ECB /* Pods-CookBookSDDP.debug.xcconfig */,
+				D6B216DFAA283423E314697C /* Pods-CookBookSDDP.release.xcconfig */,
+				292DA11CFC153A7FB898A69F /* Pods-CookBookSDDP-CookBookSDDPUITests.debug.xcconfig */,
+				32D4DBD4A31EC8EF7BE6F4C9 /* Pods-CookBookSDDP-CookBookSDDPUITests.release.xcconfig */,
+				6A5B370EF65786DD67D22E84 /* Pods-CookBookSDDPTests.debug.xcconfig */,
+				91BE37AB765985B6D5390EE0 /* Pods-CookBookSDDPTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		D858D35B2D48E8AF751606D8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				63C6DC0786A9E0C323D5A35A /* Pods_CookBookSDDP.framework */,
+				4FEBBB84141C846B0083DAE6 /* Pods_CookBookSDDP_CookBookSDDPUITests.framework */,
+				B49CF4B7D43AB0C4E20631E3 /* Pods_CookBookSDDPTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,9 +176,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1441A18024937708007B47B6 /* Build configuration list for PBXNativeTarget "CookBookSDDP" */;
 			buildPhases = (
+				76A218BD07E0915CFDF4DDA7 /* [CP] Check Pods Manifest.lock */,
 				1441A15224937706007B47B6 /* Sources */,
 				1441A15324937706007B47B6 /* Frameworks */,
 				1441A15424937706007B47B6 /* Resources */,
+				BBFB11A17A4466E4A4623905 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -152,6 +195,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1441A18324937708007B47B6 /* Build configuration list for PBXNativeTarget "CookBookSDDPTests" */;
 			buildPhases = (
+				CEA3AB021AC033C192B44D90 /* [CP] Check Pods Manifest.lock */,
 				1441A16824937708007B47B6 /* Sources */,
 				1441A16924937708007B47B6 /* Frameworks */,
 				1441A16A24937708007B47B6 /* Resources */,
@@ -170,9 +214,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1441A18624937708007B47B6 /* Build configuration list for PBXNativeTarget "CookBookSDDPUITests" */;
 			buildPhases = (
+				E3E9367A93304C14CE33C6E6 /* [CP] Check Pods Manifest.lock */,
 				1441A17324937708007B47B6 /* Sources */,
 				1441A17424937708007B47B6 /* Frameworks */,
 				1441A17524937708007B47B6 /* Resources */,
+				116B4AAA705F390956691CF3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -253,6 +299,109 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		116B4AAA705F390956691CF3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CookBookSDDP-CookBookSDDPUITests/Pods-CookBookSDDP-CookBookSDDPUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CookBookSDDP-CookBookSDDPUITests/Pods-CookBookSDDP-CookBookSDDPUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CookBookSDDP-CookBookSDDPUITests/Pods-CookBookSDDP-CookBookSDDPUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		76A218BD07E0915CFDF4DDA7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CookBookSDDP-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BBFB11A17A4466E4A4623905 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CookBookSDDP/Pods-CookBookSDDP-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CookBookSDDP/Pods-CookBookSDDP-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CookBookSDDP/Pods-CookBookSDDP-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CEA3AB021AC033C192B44D90 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CookBookSDDPTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E3E9367A93304C14CE33C6E6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CookBookSDDP-CookBookSDDPUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1441A15224937706007B47B6 /* Sources */ = {
@@ -432,6 +581,7 @@
 		};
 		1441A18124937708007B47B6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8957D548E7A95F5426E55ECB /* Pods-CookBookSDDP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -449,6 +599,7 @@
 		};
 		1441A18224937708007B47B6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D6B216DFAA283423E314697C /* Pods-CookBookSDDP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -466,6 +617,7 @@
 		};
 		1441A18424937708007B47B6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6A5B370EF65786DD67D22E84 /* Pods-CookBookSDDPTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -487,6 +639,7 @@
 		};
 		1441A18524937708007B47B6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 91BE37AB765985B6D5390EE0 /* Pods-CookBookSDDPTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -508,6 +661,7 @@
 		};
 		1441A18724937708007B47B6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 292DA11CFC153A7FB898A69F /* Pods-CookBookSDDP-CookBookSDDPUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -527,6 +681,7 @@
 		};
 		1441A18824937708007B47B6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 32D4DBD4A31EC8EF7BE6F4C9 /* Pods-CookBookSDDP-CookBookSDDPUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
