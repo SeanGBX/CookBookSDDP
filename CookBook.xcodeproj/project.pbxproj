@@ -3,29 +3,71 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		180D2C3B24A500A4000F0A89 /* BridgingHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C3A24A500A3000F0A89 /* BridgingHeader.m */; };
+		180D2C4324A501A0000F0A89 /* postsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4024A501A0000F0A89 /* postsDataManager.swift */; };
+		180D2C4424A501A0000F0A89 /* commentDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4124A501A0000F0A89 /* commentDataManager.swift */; };
+		180D2C4524A501A0000F0A89 /* IngredientStepsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4224A501A0000F0A89 /* IngredientStepsDataManager.swift */; };
+		180D2C4724A501C5000F0A89 /* P7_SQLiteDB(4).swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4624A501C5000F0A89 /* P7_SQLiteDB(4).swift */; };
+		180D2C4B24A501D6000F0A89 /* IngredientSteps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4824A501D5000F0A89 /* IngredientSteps.swift */; };
+		180D2C4C24A501D6000F0A89 /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4924A501D5000F0A89 /* PostComment.swift */; };
+		180D2C4D24A501D6000F0A89 /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4A24A501D6000F0A89 /* Posts.swift */; };
+		180D2C5524A501F2000F0A89 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4E24A501F0000F0A89 /* CommentsViewController.swift */; };
+		180D2C5624A501F2000F0A89 /* IngredientInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4F24A501F0000F0A89 /* IngredientInfoViewController.swift */; };
+		180D2C5724A501F2000F0A89 /* FinishPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C5024A501F1000F0A89 /* FinishPostViewController.swift */; };
+		180D2C5824A501F2000F0A89 /* CreatePost1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C5124A501F1000F0A89 /* CreatePost1ViewController.swift */; };
+		180D2C5924A501F2000F0A89 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C5224A501F1000F0A89 /* PostViewController.swift */; };
+		180D2C5A24A501F2000F0A89 /* PostInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C5324A501F2000F0A89 /* PostInfoViewController.swift */; };
+		180D2C5B24A501F2000F0A89 /* IngredientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C5424A501F2000F0A89 /* IngredientViewController.swift */; };
+		180D2C6124A501FE000F0A89 /* IngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C5C24A501FD000F0A89 /* IngredientCell.swift */; };
+		180D2C6224A501FE000F0A89 /* StepsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C5D24A501FD000F0A89 /* StepsCell.swift */; };
+		180D2C6324A501FE000F0A89 /* IngredientItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C5E24A501FE000F0A89 /* IngredientItemCell.swift */; };
+		180D2C6424A501FE000F0A89 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C5F24A501FE000F0A89 /* PostCell.swift */; };
+		180D2C6524A501FE000F0A89 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C6024A501FE000F0A89 /* CommentCell.swift */; };
+		180D2C6924A50218000F0A89 /* Posts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 180D2C6624A50217000F0A89 /* Posts.storyboard */; };
+		180D2C6A24A50218000F0A89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 180D2C6724A50218000F0A89 /* LaunchScreen.storyboard */; };
+		180D2C6B24A50218000F0A89 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 180D2C6824A50218000F0A89 /* Main.storyboard */; };
+		180D9FD324A5EC30001BD4F7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 180D9FD224A5EC30001BD4F7 /* GoogleService-Info.plist */; };
 		181DDFB924A4AB02006F463F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181DDFB824A4AB02006F463F /* AppDelegate.swift */; };
 		181DDFBB24A4AB02006F463F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181DDFBA24A4AB02006F463F /* SceneDelegate.swift */; };
-		181DDFBD24A4AB02006F463F /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181DDFBC24A4AB02006F463F /* FirstViewController.swift */; };
-		181DDFBF24A4AB02006F463F /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181DDFBE24A4AB02006F463F /* SecondViewController.swift */; };
-		181DDFC224A4AB03006F463F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 181DDFC024A4AB02006F463F /* Main.storyboard */; };
 		181DDFC424A4AB05006F463F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 181DDFC324A4AB05006F463F /* Assets.xcassets */; };
-		181DDFC724A4AB05006F463F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 181DDFC524A4AB05006F463F /* LaunchScreen.storyboard */; };
 		561F4A915E99F368E8FE85C5 /* Pods_CookBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E61FF4F153AD6A3F694E746E /* Pods_CookBook.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		180D2C3824A500A2000F0A89 /* CookBook-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CookBook-Bridging-Header.h"; sourceTree = "<group>"; };
+		180D2C3924A500A3000F0A89 /* BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
+		180D2C3A24A500A3000F0A89 /* BridgingHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BridgingHeader.m; sourceTree = "<group>"; };
+		180D2C4024A501A0000F0A89 /* postsDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = postsDataManager.swift; sourceTree = "<group>"; };
+		180D2C4124A501A0000F0A89 /* commentDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = commentDataManager.swift; sourceTree = "<group>"; };
+		180D2C4224A501A0000F0A89 /* IngredientStepsDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientStepsDataManager.swift; sourceTree = "<group>"; };
+		180D2C4624A501C5000F0A89 /* P7_SQLiteDB(4).swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "P7_SQLiteDB(4).swift"; sourceTree = "<group>"; };
+		180D2C4824A501D5000F0A89 /* IngredientSteps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientSteps.swift; sourceTree = "<group>"; };
+		180D2C4924A501D5000F0A89 /* PostComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
+		180D2C4A24A501D6000F0A89 /* Posts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
+		180D2C4E24A501F0000F0A89 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
+		180D2C4F24A501F0000F0A89 /* IngredientInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientInfoViewController.swift; sourceTree = "<group>"; };
+		180D2C5024A501F1000F0A89 /* FinishPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishPostViewController.swift; sourceTree = "<group>"; };
+		180D2C5124A501F1000F0A89 /* CreatePost1ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePost1ViewController.swift; sourceTree = "<group>"; };
+		180D2C5224A501F1000F0A89 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		180D2C5324A501F2000F0A89 /* PostInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostInfoViewController.swift; sourceTree = "<group>"; };
+		180D2C5424A501F2000F0A89 /* IngredientViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientViewController.swift; sourceTree = "<group>"; };
+		180D2C5C24A501FD000F0A89 /* IngredientCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientCell.swift; sourceTree = "<group>"; };
+		180D2C5D24A501FD000F0A89 /* StepsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepsCell.swift; sourceTree = "<group>"; };
+		180D2C5E24A501FE000F0A89 /* IngredientItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientItemCell.swift; sourceTree = "<group>"; };
+		180D2C5F24A501FE000F0A89 /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		180D2C6024A501FE000F0A89 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		180D2C6624A50217000F0A89 /* Posts.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Posts.storyboard; sourceTree = "<group>"; };
+		180D2C6724A50218000F0A89 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		180D2C6824A50218000F0A89 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		180D9FD224A5EC30001BD4F7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		181DDFB524A4AB02006F463F /* CookBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CookBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		181DDFB824A4AB02006F463F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		181DDFBA24A4AB02006F463F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		181DDFBC24A4AB02006F463F /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		181DDFBE24A4AB02006F463F /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
-		181DDFC124A4AB02006F463F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		181DDFC324A4AB05006F463F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		181DDFC624A4AB05006F463F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		181DDFC824A4AB05006F463F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		419C8AD5F5379FBCCF018B7F /* Pods-CookBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookBook.debug.xcconfig"; path = "Target Support Files/Pods-CookBook/Pods-CookBook.debug.xcconfig"; sourceTree = "<group>"; };
 		A8C4217F31A1F766B69A6D38 /* Pods-CookBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookBook.release.xcconfig"; path = "Target Support Files/Pods-CookBook/Pods-CookBook.release.xcconfig"; sourceTree = "<group>"; };
@@ -44,6 +86,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		180D2C3C24A50100000F0A89 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				180D2C4E24A501F0000F0A89 /* CommentsViewController.swift */,
+				180D2C5124A501F1000F0A89 /* CreatePost1ViewController.swift */,
+				180D2C5024A501F1000F0A89 /* FinishPostViewController.swift */,
+				180D2C4F24A501F0000F0A89 /* IngredientInfoViewController.swift */,
+				180D2C5424A501F2000F0A89 /* IngredientViewController.swift */,
+				180D2C5324A501F2000F0A89 /* PostInfoViewController.swift */,
+				180D2C5224A501F1000F0A89 /* PostViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		180D2C3D24A5010C000F0A89 /* DataManagers */ = {
+			isa = PBXGroup;
+			children = (
+				180D2C4124A501A0000F0A89 /* commentDataManager.swift */,
+				180D2C4224A501A0000F0A89 /* IngredientStepsDataManager.swift */,
+				180D2C4024A501A0000F0A89 /* postsDataManager.swift */,
+			);
+			path = DataManagers;
+			sourceTree = "<group>";
+		};
+		180D2C3E24A50116000F0A89 /* CellViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				180D2C6024A501FE000F0A89 /* CommentCell.swift */,
+				180D2C5C24A501FD000F0A89 /* IngredientCell.swift */,
+				180D2C5E24A501FE000F0A89 /* IngredientItemCell.swift */,
+				180D2C5F24A501FE000F0A89 /* PostCell.swift */,
+				180D2C5D24A501FD000F0A89 /* StepsCell.swift */,
+			);
+			path = CellViewControllers;
+			sourceTree = "<group>";
+		};
+		180D2C3F24A5014B000F0A89 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				180D2C4824A501D5000F0A89 /* IngredientSteps.swift */,
+				180D2C4924A501D5000F0A89 /* PostComment.swift */,
+				180D2C4A24A501D6000F0A89 /* Posts.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		181DDFAC24A4AB02006F463F = {
 			isa = PBXGroup;
 			children = (
@@ -65,14 +153,22 @@
 		181DDFB724A4AB02006F463F /* CookBook */ = {
 			isa = PBXGroup;
 			children = (
+				180D2C4624A501C5000F0A89 /* P7_SQLiteDB(4).swift */,
+				180D2C3F24A5014B000F0A89 /* Models */,
+				180D2C3E24A50116000F0A89 /* CellViewControllers */,
+				180D2C3D24A5010C000F0A89 /* DataManagers */,
+				180D2C3C24A50100000F0A89 /* ViewControllers */,
+				180D2C3924A500A3000F0A89 /* BridgingHeader.h */,
+				180D2C3A24A500A3000F0A89 /* BridgingHeader.m */,
 				181DDFB824A4AB02006F463F /* AppDelegate.swift */,
 				181DDFBA24A4AB02006F463F /* SceneDelegate.swift */,
-				181DDFBC24A4AB02006F463F /* FirstViewController.swift */,
-				181DDFBE24A4AB02006F463F /* SecondViewController.swift */,
-				181DDFC024A4AB02006F463F /* Main.storyboard */,
+				180D2C6724A50218000F0A89 /* LaunchScreen.storyboard */,
+				180D2C6824A50218000F0A89 /* Main.storyboard */,
+				180D2C6624A50217000F0A89 /* Posts.storyboard */,
 				181DDFC324A4AB05006F463F /* Assets.xcassets */,
-				181DDFC524A4AB05006F463F /* LaunchScreen.storyboard */,
 				181DDFC824A4AB05006F463F /* Info.plist */,
+				180D9FD224A5EC30001BD4F7 /* GoogleService-Info.plist */,
+				180D2C3824A500A2000F0A89 /* CookBook-Bridging-Header.h */,
 			);
 			path = CookBook;
 			sourceTree = "<group>";
@@ -83,7 +179,6 @@
 				419C8AD5F5379FBCCF018B7F /* Pods-CookBook.debug.xcconfig */,
 				A8C4217F31A1F766B69A6D38 /* Pods-CookBook.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -129,6 +224,7 @@
 				TargetAttributes = {
 					181DDFB424A4AB02006F463F = {
 						CreatedOnToolsVersion = 11.4.1;
+						LastSwiftMigration = 1140;
 					};
 				};
 			};
@@ -155,9 +251,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				181DDFC724A4AB05006F463F /* LaunchScreen.storyboard in Resources */,
 				181DDFC424A4AB05006F463F /* Assets.xcassets in Resources */,
-				181DDFC224A4AB03006F463F /* Main.storyboard in Resources */,
+				180D2C6B24A50218000F0A89 /* Main.storyboard in Resources */,
+				180D9FD324A5EC30001BD4F7 /* GoogleService-Info.plist in Resources */,
+				180D2C6A24A50218000F0A89 /* LaunchScreen.storyboard in Resources */,
+				180D2C6924A50218000F0A89 /* Posts.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,33 +308,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				181DDFBF24A4AB02006F463F /* SecondViewController.swift in Sources */,
-				181DDFBD24A4AB02006F463F /* FirstViewController.swift in Sources */,
+				180D2C4B24A501D6000F0A89 /* IngredientSteps.swift in Sources */,
+				180D2C5524A501F2000F0A89 /* CommentsViewController.swift in Sources */,
+				180D2C4524A501A0000F0A89 /* IngredientStepsDataManager.swift in Sources */,
+				180D2C5924A501F2000F0A89 /* PostViewController.swift in Sources */,
+				180D2C5824A501F2000F0A89 /* CreatePost1ViewController.swift in Sources */,
+				180D2C5A24A501F2000F0A89 /* PostInfoViewController.swift in Sources */,
+				180D2C4C24A501D6000F0A89 /* PostComment.swift in Sources */,
+				180D2C5B24A501F2000F0A89 /* IngredientViewController.swift in Sources */,
+				180D2C6224A501FE000F0A89 /* StepsCell.swift in Sources */,
+				180D2C3B24A500A4000F0A89 /* BridgingHeader.m in Sources */,
+				180D2C5624A501F2000F0A89 /* IngredientInfoViewController.swift in Sources */,
+				180D2C6324A501FE000F0A89 /* IngredientItemCell.swift in Sources */,
+				180D2C4424A501A0000F0A89 /* commentDataManager.swift in Sources */,
+				180D2C4D24A501D6000F0A89 /* Posts.swift in Sources */,
 				181DDFB924A4AB02006F463F /* AppDelegate.swift in Sources */,
+				180D2C4724A501C5000F0A89 /* P7_SQLiteDB(4).swift in Sources */,
+				180D2C6124A501FE000F0A89 /* IngredientCell.swift in Sources */,
+				180D2C5724A501F2000F0A89 /* FinishPostViewController.swift in Sources */,
 				181DDFBB24A4AB02006F463F /* SceneDelegate.swift in Sources */,
+				180D2C6424A501FE000F0A89 /* PostCell.swift in Sources */,
+				180D2C4324A501A0000F0A89 /* postsDataManager.swift in Sources */,
+				180D2C6524A501FE000F0A89 /* CommentCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		181DDFC024A4AB02006F463F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				181DDFC124A4AB02006F463F /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		181DDFC524A4AB05006F463F /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				181DDFC624A4AB05006F463F /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		181DDFC924A4AB05006F463F /* Debug */ = {
@@ -358,14 +455,17 @@
 			baseConfigurationReference = 419C8AD5F5379FBCCF018B7F /* Pods-CookBook.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CookBook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = sg.edu.nyp.CookBook;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ITP312G3.CookBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CookBook/CookBook-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -376,14 +476,16 @@
 			baseConfigurationReference = A8C4217F31A1F766B69A6D38 /* Pods-CookBook.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CookBook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = sg.edu.nyp.CookBook;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ITP312G3.CookBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CookBook/CookBook-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
