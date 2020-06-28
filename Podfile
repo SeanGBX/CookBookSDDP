@@ -8,5 +8,6 @@ target 'CookBook' do
   # Pods for CookBook
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift'
+  pod 'MessageKit'
 
 end

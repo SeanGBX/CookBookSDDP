@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1489E5EA24A8FA8A0086C479 /* FriendDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1489E5E924A8FA890086C479 /* FriendDetailViewController.swift */; };
+		1489E5EC24A8FF1D0086C479 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1489E5EB24A8FF1D0086C479 /* Friend.swift */; };
+		1489E5EE24A8FF330086C479 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1489E5ED24A8FF330086C479 /* FriendCell.swift */; };
+		1489E5F024A9068A0086C479 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1489E5EF24A9068A0086C479 /* ChatViewController.swift */; };
+		1489E5F524A910C40086C479 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1489E5F424A910C40086C479 /* Chat.storyboard */; };
 		180D2C3B24A500A4000F0A89 /* BridgingHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C3A24A500A3000F0A89 /* BridgingHeader.m */; };
 		180D2C4324A501A0000F0A89 /* postsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4024A501A0000F0A89 /* postsDataManager.swift */; };
 		180D2C4424A501A0000F0A89 /* commentDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4124A501A0000F0A89 /* commentDataManager.swift */; };
@@ -38,6 +43,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1489E5E924A8FA890086C479 /* FriendDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendDetailViewController.swift; sourceTree = "<group>"; };
+		1489E5EB24A8FF1D0086C479 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
+		1489E5ED24A8FF330086C479 /* FriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FriendCell.swift; path = "../New Group/FriendCell.swift"; sourceTree = "<group>"; };
+		1489E5EF24A9068A0086C479 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		1489E5F424A910C40086C479 /* Chat.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		180D2C3824A500A2000F0A89 /* CookBook-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CookBook-Bridging-Header.h"; sourceTree = "<group>"; };
 		180D2C3924A500A3000F0A89 /* BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		180D2C3A24A500A3000F0A89 /* BridgingHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BridgingHeader.m; sourceTree = "<group>"; };
@@ -86,9 +96,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1489E5F124A909B90086C479 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				1489E5EF24A9068A0086C479 /* ChatViewController.swift */,
+				1489E5E924A8FA890086C479 /* FriendDetailViewController.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		1489E5F224A90A2D0086C479 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				1489E5ED24A8FF330086C479 /* FriendCell.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		1489E5F324A90A390086C479 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				1489E5EB24A8FF1D0086C479 /* Friend.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
 		180D2C3C24A50100000F0A89 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				1489E5F124A909B90086C479 /* Chat */,
 				180D2C4E24A501F0000F0A89 /* CommentsViewController.swift */,
 				180D2C5124A501F1000F0A89 /* CreatePost1ViewController.swift */,
 				180D2C5024A501F1000F0A89 /* FinishPostViewController.swift */,
@@ -113,6 +149,7 @@
 		180D2C3E24A50116000F0A89 /* CellViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				1489E5F224A90A2D0086C479 /* Chat */,
 				180D2C6024A501FE000F0A89 /* CommentCell.swift */,
 				180D2C5C24A501FD000F0A89 /* IngredientCell.swift */,
 				180D2C5E24A501FE000F0A89 /* IngredientItemCell.swift */,
@@ -125,6 +162,7 @@
 		180D2C3F24A5014B000F0A89 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1489E5F324A90A390086C479 /* Chat */,
 				180D2C4824A501D5000F0A89 /* IngredientSteps.swift */,
 				180D2C4924A501D5000F0A89 /* PostComment.swift */,
 				180D2C4A24A501D6000F0A89 /* Posts.swift */,
@@ -164,6 +202,7 @@
 				181DDFBA24A4AB02006F463F /* SceneDelegate.swift */,
 				180D2C6724A50218000F0A89 /* LaunchScreen.storyboard */,
 				180D2C6824A50218000F0A89 /* Main.storyboard */,
+				1489E5F424A910C40086C479 /* Chat.storyboard */,
 				180D2C6624A50217000F0A89 /* Posts.storyboard */,
 				181DDFC324A4AB05006F463F /* Assets.xcassets */,
 				181DDFC824A4AB05006F463F /* Info.plist */,
@@ -251,6 +290,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1489E5F524A910C40086C479 /* Chat.storyboard in Resources */,
 				181DDFC424A4AB05006F463F /* Assets.xcassets in Resources */,
 				180D2C6B24A50218000F0A89 /* Main.storyboard in Resources */,
 				180D9FD324A5EC30001BD4F7 /* GoogleService-Info.plist in Resources */,
@@ -310,6 +350,8 @@
 			files = (
 				180D2C4B24A501D6000F0A89 /* IngredientSteps.swift in Sources */,
 				180D2C5524A501F2000F0A89 /* CommentsViewController.swift in Sources */,
+				1489E5EC24A8FF1D0086C479 /* Friend.swift in Sources */,
+				1489E5EA24A8FA8A0086C479 /* FriendDetailViewController.swift in Sources */,
 				180D2C4524A501A0000F0A89 /* IngredientStepsDataManager.swift in Sources */,
 				180D2C5924A501F2000F0A89 /* PostViewController.swift in Sources */,
 				180D2C5824A501F2000F0A89 /* CreatePost1ViewController.swift in Sources */,
@@ -317,6 +359,7 @@
 				180D2C4C24A501D6000F0A89 /* PostComment.swift in Sources */,
 				180D2C5B24A501F2000F0A89 /* IngredientViewController.swift in Sources */,
 				180D2C6224A501FE000F0A89 /* StepsCell.swift in Sources */,
+				1489E5EE24A8FF330086C479 /* FriendCell.swift in Sources */,
 				180D2C3B24A500A4000F0A89 /* BridgingHeader.m in Sources */,
 				180D2C5624A501F2000F0A89 /* IngredientInfoViewController.swift in Sources */,
 				180D2C6324A501FE000F0A89 /* IngredientItemCell.swift in Sources */,
@@ -329,6 +372,7 @@
 				181DDFBB24A4AB02006F463F /* SceneDelegate.swift in Sources */,
 				180D2C6424A501FE000F0A89 /* PostCell.swift in Sources */,
 				180D2C4324A501A0000F0A89 /* postsDataManager.swift in Sources */,
+				1489E5F024A9068A0086C479 /* ChatViewController.swift in Sources */,
 				180D2C6524A501FE000F0A89 /* CommentCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

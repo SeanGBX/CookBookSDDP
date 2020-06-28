@@ -283,7 +283,12 @@ PODS:
     - BoringSSL-GRPC (= 0.0.7)
     - gRPC-Core/Interface (= 1.28.0)
   - gRPC-Core/Interface (1.28.0)
+  - InputBarAccessoryView (4.3.2):
+    - InputBarAccessoryView/Core (= 4.3.2)
+  - InputBarAccessoryView/Core (4.3.2)
   - leveldb-library (1.22)
+  - MessageKit (3.1.0):
+    - InputBarAccessoryView (~> 4.3.0)
   - nanopb (1.30905.0):
     - nanopb/decode (= 1.30905.0)
     - nanopb/encode (= 1.30905.0)
@@ -294,6 +299,7 @@ PODS:
 DEPENDENCIES:
   - Firebase/Firestore
   - FirebaseFirestoreSwift
+  - MessageKit
 
 SPEC REPOS:
   trunk:
@@ -311,7 +317,9 @@ SPEC REPOS:
     - GoogleUtilities
     - "gRPC-C++"
     - gRPC-Core
+    - InputBarAccessoryView
     - leveldb-library
+    - MessageKit
     - nanopb
     - PromisesObjC
 
@@ -330,10 +338,12 @@ SPEC CHECKSUMS:
   GoogleUtilities: 39530bc0ad980530298e9c4af8549e991fd033b1
   "gRPC-C++": 2ea13a2e14f0b89991a0b4b0151e7c6a56319516
   gRPC-Core: 325ba201411619a7302c621a1c8ee787719d4b9b
+  InputBarAccessoryView: 7985d418040a05fe894bd4b8328dd43ab35517c3
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
+  MessageKit: 3beb578737a5aa2bba25cc27c7b6d6faa09af5a7
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
 
-PODFILE CHECKSUM: 2333ddbae4a3fdf122863559bfe8b6d7c485d5cc
+PODFILE CHECKSUM: 53633a93f4ed9f1dabb7ca35d8031542a5bbfedb
 
 COCOAPODS: 1.9.3
