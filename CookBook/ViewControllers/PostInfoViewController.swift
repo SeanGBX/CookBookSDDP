@@ -25,21 +25,21 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         super.viewDidLoad()
         
         ingredientStepsList.append(IngredientSteps(
-            postId : 1,
+            postId : "",
             ingredient: "tomato",
             step: "cut tomato",
             ingredientImage: "bastion"
         ))
         
         ingredientStepsList.append(IngredientSteps(
-            postId : 1,
+            postId : "",
             ingredient: "potato",
             step: "cut potato",
             ingredientImage: "bastion"
         ))
         
         ingredientStepsList.append(IngredientSteps(
-            postId : 1,
+            postId : "",
             ingredient: "chicken",
             step: "cut chicken",
             ingredientImage: "bastion"

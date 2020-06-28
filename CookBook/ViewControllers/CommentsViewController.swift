@@ -15,23 +15,24 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        postCommentList.append(PostComment(
-            postId : 1,
-            comment: "tomato",
-            username: "Arman"
-        ))
+//        postCommentList.append(PostComment(
+//            postId : 1,
+//            comment: "tomato",
+//            username: "Arman"
+//        ))
+//
+//        postCommentList.append(PostComment(
+//            postId : 1,
+//            comment: "potato",
+//            username: "Ian"
+//        ))
+//
+//        postCommentList.append(PostComment(
+//            postId : 1,
+//            comment: "chicken",
+//            username: "Sean"
+//        ))
         
-        postCommentList.append(PostComment(
-            postId : 1,
-            comment: "potato",
-            username: "Ian"
-        ))
-        
-        postCommentList.append(PostComment(
-            postId : 1,
-            comment: "chicken",
-            username: "Sean"
-        ))
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

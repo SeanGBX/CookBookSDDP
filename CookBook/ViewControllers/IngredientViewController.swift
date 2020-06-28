@@ -14,31 +14,37 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var ingredientTableView: UITableView!
     
     var ingredientItemList : [IngredientSteps] = []
+    var postID: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+//        ingredientItemList.append(IngredientSteps(
+//            postId : postID,
+//            ingredient: "tomato",
+//            step: "cut tomato",
+//            ingredientImage: "bastion"
+//        ))
+//
+//        ingredientItemList.append(IngredientSteps(
+//            postId : postID,
+//            ingredient: "potato",
+//            step: "cut potato",
+//            ingredientImage: "bastion"
+//        ))
+//
+//        ingredientItemList.append(IngredientSteps(
+//            postId : postID,
+//            ingredient: "chicken",
+//            step: "cut chicken",
+//            ingredientImage: "bastion"
+//        ))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        ingredientItemList.append(IngredientSteps(
-            postId : 1,
-            ingredient: "tomato",
-            step: "cut tomato",
-            ingredientImage: "bastion"
-        ))
-        
-        ingredientItemList.append(IngredientSteps(
-            postId : 1,
-            ingredient: "potato",
-            step: "cut potato",
-            ingredientImage: "bastion"
-        ))
-        
-        ingredientItemList.append(IngredientSteps(
-            postId : 1,
-            ingredient: "chicken",
-            step: "cut chicken",
-            ingredientImage: "bastion"
-        ))
-        
+        print("yyyyyy\(self.postID)")
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -69,7 +75,7 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
             let ingredientInfoViewController = segue.destination as!
                 IngredientInfoViewController
             
-            let ingredient = IngredientSteps(postId: 0, ingredient: "", step: "", ingredientImage: "")
+            let ingredient = IngredientSteps(postId: postID, ingredient: "", step: "", ingredientImage: "")
             
             ingredientInfoViewController.ingredientItem = ingredient
         }

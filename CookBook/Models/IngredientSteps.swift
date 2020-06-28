@@ -10,15 +10,15 @@ import UIKit
 
 class IngredientSteps: NSObject, Codable {
     
-    var postId: Int
+    var postId: String
     var ingredient: String
     var step: String
     var ingredientImage: String
-    var ingredientStepId: Int
+    var ingredientStepId: String
     
     
-    init (postId: Int,  ingredient: String, step: String,
-          ingredientImage: String, ingredientStepId: Int = 0)
+    init (postId: String,  ingredient: String, step: String,
+          ingredientImage: String, ingredientStepId: String = "")
     {
         self.ingredient = ingredient
         self.step = step
