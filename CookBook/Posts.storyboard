@@ -170,7 +170,7 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="progressToIngredients:" destination="Nzb-t8-NUm" eventType="touchUpInside" id="xMp-6F-cGl"/>
-                                                            <segue destination="zzG-6W-fFu" kind="show" id="h6l-EI-0Fi"/>
+                                                            <segue destination="zzG-6W-fFu" kind="show" identifier="progressIngredient" id="h6l-EI-0Fi"/>
                                                         </connections>
                                                     </button>
                                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hVO-5o-7cg">
