@@ -19,6 +19,8 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        print("--->\(self.postID)")
+        
 //        ingredientItemList.append(IngredientSteps(
 //            postId : postID,
 //            ingredient: "tomato",
@@ -39,12 +41,6 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
 //            step: "cut chicken",
 //            ingredientImage: "bastion"
 //        ))
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        print("yyyyyy\(self.postID)")
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

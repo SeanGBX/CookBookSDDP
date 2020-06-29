@@ -17,7 +17,6 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBOutlet weak var postIDLabel: UILabel!
     
     var postItems: Posts?
-    var newID: String = ""
     
     var mealTypeData: [String] = [
         "Breakfast",
@@ -85,20 +84,15 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
         let selectedPickerText = mealTypeData[pickerRow]
         postItems!.mealType = selectedPickerText
         
+        let vc =
+            storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
+        vc.modalPresentationStyle = .fullScreen
+        
         postsDataManager.insertPost(postItems!){
             postId in
             self.postIDLabel.text = postsDataManager.storePostID(postId)
-            self.newID = String(self.postIDLabel?.text! ?? "")
-            print("---->\(self.newID)")
-        }
-        print("xxxxx\(self.newID)")
-        performSegue(withIdentifier: "progressIngredient", sender: self)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "progressIngredient"){
-            let vc = segue.destination as! IngredientViewController
-            vc.postID = self.newID
+            vc.postID = self.postIDLabel.text!
+            self.present(vc, animated: true)
         }
     }
 }
