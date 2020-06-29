@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="PYZ-0l-1be">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--ChefBot-->
+        <scene sceneID="Y5C-iz-qsi">
+            <objects>
+                <viewController id="XTe-kJ-UwF" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NIH-ci-U4t">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="NBQ-NH-b2X"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="ChefBot" id="FXN-Mk-Tpm"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ndF-Jd-Pn8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2029" y="338"/>
+        </scene>
+        <!--ChefBot-->
+        <scene sceneID="XWm-e8-fU6">
+            <objects>
+                <navigationController id="PYZ-0l-1be" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="ChefBot" image="person" catalog="system" id="qpl-rW-I7q"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hVl-iv-Qgc">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="XTe-kJ-UwF" kind="relationship" relationship="rootViewController" id="mJf-Oh-laB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EWA-Za-uWv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="987" y="338"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="person" catalog="system" width="64" height="58"/>
+    </resources>
+</document>

@@ -40,6 +40,8 @@
 		181DDFBB24A4AB02006F463F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181DDFBA24A4AB02006F463F /* SceneDelegate.swift */; };
 		181DDFC424A4AB05006F463F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 181DDFC324A4AB05006F463F /* Assets.xcassets */; };
 		561F4A915E99F368E8FE85C5 /* Pods_CookBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E61FF4F153AD6A3F694E746E /* Pods_CookBook.framework */; };
+		D4F833D124A9D23C001F9951 /* ChefBot.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4F833D024A9D23C001F9951 /* ChefBot.storyboard */; };
+		D4F833D424A9D50D001F9951 /* ChefBotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F833D324A9D50D001F9951 /* ChefBotViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +83,8 @@
 		181DDFC824A4AB05006F463F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		419C8AD5F5379FBCCF018B7F /* Pods-CookBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookBook.debug.xcconfig"; path = "Target Support Files/Pods-CookBook/Pods-CookBook.debug.xcconfig"; sourceTree = "<group>"; };
 		A8C4217F31A1F766B69A6D38 /* Pods-CookBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookBook.release.xcconfig"; path = "Target Support Files/Pods-CookBook/Pods-CookBook.release.xcconfig"; sourceTree = "<group>"; };
+		D4F833D024A9D23C001F9951 /* ChefBot.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChefBot.storyboard; sourceTree = "<group>"; };
+		D4F833D324A9D50D001F9951 /* ChefBotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChefBotViewController.swift; sourceTree = "<group>"; };
 		E61FF4F153AD6A3F694E746E /* Pods_CookBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CookBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -124,6 +128,7 @@
 		180D2C3C24A50100000F0A89 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				D4F833D224A9D4BA001F9951 /* ChefBot */,
 				1489E5F124A909B90086C479 /* Chat */,
 				180D2C4E24A501F0000F0A89 /* CommentsViewController.swift */,
 				180D2C5124A501F1000F0A89 /* CreatePost1ViewController.swift */,
@@ -202,6 +207,7 @@
 				181DDFBA24A4AB02006F463F /* SceneDelegate.swift */,
 				180D2C6724A50218000F0A89 /* LaunchScreen.storyboard */,
 				180D2C6824A50218000F0A89 /* Main.storyboard */,
+				D4F833D024A9D23C001F9951 /* ChefBot.storyboard */,
 				1489E5F424A910C40086C479 /* Chat.storyboard */,
 				180D2C6624A50217000F0A89 /* Posts.storyboard */,
 				181DDFC324A4AB05006F463F /* Assets.xcassets */,
@@ -227,6 +233,14 @@
 				E61FF4F153AD6A3F694E746E /* Pods_CookBook.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D4F833D224A9D4BA001F9951 /* ChefBot */ = {
+			isa = PBXGroup;
+			children = (
+				D4F833D324A9D50D001F9951 /* ChefBotViewController.swift */,
+			);
+			path = ChefBot;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -296,6 +310,7 @@
 				180D9FD324A5EC30001BD4F7 /* GoogleService-Info.plist in Resources */,
 				180D2C6A24A50218000F0A89 /* LaunchScreen.storyboard in Resources */,
 				180D2C6924A50218000F0A89 /* Posts.storyboard in Resources */,
+				D4F833D124A9D23C001F9951 /* ChefBot.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,6 +369,7 @@
 				1489E5EA24A8FA8A0086C479 /* FriendDetailViewController.swift in Sources */,
 				180D2C4524A501A0000F0A89 /* IngredientStepsDataManager.swift in Sources */,
 				180D2C5924A501F2000F0A89 /* PostViewController.swift in Sources */,
+				D4F833D424A9D50D001F9951 /* ChefBotViewController.swift in Sources */,
 				180D2C5824A501F2000F0A89 /* CreatePost1ViewController.swift in Sources */,
 				180D2C5A24A501F2000F0A89 /* PostInfoViewController.swift in Sources */,
 				180D2C4C24A501D6000F0A89 /* PostComment.swift in Sources */,
