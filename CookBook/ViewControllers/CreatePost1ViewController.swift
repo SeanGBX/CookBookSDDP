@@ -53,47 +53,51 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
     }
     
     @IBAction func progressToIngredients(_ sender: Any) {
-        var error1: String = ""
-        
-        if(createPostRecipeName.text == ""){
-            error1 += "Recipe Name cannot be empty\n"
-            
-            let alert = UIAlertController(
-                title: error1,
-                message: "",
-                preferredStyle: .alert
-            )
-            
-            alert.addAction(
-                UIAlertAction(
-                    title: "OK",
-                    style: .default,
-                    handler: nil)
-            )
-        
-            self.present(alert, animated: true, completion: nil)
-            
-            return
-        }
-        
-        postItems = Posts(recipeName: "", username: "", mealType: "", likes: 0, healthy: 0, tagBudget: "", tagStyle: "", tagPrep: "", postImage: "")
-        
-        postItems!.recipeName = createPostRecipeName.text!
-        
-        let pickerRow = createPostPicker.selectedRow(inComponent: 0)
-        let selectedPickerText = mealTypeData[pickerRow]
-        postItems!.mealType = selectedPickerText
-        
-        let vc =
-            storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
-        vc.modalPresentationStyle = .fullScreen
-        
-        postsDataManager.insertPost(postItems!){
-            postId in
-            self.postIDLabel.text = postsDataManager.storePostID(postId)
-            vc.postID = self.postIDLabel.text!
-            self.present(vc, animated: true)
-        }
+
+    var error1: String = ""
+     
+    if(createPostRecipeName.text == ""){
+        error1 += "Recipe Name cannot be empty\n"
+         
+        let alert = UIAlertController(
+            title: error1,
+            message: "",
+            preferredStyle: .alert
+        )
+         
+        alert.addAction(
+            UIAlertAction(
+                title: "OK",
+                style: .default,
+                handler: nil)
+        )
+     
+        self.present(alert, animated: true, completion: nil)
+         
+        return
     }
+     
+    postItems = Posts(recipeName: "", username: "", mealType: "", likes: 0, healthy: 0, tagBudget: "", tagStyle: "", tagPrep: "", postImage: "")
+     
+    postItems!.recipeName = createPostRecipeName.text!
+     
+    let pickerRow = createPostPicker.selectedRow(inComponent: 0)
+    let selectedPickerText = mealTypeData[pickerRow]
+    postItems!.mealType = selectedPickerText
+     
+    let vc =
+        storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
+     
+    postsDataManager.insertPost(postItems!){
+        postId in
+        self.postIDLabel.text = postsDataManager.storePostID(postId)
+        vc.postID = self.postIDLabel.text!
+        self.show(vc, sender: self)
+    }
+}
+ 
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == ""{}
+//    }
 }
     
