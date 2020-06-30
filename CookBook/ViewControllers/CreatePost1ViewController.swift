@@ -14,7 +14,6 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBOutlet weak var createPostImage: UIImageView!
     @IBOutlet weak var createPostRecipeName: UITextField!
     @IBOutlet weak var createPostPicker: UIPickerView!
-    @IBOutlet weak var postIDLabel: UILabel!
     
     var postItems: Posts?
     var newID: String?

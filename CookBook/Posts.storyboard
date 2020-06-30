@@ -172,12 +172,6 @@
                                                             <action selector="progressToIngredients:" destination="Nzb-t8-NUm" eventType="touchUpInside" id="xMp-6F-cGl"/>
                                                         </connections>
                                                     </button>
-                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hVO-5o-7cg">
-                                                        <rect key="frame" x="0.0" y="8" width="0.0" height="36"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
                                                 </subviews>
                                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="20" right="8"/>
                                             </stackView>
@@ -210,7 +204,6 @@
                         <outlet property="createPostPicker" destination="NAX-Wn-bAj" id="52u-aZ-3Bd"/>
                         <outlet property="createPostRecipeName" destination="fdB-4A-Klu" id="Hr4-0U-h5e"/>
                         <outlet property="myPictureSwitch" destination="Gyp-Gi-p3H" id="7og-kB-5wY"/>
-                        <outlet property="postIDLabel" destination="hVO-5o-7cg" id="ZoX-A3-WaO"/>
                         <segue destination="zzG-6W-fFu" kind="show" identifier="progressIngredient" id="6H0-nk-fgu"/>
                     </connections>
                 </viewController>
@@ -301,12 +294,6 @@
                                                             <segue destination="UA6-YX-OCa" kind="show" id="oE3-2m-hXq"/>
                                                         </connections>
                                                     </button>
-                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O9m-3n-pki">
-                                                        <rect key="frame" x="0.0" y="30" width="0.0" height="36"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
                                                 </subviews>
                                                 <edgeInsets key="layoutMargins" top="30" left="8" bottom="8" right="8"/>
                                             </stackView>
@@ -343,7 +330,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="ingredientTableView" destination="I5c-Uq-8sY" id="rpW-69-8U5"/>
-                        <outlet property="postIdLabel" destination="O9m-3n-pki" id="uXj-kY-ucV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aEo-7G-Jah" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

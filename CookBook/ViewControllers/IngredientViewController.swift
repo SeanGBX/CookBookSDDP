@@ -13,8 +13,6 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBOutlet weak var ingredientTableView: UITableView!
     
-    @IBOutlet weak var postIdLabel: UILabel!
-    
     var ingredientItemList : [IngredientSteps] = []
     var postID: String?
 
