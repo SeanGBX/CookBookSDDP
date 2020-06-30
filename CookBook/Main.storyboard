@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -20,6 +20,7 @@
                         <segue destination="dAQ-Wx-Gs7" kind="relationship" relationship="viewControllers" id="NGZ-qN-OZU"/>
                         <segue destination="TGj-Zn-WzX" kind="relationship" relationship="viewControllers" id="owh-g3-lJ1"/>
                         <segue destination="qyJ-jN-9C6" kind="relationship" relationship="viewControllers" id="Zv2-k2-j1J"/>
+                        <segue destination="wPY-6B-PaV" kind="relationship" relationship="viewControllers" id="ie5-km-3Kq"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -56,10 +57,21 @@
             </objects>
             <point key="canvasLocation" x="987" y="338"/>
         </scene>
+        <!--Meal-->
+        <scene sceneID="WYw-2O-vOz">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Meal" id="wPY-6B-PaV" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Find Recipe" image="magnifyingglass" catalog="system" id="kuc-DK-iii"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Cy-pI-Upt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1383" y="49"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="book" catalog="system" width="64" height="50"/>
-        <image name="bubble.left.and.bubble.right" catalog="system" width="64" height="48"/>
-        <image name="person" catalog="system" width="64" height="58"/>
+        <image name="book" catalog="system" width="128" height="101"/>
+        <image name="bubble.left.and.bubble.right" catalog="system" width="128" height="96"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="person" catalog="system" width="128" height="117"/>
     </resources>
 </document>

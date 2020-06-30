@@ -39,6 +39,12 @@
 		181DDFB924A4AB02006F463F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181DDFB824A4AB02006F463F /* AppDelegate.swift */; };
 		181DDFBB24A4AB02006F463F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181DDFBA24A4AB02006F463F /* SceneDelegate.swift */; };
 		181DDFC424A4AB05006F463F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 181DDFC324A4AB05006F463F /* Assets.xcassets */; };
+		3B61352A24AB53FF0013178C /* FindRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B61352924AB53FF0013178C /* FindRecipeViewController.swift */; };
+		3B61352C24AB541A0013178C /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B61352B24AB541A0013178C /* RecipeViewController.swift */; };
+		3B61352E24AB54280013178C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B61352D24AB54270013178C /* ViewController.swift */; };
+		3B61353024AB58860013178C /* Meal.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B61352F24AB58860013178C /* Meal.storyboard */; };
+		3B61353224AB5B580013178C /* FindRecipe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B61353124AB5B580013178C /* FindRecipe.storyboard */; };
+		3B61353424AB5BB30013178C /* Recipes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B61353324AB5BB30013178C /* Recipes.storyboard */; };
 		561F4A915E99F368E8FE85C5 /* Pods_CookBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E61FF4F153AD6A3F694E746E /* Pods_CookBook.framework */; };
 		D4F833D124A9D23C001F9951 /* ChefBot.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4F833D024A9D23C001F9951 /* ChefBot.storyboard */; };
 		D4F833D424A9D50D001F9951 /* ChefBotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F833D324A9D50D001F9951 /* ChefBotViewController.swift */; };
@@ -81,6 +87,12 @@
 		181DDFBA24A4AB02006F463F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		181DDFC324A4AB05006F463F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		181DDFC824A4AB05006F463F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B61352924AB53FF0013178C /* FindRecipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FindRecipeViewController.swift; path = ../../../../../Downloads/CookApp/CookApp/FindRecipeViewController.swift; sourceTree = "<group>"; };
+		3B61352B24AB541A0013178C /* RecipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecipeViewController.swift; path = ../../../../../Downloads/CookApp/CookApp/RecipeViewController.swift; sourceTree = "<group>"; };
+		3B61352D24AB54270013178C /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ../../../../../Downloads/CookApp/CookApp/ViewController.swift; sourceTree = "<group>"; };
+		3B61352F24AB58860013178C /* Meal.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Meal.storyboard; sourceTree = "<group>"; };
+		3B61353124AB5B580013178C /* FindRecipe.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FindRecipe.storyboard; sourceTree = "<group>"; };
+		3B61353324AB5BB30013178C /* Recipes.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Recipes.storyboard; sourceTree = "<group>"; };
 		419C8AD5F5379FBCCF018B7F /* Pods-CookBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookBook.debug.xcconfig"; path = "Target Support Files/Pods-CookBook/Pods-CookBook.debug.xcconfig"; sourceTree = "<group>"; };
 		A8C4217F31A1F766B69A6D38 /* Pods-CookBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookBook.release.xcconfig"; path = "Target Support Files/Pods-CookBook/Pods-CookBook.release.xcconfig"; sourceTree = "<group>"; };
 		D4F833D024A9D23C001F9951 /* ChefBot.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChefBot.storyboard; sourceTree = "<group>"; };
@@ -128,6 +140,7 @@
 		180D2C3C24A50100000F0A89 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				3B61352824AB53570013178C /* Recipe */,
 				D4F833D224A9D4BA001F9951 /* ChefBot */,
 				1489E5F124A909B90086C479 /* Chat */,
 				180D2C4E24A501F0000F0A89 /* CommentsViewController.swift */,
@@ -207,6 +220,9 @@
 				181DDFBA24A4AB02006F463F /* SceneDelegate.swift */,
 				180D2C6724A50218000F0A89 /* LaunchScreen.storyboard */,
 				180D2C6824A50218000F0A89 /* Main.storyboard */,
+				3B61352F24AB58860013178C /* Meal.storyboard */,
+				3B61353124AB5B580013178C /* FindRecipe.storyboard */,
+				3B61353324AB5BB30013178C /* Recipes.storyboard */,
 				D4F833D024A9D23C001F9951 /* ChefBot.storyboard */,
 				1489E5F424A910C40086C479 /* Chat.storyboard */,
 				180D2C6624A50217000F0A89 /* Posts.storyboard */,
@@ -225,6 +241,16 @@
 				A8C4217F31A1F766B69A6D38 /* Pods-CookBook.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		3B61352824AB53570013178C /* Recipe */ = {
+			isa = PBXGroup;
+			children = (
+				3B61352D24AB54270013178C /* ViewController.swift */,
+				3B61352924AB53FF0013178C /* FindRecipeViewController.swift */,
+				3B61352B24AB541A0013178C /* RecipeViewController.swift */,
+			);
+			path = Recipe;
 			sourceTree = "<group>";
 		};
 		BB4F85644C43F5E1FFB51776 /* Frameworks */ = {
@@ -306,11 +332,14 @@
 			files = (
 				1489E5F524A910C40086C479 /* Chat.storyboard in Resources */,
 				181DDFC424A4AB05006F463F /* Assets.xcassets in Resources */,
+				3B61353024AB58860013178C /* Meal.storyboard in Resources */,
 				180D2C6B24A50218000F0A89 /* Main.storyboard in Resources */,
 				180D9FD324A5EC30001BD4F7 /* GoogleService-Info.plist in Resources */,
+				3B61353224AB5B580013178C /* FindRecipe.storyboard in Resources */,
 				180D2C6A24A50218000F0A89 /* LaunchScreen.storyboard in Resources */,
 				180D2C6924A50218000F0A89 /* Posts.storyboard in Resources */,
 				D4F833D124A9D23C001F9951 /* ChefBot.storyboard in Resources */,
+				3B61353424AB5BB30013178C /* Recipes.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,13 +392,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B61352E24AB54280013178C /* ViewController.swift in Sources */,
 				180D2C4B24A501D6000F0A89 /* IngredientSteps.swift in Sources */,
+				3B61352A24AB53FF0013178C /* FindRecipeViewController.swift in Sources */,
 				180D2C5524A501F2000F0A89 /* CommentsViewController.swift in Sources */,
 				1489E5EC24A8FF1D0086C479 /* Friend.swift in Sources */,
 				1489E5EA24A8FA8A0086C479 /* FriendDetailViewController.swift in Sources */,
 				180D2C4524A501A0000F0A89 /* IngredientStepsDataManager.swift in Sources */,
 				180D2C5924A501F2000F0A89 /* PostViewController.swift in Sources */,
 				D4F833D424A9D50D001F9951 /* ChefBotViewController.swift in Sources */,
+				3B61352C24AB541A0013178C /* RecipeViewController.swift in Sources */,
 				180D2C5824A501F2000F0A89 /* CreatePost1ViewController.swift in Sources */,
 				180D2C5A24A501F2000F0A89 /* PostInfoViewController.swift in Sources */,
 				180D2C4C24A501D6000F0A89 /* PostComment.swift in Sources */,
