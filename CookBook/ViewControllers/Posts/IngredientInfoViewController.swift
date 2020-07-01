@@ -18,6 +18,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
     @IBOutlet weak var ingredientInfoImage: UIImageView!
     
     var ingredientItem: IngredientSteps?
+    var postID: String?
     
     var measurementTypeData : [String] = [
         "ml",
@@ -32,7 +33,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("xxxxxx\(postID!)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,5 +52,9 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return measurementTypeData[row]
+    }
+    
+    @IBAction func addEditIngredient(_ sender: Any) {
+        
     }
 }

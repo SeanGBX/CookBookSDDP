@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Azk-W3-7m0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Azk-W3-7m0">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -216,11 +216,11 @@
             <objects>
                 <viewController storyboardIdentifier="IngredientViewController" id="zzG-6W-fFu" customClass="IngredientViewController" customModule="CookBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ynz-C6-IkI">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kYi-kN-YWd">
-                                <rect key="frame" x="0.0" y="44" width="414" height="643"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="KMy-aS-b5Q">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="374"/>
@@ -341,11 +341,11 @@
             <objects>
                 <viewController id="UA6-YX-OCa" customClass="FinishPostViewController" customModule="CookBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5MQ-iy-MMQ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hof-8k-DaM">
-                                <rect key="frame" x="0.0" y="44" width="414" height="643"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="RLx-gJ-S4E">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="753.33333333333337"/>
@@ -372,7 +372,7 @@
                                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="cuj-7t-2r4">
-                                                <rect key="frame" x="0.0" y="229.33333333333331" width="414" height="150"/>
+                                                <rect key="frame" x="0.0" y="229.33333333333337" width="414" height="150"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Budget" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvu-Uw-Xpj">
                                                         <rect key="frame" x="60" y="0.0" width="150" height="150"/>
@@ -501,11 +501,11 @@
             <objects>
                 <viewController id="nQw-w4-PDj" customClass="IngredientInfoViewController" customModule="CookBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="a0R-fe-syB">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BhZ-93-g4k">
-                                <rect key="frame" x="0.0" y="44" width="414" height="643"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BOj-XD-JkK">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="606"/>
@@ -578,6 +578,7 @@
                                                             <color key="titleColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
                                                         <connections>
+                                                            <action selector="addEditIngredient:" destination="nQw-w4-PDj" eventType="touchUpInside" id="NMS-de-gEF"/>
                                                             <segue destination="zzG-6W-fFu" kind="show" identifier="finishIngredientInfo" id="EcV-l9-sZl"/>
                                                         </connections>
                                                     </button>
@@ -1114,16 +1115,16 @@
             <point key="canvasLocation" x="734.78260869565224" y="-320.38043478260875"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="LCd-hv-oyG"/>
-        <segue reference="x3o-Gg-R1L"/>
-        <segue reference="6H0-nk-fgu"/>
-        <segue reference="Sdh-LD-F9R"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="Default" width="281" height="179"/>
         <image name="affiche-brodeuses" width="380" height="508"/>
-        <image name="book" catalog="system" width="128" height="101"/>
+        <image name="book" catalog="system" width="64" height="50"/>
         <image name="icons8-tags-24" width="24" height="24"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="LCd-hv-oyG"/>
+        <segue reference="x3o-Gg-R1L"/>
+        <segue reference="EcV-l9-sZl"/>
+        <segue reference="Sdh-LD-F9R"/>
+    </inferredMetricsTieBreakers>
 </document>

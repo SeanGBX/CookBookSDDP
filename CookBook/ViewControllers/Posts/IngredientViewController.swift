@@ -41,11 +41,6 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
         ))
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-    }
-    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ingredientItemList.count
     }
@@ -63,7 +58,7 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
             let ingredientInfoViewController = segue.destination as!
                 IngredientInfoViewController
             let ingIndexPath = self.ingredientTableView.indexPathForSelectedRow
-            
+            ingredientInfoViewController.postID = self.postID
             if (ingIndexPath != nil){
                 let ingredient = ingredientItemList[ingIndexPath!.row]
                 ingredientInfoViewController.ingredientItem = ingredient
@@ -73,7 +68,7 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
         if (segue.identifier == "AddIngredient"){
             let ingredientInfoViewController = segue.destination as!
                 IngredientInfoViewController
-            
+            ingredientInfoViewController.postID = self.postID
             let ingredient = IngredientSteps(postId: postID!, ingredient: "", step: "", ingredientImage: "")
             
             ingredientInfoViewController.ingredientItem = ingredient
