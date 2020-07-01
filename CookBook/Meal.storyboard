@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Drv-ai-bpR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Drv-ai-bpR">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -271,7 +271,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="5ua-50-irz"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="qfr-Od-8Uf"/>
+                    <tabBarItem key="tabBarItem" title="Find Recipe" image="magnifyingglass" catalog="system" id="qfr-Od-8Uf"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="CookBook" id="MDt-WN-4Hz">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="dUe-RF-g3u">
@@ -329,4 +329,7 @@
             <point key="canvasLocation" x="2312" y="49"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+    </resources>
 </document>

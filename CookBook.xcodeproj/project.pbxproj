@@ -16,7 +16,6 @@
 		180D2C4324A501A0000F0A89 /* postsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4024A501A0000F0A89 /* postsDataManager.swift */; };
 		180D2C4424A501A0000F0A89 /* commentDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4124A501A0000F0A89 /* commentDataManager.swift */; };
 		180D2C4524A501A0000F0A89 /* IngredientStepsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4224A501A0000F0A89 /* IngredientStepsDataManager.swift */; };
-		180D2C4724A501C5000F0A89 /* P7_SQLiteDB(4).swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4624A501C5000F0A89 /* P7_SQLiteDB(4).swift */; };
 		180D2C4B24A501D6000F0A89 /* IngredientSteps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4824A501D5000F0A89 /* IngredientSteps.swift */; };
 		180D2C4C24A501D6000F0A89 /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4924A501D5000F0A89 /* PostComment.swift */; };
 		180D2C4D24A501D6000F0A89 /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4A24A501D6000F0A89 /* Posts.swift */; };
@@ -62,7 +61,6 @@
 		180D2C4024A501A0000F0A89 /* postsDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = postsDataManager.swift; sourceTree = "<group>"; };
 		180D2C4124A501A0000F0A89 /* commentDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = commentDataManager.swift; sourceTree = "<group>"; };
 		180D2C4224A501A0000F0A89 /* IngredientStepsDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientStepsDataManager.swift; sourceTree = "<group>"; };
-		180D2C4624A501C5000F0A89 /* P7_SQLiteDB(4).swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "P7_SQLiteDB(4).swift"; sourceTree = "<group>"; };
 		180D2C4824A501D5000F0A89 /* IngredientSteps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientSteps.swift; sourceTree = "<group>"; };
 		180D2C4924A501D5000F0A89 /* PostComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
 		180D2C4A24A501D6000F0A89 /* Posts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
@@ -217,7 +215,6 @@
 		181DDFB724A4AB02006F463F /* CookBook */ = {
 			isa = PBXGroup;
 			children = (
-				180D2C4624A501C5000F0A89 /* P7_SQLiteDB(4).swift */,
 				180D2C3F24A5014B000F0A89 /* Models */,
 				180D2C3E24A50116000F0A89 /* CellViewControllers */,
 				180D2C3D24A5010C000F0A89 /* DataManagers */,
@@ -422,7 +419,6 @@
 				180D2C4424A501A0000F0A89 /* commentDataManager.swift in Sources */,
 				180D2C4D24A501D6000F0A89 /* Posts.swift in Sources */,
 				181DDFB924A4AB02006F463F /* AppDelegate.swift in Sources */,
-				180D2C4724A501C5000F0A89 /* P7_SQLiteDB(4).swift in Sources */,
 				180D2C6124A501FE000F0A89 /* IngredientCell.swift in Sources */,
 				180D2C5724A501F2000F0A89 /* FinishPostViewController.swift in Sources */,
 				181DDFBB24A4AB02006F463F /* SceneDelegate.swift in Sources */,
