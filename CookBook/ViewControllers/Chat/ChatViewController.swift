@@ -16,6 +16,8 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(didTapComposeButton))
+        
         friendsList.append(Friend(
             friendName: "Ryan Tan",
             friendText: "Hello!",
@@ -30,6 +32,12 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             imageName: "defaultprofile"))
         self.navigationItem.title = "Messages"
         
+    }
+    
+    @objc private func didTapComposeButton(){
+        let vc = NewConversationViewController()
+        let navVC = UINavigationController(rootViewController: vc)
+        present(navVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

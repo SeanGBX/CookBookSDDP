@@ -13,9 +13,9 @@ class ChefBotViewController: MessagesViewController, MessagesDataSource, Message
 
     var friendItem : Friend?
 
-    let currentUser = Sender(senderId: "self", displayName: "Me")
+    let currentUser = Sender(photoURL: "default", senderId: "self", displayName: "Me")
 
-    var otherUser = Sender(senderId: "other", displayName: "Other")
+    var otherUser = Sender(photoURL: "default", senderId: "other", displayName: "Other")
     
     var messages = [MessageType]()
     

@@ -10,6 +10,7 @@ import UIKit
 import MessageKit
 
 struct Sender: SenderType {
+    var photoURL: String
     var senderId: String
     var displayName: String
 }
@@ -38,15 +39,16 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
 
     var friendItem : Friend?
     
-    let currentUser = Sender(senderId: "self", displayName: "Me")
+    let currentUser = Sender(photoURL:"default", senderId: "self", displayName: "Me")
     
-    var otherUser = Sender(senderId: "other", displayName: "")
+    var otherUser = Sender(photoURL: "", senderId: "other", displayName: "")
     
     var messages = [MessageType]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         otherUser.displayName = friendItem!.friendName
+        otherUser.photoURL = friendItem!.imageName
         messages.append(Message(
             sender: currentUser,
             messageId: "1",
