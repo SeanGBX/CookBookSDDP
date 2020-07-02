@@ -10,7 +10,7 @@
         <!--ChefBot-->
         <scene sceneID="Y5C-iz-qsi">
             <objects>
-                <viewController id="XTe-kJ-UwF" sceneMemberID="viewController">
+                <viewController id="XTe-kJ-UwF" customClass="ChefBotViewController" customModule="CookBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NIH-ci-U4t">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -21,7 +21,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ndF-Jd-Pn8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2029" y="338"/>
+            <point key="canvasLocation" x="2622" y="338"/>
         </scene>
         <!--ChefBot-->
         <scene sceneID="XWm-e8-fU6">
@@ -31,14 +31,59 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hVl-iv-Qgc">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="XTe-kJ-UwF" kind="relationship" relationship="rootViewController" id="mJf-Oh-laB"/>
+                        <segue destination="dcd-bZ-i4Z" kind="relationship" relationship="rootViewController" id="IF2-My-0Jz"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EWA-Za-uWv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="987" y="338"/>
+        </scene>
+        <!--Start Talking to ChefBot-->
+        <scene sceneID="uoj-lH-LDK">
+            <objects>
+                <viewController id="dcd-bZ-i4Z" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cC4-9J-agj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ask ChefBot any question related to cooking or our app and he will be sure to answer you!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" minimumFontSize="16" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KDY-AA-ZW3">
+                                <rect key="frame" x="52" y="306" width="310" height="79"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="79" id="TKb-0o-cLF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t7F-Wu-G7d">
+                                <rect key="frame" x="143" y="393" width="128" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Start Chatting!"/>
+                                <connections>
+                                    <segue destination="XTe-kJ-UwF" kind="show" id="urE-Xo-O2p"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="KDY-AA-ZW3" firstAttribute="centerX" secondItem="t7F-Wu-G7d" secondAttribute="centerX" id="6Rz-pF-OSc"/>
+                            <constraint firstItem="t7F-Wu-G7d" firstAttribute="top" secondItem="KDY-AA-ZW3" secondAttribute="bottom" constant="8" id="Csy-1I-qxa"/>
+                            <constraint firstItem="nqH-ac-ow5" firstAttribute="trailing" secondItem="KDY-AA-ZW3" secondAttribute="trailing" constant="52" id="Ffb-cI-KHl"/>
+                            <constraint firstItem="t7F-Wu-G7d" firstAttribute="top" secondItem="KDY-AA-ZW3" secondAttribute="bottom" constant="8" id="W8Y-1F-VES"/>
+                            <constraint firstItem="KDY-AA-ZW3" firstAttribute="leading" secondItem="nqH-ac-ow5" secondAttribute="leading" constant="52" id="Wuy-rp-W1F"/>
+                            <constraint firstItem="KDY-AA-ZW3" firstAttribute="top" secondItem="nqH-ac-ow5" secondAttribute="top" constant="218" id="peZ-EA-kht"/>
+                            <constraint firstItem="KDY-AA-ZW3" firstAttribute="centerX" secondItem="cC4-9J-agj" secondAttribute="centerX" id="xbg-o5-PUQ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="nqH-ac-ow5"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Start Talking to ChefBot" id="aqp-5Z-tLg"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BcA-Ag-rAP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1786.9565217391305" y="337.5"/>
         </scene>
     </scenes>
     <resources>

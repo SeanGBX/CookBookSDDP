@@ -9,5 +9,7 @@ target 'CookBook' do
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift'
   pod 'MessageKit'
-
+  pod 'JGProgressHUD'
+  pod 'RealmSwift'
+  pod 'SDWebImage'
 end

@@ -16,7 +16,6 @@
 		180D2C4324A501A0000F0A89 /* postsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4024A501A0000F0A89 /* postsDataManager.swift */; };
 		180D2C4424A501A0000F0A89 /* commentDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4124A501A0000F0A89 /* commentDataManager.swift */; };
 		180D2C4524A501A0000F0A89 /* IngredientStepsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4224A501A0000F0A89 /* IngredientStepsDataManager.swift */; };
-		180D2C4724A501C5000F0A89 /* P7_SQLiteDB(4).swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4624A501C5000F0A89 /* P7_SQLiteDB(4).swift */; };
 		180D2C4B24A501D6000F0A89 /* IngredientSteps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4824A501D5000F0A89 /* IngredientSteps.swift */; };
 		180D2C4C24A501D6000F0A89 /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4924A501D5000F0A89 /* PostComment.swift */; };
 		180D2C4D24A501D6000F0A89 /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4A24A501D6000F0A89 /* Posts.swift */; };
@@ -46,6 +45,7 @@
 		3B61353224AB5B580013178C /* FindRecipe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B61353124AB5B580013178C /* FindRecipe.storyboard */; };
 		3B61353424AB5BB30013178C /* Recipes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B61353324AB5BB30013178C /* Recipes.storyboard */; };
 		561F4A915E99F368E8FE85C5 /* Pods_CookBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E61FF4F153AD6A3F694E746E /* Pods_CookBook.framework */; };
+		D448104C24AC3BCE00B5A376 /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D448104B24AC3BCE00B5A376 /* NewConversationViewController.swift */; };
 		D4F833D124A9D23C001F9951 /* ChefBot.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4F833D024A9D23C001F9951 /* ChefBot.storyboard */; };
 		D4F833D424A9D50D001F9951 /* ChefBotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F833D324A9D50D001F9951 /* ChefBotViewController.swift */; };
 /* End PBXBuildFile section */
@@ -62,7 +62,6 @@
 		180D2C4024A501A0000F0A89 /* postsDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = postsDataManager.swift; sourceTree = "<group>"; };
 		180D2C4124A501A0000F0A89 /* commentDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = commentDataManager.swift; sourceTree = "<group>"; };
 		180D2C4224A501A0000F0A89 /* IngredientStepsDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientStepsDataManager.swift; sourceTree = "<group>"; };
-		180D2C4624A501C5000F0A89 /* P7_SQLiteDB(4).swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "P7_SQLiteDB(4).swift"; sourceTree = "<group>"; };
 		180D2C4824A501D5000F0A89 /* IngredientSteps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientSteps.swift; sourceTree = "<group>"; };
 		180D2C4924A501D5000F0A89 /* PostComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
 		180D2C4A24A501D6000F0A89 /* Posts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
@@ -95,6 +94,7 @@
 		3B61353324AB5BB30013178C /* Recipes.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Recipes.storyboard; sourceTree = "<group>"; };
 		419C8AD5F5379FBCCF018B7F /* Pods-CookBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookBook.debug.xcconfig"; path = "Target Support Files/Pods-CookBook/Pods-CookBook.debug.xcconfig"; sourceTree = "<group>"; };
 		A8C4217F31A1F766B69A6D38 /* Pods-CookBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookBook.release.xcconfig"; path = "Target Support Files/Pods-CookBook/Pods-CookBook.release.xcconfig"; sourceTree = "<group>"; };
+		D448104B24AC3BCE00B5A376 /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
 		D4F833D024A9D23C001F9951 /* ChefBot.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChefBot.storyboard; sourceTree = "<group>"; };
 		D4F833D324A9D50D001F9951 /* ChefBotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChefBotViewController.swift; sourceTree = "<group>"; };
 		E61FF4F153AD6A3F694E746E /* Pods_CookBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CookBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,6 +117,7 @@
 			children = (
 				1489E5EF24A9068A0086C479 /* ChatViewController.swift */,
 				1489E5E924A8FA890086C479 /* FriendDetailViewController.swift */,
+				D448104B24AC3BCE00B5A376 /* NewConversationViewController.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -217,7 +218,6 @@
 		181DDFB724A4AB02006F463F /* CookBook */ = {
 			isa = PBXGroup;
 			children = (
-				180D2C4624A501C5000F0A89 /* P7_SQLiteDB(4).swift */,
 				180D2C3F24A5014B000F0A89 /* Models */,
 				180D2C3E24A50116000F0A89 /* CellViewControllers */,
 				180D2C3D24A5010C000F0A89 /* DataManagers */,
@@ -418,11 +418,11 @@
 				18196EB724ABA2CE00C5209A /* FindRecipeViewController.swift in Sources */,
 				180D2C3B24A500A4000F0A89 /* BridgingHeader.m in Sources */,
 				180D2C5624A501F2000F0A89 /* IngredientInfoViewController.swift in Sources */,
+				D448104C24AC3BCE00B5A376 /* NewConversationViewController.swift in Sources */,
 				180D2C6324A501FE000F0A89 /* IngredientItemCell.swift in Sources */,
 				180D2C4424A501A0000F0A89 /* commentDataManager.swift in Sources */,
 				180D2C4D24A501D6000F0A89 /* Posts.swift in Sources */,
 				181DDFB924A4AB02006F463F /* AppDelegate.swift in Sources */,
-				180D2C4724A501C5000F0A89 /* P7_SQLiteDB(4).swift in Sources */,
 				180D2C6124A501FE000F0A89 /* IngredientCell.swift in Sources */,
 				180D2C5724A501F2000F0A89 /* FinishPostViewController.swift in Sources */,
 				181DDFBB24A4AB02006F463F /* SceneDelegate.swift in Sources */,
