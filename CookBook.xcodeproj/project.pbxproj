@@ -152,9 +152,7 @@
 		180D2C3D24A5010C000F0A89 /* DataManagers */ = {
 			isa = PBXGroup;
 			children = (
-				180D2C4124A501A0000F0A89 /* commentDataManager.swift */,
-				180D2C4224A501A0000F0A89 /* IngredientsDataManager.swift */,
-				180D2C4024A501A0000F0A89 /* postsDataManager.swift */,
+				185D610D24AE313F0000DDE7 /* Posts */,
 			);
 			path = DataManagers;
 			sourceTree = "<group>";
@@ -162,12 +160,8 @@
 		180D2C3E24A50116000F0A89 /* CellViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				185D610C24AE31100000DDE7 /* Posts */,
 				1489E5F224A90A2D0086C479 /* Chat */,
-				180D2C6024A501FE000F0A89 /* CommentCell.swift */,
-				180D2C5C24A501FD000F0A89 /* IngredientCell.swift */,
-				180D2C5E24A501FE000F0A89 /* IngredientItemCell.swift */,
-				180D2C5F24A501FE000F0A89 /* PostCell.swift */,
-				180D2C5D24A501FD000F0A89 /* StepsCell.swift */,
 			);
 			path = CellViewControllers;
 			sourceTree = "<group>";
@@ -175,10 +169,8 @@
 		180D2C3F24A5014B000F0A89 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				185D610B24AE30FB0000DDE7 /* Posts */,
 				1489E5F324A90A390086C479 /* Chat */,
-				180D2C4924A501D5000F0A89 /* PostComment.swift */,
-				18405BFE24ADC8DF00A645F2 /* Ingredients.swift */,
-				180D2C4A24A501D6000F0A89 /* Posts.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -240,6 +232,38 @@
 				180D2C3824A500A2000F0A89 /* CookBook-Bridging-Header.h */,
 			);
 			path = CookBook;
+			sourceTree = "<group>";
+		};
+		185D610B24AE30FB0000DDE7 /* Posts */ = {
+			isa = PBXGroup;
+			children = (
+				180D2C4924A501D5000F0A89 /* PostComment.swift */,
+				18405BFE24ADC8DF00A645F2 /* Ingredients.swift */,
+				180D2C4A24A501D6000F0A89 /* Posts.swift */,
+			);
+			path = Posts;
+			sourceTree = "<group>";
+		};
+		185D610C24AE31100000DDE7 /* Posts */ = {
+			isa = PBXGroup;
+			children = (
+				180D2C6024A501FE000F0A89 /* CommentCell.swift */,
+				180D2C5C24A501FD000F0A89 /* IngredientCell.swift */,
+				180D2C5E24A501FE000F0A89 /* IngredientItemCell.swift */,
+				180D2C5F24A501FE000F0A89 /* PostCell.swift */,
+				180D2C5D24A501FD000F0A89 /* StepsCell.swift */,
+			);
+			path = Posts;
+			sourceTree = "<group>";
+		};
+		185D610D24AE313F0000DDE7 /* Posts */ = {
+			isa = PBXGroup;
+			children = (
+				180D2C4124A501A0000F0A89 /* commentDataManager.swift */,
+				180D2C4224A501A0000F0A89 /* IngredientsDataManager.swift */,
+				180D2C4024A501A0000F0A89 /* postsDataManager.swift */,
+			);
+			path = Posts;
 			sourceTree = "<group>";
 		};
 		3B051ED4C500B0BA09770182 /* Pods */ = {
