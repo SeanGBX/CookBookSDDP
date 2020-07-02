@@ -17,48 +17,15 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-        func loadPosts(){
-            postsDataManager.loadPosts(){
-                postListFromFirestore in
-                self.postList = postListFromFirestore
-                self.tableView.reloadData()
-            }
-        }
-        
-//        postsDataManager.insertPost(Posts(
-//            recipeName: "Chicken Rice",
-//            username: "Ryan Tan",
-//            mealType: "Breakfast",
-//            likes: 10,
-//            healthy: 6,
-//            tagBudget: "budget",
-//            tagStyle: "Asian",
-//            tagPrep: "Quick",
-//            postImage: "dunkirk"))
-//
-//        postsDataManager.insertPost(Posts(
-//            recipeName: "Chicken Chop",
-//            username: "Sean Gwee",
-//            mealType: "Lunch",
-//            likes: 23,
-//            healthy: 4,
-//            tagBudget: "expensive",
-//            tagStyle: "Western",
-//            tagPrep: "Long",
-//            postImage: "bastion"))
-//
-//        postsDataManager.insertPost(Posts(
-//            recipeName: "Mee Soto",
-//            username: "Arman Khan",
-//            mealType: "Dinner",
-//            likes: 134,
-//            healthy: 73,
-//            tagBudget: "moderate",
-//            tagStyle: "Asian",
-//            tagPrep: "medium",
-//            postImage: "genesis-2.0"))
         loadPosts()
+    }
+    
+    func loadPosts(){
+        postsDataManager.loadPosts(){
+            postListFromFirestore in
+            self.postList = postListFromFirestore
+            self.tableView.reloadData()
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

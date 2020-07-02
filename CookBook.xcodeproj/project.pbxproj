@@ -15,8 +15,7 @@
 		180D2C3B24A500A4000F0A89 /* BridgingHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C3A24A500A3000F0A89 /* BridgingHeader.m */; };
 		180D2C4324A501A0000F0A89 /* postsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4024A501A0000F0A89 /* postsDataManager.swift */; };
 		180D2C4424A501A0000F0A89 /* commentDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4124A501A0000F0A89 /* commentDataManager.swift */; };
-		180D2C4524A501A0000F0A89 /* IngredientStepsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4224A501A0000F0A89 /* IngredientStepsDataManager.swift */; };
-		180D2C4B24A501D6000F0A89 /* IngredientSteps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4824A501D5000F0A89 /* IngredientSteps.swift */; };
+		180D2C4524A501A0000F0A89 /* IngredientsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4224A501A0000F0A89 /* IngredientsDataManager.swift */; };
 		180D2C4C24A501D6000F0A89 /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4924A501D5000F0A89 /* PostComment.swift */; };
 		180D2C4D24A501D6000F0A89 /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4A24A501D6000F0A89 /* Posts.swift */; };
 		180D2C5524A501F2000F0A89 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C4E24A501F0000F0A89 /* CommentsViewController.swift */; };
@@ -41,6 +40,7 @@
 		181DDFB924A4AB02006F463F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181DDFB824A4AB02006F463F /* AppDelegate.swift */; };
 		181DDFBB24A4AB02006F463F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181DDFBA24A4AB02006F463F /* SceneDelegate.swift */; };
 		181DDFC424A4AB05006F463F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 181DDFC324A4AB05006F463F /* Assets.xcassets */; };
+		18405BFF24ADC8DF00A645F2 /* Ingredients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18405BFE24ADC8DF00A645F2 /* Ingredients.swift */; };
 		3B61353024AB58860013178C /* Meal.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B61352F24AB58860013178C /* Meal.storyboard */; };
 		3B61353224AB5B580013178C /* FindRecipe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B61353124AB5B580013178C /* FindRecipe.storyboard */; };
 		3B61353424AB5BB30013178C /* Recipes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B61353324AB5BB30013178C /* Recipes.storyboard */; };
@@ -61,8 +61,7 @@
 		180D2C3A24A500A3000F0A89 /* BridgingHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BridgingHeader.m; sourceTree = "<group>"; };
 		180D2C4024A501A0000F0A89 /* postsDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = postsDataManager.swift; sourceTree = "<group>"; };
 		180D2C4124A501A0000F0A89 /* commentDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = commentDataManager.swift; sourceTree = "<group>"; };
-		180D2C4224A501A0000F0A89 /* IngredientStepsDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientStepsDataManager.swift; sourceTree = "<group>"; };
-		180D2C4824A501D5000F0A89 /* IngredientSteps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientSteps.swift; sourceTree = "<group>"; };
+		180D2C4224A501A0000F0A89 /* IngredientsDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsDataManager.swift; sourceTree = "<group>"; };
 		180D2C4924A501D5000F0A89 /* PostComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
 		180D2C4A24A501D6000F0A89 /* Posts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
 		180D2C4E24A501F0000F0A89 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +88,7 @@
 		181DDFBA24A4AB02006F463F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		181DDFC324A4AB05006F463F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		181DDFC824A4AB05006F463F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18405BFE24ADC8DF00A645F2 /* Ingredients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredients.swift; sourceTree = "<group>"; };
 		3B61352F24AB58860013178C /* Meal.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Meal.storyboard; sourceTree = "<group>"; };
 		3B61353124AB5B580013178C /* FindRecipe.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FindRecipe.storyboard; sourceTree = "<group>"; };
 		3B61353324AB5BB30013178C /* Recipes.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Recipes.storyboard; sourceTree = "<group>"; };
@@ -153,7 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				180D2C4124A501A0000F0A89 /* commentDataManager.swift */,
-				180D2C4224A501A0000F0A89 /* IngredientStepsDataManager.swift */,
+				180D2C4224A501A0000F0A89 /* IngredientsDataManager.swift */,
 				180D2C4024A501A0000F0A89 /* postsDataManager.swift */,
 			);
 			path = DataManagers;
@@ -176,8 +176,8 @@
 			isa = PBXGroup;
 			children = (
 				1489E5F324A90A390086C479 /* Chat */,
-				180D2C4824A501D5000F0A89 /* IngredientSteps.swift */,
 				180D2C4924A501D5000F0A89 /* PostComment.swift */,
+				18405BFE24ADC8DF00A645F2 /* Ingredients.swift */,
 				180D2C4A24A501D6000F0A89 /* Posts.swift */,
 			);
 			path = Models;
@@ -400,12 +400,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				180D2C4B24A501D6000F0A89 /* IngredientSteps.swift in Sources */,
 				180D2C5524A501F2000F0A89 /* CommentsViewController.swift in Sources */,
 				1489E5EC24A8FF1D0086C479 /* Friend.swift in Sources */,
 				18196EB824ABA2CE00C5209A /* RecipeViewController.swift in Sources */,
 				1489E5EA24A8FA8A0086C479 /* FriendDetailViewController.swift in Sources */,
-				180D2C4524A501A0000F0A89 /* IngredientStepsDataManager.swift in Sources */,
+				180D2C4524A501A0000F0A89 /* IngredientsDataManager.swift in Sources */,
 				180D2C5924A501F2000F0A89 /* PostViewController.swift in Sources */,
 				D4F833D424A9D50D001F9951 /* ChefBotViewController.swift in Sources */,
 				18196EB624ABA2CE00C5209A /* ViewController.swift in Sources */,
@@ -429,6 +428,7 @@
 				180D2C6424A501FE000F0A89 /* PostCell.swift in Sources */,
 				180D2C4324A501A0000F0A89 /* postsDataManager.swift in Sources */,
 				1489E5F024A9068A0086C479 /* ChatViewController.swift in Sources */,
+				18405BFF24ADC8DF00A645F2 /* Ingredients.swift in Sources */,
 				180D2C6524A501FE000F0A89 /* CommentCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -14,10 +14,10 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
     @IBOutlet weak var ingredientInfoName: UITextField!
     @IBOutlet weak var ingredientInfoMeasureVal: UITextField!
     @IBOutlet weak var ingredientInfoMeasureType: UIPickerView!
-    @IBOutlet weak var ingredientInfoStepDescription: UITextField!
     @IBOutlet weak var ingredientInfoImage: UIImageView!
+    @IBOutlet weak var addEditIngredientButton: UIButton!
     
-    var ingredientItem: IngredientSteps?
+    var ingredientItem: Ingredients?
     var postID: String?
     
     var measurementTypeData : [String] = [
@@ -34,12 +34,15 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
     override func viewDidLoad() {
         super.viewDidLoad()
         print("xxxxxx\(postID!)")
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+
+        view.addGestureRecognizer(tap)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         ingredientInfoImage.image = UIImage(named: ingredientItem!.ingredientImage)
         ingredientInfoName.text = ingredientItem?.ingredient
-        ingredientInfoStepDescription.text = ingredientItem?.step
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -54,7 +57,39 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         return measurementTypeData[row]
     }
     
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
     @IBAction func addEditIngredient(_ sender: Any) {
+        var errors = ""
         
+        if (ingredientInfoMeasureVal.text == ""){
+            errors += "Please enter a measurement value\n"
+        }
+        if (ingredientInfoName.text == ""){
+            errors += "Please enter an ingredient name\n"
+        }
+        
+        var measureVal = Int(ingredientInfoMeasureVal.text!)
+        
+//        if (measureVal! <= 0 || measureVal! is Int){
+//            errors += "Please enter a valid measurement value\n"
+//        }
+        
+        let vc = storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
+        
+        ingredientItem!.ingredient = ingredientInfoName.text!
+        ingredientItem!.ingredientImage = ""
+        ingredientItem!.postId = postID!
+        ingredientItem!.measureVal = measureVal!
+        ingredientItem!.measureType = ""
+        
+        IngredientsDataManager.insertIngredient(ingredientItem!)
+        
+        print("----->\(self.postID!)")
+        vc.postID = self.postID!
+        vc.loadIngredients()
+        self.show(vc, sender: self)
     }
 }

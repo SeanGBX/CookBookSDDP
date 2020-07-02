@@ -13,32 +13,22 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBOutlet weak var ingredientTableView: UITableView!
     
-    var ingredientItemList : [IngredientSteps] = []
+    var ingredientItemList : [Ingredients] = []
     var postID: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         print("---->\(self.postID!)")
-        ingredientItemList.append(IngredientSteps(
-            postId : postID!,
-            ingredient: "tomato",
-            step: postID!,
-            ingredientImage: "bastion"
-        ))
-
-        ingredientItemList.append(IngredientSteps(
-            postId : postID!,
-            ingredient: "potato",
-            step: postID!,
-            ingredientImage: "bastion"
-        ))
-
-        ingredientItemList.append(IngredientSteps(
-            postId : postID!,
-            ingredient: "chicken",
-            step: postID!,
-            ingredientImage: "bastion"
-        ))
+        
+        loadIngredients()
+    }
+    
+    public func loadIngredients(){
+        IngredientsDataManager.loadIngredients(self.postID!){
+            ingredientListFromFirestore in
+            self.ingredientItemList = ingredientListFromFirestore
+            self.ingredientTableView.reloadData()
+        }
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -48,7 +38,7 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientItemCell", for: indexPath) as! IngredientItemCell
         let p = ingredientItemList[indexPath.row]
-        cell.IngredientItemLabel.text = p.step
+        cell.IngredientItemLabel.text = p.ingredient
         cell.ingredientItemImage.image = UIImage(named: p.ingredientImage)
         return cell
     }
@@ -59,6 +49,8 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
                 IngredientInfoViewController
             let ingIndexPath = self.ingredientTableView.indexPathForSelectedRow
             ingredientInfoViewController.postID = self.postID
+//            ingredientInfoViewController.addEditIngredientButton.setTitle("DONE", for: .normal)
+            
             if (ingIndexPath != nil){
                 let ingredient = ingredientItemList[ingIndexPath!.row]
                 ingredientInfoViewController.ingredientItem = ingredient
@@ -69,8 +61,9 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
             let ingredientInfoViewController = segue.destination as!
                 IngredientInfoViewController
             ingredientInfoViewController.postID = self.postID
-            let ingredient = IngredientSteps(postId: postID!, ingredient: "", step: "", ingredientImage: "")
+            let ingredient = Ingredients(postId: "", ingredient: "", ingredientImage: "", measureVal: 0, measureType: "")
             
+//            ingredientInfoViewController.addEditIngredientButton.setTitle("ADD", for: .normal)
             ingredientInfoViewController.ingredientItem = ingredient
         }
     }

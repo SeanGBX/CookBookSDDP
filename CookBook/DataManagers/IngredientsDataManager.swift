@@ -10,22 +10,22 @@ import UIKit
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-class IngredientStepsDataManager: NSObject {
+class IngredientsDataManager: NSObject {
     
     static let db = Firestore.firestore()
     
-    static func loadIngredients(onComplete: (([IngredientSteps]) -> Void)?){
-        db.collection("ingredients").getDocuments(){
+    static func loadIngredients(_ ingredientID: String, onComplete: (([Ingredients]) -> Void)?){
+        db.collection("ingredients").whereField("postId", isEqualTo: ingredientID).getDocuments(){
             
             (querySnapshot, err) in
-            var ingredientList : [IngredientSteps] = []
+            var ingredientList : [Ingredients] = []
             
             if let err = err{
                 print("Error getting documents: \(err)")
             }
             else{
                 for document in querySnapshot!.documents{
-                    var ingredient = try? document.data(as: IngredientSteps.self) as! IngredientSteps
+                    var ingredient = try? document.data(as: Ingredients.self) as! Ingredients
                     
                     if ingredient != nil{
                         ingredientList.append(ingredient!)
@@ -36,22 +36,13 @@ class IngredientStepsDataManager: NSObject {
         }
     }
     
-    static func storeIngredientID(_ ID: String) -> String {
-        var selectedIngredient =
-            try? db.collection("ingredients")
-                .document(ID)
-        var selectedID = selectedIngredient?.documentID
-        
-        return selectedID!
-    }
-    
-    static func insertIngredient(_ ingredient: IngredientSteps, onComplete: ((String)-> Void)?){
+    static func insertIngredient(_ ingredient: Ingredients){
         var addedDocument = try? db.collection("ingredients").addDocument(from: ingredient, encoder: Firestore.Encoder())
         
-        ingredient.ingredientStepId = String(addedDocument?.documentID ?? "")
+        ingredient.ingredientId = String(addedDocument?.documentID ?? "")
 
         try? db.collection("ingredients")
-            .document(String(ingredient.ingredientStepId))
+            .document(String(ingredient.ingredientId))
             .setData(from: ingredient, encoder: Firestore.Encoder())
         {
             err in
@@ -60,14 +51,13 @@ class IngredientStepsDataManager: NSObject {
                 print("Error adding document: \(err)")
             } else {
                 print("Document successfully added")
-                onComplete?(ingredient.ingredientStepId)
             }
         }
     }
     
-    static func editIngredient(_ ingredient: IngredientSteps){
+    static func editIngredient(_ ingredient: Ingredients){
         try? db.collection("ingredients")
-            .document(ingredient.ingredientStepId)
+            .document(ingredient.ingredientId)
             .setData(from: ingredient, encoder: Firestore.Encoder())
         {
             err in
@@ -80,8 +70,8 @@ class IngredientStepsDataManager: NSObject {
         }
     }
 
-    static func deleteIngredient (ingredient: IngredientSteps){
-        db.collection("ingredient").document(ingredient.ingredientStepId).delete() {
+    static func deleteIngredient (ingredient: Ingredients){
+        db.collection("ingredient").document(ingredient.ingredientId).delete() {
             err in
 
             if let err = err {

@@ -19,32 +19,20 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var postInfoTags: UILabel!
     
     var postItem: Posts?
-    var ingredientStepsList : [IngredientSteps] = []
+    var ingredientList : [Ingredients] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadIngredients()
         
-        ingredientStepsList.append(IngredientSteps(
-            postId : "",
-            ingredient: "tomato",
-            step: "cut tomato",
-            ingredientImage: "bastion"
-        ))
-        
-        ingredientStepsList.append(IngredientSteps(
-            postId : "",
-            ingredient: "potato",
-            step: "cut potato",
-            ingredientImage: "bastion"
-        ))
-        
-        ingredientStepsList.append(IngredientSteps(
-            postId : "",
-            ingredient: "chicken",
-            step: "cut chicken",
-            ingredientImage: "bastion"
-        ))
-
+    }
+    
+    public func loadIngredients(){
+        IngredientsDataManager.loadIngredients(postItem!.postId){
+            ingredientFromFirestore in
+            self.ingredientList = ingredientFromFirestore
+            self.ingredientTable.reloadData()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,22 +49,22 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
 
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ingredientStepsList.count
+        return ingredientList.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
         if (tableView === ingredientTable) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientCell", for: indexPath) as! IngredientCell
-            let p = ingredientStepsList[indexPath.row]
+            let p = ingredientList[indexPath.row]
             cell.ingredientLabel.text = p.ingredient
             cell.ingredientImage.image = UIImage(named: p.ingredientImage)
             return cell
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "StepsCell", for: indexPath) as! StepsCell
-            let p = ingredientStepsList[indexPath.row]
-            cell.stepLabel.text = p.step
+            let p = ingredientList[indexPath.row]
+            cell.stepLabel.text = p.ingredient
             return cell
         }
     
