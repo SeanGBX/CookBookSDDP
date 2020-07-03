@@ -10,14 +10,14 @@ import UIKit
 
 class PostComment: NSObject, Codable {
     
-    var postId: Int
+    var postId: String
     var comment: String
     var username: String
-    var commentId: Int
+    var commentId: String
     
     
-    init (postId: Int, comment: String, username: String,
-          commentId: Int = 0)
+    init (postId: String, comment: String, username: String,
+          commentId: String = "")
     {
         self.postId = postId
         self.comment = comment

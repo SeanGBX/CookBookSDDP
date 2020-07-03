@@ -18,6 +18,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     {
         super.viewDidLoad()
         loadPosts()
+        self.navigationItem.setHidesBackButton(true, animated: true);
     }
     
     func loadPosts(){

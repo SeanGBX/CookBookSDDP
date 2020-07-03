@@ -14,8 +14,9 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBOutlet weak var createPostImage: UIImageView!
     @IBOutlet weak var createPostRecipeName: UITextField!
     @IBOutlet weak var createPostPicker: UIPickerView!
+    @IBOutlet weak var progressToIngredientsButton: UIButton!
     
-    var postItems: Posts?
+    var postItem: Posts?
     var newID: String?
     
     var mealTypeData: [String] = [
@@ -29,11 +30,12 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
     override func viewDidLoad() {
         super.viewDidLoad()
         myPictureSwitch.isOn = false
+        progressToIngredientsButton.isEnabled = false
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
 
         view.addGestureRecognizer(tap)
-        
+    
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -54,45 +56,58 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     @IBAction func progressToIngredients(_ sender: Any) {
 
-        var error1: String = ""
+        var error: String = ""
          
         if(createPostRecipeName.text == ""){
-            error1 += "Recipe Name cannot be empty\n"
-             
-            let alert = UIAlertController(
-                title: error1,
-                message: "",
-                preferredStyle: .alert
-            )
-             
-            alert.addAction(
-                UIAlertAction(
-                    title: "OK",
-                    style: .default,
-                    handler: nil)
-            )
-         
-            self.present(alert, animated: true, completion: nil)
-             
-            return
+            error += "Recipe Name cannot be empty\n"
+        }
+        
+        if(error != ""){
+               let alert = UIAlertController(
+                   title: error,
+                   message: "",
+                   preferredStyle: .alert
+               )
+                
+               alert.addAction(
+                   UIAlertAction(
+                       title: "OK",
+                       style: .default,
+                       handler: nil)
+               )
+            
+               self.present(alert, animated: true, completion: nil)
+                
+               return
         }
          
-        postItems = Posts(recipeName: "", username: "", mealType: "", likes: 0, healthy: 0, tagBudget: "", tagStyle: "", tagPrep: "", postImage: "")
+        postItem = Posts(recipeName: "", username: "", mealType: "", likes: 0, healthy: 0, tagBudget: "", tagStyle: "", tagPrep: "", postImage: "")
          
-        postItems!.recipeName = createPostRecipeName.text!
+        postItem!.recipeName = createPostRecipeName.text!
+        postItem!.postImage = "default"
          
         let pickerRow = createPostPicker.selectedRow(inComponent: 0)
         let selectedPickerText = mealTypeData[pickerRow]
-        postItems!.mealType = selectedPickerText
+        
+        postItem!.mealType = selectedPickerText
          
         let vc =
             storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
          
-        postsDataManager.insertPost(postItems!){
+        postsDataManager.insertPost(postItem!){
             postId in
             self.newID = postsDataManager.storePostID(postId)
             vc.postID = self.newID!
             self.show(vc, sender: self)
+        }
+    }
+    
+    @IBAction func myPictureSwitchChanged(_ sender: Any) {
+        if (myPictureSwitch.isOn == false){
+            progressToIngredientsButton.isEnabled = false
+        }
+        else{
+            progressToIngredientsButton.isEnabled = true
         }
     }
 }

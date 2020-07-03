@@ -17,6 +17,9 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
     
     @IBOutlet weak var prepTimePicker: UIPickerView!
     
+    var postID: String?
+    var postItem: Posts?
+    
     var budgetData : [String] = ["Cheap","Moderately-priced","Expensive"]
     var cookStyleData : [String] = ["Asian", "Western", "Mexican", "Middle-Eastern"]
     var prepTimeData : [String] = ["Quick", "Moderate", "Long"]
@@ -24,7 +27,7 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print("---->\(self.postID!)")
         // Do any additional setup after loading the view.
     }
     
@@ -55,5 +58,27 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
             return prepTimeData[row]
         }
     }
+    
+    
+    @IBAction func postRecipeButton(_ sender: Any) {
+        postItem = Posts(recipeName: "", username: "", mealType: "", likes: 0, healthy: 0, tagBudget: "", tagStyle: "", tagPrep: "", postImage: "")
+        
+        let pickerRowBudget = budgetPicker.selectedRow(inComponent: 0)
+        let selectedPickerTextBudget = budgetData[pickerRowBudget]
+        postItem!.tagBudget = selectedPickerTextBudget
 
+        let pickerRowStyle = cookingStylePicker.selectedRow(inComponent: 0)
+        let selectedPickerTextCookStyle = cookStyleData[pickerRowStyle]
+        postItem!.tagStyle = selectedPickerTextCookStyle
+        
+        let pickerRowPrep = prepTimePicker.selectedRow(inComponent: 0)
+        let selectedPickerTextPrepTime = prepTimeData[pickerRowPrep]
+        postItem!.tagPrep = selectedPickerTextPrepTime
+        
+        let vc = storyboard?.instantiateViewController(identifier: "PostViewController") as! PostViewController
+        
+        postsDataManager.FinishPost(postID!, postItem!)
+        self.show(vc, sender: self)
+    }
+    
 }

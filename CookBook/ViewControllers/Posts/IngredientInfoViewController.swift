@@ -23,8 +23,10 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
     var measurementTypeData : [String] = [
         "ml",
         "l",
+        "kg",
         "g",
         "mg",
+        "lbs",
         "cup",
         "tbsp",
         "tsp",
@@ -62,14 +64,34 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
     
     @IBAction func addEditIngredient(_ sender: Any) {
-        var errors = ""
+        var error = ""
         
         if (ingredientInfoMeasureVal.text == ""){
-            errors += "Please enter a measurement value\n"
+            error += "Please enter a measurement value\n"
         }
         if (ingredientInfoName.text == ""){
-            errors += "Please enter an ingredient name\n"
+            error += "Please enter an ingredient name\n"
         }
+        
+        if(error != ""){
+               let alert = UIAlertController(
+                   title: error,
+                   message: "",
+                   preferredStyle: .alert
+               )
+                
+               alert.addAction(
+                   UIAlertAction(
+                       title: "OK",
+                       style: .default,
+                       handler: nil)
+               )
+            
+               self.present(alert, animated: true, completion: nil)
+                
+               return
+        }
+        
         
         var measureVal = Int(ingredientInfoMeasureVal.text!)
         
@@ -84,6 +106,10 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         ingredientItem!.postId = postID!
         ingredientItem!.measureVal = measureVal!
         ingredientItem!.measureType = ""
+        
+        let pickerRow = ingredientInfoMeasureType.selectedRow(inComponent: 0)
+        let selectedPickerText = measurementTypeData[pickerRow]
+        ingredientItem!.measureType = selectedPickerText
         
         IngredientsDataManager.insertIngredient(ingredientItem!)
         

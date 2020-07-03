@@ -65,10 +65,14 @@ class postsDataManager: NSObject {
         }
     }
     
-    static func editPost(_ post: Posts){
+    static func FinishPost(_ postID: String, _ post: Posts){
         try? db.collection("posts")
-            .document(post.postId)
-            .setData(from: post, encoder: Firestore.Encoder())
+            .document(postID)
+            .updateData([
+                "tagBudget": post.tagBudget,
+                "tagStyle": post.tagStyle,
+                "tagPrep": post.tagPrep
+                ])
         {
             err in
     

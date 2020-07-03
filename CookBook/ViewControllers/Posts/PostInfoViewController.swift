@@ -57,7 +57,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         if (tableView === ingredientTable) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientCell", for: indexPath) as! IngredientCell
             let p = ingredientList[indexPath.row]
-            cell.ingredientLabel.text = p.ingredient
+            cell.ingredientLabel.text = "\(p.ingredient) - \(p.measureVal) \(p.measureType)"
             cell.ingredientImage.image = UIImage(named: p.ingredientImage)
             return cell
             
