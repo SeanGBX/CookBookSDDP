@@ -8,33 +8,33 @@
 
 import UIKit
 
-class FindRecipeViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class FindRecipeViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     
     @IBOutlet weak var chosenCuisinLabel: UILabel!
     @IBOutlet weak var cuisineStlyeLabel: UILabel!
     @IBOutlet weak var cuisineStyleTextField: UITextField!
-    @IBOutlet weak var cuisineStylePickerView: UIPickerView!
+//    @IBOutlet weak var cuisineStylePickerView: UIPickerView!
     @IBOutlet weak var budgetTextField: UITextField!
     @IBOutlet weak var prepSlider: UISlider!
     @IBOutlet weak var prepTimeLabel: UILabel!
     @IBOutlet weak var findRecipeButton: UIButton!
+//    @IBOutlet weak var budgetPickerView: UIPickerView!
     var cuisineTitle: String = ""
     
-    var cuisinePickerData: [String] = ["Western", "Asian"]
+    var cuisinePickerData: [String] = []
+    var budgetPickerData: [String] = []
     var pickerView = UIPickerView()
+    var currentTextField = UITextField()
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        budgetPickerData = ["Expensive", "Average", "Budget friendly"]
+        cuisinePickerData = ["Western", "Asian"]
         chosenCuisinLabel?.text = cuisineTitle
-        cuisineStylePickerView.isHidden = true
-        pickerView.delegate  = self
-        pickerView.dataSource = self
-        cuisineStyleTextField.inputView = pickerView
         prepTimeLabel.text = "0 mins"
-        cuisineStyleTextField.text = cuisinePickerData[0]
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
     }
@@ -43,6 +43,7 @@ class FindRecipeViewController: UIViewController, UIPickerViewDataSource, UIPick
         prepTimeLabel.text = "0 mins"
         prepSlider.value = 0.0
         budgetTextField.text = ""
+        cuisineStyleTextField.text = cuisinePickerData[0]
     }
     
     @objc func dismissKeyboard() {
@@ -54,16 +55,56 @@ class FindRecipeViewController: UIViewController, UIPickerViewDataSource, UIPick
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return cuisinePickerData.count
+        if currentTextField == budgetTextField {
+            return budgetPickerData.count
+        }
+        
+        else if currentTextField == cuisineStyleTextField {
+            return cuisinePickerData.count
+        }
+        
+        else {
+            return 0
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return cuisinePickerData[row]
+        if currentTextField == budgetTextField {
+            return budgetPickerData[row]
+        }
+        
+        else if currentTextField == cuisineStyleTextField {
+            return cuisinePickerData[row]
+        }
+        
+        else {
+            return ""
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        cuisineStyleTextField.text = cuisinePickerData[row]
-        self.view.endEditing(false)
+        if currentTextField == budgetTextField {
+            budgetTextField.text = budgetPickerData[row]
+            self.view.endEditing(true)
+        }
+        
+        else if currentTextField == cuisineStyleTextField {
+            cuisineStyleTextField.text = cuisinePickerData[row]
+            self.view.endEditing(true)
+        }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.pickerView.delegate = self
+        self.pickerView.dataSource = self
+        currentTextField = textField
+        if currentTextField == budgetTextField {
+            currentTextField.inputView = pickerView
+        }
+        
+        else if currentTextField == cuisineStyleTextField {
+            currentTextField.inputView = pickerView
+        }
     }
     
     @IBAction func prepSliderValueChanged(_ sender: UISlider) {
