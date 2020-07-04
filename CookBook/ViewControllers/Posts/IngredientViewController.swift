@@ -23,7 +23,7 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
         loadIngredients()
     }
     
-    public func loadIngredients(){
+    func loadIngredients(){
         IngredientsDataManager.loadIngredients(self.postID!){
             ingredientListFromFirestore in
             self.ingredientItemList = ingredientListFromFirestore
@@ -44,12 +44,13 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if (segue.identifier == "EditIngredient"){
             let ingredientInfoViewController = segue.destination as!
                 IngredientInfoViewController
             let ingIndexPath = self.ingredientTableView.indexPathForSelectedRow
             ingredientInfoViewController.postID = self.postID
-//            ingredientInfoViewController.addEditIngredientButton.setTitle("DONE", for: .normal)
+            ingredientInfoViewController.segueIdentifier = segue.identifier
             
             if (ingIndexPath != nil){
                 let ingredient = ingredientItemList[ingIndexPath!.row]
@@ -61,15 +62,13 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
             let ingredientInfoViewController = segue.destination as!
                 IngredientInfoViewController
             ingredientInfoViewController.postID = self.postID
+            ingredientInfoViewController.segueIdentifier = segue.identifier
             let ingredient = Ingredients(postId: "", ingredient: "", ingredientImage: "", measureVal: 0, measureType: "")
-            
-//            ingredientInfoViewController.addEditIngredientButton.setTitle("ADD", for: .normal)
             ingredientInfoViewController.ingredientItem = ingredient
         }
     }
     
     @IBAction func proceedToSteps(_ sender: Any) {
-        
         
         let vc = storyboard?.instantiateViewController(identifier: "FinishPostViewController") as! FinishPostViewController
         

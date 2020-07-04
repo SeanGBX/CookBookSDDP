@@ -19,6 +19,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     var ingredientItem: Ingredients?
     var postID: String?
+    var segueIdentifier: String?
     
     var measurementTypeData : [String] = [
         "ml",
@@ -92,7 +93,6 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
                return
         }
         
-        
         var measureVal = Int(ingredientInfoMeasureVal.text!)
         
 //        if (measureVal! <= 0 || measureVal! is Int){
@@ -111,7 +111,15 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         let selectedPickerText = measurementTypeData[pickerRow]
         ingredientItem!.measureType = selectedPickerText
         
-        IngredientsDataManager.insertIngredient(ingredientItem!)
+        if (segueIdentifier! == "AddIngredient"){
+            IngredientsDataManager.insertIngredient(ingredientItem!)
+            
+            print("ppppp added")
+        }
+        else{
+            IngredientsDataManager.editIngredient(ingredientItem!)
+            print("ppppp edited")
+        }
         
         print("----->\(self.postID!)")
         vc.postID = self.postID!

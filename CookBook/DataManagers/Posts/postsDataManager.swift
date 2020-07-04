@@ -45,22 +45,40 @@ class postsDataManager: NSObject {
         return selectedID!
     }
     
-    static func insertPost(_ post: Posts, onComplete: ((String)-> Void)?){
-        var addedDocument = try? db.collection("posts").addDocument(from: post, encoder: Firestore.Encoder())
+    static func insertPost(_ postID: String, _ post: Posts, onComplete: ((String)-> Void)?){
+        if (db.collection("posts").whereField("postId", isEqualTo: postID) != nil)
         
-        post.postId = String(addedDocument?.documentID ?? "")
-
-        try? db.collection("posts")
-            .document(String(post.postId))
-            .setData(from: post, encoder: Firestore.Encoder())
         {
-            err in
+            var addedDocument = try? db.collection("posts").addDocument(from: post, encoder: Firestore.Encoder())
             
-            if let err = err {
-                print("Error adding document: \(err)")
-            } else {
-                print("Document successfully added")
-                onComplete?(post.postId)
+            post.postId = String(addedDocument?.documentID ?? "")
+
+            try? db.collection("posts")
+                .document(String(post.postId))
+                .setData(from: post, encoder: Firestore.Encoder())
+            {
+                err in
+                
+                if let err = err {
+                    print("Error adding document: \(err)")
+                } else {
+                    print("Document successfully added")
+                    onComplete?(post.postId)
+                }
+            }
+        } else {
+            try? db.collection("posts")
+                .document(postID)
+                .setData(from: post, encoder: Firestore.Encoder())
+            {
+                err in
+                
+                if let err = err {
+                    print("Error adding document: \(err)")
+                } else {
+                    print("Document successfully fixed")
+                    onComplete?(post.postId)
+                }
             }
         }
     }
@@ -93,6 +111,28 @@ class postsDataManager: NSObject {
             } else {
                 print("Document successfully removed!")
             }
+        }
+    }
+    
+    static func loadSpecificPost(_ postID: String, onComplete: ((Posts) -> Void)?){
+        db.collection("posts").whereField("postId", isEqualTo: postID).getDocuments(){
+            
+            (querySnapshot, err) in
+            var specificPost : Posts?
+            
+            if let err = err{
+                print("Error getting documents: \(err)")
+            }
+            else{
+                for document in querySnapshot!.documents{
+                    var post = try? document.data(as: Posts.self) as! Posts
+                    
+                    if post != nil{
+                        specificPost = post
+                    }
+                }
+            }
+            onComplete?(specificPost!)
         }
     }
 }

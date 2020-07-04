@@ -17,8 +17,13 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
     
     @IBOutlet weak var prepTimePicker: UIPickerView!
     
+    @IBOutlet weak var finalImage: UIImageView!
+    
+    @IBOutlet weak var finalName: UILabel!
+    
     var postID: String?
     var postItem: Posts?
+    var selectedPost: Posts?
     
     var budgetData : [String] = ["Cheap","Moderately-priced","Expensive"]
     var cookStyleData : [String] = ["Asian", "Western", "Mexican", "Middle-Eastern"]
@@ -28,7 +33,18 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
     override func viewDidLoad() {
         super.viewDidLoad()
         print("---->\(self.postID!)")
+        loadSpecificPost()
+        finalImage.image = UIImage(named: "")
+        finalName.text = selectedPost?.recipeName
         // Do any additional setup after loading the view.
+    }
+    
+    func loadSpecificPost(){
+        postsDataManager.loadSpecificPost(self.postID!){
+            postFromFirestore in
+            self.selectedPost = postFromFirestore
+            return
+        }
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -80,5 +96,4 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
         postsDataManager.FinishPost(postID!, postItem!)
         self.show(vc, sender: self)
     }
-    
 }

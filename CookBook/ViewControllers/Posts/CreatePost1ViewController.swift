@@ -30,6 +30,7 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
     override func viewDidLoad() {
         super.viewDidLoad()
         myPictureSwitch.isOn = false
+        progressToIngredientsButton.setTitleColor(UIColor.gray, for: .normal)
         progressToIngredientsButton.isEnabled = false
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
@@ -94,7 +95,7 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
         let vc =
             storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
          
-        postsDataManager.insertPost(postItem!){
+        postsDataManager.insertPost(newID ?? "", postItem!){
             postId in
             self.newID = postsDataManager.storePostID(postId)
             vc.postID = self.newID!
@@ -105,9 +106,11 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBAction func myPictureSwitchChanged(_ sender: Any) {
         if (myPictureSwitch.isOn == false){
             progressToIngredientsButton.isEnabled = false
+            progressToIngredientsButton.setTitleColor(UIColor.gray, for: .normal)
         }
         else{
             progressToIngredientsButton.isEnabled = true
+            progressToIngredientsButton.setTitleColor(UIColor.purple, for: .normal)
         }
     }
 }

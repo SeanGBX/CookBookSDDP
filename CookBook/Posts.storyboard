@@ -93,7 +93,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="643"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="RtZ-rF-4fY">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="625.33333333333337"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="637.33333333333337"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T7T-4k-et2">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="214.33333333333334"/>
@@ -150,23 +150,23 @@
                                                 <edgeInsets key="layoutMargins" top="30" left="20" bottom="8" right="20"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QdI-bI-P8T">
-                                                <rect key="frame" x="0.0" y="385.33333333333331" width="414" height="175.99999999999994"/>
+                                                <rect key="frame" x="0.0" y="385.33333333333331" width="414" height="165.99999999999994"/>
                                                 <subviews>
                                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NAX-Wn-bAj">
-                                                        <rect key="frame" x="8" y="-20" width="398" height="216"/>
+                                                        <rect key="frame" x="8" y="-30" width="398" height="216"/>
                                                         <connections>
                                                             <outlet property="dataSource" destination="Nzb-t8-NUm" id="o2b-4D-ZjA"/>
                                                             <outlet property="delegate" destination="Nzb-t8-NUm" id="Lcm-nz-bhA"/>
                                                         </connections>
                                                     </pickerView>
                                                 </subviews>
-                                                <edgeInsets key="layoutMargins" top="-20" left="8" bottom="-20" right="8"/>
+                                                <edgeInsets key="layoutMargins" top="-30" left="8" bottom="-20" right="8"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sd3-to-fsL">
-                                                <rect key="frame" x="0.0" y="561.33333333333337" width="414" height="64"/>
+                                                <rect key="frame" x="0.0" y="551.33333333333337" width="414" height="86"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ae0-YS-RGb">
-                                                        <rect key="frame" x="8" y="8" width="398" height="36"/>
+                                                        <rect key="frame" x="8" y="30" width="398" height="36"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                         <state key="normal" title="NEXT">
                                                             <color key="titleColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -176,7 +176,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="20" right="8"/>
+                                                <edgeInsets key="layoutMargins" top="30" left="8" bottom="20" right="8"/>
                                             </stackView>
                                         </subviews>
                                     </stackView>
@@ -492,6 +492,8 @@
                     <connections>
                         <outlet property="budgetPicker" destination="9Yq-VE-Kz7" id="4fA-Pe-zQU"/>
                         <outlet property="cookingStylePicker" destination="k8C-4i-NUM" id="yZc-uT-K7W"/>
+                        <outlet property="finalImage" destination="NbE-ET-ajw" id="4Yz-0w-AKk"/>
+                        <outlet property="finalName" destination="Zw0-qS-3VO" id="H5z-UE-OfF"/>
                         <outlet property="prepTimePicker" destination="m4Z-G2-c7T" id="yir-Wr-YOj"/>
                     </connections>
                 </viewController>
