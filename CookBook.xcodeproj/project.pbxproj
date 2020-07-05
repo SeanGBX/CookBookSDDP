@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1440211924B242270058141F /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1440211824B242260058141F /* FriendCell.swift */; };
+		1458E69624B1CEDD0035CE9B /* chatDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1458E69524B1CEDD0035CE9B /* chatDataManager.swift */; };
 		1489E5EA24A8FA8A0086C479 /* FriendDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1489E5E924A8FA890086C479 /* FriendDetailViewController.swift */; };
 		1489E5EC24A8FF1D0086C479 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1489E5EB24A8FF1D0086C479 /* Friend.swift */; };
-		1489E5EE24A8FF330086C479 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1489E5ED24A8FF330086C479 /* FriendCell.swift */; };
 		1489E5F024A9068A0086C479 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1489E5EF24A9068A0086C479 /* ChatViewController.swift */; };
 		1489E5F524A910C40086C479 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1489E5F424A910C40086C479 /* Chat.storyboard */; };
 		180D2C3B24A500A4000F0A89 /* BridgingHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 180D2C3A24A500A3000F0A89 /* BridgingHeader.m */; };
@@ -52,9 +53,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1440211824B242260058141F /* FriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
+		1458E69524B1CEDD0035CE9B /* chatDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = chatDataManager.swift; sourceTree = "<group>"; };
 		1489E5E924A8FA890086C479 /* FriendDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendDetailViewController.swift; sourceTree = "<group>"; };
 		1489E5EB24A8FF1D0086C479 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
-		1489E5ED24A8FF330086C479 /* FriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FriendCell.swift; path = "../New Group/FriendCell.swift"; sourceTree = "<group>"; };
 		1489E5EF24A9068A0086C479 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		1489E5F424A910C40086C479 /* Chat.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		180D2C3824A500A2000F0A89 /* CookBook-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CookBook-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -114,6 +116,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1458E69424B1CEC80035CE9B /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				1458E69524B1CEDD0035CE9B /* chatDataManager.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
 		1489E5F124A909B90086C479 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
@@ -127,7 +137,7 @@
 		1489E5F224A90A2D0086C479 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				1489E5ED24A8FF330086C479 /* FriendCell.swift */,
+				1440211824B242260058141F /* FriendCell.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -154,6 +164,7 @@
 		180D2C3D24A5010C000F0A89 /* DataManagers */ = {
 			isa = PBXGroup;
 			children = (
+				1458E69424B1CEC80035CE9B /* Chat */,
 				185D610D24AE313F0000DDE7 /* Posts */,
 			);
 			path = DataManagers;
@@ -430,8 +441,10 @@
 				180D2C5524A501F2000F0A89 /* CommentsViewController.swift in Sources */,
 				1489E5EC24A8FF1D0086C479 /* Friend.swift in Sources */,
 				18196EB824ABA2CE00C5209A /* RecipeViewController.swift in Sources */,
+				1440211924B242270058141F /* FriendCell.swift in Sources */,
 				1489E5EA24A8FA8A0086C479 /* FriendDetailViewController.swift in Sources */,
 				180D2C4524A501A0000F0A89 /* IngredientsDataManager.swift in Sources */,
+				1458E69624B1CEDD0035CE9B /* chatDataManager.swift in Sources */,
 				180D2C5924A501F2000F0A89 /* PostViewController.swift in Sources */,
 				D4F833D424A9D50D001F9951 /* ChefBotViewController.swift in Sources */,
 				18196EB624ABA2CE00C5209A /* ViewController.swift in Sources */,
@@ -441,7 +454,6 @@
 				180D2C4C24A501D6000F0A89 /* PostComment.swift in Sources */,
 				180D2C5B24A501F2000F0A89 /* IngredientViewController.swift in Sources */,
 				180D2C6224A501FE000F0A89 /* StepsCell.swift in Sources */,
-				1489E5EE24A8FF330086C479 /* FriendCell.swift in Sources */,
 				18196EB724ABA2CE00C5209A /* FindRecipeViewController.swift in Sources */,
 				180D2C3B24A500A4000F0A89 /* BridgingHeader.m in Sources */,
 				180D2C5624A501F2000F0A89 /* IngredientInfoViewController.swift in Sources */,

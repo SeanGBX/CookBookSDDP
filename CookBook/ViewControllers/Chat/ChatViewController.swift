@@ -14,24 +14,22 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var friendsList : [Friend] = []
     
+    func loadChat(){
+        chatDataManager.loadChat(){
+            friendListFromFirestore in
+
+            self.friendsList = friendListFromFirestore
+            
+            self.tableView.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(didTapComposeButton))
-        
-        friendsList.append(Friend(
-            friendName: "Ryan Tan",
-            friendText: "Hello!",
-            imageName: "ryantan"))
-        friendsList.append(Friend(
-            friendName: "Arman Khan",
-            friendText: "hi!",
-            imageName: "defaultprofile"))
-        friendsList.append(Friend(
-            friendName: "Ian Loi",
-            friendText: "Hey!",
-            imageName: "defaultprofile"))
         self.navigationItem.title = "Messages"
         
+        loadChat()
     }
     
     @objc private func didTapComposeButton(){
