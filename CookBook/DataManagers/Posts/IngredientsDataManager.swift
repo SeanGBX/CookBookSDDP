@@ -36,6 +36,15 @@ class IngredientsDataManager: NSObject {
         }
     }
     
+    static func storeIngredientID(_ ID: String) -> String {
+        var selectedIngredient =
+            try? db.collection("ingredients")
+                .document(ID)
+        var selectedID = selectedIngredient?.documentID
+        
+        return selectedID!
+    }
+    
     static func insertIngredient(_ ingredient: Ingredients){
         var addedDocument = try? db.collection("ingredients").addDocument(from: ingredient, encoder: Firestore.Encoder())
         
@@ -71,13 +80,27 @@ class IngredientsDataManager: NSObject {
     }
 
     static func deleteIngredient (ingredient: Ingredients){
-        db.collection("ingredient").document(ingredient.ingredientId).delete() {
+        try? db.collection("ingredient").document(ingredient.ingredientId).delete() {
             err in
 
             if let err = err {
                 print("Error removing document: \(err)")
             } else {
                 print("Document successfully removed!")
+            }
+        }
+    }
+    
+    static func deleteIngredientByPost (ingredients: [Ingredients]){
+        for i in ingredients {
+            db.collection("ingredients").document(i.ingredientId).delete(){
+                err in
+
+                if let err = err {
+                    print("Error removing document: \(err)")
+                } else {
+                    print("Document successfully removed!")
+                }
             }
         }
     }

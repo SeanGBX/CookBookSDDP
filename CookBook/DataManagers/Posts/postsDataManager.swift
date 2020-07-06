@@ -102,8 +102,8 @@ class postsDataManager: NSObject {
         }
     }
 
-    static func deletePost (post: Posts){
-        db.collection("posts").document(post.postId).delete() {
+    static func deletePost (_ postID: String){
+        db.collection("posts").document(postID).delete() {
             err in
 
             if let err = err {

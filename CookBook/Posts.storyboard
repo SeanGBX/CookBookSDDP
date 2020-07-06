@@ -13,7 +13,7 @@
             <objects>
                 <viewController storyboardIdentifier="CommentsViewControler" id="IeY-Bc-tiJ" customClass="CommentsViewController" customModule="CookBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EsJ-3H-O6t">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="85" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hPm-hA-j4x">
@@ -86,11 +86,11 @@
             <objects>
                 <viewController storyboardIdentifier="CreatePost1ViewController" id="Nzb-t8-NUm" customClass="CreatePost1ViewController" customModule="CookBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="w5n-gZ-n47">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8f2-wm-wjl">
-                                <rect key="frame" x="0.0" y="44" width="414" height="643"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="RtZ-rF-4fY">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="637.33333333333337"/>
@@ -109,7 +109,7 @@
                                                 <edgeInsets key="layoutMargins" top="20" left="60" bottom="8" right="60"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vW2-59-bgF">
-                                                <rect key="frame" x="0.0" y="214.33333333333331" width="414" height="52"/>
+                                                <rect key="frame" x="0.0" y="214.33333333333334" width="414" height="52.000000000000028"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a Picture" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4yS-4W-pzX">
                                                         <rect key="frame" x="8" y="8" width="398" height="24"/>
@@ -200,7 +200,11 @@
                         <viewLayoutGuide key="safeArea" id="JZt-g6-ct2"/>
                     </view>
                     <navigationItem key="navigationItem" id="nZC-bn-EuN">
-                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="efy-LG-0i2"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="efy-LG-0i2">
+                            <connections>
+                                <segue destination="9pv-A4-QxB" kind="show" id="AEM-5h-8p5"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="createPostImage" destination="j5y-hL-DF3" id="nzJ-C4-RWe"/>
@@ -323,7 +327,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="0FX-dR-sCr">
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="stop" id="tf1-38-hy6"/>
+                            <barButtonItem systemItem="stop" id="tf1-38-hy6">
+                                <connections>
+                                    <action selector="cancelCreatePost:" destination="zzG-6W-fFu" id="6IT-tm-Jzw"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem systemItem="add" id="ngW-FF-7K9">
                                 <connections>
                                     <segue destination="nQw-w4-PDj" kind="show" identifier="AddIngredient" id="bB9-7a-oJ4"/>
@@ -487,7 +495,11 @@
                         <viewLayoutGuide key="safeArea" id="JWZ-nP-yU3"/>
                     </view>
                     <navigationItem key="navigationItem" id="vmI-mc-ucA">
-                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="xkX-DU-PUr"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="xkX-DU-PUr">
+                            <connections>
+                                <action selector="cancelPostCreate:" destination="UA6-YX-OCa" id="g1N-GV-KgT"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="budgetPicker" destination="9Yq-VE-Kz7" id="4fA-Pe-zQU"/>
@@ -600,7 +612,11 @@
                         <viewLayoutGuide key="safeArea" id="OCI-wK-HBH"/>
                     </view>
                     <navigationItem key="navigationItem" id="Ner-gT-TkV">
-                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="B08-Bk-OIN"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="B08-Bk-OIN">
+                            <connections>
+                                <action selector="deleteIngredient:" destination="nQw-w4-PDj" id="Dyv-Rk-i6c"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addEditIngredientButton" destination="nT8-7e-YjU" id="ghc-3S-IQO"/>
@@ -619,11 +635,11 @@
             <objects>
                 <viewController storyboardIdentifier="PostViewController" id="9pv-A4-QxB" customClass="PostViewController" customModule="CookBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="550" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SQ1-d0-aBE">
-                                <rect key="frame" x="0.0" y="44" width="414" height="643"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="667"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="550" id="YuE-ci-agz" customClass="PostCell" customModule="CookBook" customModuleProvider="target">
@@ -821,11 +837,11 @@
             <objects>
                 <viewController storyboardIdentifier="PostInfoViewController" id="vVH-eg-zGe" customClass="PostInfoViewController" customModule="CookBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ph9-hA-eLS">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tm8-qn-Evh">
-                                <rect key="frame" x="0.0" y="44" width="414" height="643"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="NmX-Z1-1TU">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1129.6666666666667"/>
@@ -1104,6 +1120,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="AEM-5h-8p5"/>
         <segue reference="x3o-Gg-R1L"/>
     </inferredMetricsTieBreakers>
     <resources>

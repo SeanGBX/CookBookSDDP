@@ -44,8 +44,18 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        ingredientInfoImage.image = UIImage(named: ingredientItem!.ingredientImage)
-        ingredientInfoName.text = ingredientItem?.ingredient
+        if ingredientItem != nil {
+            ingredientInfoImage.image = UIImage(named: ingredientItem!.ingredientImage)
+            ingredientInfoName.text = ingredientItem!.ingredient
+            ingredientInfoMeasureVal.text = "\(ingredientItem!.measureVal)"
+            
+            let indexOfMeasureType:Int = measurementTypeData.firstIndex(of: ingredientItem!.measureType) ?? 0
+            
+            print("--->\(indexOfMeasureType)")
+            
+            ingredientInfoMeasureType.selectRow(indexOfMeasureType ?? 0, inComponent: 0, animated: true)
+            
+        }
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -93,7 +103,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
                return
         }
         
-        var measureVal = Int(ingredientInfoMeasureVal.text!)
+        let measureValue = Int(ingredientInfoMeasureVal.text!)
         
 //        if (measureVal! <= 0 || measureVal! is Int){
 //            errors += "Please enter a valid measurement value\n"
@@ -104,7 +114,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         ingredientItem!.ingredient = ingredientInfoName.text!
         ingredientItem!.ingredientImage = ""
         ingredientItem!.postId = postID!
-        ingredientItem!.measureVal = measureVal!
+        ingredientItem!.measureVal = measureValue != nil ? measureValue! : 0
         ingredientItem!.measureType = ""
         
         let pickerRow = ingredientInfoMeasureType.selectedRow(inComponent: 0)
@@ -125,5 +135,21 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         vc.postID = self.postID!
         vc.loadIngredients()
         self.show(vc, sender: self)
+    }
+    
+    
+    @IBAction func deleteIngredient(_ sender: Any) {
+        if (segueIdentifier! == "AddIngredient"){
+            let vc = storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
+            
+            self.show(vc, sender: self)
+        }
+        else{
+            let vc = storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
+        
+            IngredientsDataManager.deleteIngredient(ingredient: ingredientItem!)
+            print("ppppp deleted")
+            self.show(vc, sender: self)
+        }
     }
 }

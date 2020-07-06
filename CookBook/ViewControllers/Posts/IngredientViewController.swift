@@ -19,7 +19,7 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         print("---->\(self.postID!)")
-        
+        self.navigationItem.setHidesBackButton(true, animated: true);
         loadIngredients()
     }
     
@@ -73,6 +73,15 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
         let vc = storyboard?.instantiateViewController(identifier: "FinishPostViewController") as! FinishPostViewController
         
         vc.postID = self.postID!
+        vc.ingredientList = ingredientItemList
+        self.show(vc, sender: self)
+    }
+    
+    
+    @IBAction func cancelCreatePost(_ sender: Any) {
+        postsDataManager.deletePost(postID!)
+        IngredientsDataManager.deleteIngredientByPost(ingredients: ingredientItemList)
+        let vc = storyboard?.instantiateViewController(identifier: "PostViewController") as! PostViewController
         self.show(vc, sender: self)
     }
 }

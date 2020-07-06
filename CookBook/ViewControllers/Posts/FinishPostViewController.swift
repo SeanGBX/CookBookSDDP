@@ -24,6 +24,7 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
     var postID: String?
     var postItem: Posts?
     var selectedPost: Posts?
+    var ingredientList: [Ingredients]?
     
     var budgetData : [String] = ["Cheap","Moderately-priced","Expensive"]
     var cookStyleData : [String] = ["Asian", "Western", "Mexican", "Middle-Eastern"]
@@ -33,6 +34,7 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
     override func viewDidLoad() {
         super.viewDidLoad()
         print("---->\(self.postID!)")
+        self.navigationItem.setHidesBackButton(true, animated: true);
         loadSpecificPost()
         finalImage.image = UIImage(named: "")
         finalName.text = selectedPost?.recipeName
@@ -94,6 +96,13 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
         let vc = storyboard?.instantiateViewController(identifier: "PostViewController") as! PostViewController
         
         postsDataManager.FinishPost(postID!, postItem!)
+        self.show(vc, sender: self)
+    }
+    
+    @IBAction func cancelPostCreate(_ sender: Any) {
+        postsDataManager.deletePost(postID!)
+        IngredientsDataManager.deleteIngredientByPost(ingredients: ingredientList!)
+        let vc = storyboard?.instantiateViewController(identifier: "PostViewController") as! PostViewController
         self.show(vc, sender: self)
     }
 }
