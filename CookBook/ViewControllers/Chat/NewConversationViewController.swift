@@ -14,6 +14,7 @@ class NewConversationViewController: UIViewController {
     private let spinner = JGProgressHUD(style: .dark)
     
     private var users : [Friend] = []
+    private var results: [Friend] = []
     private var hasFetched = false
     
     private let searchBar: UISearchBar = {
@@ -45,6 +46,7 @@ class NewConversationViewController: UIViewController {
             UserListFromFirestore in
 
             self.users = UserListFromFirestore
+            self.results = UserListFromFirestore
             
             self.tableView.reloadData()
             self.hasFetched = true
@@ -63,7 +65,7 @@ class NewConversationViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(dismissSelf))
         searchBar.becomeFirstResponder()
         loadUsers()
-         
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -81,11 +83,11 @@ class NewConversationViewController: UIViewController {
 
 extension NewConversationViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        return results.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        let p = users[indexPath.row]
+        let p = results[indexPath.row]
         cell.textLabel?.text = p.friendName
         return cell
     }
@@ -101,8 +103,7 @@ extension NewConversationViewController: UISearchBarDelegate {
             return
         }
         
-
-        
+        results.removeAll()
         self.searchUsers(query: text)
     }
     
@@ -120,23 +121,31 @@ extension NewConversationViewController: UISearchBarDelegate {
         guard hasFetched else{
             return
         }
+
+        let results : [Friend] = self.users.filter({
+            guard let name = $0.friendName.lowercased() as? String else {
+                return false
+            }
+            
+            return name.hasPrefix(term.lowercased())
+        })
         
+        self.results = results
         self.spinner.dismiss()
         searchBar.resignFirstResponder()
-        
-        var results : [Friend] = []
-        
         updateUI()
+        
     }
     
     func updateUI(){
-        if users.isEmpty{
+        if results.isEmpty{
             self.noResultsLabel.isHidden = false
             self.tableView.isHidden = true
         }
         else{
-            self.noResultsLabel.isHidden = false
-            self.tableView.isHidden = true
+            self.noResultsLabel.isHidden = true
+            self.tableView.isHidden = false
+            self.tableView.reloadData()
         }
     }
 }
