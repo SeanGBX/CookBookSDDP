@@ -13,37 +13,48 @@ class FindRecipeViewController: UIViewController, UITextFieldDelegate, UIPickerV
     @IBOutlet weak var chosenCuisinLabel: UILabel!
     @IBOutlet weak var cuisineStlyeLabel: UILabel!
     @IBOutlet weak var cuisineStyleTextField: UITextField!
-//    @IBOutlet weak var cuisineStylePickerView: UIPickerView!
+    @IBOutlet weak var prepTimeTextField: UITextField!
     @IBOutlet weak var budgetTextField: UITextField!
-    @IBOutlet weak var prepSlider: UISlider!
-    @IBOutlet weak var prepTimeLabel: UILabel!
     @IBOutlet weak var findRecipeButton: UIButton!
-//    @IBOutlet weak var budgetPickerView: UIPickerView!
     var cuisineTitle: String = ""
     
-    var cuisinePickerData: [String] = []
-    var budgetPickerData: [String] = []
-    var pickerView = UIPickerView()
-    var currentTextField = UITextField()
+    var cuisinePickerData: [String] = ["Western", "Asian"]
+    var budgetPickerData: [String] = ["Expensive", "Average", "Budget Friendly"]
+    var prepTimePickerData: [String] = ["Quick", "Average", "Slow"]
+    //var pickerView = UIPickerView()
+    var budgetPickerView = UIPickerView()
+    var prepTimePickerView = UIPickerView()
+    var cuisinePickerView = UIPickerView()
+    //var currentTextField = UITextField()
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        // Do any additional setup after loading the view
+        budgetTextField.inputView = budgetPickerView
+        prepTimeTextField.inputView = prepTimePickerView
+        cuisineStyleTextField.inputView = cuisinePickerView
         
-        budgetPickerData = ["Expensive", "Average", "Budget friendly"]
-        cuisinePickerData = ["Western", "Asian"]
+        budgetPickerView.delegate = self
+        budgetPickerView.dataSource = self
+        prepTimePickerView.delegate = self
+        prepTimePickerView.dataSource = self
+        cuisinePickerView.delegate = self
+        cuisinePickerView.dataSource = self
+        
+        budgetPickerView.tag = 1
+        prepTimePickerView.tag = 2
+        cuisinePickerView.tag = 3
+        
         chosenCuisinLabel?.text = cuisineTitle
-        prepTimeLabel.text = "0 mins"
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        prepTimeLabel.text = "0 mins"
-        prepSlider.value = 0.0
         budgetTextField.text = ""
-        cuisineStyleTextField.text = cuisinePickerData[0]
+        cuisineStyleTextField.text = ""
+        prepTimeTextField.text = ""
     }
     
     @objc func dismissKeyboard() {
@@ -55,68 +66,98 @@ class FindRecipeViewController: UIViewController, UITextFieldDelegate, UIPickerV
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if currentTextField == budgetTextField {
+        switch pickerView.tag {
+        case 1:
             return budgetPickerData.count
-        }
-        
-        else if currentTextField == cuisineStyleTextField {
+            
+        case 2:
+            return prepTimePickerData.count
+            
+        case 3:
             return cuisinePickerData.count
-        }
-        
-        else {
-            return 0
+        default:
+            return 1
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if currentTextField == budgetTextField {
+        switch pickerView.tag {
+        case 1:
             return budgetPickerData[row]
-        }
-        
-        else if currentTextField == cuisineStyleTextField {
+        case 2:
+            return prepTimePickerData[row]
+        case 3:
             return cuisinePickerData[row]
-        }
-        
-        else {
+        default:
             return ""
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if currentTextField == budgetTextField {
+        switch pickerView.tag {
+        case 1:
             budgetTextField.text = budgetPickerData[row]
             self.view.endEditing(true)
-        }
-        
-        else if currentTextField == cuisineStyleTextField {
+        case 2:
+            prepTimeTextField.text = prepTimePickerData[row]
+            self.view.endEditing(true)
+        case 3:
             cuisineStyleTextField.text = cuisinePickerData[row]
+            self.view.endEditing(true)
+        default:
             self.view.endEditing(true)
         }
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        self.pickerView.delegate = self
-        self.pickerView.dataSource = self
-        currentTextField = textField
-        if currentTextField == budgetTextField {
-            currentTextField.inputView = pickerView
-        }
+    //func textFieldDidBeginEditing(_ textField: UITextField) {
+    //    self.pickerView.delegate = self
+    //    self.pickerView.dataSource = self
+    //    currentTextField = textField
         
-        else if currentTextField == cuisineStyleTextField {
-            currentTextField.inputView = pickerView
-        }
-    }
-    
-    @IBAction func prepSliderValueChanged(_ sender: UISlider) {
-        prepTimeLabel.text = String(format: "%i mins", Int(sender.value))
-    }
+    //    if currentTextField == budgetTextField {
+    //        currentTextField.inputView = pickerView
+    //    }
+            
+    //    else if currentTextField == prepTimeTextField {
+    //        currentTextField.inputView = pickerView
+    //    }
+        
+    //    else if currentTextField == cuisineStyleTextField {
+    //        currentTextField.inputView = pickerView
+    //    }
+    //}
     
     @IBAction func findRecipeButtonPressed(_ sender: Any) {
-        if (budgetTextField.text == "" || prepSlider.value == 0.0 || cuisineStyleTextField.text == "") {
-            let alert = UIAlertController(title: "There are missing field(s)", message: "You need to fill in all fields in order to move on to the next page", preferredStyle: UIAlertController.Style.alert)
+        if (budgetTextField.text == "" && prepTimeTextField.text == "" || budgetTextField.text == "" && cuisineStyleTextField.text == "" || prepTimeTextField.text == "" && prepTimeTextField.text == "" && cuisineStyleTextField.text == "")
+        {
+            let alert = UIAlertController(title: "There are missing field(s)", message: "Please field in all the missing fields.", preferredStyle: UIAlertController.Style.alert)
+                       
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                       
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        else if (budgetTextField.text == "") {
+            let alert = UIAlertController(title: "There is a missing field", message: "You have left the preferred budget textfield blank. Please state your preferred budget.", preferredStyle: UIAlertController.Style.alert)
             
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        else if (prepTimeTextField.text == "") {
+            let alert = UIAlertController(title: "There is a missing field", message: "Your preparation time should not be 0 mins.", preferredStyle: UIAlertController.Style.alert)
+                       
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                       
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        else if (cuisineStyleTextField.text == "") {
+            let alert = UIAlertController(title: "There is a missing field", message: "You have left he cuisine textfield blank. Please state your preferred cuisine.", preferredStyle: UIAlertController.Style.alert)
+                       
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                       
             self.present(alert, animated: true, completion: nil)
         }
     }
@@ -125,7 +166,7 @@ class FindRecipeViewController: UIViewController, UITextFieldDelegate, UIPickerV
         if (segue.destination is RecipeViewController) {
             let vc = segue.destination as? RecipeViewController
             vc?.budget = budgetTextField.text!
-            vc?.prepTime = prepTimeLabel.text!
+            vc?.prepTime = prepTimeTextField.text!
             vc?.chosenCuisine = "List of " + chosenCuisinLabel.text! + " recipes"
             vc?.cuisineStyle = cuisineStyleTextField.text!
         }

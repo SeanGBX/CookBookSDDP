@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Find Recipe View Controller-->
+        <!--Find Recipes-->
         <scene sceneID="dvM-l7-2Ut">
             <objects>
                 <viewController id="N5Z-Mb-7Lg" customClass="FindRecipeViewController" customModule="CookBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -76,37 +76,6 @@
                                     <outlet property="delegate" destination="N5Z-Mb-7Lg" id="pRx-dW-O67"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0 mins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rJB-k4-GlW">
-                                <rect key="frame" x="9" y="451" width="51" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="120 mins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fdd-ut-92T">
-                                <rect key="frame" x="341" y="450" width="69" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="120" translatesAutoresizingMaskIntoConstraints="NO" id="dM1-1y-1wj">
-                                <rect key="frame" x="19" y="416" width="376" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="minimumTrackTintColor" red="0.32983756199999997" green="0.075697716760000006" blue="0.59844559590000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="maximumTrackTintColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="thumbTintColor" red="0.32983756199999997" green="0.075697716760000006" blue="0.59844559590000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <action selector="prepSliderValueChanged:" destination="N5Z-Mb-7Lg" eventType="valueChanged" id="0mp-Ef-OJT"/>
-                                </connections>
-                            </slider>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L3H-tF-Bjf">
-                                <rect key="frame" x="175" y="387" width="121" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZIV-kL-FRT">
                                 <rect key="frame" x="117" y="756" width="192" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -120,21 +89,24 @@
                                     <segue destination="inI-Qc-krn" kind="show" id="SeI-Gc-Trr"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Quick/Average/Slow" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="j5K-O6-fdB">
+                                <rect key="frame" x="17" y="420" width="375" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="NXh-Rj-mrQ"/>
                     </view>
-                    <navigationItem key="navigationItem" id="GCq-Jh-lCc">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="Ic5-e5-etF"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Find Recipes" id="Ert-oD-0Rm"/>
                     <connections>
                         <outlet property="budgetTextField" destination="FIC-SQ-j19" id="y2d-XL-72o"/>
                         <outlet property="chosenCuisinLabel" destination="LDh-J7-rxk" id="Eot-YZ-PxW"/>
                         <outlet property="cuisineStlyeLabel" destination="xLe-W1-xOj" id="Eow-5a-Nda"/>
                         <outlet property="cuisineStyleTextField" destination="6JN-Ig-Ifb" id="aWJ-DX-ZMd"/>
                         <outlet property="findRecipeButton" destination="ZIV-kL-FRT" id="nGm-zE-qhJ"/>
-                        <outlet property="prepSlider" destination="dM1-1y-1wj" id="SEL-56-dev"/>
-                        <outlet property="prepTimeLabel" destination="L3H-tF-Bjf" id="r1e-gX-wlK"/>
+                        <outlet property="prepTimeTextField" destination="j5K-O6-fdB" id="QhM-sn-0aS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JWF-uA-L3d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
