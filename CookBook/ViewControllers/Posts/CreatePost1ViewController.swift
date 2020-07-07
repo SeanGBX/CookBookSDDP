@@ -20,11 +20,12 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
     var newID: String?
     
     var mealTypeData: [String] = [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Snack",
-        "Other"
+        "Main Course",
+        "Sauces & Sides",
+        "Drinks",
+        "Desserts",
+        "Appetizers",
+        "Snacks"
     ]
 
     override func viewDidLoad() {
@@ -82,7 +83,7 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
                return
         }
          
-        postItem = Posts(recipeName: "", username: "", mealType: "", likes: 0, healthy: 0, tagBudget: "", tagStyle: "", tagPrep: "", postImage: "")
+        postItem = Posts(recipeName: "", username: "", mealType: "", likes: 0, healthy: 0, tagBudget: "", tagStyle: "", tagPrep: "", postImage: "", postComplete: "0")
          
         postItem!.recipeName = createPostRecipeName.text!
         postItem!.postImage = "default"

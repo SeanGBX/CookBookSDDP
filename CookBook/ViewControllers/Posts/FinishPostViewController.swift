@@ -79,7 +79,7 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
     
     
     @IBAction func postRecipeButton(_ sender: Any) {
-        postItem = Posts(recipeName: "", username: "", mealType: "", likes: 0, healthy: 0, tagBudget: "", tagStyle: "", tagPrep: "", postImage: "")
+        postItem = Posts(recipeName: "", username: "", mealType: "", likes: 0, healthy: 0, tagBudget: "", tagStyle: "", tagPrep: "", postImage: "", postComplete: "1")
         
         let pickerRowBudget = budgetPicker.selectedRow(inComponent: 0)
         let selectedPickerTextBudget = budgetData[pickerRowBudget]

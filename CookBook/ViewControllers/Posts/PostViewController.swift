@@ -17,12 +17,12 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        loadPosts()
+        loadCompletePosts()
         self.navigationItem.setHidesBackButton(true, animated: true);
     }
     
-    func loadPosts(){
-        postsDataManager.loadPosts(){
+    func loadCompletePosts(){
+        postsDataManager.loadCompletePosts(){
             postListFromFirestore in
             self.postList = postListFromFirestore
             self.tableView.reloadData()

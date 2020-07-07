@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StepsCell: UITableViewCell {
+class StepCell: UITableViewCell {
 
     @IBOutlet weak var stepLabel: UILabel!
     

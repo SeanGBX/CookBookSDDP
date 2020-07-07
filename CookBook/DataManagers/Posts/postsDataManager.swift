@@ -36,6 +36,28 @@ class postsDataManager: NSObject {
         }
     }
     
+    static func loadCompletePosts(onComplete: (([Posts]) -> Void)?){
+        db.collection("posts").whereField("postComplete", isEqualTo: "1").getDocuments(){
+            
+            (querySnapshot, err) in
+            var postList : [Posts] = []
+            
+            if let err = err{
+                print("Error getting documents: \(err)")
+            }
+            else{
+                for document in querySnapshot!.documents{
+                    var post = try? document.data(as: Posts.self) as! Posts
+                    
+                    if post != nil{
+                        postList.append(post!)
+                    }
+                }
+            }
+            onComplete?(postList)
+        }
+    }
+    
     static func storePostID(_ ID: String) -> String {
         var selectedPost =
             try? db.collection("posts")
@@ -89,7 +111,8 @@ class postsDataManager: NSObject {
             .updateData([
                 "tagBudget": post.tagBudget,
                 "tagStyle": post.tagStyle,
-                "tagPrep": post.tagPrep
+                "tagPrep": post.tagPrep,
+                "postComplete": post.postComplete
                 ])
         {
             err in

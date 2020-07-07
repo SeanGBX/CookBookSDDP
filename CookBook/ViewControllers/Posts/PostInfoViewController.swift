@@ -20,6 +20,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var postItem: Posts?
     var ingredientList : [Ingredients] = []
+    var stepList : [Steps] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,11 +28,19 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         
     }
     
-    public func loadIngredients(){
+    func loadIngredients(){
         IngredientsDataManager.loadIngredients(postItem!.postId){
             ingredientFromFirestore in
             self.ingredientList = ingredientFromFirestore
             self.ingredientTable.reloadData()
+        }
+    }
+    
+    func loadSteps(){
+        stepsDataManager.loadSteps(postItem!.postId){
+            stepFromFirestore in
+            self.stepList = stepFromFirestore
+            self.stepTable.reloadData()
         }
     }
     
@@ -49,7 +58,11 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
 
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ingredientList.count
+        if (tableView === ingredientTable){
+            return ingredientList.count
+        } else {
+            return stepList.count
+        }
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
@@ -62,9 +75,9 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
             return cell
             
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "StepsCell", for: indexPath) as! StepsCell
-            let p = ingredientList[indexPath.row]
-            cell.stepLabel.text = p.ingredient
+            let cell = tableView.dequeueReusableCell(withIdentifier: "StepCell", for: indexPath) as! StepCell
+            let s = stepList[indexPath.row]
+            cell.stepLabel.text = "\(s.stepDesc.prefix(30))..."
             return cell
         }
     

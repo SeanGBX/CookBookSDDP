@@ -13,14 +13,24 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBOutlet weak var ingredientTableView: UITableView!
     
+    @IBOutlet weak var stepTableView: UITableView!
+    
     var ingredientItemList : [Ingredients] = []
+    var stepItemList: [Steps] = []
     var postID: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        stepsDataManager.insertStep(Steps(
+            postId: postID!,
+            stepDesc: "example description hopefully this crosses 30 dfgdgfdgdfgdfg"
+        ))
+        
         print("---->\(self.postID!)")
         self.navigationItem.setHidesBackButton(true, animated: true);
         loadIngredients()
+        loadSteps()
     }
     
     func loadIngredients(){
@@ -31,16 +41,35 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
+    func loadSteps(){
+        stepsDataManager.loadSteps(self.postID!){
+            stepListFromFirestore in
+            self.stepItemList = stepListFromFirestore
+            self.stepTableView.reloadData()
+        }
+    }
+    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ingredientItemList.count
+        if (tableView === ingredientTableView){
+            return ingredientItemList.count
+        } else {
+            return stepItemList.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientItemCell", for: indexPath) as! IngredientItemCell
-        let p = ingredientItemList[indexPath.row]
-        cell.IngredientItemLabel.text = "\(p.ingredient) - \(p.measureVal) \(p.measureType)"
-        cell.ingredientItemImage.image = UIImage(named: p.ingredientImage)
-        return cell
+        if (tableView === ingredientTableView){
+            let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientItemCell", for: indexPath) as! IngredientItemCell
+            let p = ingredientItemList[indexPath.row]
+            cell.IngredientItemLabel.text = "\(p.ingredient) - \(p.measureVal) \(p.measureType)"
+            cell.ingredientItemImage.image = UIImage(named: p.ingredientImage)
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "StepItemCell", for: indexPath) as! StepItemCell
+            let s = stepItemList[indexPath.row]
+            cell.stepItemLabel.text = "\(s.stepDesc.prefix(30))..."
+            return cell
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -19,9 +19,10 @@ class Posts: NSObject, Codable {
     var tagStyle: String
     var tagPrep: String
     var postImage: String
+    var postComplete: String
     var postId: String
     
-    init (recipeName: String, username: String, mealType: String, likes: Int, healthy: Int, tagBudget: String, tagStyle: String, tagPrep: String, postImage: String, postId: String = "")
+    init (recipeName: String, username: String, mealType: String, likes: Int, healthy: Int, tagBudget: String, tagStyle: String, tagPrep: String, postImage: String, postComplete: String, postId: String = "")
     {
         self.recipeName = recipeName
         self.username = username
@@ -32,6 +33,7 @@ class Posts: NSObject, Codable {
         self.tagPrep = tagPrep
         self.tagStyle = tagStyle
         self.postImage = postImage
+        self.postComplete = postComplete
         self.postId = postId
     }
     
