@@ -20,12 +20,10 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var postItem: Posts?
     var ingredientList : [Ingredients] = []
-    var stepList : [Steps] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         loadIngredients()
-        loadSteps()
     }
     
     func loadIngredients(){
@@ -33,14 +31,6 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
             ingredientFromFirestore in
             self.ingredientList = ingredientFromFirestore
             self.ingredientTable.reloadData()
-        }
-    }
-    
-    func loadSteps(){
-        stepsDataManager.loadSteps(postItem!.postId){
-            stepFromFirestore in
-            self.stepList = stepFromFirestore
-            self.stepTable.reloadData()
         }
     }
     
@@ -58,27 +48,27 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
 
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (tableView == ingredientTable){
-            return ingredientList.count
-        } else if (tableView == stepTable){
-            return stepList.count
-        } else {
-            return 0
-        }
+        return ingredientList.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
         if (tableView == ingredientTable) {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientCell", for: indexPath) as! IngredientCell
             let p = ingredientList[indexPath.row]
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientCell", for: indexPath) as! IngredientCell
+            
             cell.ingredientLabel.text = "\(p.ingredient) - \(p.measureVal) \(p.measureType)"
+            
             cell.ingredientImage.image = UIImage(named: p.ingredientImage)
+            
             return cell
         } else if (tableView == stepTable){
             let cell = tableView.dequeueReusableCell(withIdentifier: "StepCell", for: indexPath) as! StepCell
-            let s = stepList[indexPath.row]
-            cell.stepLabel.text = "\(s.stepDesc.prefix(30))..."
+            let s = ingredientList[indexPath.row]
+            print("---->\(s.step)")
+            cell.stepLabel.text = "\(s.step.prefix(30))..."
+            
             return cell
         } else {
             return UITableViewCell()

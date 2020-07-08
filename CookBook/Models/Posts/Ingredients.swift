@@ -12,20 +12,22 @@ class Ingredients: NSObject, Codable {
 
     var postId: String
     var ingredient: String
+    var step: String
     var measureVal: Int
     var measureType: String
     var ingredientImage: String
-    var ingredientId: String
+    var ingredientStepId: String
     
     
-    init (postId: String,  ingredient: String, ingredientImage: String, measureVal: Int, measureType: String,ingredientId: String = "")
+    init (postId: String,  ingredient: String, step: String, ingredientImage: String, measureVal: Int, measureType: String, ingredientStepId: String = "")
     {
         self.ingredient = ingredient
+        self.step = step
         self.postId = postId
         self.measureVal = measureVal
         self.measureType = measureType
         self.ingredientImage = ingredientImage
-        self.ingredientId = ingredientId
+        self.ingredientStepId = ingredientStepId
     }
     
 }

@@ -48,10 +48,10 @@ class IngredientsDataManager: NSObject {
     static func insertIngredient(_ ingredient: Ingredients){
         var addedDocument = try? db.collection("ingredients").addDocument(from: ingredient, encoder: Firestore.Encoder())
         
-        ingredient.ingredientId = String(addedDocument?.documentID ?? "")
+        ingredient.ingredientStepId = String(addedDocument?.documentID ?? "")
 
         try? db.collection("ingredients")
-            .document(String(ingredient.ingredientId))
+            .document(String(ingredient.ingredientStepId))
             .setData(from: ingredient, encoder: Firestore.Encoder())
         {
             err in
@@ -66,7 +66,7 @@ class IngredientsDataManager: NSObject {
     
     static func editIngredient(_ ingredient: Ingredients){
         try? db.collection("ingredients")
-            .document(ingredient.ingredientId)
+            .document(ingredient.ingredientStepId)
             .setData(from: ingredient, encoder: Firestore.Encoder())
         {
             err in
@@ -80,7 +80,7 @@ class IngredientsDataManager: NSObject {
     }
 
     static func deleteIngredient (ingredient: Ingredients){
-        try? db.collection("ingredient").document(ingredient.ingredientId).delete() {
+        try? db.collection("ingredient").document(ingredient.ingredientStepId).delete() {
             err in
 
             if let err = err {
@@ -93,7 +93,7 @@ class IngredientsDataManager: NSObject {
     
     static func deleteIngredientByPost (ingredients: [Ingredients]){
         for i in ingredients {
-            db.collection("ingredients").document(i.ingredientId).delete(){
+            db.collection("ingredients").document(i.ingredientStepId).delete(){
                 err in
 
                 if let err = err {
