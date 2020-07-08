@@ -34,8 +34,20 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @objc private func didTapComposeButton(){
         let vc = NewConversationViewController()
+        vc.completion = { [weak self] result in
+            print(result)
+            self?.createNewConversation(result: result)
+        }
         let navVC = UINavigationController(rootViewController: vc)
         present(navVC, animated: true)
+    }
+    
+    private func createNewConversation(result: Friend){
+        let vc = FriendDetailViewController()
+        vc.friendItem = result
+        vc.isNewConversation = true
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

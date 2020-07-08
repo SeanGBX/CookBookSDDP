@@ -8,6 +8,7 @@
 
 import UIKit
 import MessageKit
+import InputBarAccessoryView
 
 struct Sender: SenderType {
     var photoURL: String
@@ -36,7 +37,17 @@ struct Media: MediaItem {
 
 
 class FriendDetailViewController: MessagesViewController, MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate{
-
+    
+    public static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .long
+        formatter.locale = .current
+        return formatter
+    }()
+    
+    public var isNewConversation = false
+    
     var friendItem : Friend?
     
     let currentUser = Sender(photoURL:"default", senderId: "self", displayName: "Me")
@@ -49,31 +60,41 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
         super.viewDidLoad()
         otherUser.displayName = friendItem!.friendName
         otherUser.photoURL = friendItem!.imageName
-        messages.append(Message(
-            sender: currentUser,
-            messageId: "1",
-            sentDate: Date().addingTimeInterval(-70400),
-            kind: .text("Hello!")
-        ))
-        messages.append(Message(
-                   sender: otherUser,
-                   messageId: "2",
-                   sentDate: Date().addingTimeInterval(-70000),
-                   kind: .photo(Media(url: nil, image: UIImage(named: friendItem?.imageName as! String)!, placeholderImage: UIImage(named: friendItem?.imageName as! String)!, size: CGSize(width: 250, height: 250)))
-               ))
+        
+        if !isNewConversation{
+            messages.append(Message(
+                sender: currentUser,
+                messageId: "1",
+                sentDate: Date().addingTimeInterval(-70400),
+                kind: .text("Hello!")
+            ))
+            messages.append(Message(
+                       sender: otherUser,
+                       messageId: "2",
+                       sentDate: Date().addingTimeInterval(-70000),
+                       kind: .photo(Media(url: nil, image: UIImage(named: friendItem?.imageName as! String)!, placeholderImage: UIImage(named: friendItem?.imageName as! String)!, size: CGSize(width: 250, height: 250)))
+                   ))
 
-        messages.append(Message(
-            sender: otherUser,
-            messageId: "3",
-            sentDate: Date().addingTimeInterval(-66400),
-            kind: .text(friendItem!.friendText)
-        ))
+            messages.append(Message(
+                sender: otherUser,
+                messageId: "3",
+                sentDate: Date().addingTimeInterval(-66400),
+                kind: .text(friendItem!.friendText)
+            ))
+        }
+        
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
-        
-        
+        messageInputBar.delegate = self
+
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        messageInputBar.inputTextView.becomeFirstResponder()
+    }
+    
     
     func currentSender() -> SenderType {
         return currentUser
@@ -102,4 +123,40 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     }
     */
 
+}
+
+extension FriendDetailViewController: InputBarAccessoryViewDelegate {
+    func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
+        guard !text.replacingOccurrences(of: " ", with: "").isEmpty else {
+            return
+        }
+        
+        print("Sending: \(text)")
+        
+        if isNewConversation {
+            let message =  Message(sender: currentUser, messageId: createMessageId()!, sentDate: Date(), kind: .text(text))
+            chatDataManager.init().createNewConversation(with: friendItem!.friendId, firstMessage: message, completion: {success in
+                if success {
+                print("Message Sent")
+                }
+                else{
+                print("Failed to send")
+                }
+            })
+        }
+        else{
+            
+        }
+    }
+    
+    private func createMessageId() -> String? {
+       
+        guard let currentId = friendItem?.friendId else {
+            return nil
+        }
+        let dateString = Self.dateFormatter.string(from: Date())
+        let newIdentifier = "\(friendItem?.friendId)_CurrentUserId_\(dateString)"
+        print(dateString)
+        return newIdentifier
+    }
 }

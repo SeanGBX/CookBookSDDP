@@ -6,6 +6,7 @@
 //  Copyright © 2020 ITP312T3. All rights reserved.
 //
 import UIKit
+import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
@@ -35,7 +36,7 @@ class chatDataManager: NSObject {
     }
     
     static func insertOrReplaceChat(_ friend: Friend) {
-        try? db.collection("friends") .document(friend.friendId)
+        try? db.collection("friends").document(friend.friendId)
             .setData(from: friend, encoder: Firestore.Encoder()) {
                 err in
                 if let err = err {
@@ -61,6 +62,26 @@ class chatDataManager: NSObject {
             }
             
         }
+    }
+    
+    
+}
+
+extension chatDataManager{
+    public func createNewConversation(with otherFriendId: String, firstMessage: Message, completion: @escaping (Bool) -> Void){
+        
+    }
+    
+    public func getAllConversation(for friendId: String, completion: @escaping (Result<String, Error>) -> Void){
+        
+    }
+    
+    public func getAllMessagesForConversation(with id: String, coompletion: @escaping (Result<String, Error>) -> Void){
+        
+    }
+    
+    public func sendMessage(to conversation: String, message:Message, completion: @escaping (Bool) -> Void){
+        
     }
     
 }
