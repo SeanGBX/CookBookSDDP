@@ -14,21 +14,52 @@ class RecipeViewController: UIViewController {
     @IBOutlet weak var prepTimeLabel: UILabel!
     @IBOutlet weak var cuisineStyleLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var recipeTableView: UITableView!
     var chosenCuisine: String = ""
-    var budget: String = ""
-    var prepTime: String = ""
-    var cuisineStyle: String = ""
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        budgetLabel?.text = budget
-        prepTimeLabel?.text = prepTime
-        titleLabel?.text = chosenCuisine.capitalized
-        cuisineStyleLabel?.text = cuisineStyle
+        var budget: String = ""
+        var prepTime: String = ""
+        var cuisineStyle: String = ""
+        var recipeList: [Posts] = []
+        
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            budgetLabel?.text = budget
+            prepTimeLabel?.text = prepTime
+            titleLabel?.text = chosenCuisine.capitalized
+            cuisineStyleLabel?.text = cuisineStyle
+            loadRecipes()
+            print(">> \(recipeList)")
 
-        // Do any additional setup after loading the view.
-    }
-    
+            // Do any additional setup after loading the view.
+        }
+        
+        func loadRecipes() {
+    //        RecipeDataManager.loadRecipes() {
+    //            recipeListFromFirestore in
+    //            self.recipeList = recipeListFromFirestore
+    //
+    //            self.recipeTableView.reloadData()
+    //        }
+            
+            postsDataManager.loadPosts(){
+                postListFromFirestore in
+                self.recipeList = postListFromFirestore
+                self.recipeTableView.reloadData()
+            }
+        }
+        
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return recipeList.count
+        }
+        
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeCell
+            
+            let recipe = recipeList[indexPath.row]
+            cell.recipeTitleLabel.text = recipe.recipeName
+            
+            return cell
+        }
 
     /*
     // MARK: - Navigation
