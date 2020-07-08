@@ -36,7 +36,6 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("xxxxxx\(postID!)")
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
 
@@ -123,15 +122,11 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         
         if (segueIdentifier! == "AddIngredient"){
             IngredientsDataManager.insertIngredient(ingredientItem!)
-            
-            print("ppppp added")
         }
         else{
             IngredientsDataManager.editIngredient(ingredientItem!)
-            print("ppppp edited")
         }
         
-        print("----->\(self.postID!)")
         vc.postID = self.postID!
         vc.loadIngredients()
         self.show(vc, sender: self)
@@ -148,7 +143,6 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
             let vc = storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
         
             IngredientsDataManager.deleteIngredient(ingredient: ingredientItem!)
-            print("ppppp deleted")
             self.show(vc, sender: self)
         }
     }

@@ -22,12 +22,6 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        stepsDataManager.insertStep(Steps(
-            postId: postID!,
-            stepDesc: "example description hopefully this crosses 30 dfgdgfdgdfgdfg"
-        ))
-        
-        print("---->\(self.postID!)")
         self.navigationItem.setHidesBackButton(true, animated: true);
         loadIngredients()
         loadSteps()
@@ -50,25 +44,29 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (tableView === ingredientTableView){
+        if (tableView == ingredientTableView){
             return ingredientItemList.count
-        } else {
+        } else if (tableView == stepTableView){
             return stepItemList.count
+        } else {
+            return 0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (tableView === ingredientTableView){
+        if (tableView == ingredientTableView){
             let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientItemCell", for: indexPath) as! IngredientItemCell
             let p = ingredientItemList[indexPath.row]
             cell.IngredientItemLabel.text = "\(p.ingredient) - \(p.measureVal) \(p.measureType)"
             cell.ingredientItemImage.image = UIImage(named: p.ingredientImage)
             return cell
-        } else {
+        } else if (tableView == stepTableView){
             let cell = tableView.dequeueReusableCell(withIdentifier: "StepItemCell", for: indexPath) as! StepItemCell
             let s = stepItemList[indexPath.row]
             cell.stepItemLabel.text = "\(s.stepDesc.prefix(30))..."
             return cell
+        } else {
+            return UITableViewCell()
         }
     }
     
