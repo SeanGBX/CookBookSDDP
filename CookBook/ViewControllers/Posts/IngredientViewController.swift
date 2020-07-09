@@ -12,7 +12,7 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBOutlet weak var ingredientTableView: UITableView!
     
-    var ingredientItemList : [Ingredients] = []
+    var ingredientItemList : [IngredientSteps] = []
     var postID: String?
 
     override func viewDidLoad() {
@@ -62,7 +62,7 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
                 IngredientInfoViewController
             ingredientInfoViewController.postID = self.postID
             ingredientInfoViewController.segueIdentifier = segue.identifier
-            let ingredient = Ingredients(postId: "", ingredient: "", step: "", ingredientImage: "default", measureVal: 0, measureType: "")
+            let ingredient = IngredientSteps(postId: "", ingredient: "", step: "", ingredientImage: "default", measureVal: 0, measureType: "")
             ingredientInfoViewController.ingredientItem = ingredient
         }
     }

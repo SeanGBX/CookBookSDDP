@@ -14,18 +14,18 @@ class IngredientsDataManager: NSObject {
     
     static let db = Firestore.firestore()
     
-    static func loadIngredients(_ ingredientID: String, onComplete: (([Ingredients]) -> Void)?){
+    static func loadIngredients(_ ingredientID: String, onComplete: (([IngredientSteps]) -> Void)?){
         db.collection("ingredients").whereField("postId", isEqualTo: ingredientID).getDocuments(){
             
             (querySnapshot, err) in
-            var ingredientList : [Ingredients] = []
+            var ingredientList : [IngredientSteps] = []
             
             if let err = err{
                 print("Error getting documents: \(err)")
             }
             else{
                 for document in querySnapshot!.documents{
-                    var ingredient = try? document.data(as: Ingredients.self) as! Ingredients
+                    var ingredient = try? document.data(as: IngredientSteps.self) as! IngredientSteps
                     
                     if ingredient != nil{
                         ingredientList.append(ingredient!)
@@ -45,7 +45,7 @@ class IngredientsDataManager: NSObject {
         return selectedID!
     }
     
-    static func insertIngredient(_ ingredient: Ingredients){
+    static func insertIngredient(_ ingredient: IngredientSteps){
         var addedDocument = try? db.collection("ingredients").addDocument(from: ingredient, encoder: Firestore.Encoder())
         
         ingredient.ingredientStepId = String(addedDocument?.documentID ?? "")
@@ -64,7 +64,7 @@ class IngredientsDataManager: NSObject {
         }
     }
     
-    static func editIngredient(_ ingredient: Ingredients){
+    static func editIngredient(_ ingredient: IngredientSteps){
         try? db.collection("ingredients")
             .document(ingredient.ingredientStepId)
             .setData(from: ingredient, encoder: Firestore.Encoder())
@@ -79,7 +79,7 @@ class IngredientsDataManager: NSObject {
         }
     }
 
-    static func deleteIngredient (ingredient: Ingredients){
+    static func deleteIngredient (ingredient: IngredientSteps){
         try? db.collection("ingredient").document(ingredient.ingredientStepId).delete() {
             err in
 
@@ -91,7 +91,7 @@ class IngredientsDataManager: NSObject {
         }
     }
     
-    static func deleteIngredientByPost (ingredients: [Ingredients]){
+    static func deleteIngredientByPost (ingredients: [IngredientSteps]){
         for i in ingredients {
             db.collection("ingredients").document(i.ingredientStepId).delete(){
                 err in

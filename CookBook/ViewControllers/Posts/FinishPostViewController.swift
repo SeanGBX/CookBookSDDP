@@ -24,7 +24,7 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
     var postID: String?
     var postItem: Posts?
     var selectedPost: Posts?
-    var ingredientList: [Ingredients]?
+    var ingredientList: [IngredientSteps]?
     
     var budgetData : [String] = ["Cheap","Moderately-priced","Expensive"]
     var cookStyleData : [String] = ["Asian", "Western", "Mexican", "Middle-Eastern"]

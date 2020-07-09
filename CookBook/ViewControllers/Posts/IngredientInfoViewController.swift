@@ -20,7 +20,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
     @IBOutlet weak var enableIngredientSwitch: UISwitch!
     @IBOutlet weak var enableIngredientLabel: UILabel!
     
-    var ingredientItem: Ingredients?
+    var ingredientItem: IngredientSteps?
     var postID: String?
     var segueIdentifier: String?
     

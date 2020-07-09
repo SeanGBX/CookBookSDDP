@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Ingredients: NSObject, Codable {
+class IngredientSteps: NSObject, Codable {
 
     var postId: String
     var ingredient: String

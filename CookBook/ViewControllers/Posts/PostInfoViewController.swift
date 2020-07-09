@@ -19,7 +19,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var postInfoTags: UILabel!
     
     var postItem: Posts?
-    var ingredientList : [Ingredients] = []
+    var ingredientList : [IngredientSteps] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
