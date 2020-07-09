@@ -588,7 +588,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5HG-FC-h8U">
                                                 <rect key="frame" x="0.0" y="566" width="414" height="47"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add ingredient" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ckn-IL-Xzo">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add ingredient:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ckn-IL-Xzo">
                                                         <rect key="frame" x="10" y="8" width="155" height="31"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                         <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
@@ -649,6 +649,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addEditIngredientButton" destination="nT8-7e-YjU" id="ghc-3S-IQO"/>
+                        <outlet property="enableIngredientLabel" destination="Ckn-IL-Xzo" id="6pn-iX-UxC"/>
                         <outlet property="enableIngredientSwitch" destination="xTf-1J-ZcT" id="gxh-uN-9Ci"/>
                         <outlet property="ingredientInfoImage" destination="m5t-gT-b3v" id="9Pl-B2-udT"/>
                         <outlet property="ingredientInfoMeasureType" destination="AAd-iv-std" id="wUq-rE-yWG"/>

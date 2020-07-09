@@ -18,6 +18,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
     @IBOutlet weak var addEditIngredientButton: UIButton!
     @IBOutlet weak var stepInfo: UITextField!
     @IBOutlet weak var enableIngredientSwitch: UISwitch!
+    @IBOutlet weak var enableIngredientLabel: UILabel!
     
     var ingredientItem: Ingredients?
     var postID: String?
@@ -64,9 +65,11 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         
             print("--->\(segueIdentifier!)")
             if (segueIdentifier! == "EditIngredient"){
+                enableIngredientSwitch.isEnabled = false
+                enableIngredientSwitch.isHidden = true
+                enableIngredientLabel.isHidden = true
                 if (ingredientItem!.ingredient != "") {
                     enableIngredientSwitch.isOn = true
-                    enableIngredientSwitch.isEnabled = false
                     
                     ingredientInfoMeasureVal.isHidden = false
                     ingredientInfoMeasureType.isHidden = false
