@@ -36,6 +36,52 @@ class IngredientsDataManager: NSObject {
         }
     }
     
+    static func loadOnlySteps(_ ingredientID: String, onComplete: (([String]) -> Void)?){
+        db.collection("ingredients").whereField("postId", isEqualTo: ingredientID).getDocuments(){
+            
+            (querySnapshot, err) in
+            var ingredientList : [String] = []
+            
+            if let err = err{
+                print("Error getting documents: \(err)")
+            }
+            else{
+                for document in querySnapshot!.documents{
+                    var ingredient = try? document.data(as: IngredientSteps.self) as! IngredientSteps
+                    
+                    if ingredient != nil{
+                        ingredientList.append(ingredient!.step)
+                    }
+                }
+            }
+            onComplete?(ingredientList)
+        }
+    }
+    
+    static func loadCompleteIngredients(_ ingredientID: String, onComplete: (([IngredientSteps]) -> Void)?){
+        db.collection("ingredients").whereField("postId", isEqualTo: ingredientID).getDocuments(){
+            
+            (querySnapshot, err) in
+            var ingredientList : [IngredientSteps] = []
+            
+            if let err = err{
+                print("Error getting documents: \(err)")
+            }
+            else{
+                for document in querySnapshot!.documents{
+                    var ingredient = try? document.data(as: IngredientSteps.self) as! IngredientSteps
+                    
+                    if ingredient != nil{
+                        if (ingredient!.ingredient != ""){
+                            ingredientList.append(ingredient!)
+                        }
+                    }
+                }
+            }
+            onComplete?(ingredientList)
+        }
+    }
+    
     static func storeIngredientID(_ ID: String) -> String {
         var selectedIngredient =
             try? db.collection("ingredients")
@@ -60,6 +106,7 @@ class IngredientsDataManager: NSObject {
                 print("Error adding document: \(err)")
             } else {
                 print("Document successfully added")
+
             }
         }
     }
@@ -79,8 +126,8 @@ class IngredientsDataManager: NSObject {
         }
     }
 
-    static func deleteIngredient (ingredient: IngredientSteps){
-        try? db.collection("ingredient").document(ingredient.ingredientStepId).delete() {
+    static func deleteIngredient (_ ingredientID: String){
+        try? db.collection("ingredients").document(ingredientID).delete() {
             err in
 
             if let err = err {

@@ -23,6 +23,8 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
     var ingredientItem: IngredientSteps?
     var postID: String?
     var segueIdentifier: String?
+    var ingredientIndex: Int?
+    var ingredientID: String?
     
     var measurementTypeData : [String] = [
         "ml",
@@ -142,7 +144,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         
         if (enableIngredientSwitch.isOn == true){
             ingredientItem!.ingredient = ingredientInfoName.text!
-            ingredientItem!.ingredientImage = "default"
+            ingredientItem!.ingredientImage = "implement image"
             ingredientItem!.measureVal = measureValue != nil ? measureValue! : 0
             
             let pickerRow = ingredientInfoMeasureType.selectedRow(inComponent: 0)
@@ -150,9 +152,9 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
             ingredientItem!.measureType = selectedPickerText
             
         } else {
-            ingredientItem!.ingredient = ingredientInfoName.text!
+            ingredientItem!.ingredient = ""
             ingredientItem!.ingredientImage = ""
-            ingredientItem!.measureVal = measureValue != nil ? measureValue! : 0
+            ingredientItem!.measureVal = 0
             ingredientItem!.measureType = "ml"
         }
         
@@ -175,13 +177,14 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
     @IBAction func deleteIngredient(_ sender: Any) {
         if (segueIdentifier! == "AddIngredient"){
             let vc = storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
-            
+            vc.postID = self.postID!
             self.show(vc, sender: self)
         }
         else{
             let vc = storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
-        
-            IngredientsDataManager.deleteIngredient(ingredient: ingredientItem!)
+            
+            IngredientsDataManager.deleteIngredient( ingredientItem!.ingredientStepId)
+            vc.postID = self.postID!
             self.show(vc, sender: self)
         }
     }

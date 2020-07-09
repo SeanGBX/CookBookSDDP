@@ -218,7 +218,7 @@
             </objects>
             <point key="canvasLocation" x="735" y="-1058"/>
         </scene>
-        <!--Create Recipe-->
+        <!--Steps & Ingredients-->
         <scene sceneID="Mon-tr-xjA">
             <objects>
                 <viewController storyboardIdentifier="IngredientViewController" id="zzG-6W-fFu" customClass="IngredientViewController" customModule="CookBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -325,7 +325,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="j2H-3c-eCF"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Create Recipe" id="0FX-dR-sCr">
+                    <navigationItem key="navigationItem" title="Steps &amp; Ingredients" id="0FX-dR-sCr">
                         <rightBarButtonItems>
                             <barButtonItem systemItem="stop" id="tf1-38-hy6">
                                 <connections>
@@ -347,7 +347,7 @@
             </objects>
             <point key="canvasLocation" x="1642" y="-1048"/>
         </scene>
-        <!--Create Recipe-->
+        <!--Post Recipe-->
         <scene sceneID="hrk-hl-aAD">
             <objects>
                 <viewController storyboardIdentifier="FinishPostViewController" id="UA6-YX-OCa" customClass="FinishPostViewController" customModule="CookBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -494,7 +494,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="JWZ-nP-yU3"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Create Recipe" id="vmI-mc-ucA">
+                    <navigationItem key="navigationItem" title="Post Recipe" id="vmI-mc-ucA">
                         <barButtonItem key="rightBarButtonItem" systemItem="stop" id="xkX-DU-PUr">
                             <connections>
                                 <action selector="cancelPostCreate:" destination="UA6-YX-OCa" id="g1N-GV-KgT"/>
@@ -513,7 +513,7 @@
             </objects>
             <point key="canvasLocation" x="2477" y="-1048"/>
         </scene>
-        <!--Add/Edit Ingredient-->
+        <!--Add/Edit Steps-->
         <scene sceneID="ncX-5m-dNk">
             <objects>
                 <viewController id="nQw-w4-PDj" customClass="IngredientInfoViewController" customModule="CookBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -640,7 +640,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="OCI-wK-HBH"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Add/Edit Ingredient" id="Ner-gT-TkV">
+                    <navigationItem key="navigationItem" title="Add/Edit Steps" id="Ner-gT-TkV">
                         <barButtonItem key="rightBarButtonItem" systemItem="trash" id="B08-Bk-OIN">
                             <connections>
                                 <action selector="deleteIngredient:" destination="nQw-w4-PDj" id="Dyv-Rk-i6c"/>
