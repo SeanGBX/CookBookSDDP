@@ -65,6 +65,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
         if !isNewConversation{
             otherUser.displayName = convItems!.otherUserName
             otherUser.photoURL = convItems!.imageName
+            self.navigationItem.title = convItems?.otherUserName
             messages.append(Message(
                 sender: otherUser,
                 messageId: "1",
@@ -86,6 +87,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
             messageList = convItems!.messages
         }
         else{
+            
             otherUser.displayName = friendList!.friendName
             otherUser.photoURL = friendList!.imageName
             self.navigationItem.title = friendList?.friendName
@@ -118,7 +120,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationItem.title = convItems?.otherUserName
+        
     }
 
     /*
@@ -157,7 +159,16 @@ extension FriendDetailViewController: InputBarAccessoryViewDelegate {
             chatDataManager.init().createNewConversation(with: friendList!.friendId, friend: friendList!, firstMessage: message, textMessage: text, completion: {success in
                 if success {
                     print("Message Sent")
-
+                    self.messages = []
+                    self.messages.append(
+                        Message(
+                            sender: self.currentUser,
+                            messageId: "\(self.messageList.count + 1)",
+                            sentDate: Date(),
+                            kind: .text(text)
+                    ))
+                    self.viewDidLoad()
+                    self.messagesCollectionView.reloadData()
                 }
                 else{
                     print("Failed to send")
@@ -172,7 +183,7 @@ extension FriendDetailViewController: InputBarAccessoryViewDelegate {
             ])
             messages.append(Message(
                 sender: currentUser,
-                messageId: "\(messageList.count)",
+                messageId: "\(messageList.count + 1)",
                 sentDate: Date(),
                 kind: .text(text)
             ))

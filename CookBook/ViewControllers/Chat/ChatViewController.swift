@@ -37,7 +37,11 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(didTapComposeButton))
         self.navigationItem.title = "Messages"
+        loadChat()
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         loadChat()
     }
     
@@ -57,7 +61,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     @objc private func didTapComposeButton(){
         let vc = NewConversationViewController()
         vc.completion = { [weak self] result in
-            print(result)
+            print(result.friendName)
             self?.createNewConversation(result: result)
         }
         let navVC = UINavigationController(rootViewController: vc)
