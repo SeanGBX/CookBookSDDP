@@ -52,6 +52,7 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
             ingredientInfoViewController.segueIdentifier = segue.identifier
             
             if (ingIndexPath != nil){
+                ingredientInfoViewController.ingredientIndex = ingIndexPath!.row
                 let ingredient = ingredientItemList[ingIndexPath!.row]
                 ingredientInfoViewController.ingredientItem = ingredient
             }
@@ -69,11 +70,32 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBAction func proceedToSteps(_ sender: Any) {
         
-        let vc = storyboard?.instantiateViewController(identifier: "FinishPostViewController") as! FinishPostViewController
+        if (ingredientItemList == []){
+            
+           let alert = UIAlertController(
+               title: "Please add at least 1 step",
+               message: "",
+               preferredStyle: .alert
+           )
+            
+           alert.addAction(
+               UIAlertAction(
+                   title: "OK",
+                   style: .default,
+                   handler: nil)
+           )
         
-        vc.postID = self.postID!
-        vc.ingredientList = ingredientItemList
-        self.show(vc, sender: self)
+           self.present(alert, animated: true, completion: nil)
+            
+           return
+            
+        } else {
+            let vc = storyboard?.instantiateViewController(identifier: "FinishPostViewController") as! FinishPostViewController
+            
+            vc.postID = self.postID!
+            vc.ingredientList = ingredientItemList
+            self.show(vc, sender: self)
+        }
     }
     
     

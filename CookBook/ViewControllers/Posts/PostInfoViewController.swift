@@ -20,17 +20,27 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var postItem: Posts?
     var ingredientList : [IngredientSteps] = []
+    var stepList : [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         loadIngredients()
+        loadSteps()
     }
     
     func loadIngredients(){
-        IngredientsDataManager.loadIngredients(postItem!.postId){
+        IngredientsDataManager.loadCompleteIngredients(postItem!.postId){
             ingredientFromFirestore in
             self.ingredientList = ingredientFromFirestore
             self.ingredientTable.reloadData()
+        }
+    }
+    
+    func loadSteps(){
+        IngredientsDataManager.loadOnlySteps(postItem!.postId){
+            stepFromFirestore in
+            self.stepList = stepFromFirestore
+            self.stepTable.reloadData()
         }
     }
     
@@ -48,15 +58,21 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
 
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ingredientList.count
+        if (tableView == ingredientTable) {
+            return ingredientList.count
+        } else if (tableView == stepTable) {
+            return stepList.count
+        } else {
+            return 0
+        }
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
         if (tableView == ingredientTable) {
-            let p = ingredientList[indexPath.row]
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientCell", for: indexPath) as! IngredientCell
+                let p = ingredientList[indexPath.row]
+                
+                let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientCell", for: indexPath) as! IngredientCell
             
             cell.ingredientLabel.text = "\(p.ingredient) - \(p.measureVal) \(p.measureType)"
             
@@ -65,9 +81,9 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
             return cell
         } else if (tableView == stepTable){
             let cell = tableView.dequeueReusableCell(withIdentifier: "StepCell", for: indexPath) as! StepCell
-            let s = ingredientList[indexPath.row]
-            print("---->\(s.step)")
-            cell.stepLabel.text = "\(s.step.prefix(30))..."
+            let s = stepList[indexPath.row]
+            print("---->\(s)")
+            cell.stepLabel.text = "\(s.prefix(30))..."
             
             return cell
         } else {

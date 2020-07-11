@@ -8,7 +8,20 @@
 
 import UIKit
 
-class RecipeViewController: UIViewController {
+class RecipeViewController: UIViewController,  UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return recipeList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeCell
+        
+        let recipe = recipeList[indexPath.row]
+        cell.recipeTitleLabel.text = recipe.recipeName
+        
+        return cell
+    }
+    
     
     @IBOutlet weak var budgetLabel: UILabel!
     @IBOutlet weak var prepTimeLabel: UILabel!
@@ -27,39 +40,42 @@ class RecipeViewController: UIViewController {
             prepTimeLabel?.text = prepTime
             titleLabel?.text = chosenCuisine.capitalized
             cuisineStyleLabel?.text = cuisineStyle
+            recipeTableView.delegate = self
+            recipeTableView.dataSource = self
             loadRecipes()
-            print(">> \(recipeList)")
 
             // Do any additional setup after loading the view.
         }
         
         func loadRecipes() {
-    //        RecipeDataManager.loadRecipes() {
-    //            recipeListFromFirestore in
-    //            self.recipeList = recipeListFromFirestore
-    //
-    //            self.recipeTableView.reloadData()
-    //        }
-            
-            postsDataManager.loadPosts(){
-                postListFromFirestore in
-                self.recipeList = postListFromFirestore
+            RecipeDataManager.loadRecipes() {
+                recipeListFromFirestore in
+                self.recipeList = recipeListFromFirestore
+
                 self.recipeTableView.reloadData()
             }
+            
+//            postsDataManager.loadCompletePosts(){
+//                postListFromFirestore in
+//                self.recipeList = postListFromFirestore
+//                print(postListFromFirestore.count)
+//                print(self.recipeList.count)
+//                self.recipeTableView.reloadData()
+//            }
         }
         
-        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return recipeList.count
-        }
-        
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeCell
-            
-            let recipe = recipeList[indexPath.row]
-            cell.recipeTitleLabel.text = recipe.recipeName
-            
-            return cell
-        }
+//        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//            return recipeList.count
+//        }
+//
+//        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeCell
+//
+//            let recipe = recipeList[indexPath.row]
+//            cell.recipeTitleLabel.text = recipe.recipeName
+//
+//            return cell
+//        }
 
     /*
     // MARK: - Navigation

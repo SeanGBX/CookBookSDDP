@@ -18,9 +18,9 @@ class FindRecipeViewController: UIViewController, UITextFieldDelegate, UIPickerV
     @IBOutlet weak var findRecipeButton: UIButton!
     var cuisineTitle: String = ""
     
-    var cuisinePickerData: [String] = ["Western", "Asian"]
-    var budgetPickerData: [String] = ["Expensive", "Average", "Budget Friendly"]
-    var prepTimePickerData: [String] = ["Quick", "Average", "Slow"]
+    var cuisinePickerData: [String] = ["Asian", "Western", "Mexican", "Middle-Eastern"]
+    var budgetPickerData: [String] = ["Cheap", "Moderately-priced", "Expensive"]
+    var prepTimePickerData: [String] = ["Quick", "Moderate", "Long"]
     //var pickerView = UIPickerView()
     var budgetPickerView = UIPickerView()
     var prepTimePickerView = UIPickerView()
@@ -52,9 +52,9 @@ class FindRecipeViewController: UIViewController, UITextFieldDelegate, UIPickerV
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        budgetTextField.text = ""
-        cuisineStyleTextField.text = ""
-        prepTimeTextField.text = ""
+        budgetTextField.text = budgetPickerData[0]
+        cuisineStyleTextField.text = cuisinePickerData[0]
+        prepTimeTextField.text = prepTimePickerData[0]
     }
     
     @objc func dismissKeyboard() {
