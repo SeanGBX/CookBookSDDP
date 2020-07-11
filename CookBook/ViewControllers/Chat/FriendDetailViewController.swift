@@ -11,16 +11,16 @@ import MessageKit
 import InputBarAccessoryView
 
 struct Sender: SenderType {
-    var photoURL: String
-    var senderId: String
-    var displayName: String
+    public var photoURL: String
+    public var senderId: String
+    public var displayName: String
 }
 
 struct Message: MessageType{
-    var sender: SenderType
-    var messageId: String
-    var sentDate: Date
-    var kind: MessageKind
+    public var sender: SenderType
+    public var messageId: String
+    public var sentDate: Date
+    public var kind: MessageKind
 }
 
 struct Media: MediaItem {
@@ -48,7 +48,11 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     
     public var isNewConversation = false
     
-    var friendItem : Friend?
+    var convItems : Conversations?
+    
+    var friendList : Friend?
+    
+    var messageList : [[String: String]] = []
     
     let currentUser = Sender(photoURL:"default", senderId: "self", displayName: "Me")
     
@@ -58,12 +62,11 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        otherUser.displayName = friendItem!.friendName
-        otherUser.photoURL = friendItem!.imageName
-        
         if !isNewConversation{
+            otherUser.displayName = convItems!.otherUserName
+            otherUser.photoURL = convItems!.imageName
             messages.append(Message(
-                sender: currentUser,
+                sender: otherUser,
                 messageId: "1",
                 sentDate: Date().addingTimeInterval(-70400),
                 kind: .text("Hello!")
@@ -72,15 +75,20 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
                        sender: otherUser,
                        messageId: "2",
                        sentDate: Date().addingTimeInterval(-70000),
-                       kind: .photo(Media(url: nil, image: UIImage(named: friendItem?.imageName as! String)!, placeholderImage: UIImage(named: friendItem?.imageName as! String)!, size: CGSize(width: 250, height: 250)))
+                       kind: .photo(Media(url: nil, image: UIImage(named: convItems?.imageName as! String)!, placeholderImage: UIImage(named: convItems?.imageName as! String)!, size: CGSize(width: 250, height: 250)))
                    ))
 
-            messages.append(Message(
-                sender: otherUser,
-                messageId: "3",
-                sentDate: Date().addingTimeInterval(-66400),
-                kind: .text(friendItem!.friendText)
-            ))
+            for i in convItems!.messages{
+                print(i["message"]!)
+                messages.append(Message(sender: currentUser, messageId: "", sentDate: Date(), kind: .text(i["message"]!)))
+            }
+            
+            messageList = convItems!.messages
+        }
+        else{
+            otherUser.displayName = friendList!.friendName
+            otherUser.photoURL = friendList!.imageName
+            self.navigationItem.title = friendList?.friendName
         }
         
         messagesCollectionView.messagesDataSource = self
@@ -110,7 +118,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationItem.title = friendItem?.friendName
+        self.navigationItem.title = convItems?.otherUserName
     }
 
     /*
@@ -122,7 +130,18 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
         // Pass the selected object to the new view controller.
     }
     */
+    func fetchChat(){
+        chatDataManager.loadSpecificChat(convItems!.otherUserId){
+            convListFromFirestore in
 
+            self.convItems = convListFromFirestore
+            for i in convListFromFirestore.messages{
+                print(i["message"])
+            }
+            
+        }
+        self.viewDidLoad()
+    }
 }
 
 extension FriendDetailViewController: InputBarAccessoryViewDelegate {
@@ -135,28 +154,41 @@ extension FriendDetailViewController: InputBarAccessoryViewDelegate {
         
         if isNewConversation {
             let message =  Message(sender: currentUser, messageId: createMessageId()!, sentDate: Date(), kind: .text(text))
-            chatDataManager.init().createNewConversation(with: friendItem!.friendId, firstMessage: message, completion: {success in
+            chatDataManager.init().createNewConversation(with: friendList!.friendId, friend: friendList!, firstMessage: message, textMessage: text, completion: {success in
                 if success {
-                print("Message Sent")
+                    print("Message Sent")
+
                 }
                 else{
-                print("Failed to send")
+                    print("Failed to send")
                 }
             })
         }
         else{
-            
+            messageList.append([
+                "date" : Self.dateFormatter.string(from: Date()),
+                "is_read": "false",
+                "message": text
+            ])
+            messages.append(Message(
+                sender: currentUser,
+                messageId: "\(messageList.count)",
+                sentDate: Date(),
+                kind: .text(text)
+            ))
+            chatDataManager.appendChat(convItems!, messageList)
+            self.messagesCollectionView.reloadData()
         }
     }
     
     private func createMessageId() -> String? {
        
-        guard let currentId = friendItem?.friendId else {
+        guard let currentId = friendList?.friendId else {
             return nil
         }
         let dateString = Self.dateFormatter.string(from: Date())
-        let newIdentifier = "\(friendItem?.friendId)_CurrentUserId_\(dateString)"
-        print(dateString)
+        let newIdentifier = "\(friendList?.friendId)_CurrentUserId_\(dateString)"
+        print(newIdentifier)
         return newIdentifier
     }
 }

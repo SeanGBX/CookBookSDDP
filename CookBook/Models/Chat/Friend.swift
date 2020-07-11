@@ -17,7 +17,7 @@ class Friend: NSObject, Codable {
     init(friendName: String, friendText: String, imageName: String, friendId : String = ""){
         self.friendName = friendName
         self.friendText = friendText
-        self.imageName     = imageName
+        self.imageName = imageName
         self.friendId = friendId
     }
 

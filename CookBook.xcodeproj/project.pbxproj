@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1440211924B242270058141F /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1440211824B242260058141F /* FriendCell.swift */; };
+		1446131A24B7500600E5FA78 /* Conversations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1446131924B7500600E5FA78 /* Conversations.swift */; };
 		1458E69624B1CEDD0035CE9B /* chatDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1458E69524B1CEDD0035CE9B /* chatDataManager.swift */; };
 		1489E5EA24A8FA8A0086C479 /* FriendDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1489E5E924A8FA890086C479 /* FriendDetailViewController.swift */; };
 		1489E5EC24A8FF1D0086C479 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1489E5EB24A8FF1D0086C479 /* Friend.swift */; };
@@ -56,6 +57,7 @@
 
 /* Begin PBXFileReference section */
 		1440211824B242260058141F /* FriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
+		1446131924B7500600E5FA78 /* Conversations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversations.swift; sourceTree = "<group>"; };
 		1458E69524B1CEDD0035CE9B /* chatDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = chatDataManager.swift; sourceTree = "<group>"; };
 		1489E5E924A8FA890086C479 /* FriendDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendDetailViewController.swift; sourceTree = "<group>"; };
 		1489E5EB24A8FF1D0086C479 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				1489E5EB24A8FF1D0086C479 /* Friend.swift */,
+				1446131924B7500600E5FA78 /* Conversations.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -469,6 +472,7 @@
 				18EE4C7324B4C889009FE5A5 /* StepItemCell.swift in Sources */,
 				1458E69624B1CEDD0035CE9B /* chatDataManager.swift in Sources */,
 				180D2C5924A501F2000F0A89 /* PostViewController.swift in Sources */,
+				1446131A24B7500600E5FA78 /* Conversations.swift in Sources */,
 				D4ACEBCB24B5713600112DE7 /* RecipeCell.swift in Sources */,
 				D4F833D424A9D50D001F9951 /* ChefBotViewController.swift in Sources */,
 				18196EB624ABA2CE00C5209A /* ViewController.swift in Sources */,
