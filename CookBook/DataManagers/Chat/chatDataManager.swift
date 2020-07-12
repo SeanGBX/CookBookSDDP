@@ -35,27 +35,54 @@ class chatDataManager: NSObject {
         }
     }
     
-    static func insertOrReplaceChat(_ friend: Friend) {
-        try? db.collection("friends").document(friend.friendId)
-            .setData(from: friend, encoder: Firestore.Encoder()) {
-                err in
-                if let err = err {
-                    print("Error adding document: \(err)")
-                } else {
-                    print("Document successfully added!")
+    static func loadSpecificChat(_ userId: String, onComplete: ((Conversations) -> Void)?){
+        db.collection("conversations").whereField("otherUserId", isEqualTo: userId).getDocuments(){
+            
+            (querySnapshot, err) in
+            var specificConv : Conversations?
+            
+            if let err = err{
+                print("Error getting documents: \(err)")
+            }
+            else{
+                for document in querySnapshot!.documents{
+                    var conv = try? document.data(as: Conversations.self) as! Conversations
+                    
+                    if conv != nil{
+                        specificConv = conv
+                    }
                 }
+            }
+            onComplete?(specificConv!)
         }
     }
     
-    static func deleteFriend(_ friend: Friend)
+    
+    static func appendChat(_ conv: Conversations, _ sentmsg: [[String:String]]) {
+        try? db.collection("conversations").document("currUser_\(conv.otherUserId)")
+            .updateData([
+                "messages" : sentmsg
+                        ])
+                {
+                    err in
+            
+                    if let err = err {
+                        print("Error editing document: \(err)")
+                    } else {
+                        print("Document successfully edited!")
+                    }
+                }
+    }
+    
+    static func deleteConv(_ conv: Conversations)
     {
         
-        db.collection("friends").document(friend.friendId).delete() {
+        db.collection("collections").document(conv.otherUserId).delete() {
             err in
             
             if let err = err {
                 
-                print("Error removing document: \(err)")
+                print("Error removing document: \(err)")	
             } else {
                 
                 print("Document successfully removed!")
@@ -68,7 +95,76 @@ class chatDataManager: NSObject {
 }
 
 extension chatDataManager{
-    public func createNewConversation(with otherFriendId: String, firstMessage: Message, completion: @escaping (Bool) -> Void){
+    static func loadConversations(onComplete: (([Conversations]) -> Void)?){
+        db.collection("conversations").getDocuments()
+            {
+                (querySnapshot, err) in var convList : [Conversations] = []
+                
+                if let err = err{
+                    print("Error getting documents: \(err)")
+                }
+                else{
+                    for document in querySnapshot!.documents
+                    {
+                        var conv = try? document.data(as: Conversations.self) as! Conversations
+                        if conv != nil{
+                            convList.append(conv!)
+                        }
+                    }
+                }
+                onComplete?(convList)
+        }
+    }
+    
+    
+    public func createNewConversation(with otherFriendId: String, friend: Friend, firstMessage: Message, textMessage: String, completion: @escaping (Bool) -> Void){
+        let messageDate = firstMessage.sentDate
+        let dateString = FriendDetailViewController.dateFormatter.string(from: messageDate)
+        
+        var message = ""
+        
+        switch firstMessage.kind{
+        case .text(let messageText):
+            message = messageText
+        case .attributedText(_):
+            break
+        case .photo(_):
+            break
+        case .video(_):
+            break
+        case .location(_):
+            break
+        case .emoji(_):
+            break
+        case .audio(_):
+            break
+        case .contact(_):
+            break
+        case .custom(_):
+            break
+        }
+        
+        let newConversationData = Conversations(
+            currUserId: "currUser", otherUserId: otherFriendId, otherUserName: friend.friendName, imageName: friend.imageName, messages: [[
+                "date": dateString,
+                "message": textMessage,
+                "is_read": "false"]]
+        )
+        
+        
+        try? chatDataManager.db.collection("conversations")
+            .document("currUser_\(otherFriendId)")
+            .setData(from: newConversationData, encoder: Firestore.Encoder()) {
+                err in
+                if let err = err {
+                    print("Error adding document: \(err)")
+                    completion(false)
+                } else {
+                    print("Document successfully added!")
+                    completion(true)
+                }
+        }
+        
         
     }
     

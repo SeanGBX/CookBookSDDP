@@ -12,4 +12,6 @@ target 'CookBook' do
   pod 'JGProgressHUD'
   pod 'RealmSwift'
   pod 'SDWebImage'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Storage'
 end
