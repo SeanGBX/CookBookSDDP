@@ -9,21 +9,24 @@
 import UIKit
 
 class Conversations: NSObject, Codable{
-    var currUserId: String
-    var otherUserId: String
-    var otherUserName: String
+    var firstUserId: String
+    var secondUserId: String
+    var firstUserName: String
+    var secondUserName: String
     var imageName: String
     var messages: [[String: String]]
     
-    init(currUserId: String, otherUserId: String, otherUserName: String, imageName: String, messages: [[String: String]] = [[
+    init(firstUserId: String, secondUserId: String, firstUserName: String, secondUserName: String, imageName: String, messages: [[String: String]] = [[
         "date": "",
         "message": "",
-        "is_read": "false"]]
+        "is_read": "false",
+        "sentBy": ""]]
     )
     {
-        self.currUserId = currUserId
-        self.otherUserId = otherUserId
-        self.otherUserName = otherUserName
+        self.firstUserId = firstUserId
+        self.secondUserId = secondUserId
+        self.firstUserName = firstUserName
+        self.secondUserName = secondUserName
         self.imageName = imageName
         self.messages = messages
     }

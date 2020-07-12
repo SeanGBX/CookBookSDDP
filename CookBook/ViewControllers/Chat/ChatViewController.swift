@@ -95,7 +95,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as! FriendCell
         let p = convList[indexPath.row]
         let countOfList = convList[indexPath.row].messages.count
-        cell.friendnameLabel.text = p.otherUserName
+        cell.friendnameLabel.text = p.secondUserName
         cell.friendtextLabel.text = p.messages[countOfList - 1]["message"]
         cell.friendImage.image = UIImage(named: p.imageName)
         cell.friendImage.layer.borderWidth = 1

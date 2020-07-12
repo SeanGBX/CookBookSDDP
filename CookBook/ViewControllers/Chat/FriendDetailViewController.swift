@@ -54,7 +54,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     
     var messageList : [[String: String]] = []
     
-    let currentUser = Sender(photoURL:"default", senderId: "self", displayName: "Me")
+    let currentUser = Sender(photoURL:"default", senderId: "self", displayName: "Sean Gwee")
     
     var otherUser = Sender(photoURL: "", senderId: "other", displayName: "")
     
@@ -63,9 +63,9 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     override func viewDidLoad() {
         super.viewDidLoad()
         if !isNewConversation{
-            otherUser.displayName = convItems!.otherUserName
+            otherUser.displayName = convItems!.secondUserName
             otherUser.photoURL = convItems!.imageName
-            self.navigationItem.title = convItems?.otherUserName
+            self.navigationItem.title = convItems?.secondUserName
             messages.append(Message(
                 sender: otherUser,
                 messageId: "1",
@@ -97,12 +97,15 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         messageInputBar.delegate = self
+        self.messagesCollectionView.scrollToBottom()
 
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.messagesCollectionView.scrollToBottom()
         messageInputBar.inputTextView.becomeFirstResponder()
+
     }
     
     
@@ -133,7 +136,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     }
     */
     func fetchChat(){
-        chatDataManager.loadSpecificChat(convItems!.otherUserId){
+        chatDataManager.loadSpecificChat(convItems!.secondUserId){
             convListFromFirestore in
 
             self.convItems = convListFromFirestore
@@ -151,12 +154,13 @@ extension FriendDetailViewController: InputBarAccessoryViewDelegate {
         guard !text.replacingOccurrences(of: " ", with: "").isEmpty else {
             return
         }
-        
+        inputBar.inputTextView.text = ""
+        self.messagesCollectionView.scrollToBottom()
         print("Sending: \(text)")
         
         if isNewConversation {
             let message =  Message(sender: currentUser, messageId: createMessageId()!, sentDate: Date(), kind: .text(text))
-            chatDataManager.init().createNewConversation(with: friendList!.friendId, friend: friendList!, firstMessage: message, textMessage: text, completion: {success in
+            chatDataManager.init().createNewConversation(with: "seangwee", friend: friendList!, firstMessage: message, textMessage: text, completion: {success in
                 if success {
                     print("Message Sent")
                     self.messages = []
@@ -167,7 +171,6 @@ extension FriendDetailViewController: InputBarAccessoryViewDelegate {
                             sentDate: Date(),
                             kind: .text(text)
                     ))
-                    self.viewDidLoad()
                     self.messagesCollectionView.reloadData()
                 }
                 else{
@@ -179,7 +182,8 @@ extension FriendDetailViewController: InputBarAccessoryViewDelegate {
             messageList.append([
                 "date" : Self.dateFormatter.string(from: Date()),
                 "is_read": "false",
-                "message": text
+                "message": text,
+                "sentBy": "seangwee"
             ])
             messages.append(Message(
                 sender: currentUser,
@@ -198,7 +202,7 @@ extension FriendDetailViewController: InputBarAccessoryViewDelegate {
             return nil
         }
         let dateString = Self.dateFormatter.string(from: Date())
-        let newIdentifier = "\(friendList?.friendId)_CurrentUserId_\(dateString)"
+        let newIdentifier = "\(friendList?.friendId)_seangwee_\(dateString)"
         print(newIdentifier)
         return newIdentifier
     }
