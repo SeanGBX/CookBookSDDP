@@ -136,7 +136,7 @@
                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gyp-Gi-p3H">
                                                         <rect key="frame" x="345" y="8" width="51" height="31"/>
                                                         <connections>
-                                                            <action selector="myPictureSwitchChanged:" destination="Nzb-t8-NUm" eventType="valueChanged" id="iIL-wT-Og7"/>
+                                                            <action selector="myPicSwitchClick:" destination="Nzb-t8-NUm" eventType="valueChanged" id="TON-Nh-UQL"/>
                                                         </connections>
                                                     </switch>
                                                 </subviews>
@@ -395,7 +395,7 @@
                                                             <constraint firstAttribute="width" constant="150" id="cZk-Ye-P3s"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Yq-VE-Kz7">
@@ -420,7 +420,7 @@
                                                             <constraint firstAttribute="width" constant="150" id="SxQ-xz-mJQ"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k8C-4i-NUM">
@@ -445,7 +445,7 @@
                                                             <constraint firstAttribute="width" constant="150" id="S87-cQ-hCt"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m4Z-G2-c7T">
@@ -1161,7 +1161,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Sdh-LD-F9R"/>
         <segue reference="AEM-5h-8p5"/>
         <segue reference="GZU-QQ-2CA"/>
     </inferredMetricsTieBreakers>

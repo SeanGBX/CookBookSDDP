@@ -32,17 +32,16 @@ class PostCell: UITableViewCell {
     var userLikes: [LikePost] = []
     var userHealthy: [HealthyPost] = []
     
-    
     func loadCell() {
         print("uuuu\(postID!)")
         loadLikes(id: postID!)
         loadHealthy(id: postID!)
         loadUserLikes(id: postID!)
         loadUserHealthy(id: postID!)
-        if (userLikes != []) {
+        if (userLikes.count > 0) {
             likeButton.setTitle("Unlike", for: .normal)
         }
-        if (userHealthy != []){
+        if (userHealthy.count > 0){
             healthyButton.setTitle("Unhealthy", for: .normal)
         }
     }
@@ -82,11 +81,14 @@ class PostCell: UITableViewCell {
     
     @IBAction func likeButtonClick(_ sender: Any) {
         likePostItem = LikePost(postId: postID!, username: username)
-        print(userLikes)
         if (userLikes.count == 0) {
+            likeButton.setTitle("Unlike", for: .normal)
             likePostDataManager.insertLike(likePostItem!)
             delegate?.updateTableView()
-        } else {
+        }
+        
+        else if (userLikes.count > 0) {
+            likeButton.setTitle("Like", for: .normal)
             likePostDataManager.deleteLike(userLikes)
             delegate?.updateTableView()
         }
@@ -95,9 +97,14 @@ class PostCell: UITableViewCell {
     @IBAction func healthyButtonClick(_ sender: Any) {
         healthyPostItem = HealthyPost(postId: postID!, username: username)
         if (userHealthy.count == 0) {
+            healthyButton.setTitle("Unhealthy", for: .normal)
             healthyPostDataManager.insertHealthy(healthyPostItem!)
             delegate?.updateTableView()
-        } else {
+        }
+        
+        else if (userHealthy.count > 0){
+            print(userHealthy.count)
+            healthyButton.setTitle("Healthy", for: .normal)
             healthyPostDataManager.deleteHealthy(userHealthy)
             delegate?.updateTableView()
         }

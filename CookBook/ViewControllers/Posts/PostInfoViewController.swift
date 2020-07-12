@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseStorage
 
 class PostInfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -47,7 +48,17 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        postInfoImage.image = UIImage(named: postItem!.postImage)
+        let imageRef = Storage.storage().reference(withPath: postItem!.postImage)
+        imageRef.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
+            if let error = error {
+                print("Error downloading image: \(error.localizedDescription)")
+                return
+            }
+            if let data = data {
+                self?.postInfoImage.image = UIImage(data: data)
+            }
+        }
+    
         postInfoRecipeName.text = postItem?.recipeName
         postInfoUsername.text = postItem?.username
         postInfoLCH.text = "\(postItem!.likes) likes, 3 comments, \(postItem!.healthy) find this healthy"
