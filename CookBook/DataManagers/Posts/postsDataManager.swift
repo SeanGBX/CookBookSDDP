@@ -36,6 +36,29 @@ class postsDataManager: NSObject {
         }
     }
     
+    static func loadSpecificPost(_ postID: String, onComplete: (([Posts]) -> Void)?){
+        db.collection("posts").whereField("postId", isEqualTo: postID).getDocuments(){
+            
+            (querySnapshot, err) in
+            var specificPostList : [Posts] = []
+            
+            if let err = err{
+                print("Error getting documents: \(err)")
+            }
+            else{
+                for document in querySnapshot!.documents{
+                    var post = try? document.data(as: Posts.self) as! Posts
+                    
+                    
+                    if post != nil{
+                        specificPostList.append(post!)
+                    }
+                }
+            }
+            onComplete?(specificPostList)
+        }
+    }
+    
     static func loadCompletePosts(onComplete: (([Posts]) -> Void)?){
         db.collection("posts").whereField("postComplete", isEqualTo: "1").getDocuments(){
             
@@ -137,25 +160,4 @@ class postsDataManager: NSObject {
         }
     }
     
-    static func loadSpecificPost(_ postID: String, onComplete: ((Posts) -> Void)?){
-        db.collection("posts").whereField("postId", isEqualTo: postID).getDocuments(){
-            
-            (querySnapshot, err) in
-            var specificPost : Posts?
-            
-            if let err = err{
-                print("Error getting documents: \(err)")
-            }
-            else{
-                for document in querySnapshot!.documents{
-                    var post = try? document.data(as: Posts.self) as! Posts
-                    
-                    if post != nil{
-                        specificPost = post
-                    }
-                }
-            }
-            onComplete?(specificPost!)
-        }
-    }
 }
