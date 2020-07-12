@@ -15,6 +15,9 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var CLHLabel: UILabel!
     @IBOutlet weak var tagsLabel: UILabel!
+    @IBOutlet weak var commentButton: UIButton!
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var healthyButton: UIButton!
     
     
     override func awakeFromNib() {
@@ -27,5 +30,14 @@ class PostCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
+    
+    @IBAction func commentButtonClick(_ sender: Any) {
+    }
+    
+    @IBAction func likeButtonClick(_ sender: Any) {
+    }
+    
+    @IBAction func healthyButtonClick(_ sender: Any) {
+    }
 }

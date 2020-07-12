@@ -11,6 +11,11 @@ import UIKit
 class PostViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
     var postList: [Posts] = []
+    var likeList: [LikePost] = []
+    var healthyList: [HealthyPost] = []
+    var userLikes: [LikePost] = []
+    var userHealthy: [HealthyPost] = []
+    let username: String = "currentUser"
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -18,6 +23,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     {
         super.viewDidLoad()
         loadCompletePosts()
+        
         self.navigationItem.setHidesBackButton(true, animated: true);
     }
     
@@ -25,6 +31,38 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         postsDataManager.loadCompletePosts(){
             postListFromFirestore in
             self.postList = postListFromFirestore
+            self.tableView.reloadData()
+        }
+    }
+    
+    func loadLikes(id: String){
+        likePostDataManager.loadLikesByPost(id){
+            likeList in
+            self.likeList = likeList
+            self.tableView.reloadData()
+        }
+    }
+    
+    func loadHealthy(id: String){
+        healthyPostDataManager.loadHealthyByPost(id){
+            healthyList in
+            self.healthyList = healthyList
+            self.tableView.reloadData()
+        }
+    }
+    
+    func loadUserLikes(id: String){
+        likePostDataManager.loadUniqueLikes(id, username){
+            uniqueLikeList in
+            self.userLikes = uniqueLikeList
+            self.tableView.reloadData()
+        }
+    }
+    
+    func loadUserHealthy(id: String){
+        healthyPostDataManager.loadUniqueHealthy(id, username){
+            uniqueHealthyList in
+            self.userHealthy = uniqueHealthyList
             self.tableView.reloadData()
         }
     }
@@ -37,6 +75,10 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostCell
         
         let p = postList[indexPath.row]
+        loadLikes(id: p.postId)
+        loadHealthy(id: p.postId)
+        loadUserLikes(id: p.postId)
+        loadUserHealthy(id: p.postId)
         cell.recipeName.text = p.recipeName
         cell.userName.text = p.username
         cell.CLHLabel.text = "10 comments, \(p.likes) likes, \(p.healthy) users find this healthy"

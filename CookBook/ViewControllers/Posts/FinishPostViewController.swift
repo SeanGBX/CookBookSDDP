@@ -79,24 +79,51 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
     
     
     @IBAction func postRecipeButton(_ sender: Any) {
-        postItem = Posts(recipeName: "", username: "", mealType: "", likes: 0, healthy: 0, tagBudget: "", tagStyle: "", tagPrep: "", postImage: "", postComplete: "1")
         
-        let pickerRowBudget = budgetPicker.selectedRow(inComponent: 0)
-        let selectedPickerTextBudget = budgetData[pickerRowBudget]
-        postItem!.tagBudget = selectedPickerTextBudget
+        let alert = UIAlertController(
+            title: "Are you sure you want to post this recipe?",
+            message: "",
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(
+            UIAlertAction(
+                title: "Cancel",
+                style: .destructive,
+                handler: nil
+        ))
+        
+        alert.addAction(
+            UIAlertAction(
+                title: "Yes",
+                style: .default,
+                handler: {
+                    action in
+                    self.postItem = Posts(recipeName: "", username: "", mealType: "", likes: 0, healthy: 0, tagBudget: "", tagStyle: "", tagPrep: "", postImage: "", postComplete: "1")
+                    
+                    let pickerRowBudget = self.budgetPicker.selectedRow(inComponent: 0)
+                    let selectedPickerTextBudget = self.budgetData[pickerRowBudget]
+                    self.postItem!.tagBudget = selectedPickerTextBudget
 
-        let pickerRowStyle = cookingStylePicker.selectedRow(inComponent: 0)
-        let selectedPickerTextCookStyle = cookStyleData[pickerRowStyle]
-        postItem!.tagStyle = selectedPickerTextCookStyle
+                    let pickerRowStyle = self.cookingStylePicker.selectedRow(inComponent: 0)
+                    let selectedPickerTextCookStyle = self.cookStyleData[pickerRowStyle]
+                    self.postItem!.tagStyle = selectedPickerTextCookStyle
+                    
+                    let pickerRowPrep = self.prepTimePicker.selectedRow(inComponent: 0)
+                    let selectedPickerTextPrepTime = self.prepTimeData[pickerRowPrep]
+                    self.postItem!.tagPrep = selectedPickerTextPrepTime
+                    
+                    let vc = self.storyboard?.instantiateViewController(identifier: "PostViewController") as! PostViewController
+                    
+                    postsDataManager.FinishPost(self.postID!, self.postItem!)
+                    self.show(vc, sender: self)
+                    //test if clicking alert works
+            }
+        ))
         
-        let pickerRowPrep = prepTimePicker.selectedRow(inComponent: 0)
-        let selectedPickerTextPrepTime = prepTimeData[pickerRowPrep]
-        postItem!.tagPrep = selectedPickerTextPrepTime
-        
-        let vc = storyboard?.instantiateViewController(identifier: "PostViewController") as! PostViewController
-        
-        postsDataManager.FinishPost(postID!, postItem!)
-        self.show(vc, sender: self)
+        self.present(alert, animated: true, completion: nil)
+         
+        return
     }
     
     @IBAction func cancelPostCreate(_ sender: Any) {

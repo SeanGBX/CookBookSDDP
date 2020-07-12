@@ -98,16 +98,34 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         view.endEditing(true)
     }
     
+    func isInteger(_ string: String) -> Bool {
+        if (Int(string) != nil){
+            return true
+        } else {
+            return false
+        }
+    }
+    
     @IBAction func addEditIngredient(_ sender: Any) {
         var error = ""
+        let measureValue = Int(ingredientInfoMeasureVal.text!)
+        
+        //do integer checking for measurevalue before image
         
         if (enableIngredientSwitch.isOn == true){
             
             if (ingredientInfoMeasureVal.text == "" || ingredientInfoMeasureVal.text == "0"){
-                error += "Please enter a valid measurement value\n"
+                error += "Please enter a valid measurement value\n\n"
             }
             if (ingredientInfoName.text == ""){
-                error += "Please enter an ingredient name\n"
+                error += "Please enter an ingredient name\n\n"
+            }
+            if (isInteger(ingredientInfoMeasureVal.text!) == true){
+                if (measureValue! <= 0){
+                    error += "Please enter a valid measurement value\n\n"
+                }
+            } else {
+                error += "Please enter a valid measurement value\n\n"
             }
         }
         
@@ -117,8 +135,8 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         
         if(error != ""){
                let alert = UIAlertController(
-                   title: error,
-                   message: "",
+                   title: "Problems with below fields",
+                   message: error,
                    preferredStyle: .alert
                )
                 
@@ -133,12 +151,6 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
                 
                return
         }
-        
-        let measureValue = Int(ingredientInfoMeasureVal.text!)
-        
-//        if (measureVal! <= 0 || measureVal! is Int){
-//            errors += "Please enter a valid measurement value\n"
-//        }
         
         let vc = storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
         

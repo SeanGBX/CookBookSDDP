@@ -83,7 +83,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
             let cell = tableView.dequeueReusableCell(withIdentifier: "StepCell", for: indexPath) as! StepCell
             let s = stepList[indexPath.row]
             print("---->\(s)")
-            cell.stepLabel.text = "\(s.prefix(30))..."
+            cell.stepLabel.text = "\(indexPath.row + 1).  \(s.prefix(30))..."
             
             return cell
         } else {

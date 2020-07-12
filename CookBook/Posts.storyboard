@@ -13,7 +13,7 @@
             <objects>
                 <viewController storyboardIdentifier="CommentsViewControler" id="IeY-Bc-tiJ" customClass="CommentsViewController" customModule="CookBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EsJ-3H-O6t">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="85" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hPm-hA-j4x">
@@ -93,7 +93,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="RtZ-rF-4fY">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="637.33333333333337"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="649.33333333333337"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T7T-4k-et2">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="214.33333333333334"/>
@@ -109,19 +109,23 @@
                                                 <edgeInsets key="layoutMargins" top="20" left="60" bottom="8" right="60"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vW2-59-bgF">
-                                                <rect key="frame" x="0.0" y="214.33333333333334" width="414" height="52.000000000000028"/>
+                                                <rect key="frame" x="0.0" y="214.33333333333334" width="414" height="64.000000000000028"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a Picture" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4yS-4W-pzX">
-                                                        <rect key="frame" x="8" y="8" width="398" height="24"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qhu-Da-OQR">
+                                                        <rect key="frame" x="8" y="8" width="398" height="36"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                        <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
+                                                        <state key="normal" title="Add an Image">
+                                                            <color key="titleColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="AddImageButton:" destination="Nzb-t8-NUm" eventType="touchUpInside" id="uFc-hb-zVr"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="20" right="8"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Q7-Qt-OI7">
-                                                <rect key="frame" x="0.0" y="266.33333333333331" width="414" height="47"/>
+                                                <rect key="frame" x="0.0" y="278.33333333333331" width="414" height="47"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is my picture" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ikB-L7-9zp">
                                                         <rect key="frame" x="20" y="8" width="325" height="31"/>
@@ -139,7 +143,7 @@
                                                 <edgeInsets key="layoutMargins" top="8" left="20" bottom="8" right="20"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k1c-8u-Y0R">
-                                                <rect key="frame" x="0.0" y="313.33333333333331" width="414" height="72"/>
+                                                <rect key="frame" x="0.0" y="325.33333333333331" width="414" height="72"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Recipe Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fdB-4A-Klu">
                                                         <rect key="frame" x="20" y="30" width="374" height="34"/>
@@ -150,7 +154,7 @@
                                                 <edgeInsets key="layoutMargins" top="30" left="20" bottom="8" right="20"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QdI-bI-P8T">
-                                                <rect key="frame" x="0.0" y="385.33333333333331" width="414" height="165.99999999999994"/>
+                                                <rect key="frame" x="0.0" y="397.33333333333331" width="414" height="165.99999999999994"/>
                                                 <subviews>
                                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NAX-Wn-bAj">
                                                         <rect key="frame" x="8" y="-30" width="398" height="216"/>
@@ -163,7 +167,7 @@
                                                 <edgeInsets key="layoutMargins" top="-30" left="8" bottom="-20" right="8"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sd3-to-fsL">
-                                                <rect key="frame" x="0.0" y="551.33333333333337" width="414" height="86"/>
+                                                <rect key="frame" x="0.0" y="563.33333333333337" width="414" height="86"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ae0-YS-RGb">
                                                         <rect key="frame" x="8" y="30" width="398" height="36"/>
@@ -794,7 +798,7 @@
                                                                     </constraints>
                                                                     <state key="normal" title="Comment"/>
                                                                     <connections>
-                                                                        <segue destination="IeY-Bc-tiJ" kind="show" id="Thz-IS-moG"/>
+                                                                        <action selector="commentButtonClick:" destination="YuE-ci-agz" eventType="touchUpInside" id="ooG-od-XFx"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dTO-li-rGb">
@@ -803,6 +807,9 @@
                                                                         <constraint firstAttribute="height" constant="50" id="Fth-ko-i5A"/>
                                                                     </constraints>
                                                                     <state key="normal" title="Like"/>
+                                                                    <connections>
+                                                                        <action selector="likeButtonClick:" destination="YuE-ci-agz" eventType="touchUpInside" id="XNQ-qs-Jx9"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l5Z-Q0-o8u">
                                                                     <rect key="frame" x="276" y="0.0" width="138" height="50"/>
@@ -810,6 +817,9 @@
                                                                         <constraint firstAttribute="height" constant="50" id="4aJ-H7-uDJ"/>
                                                                     </constraints>
                                                                     <state key="normal" title="Healthy"/>
+                                                                    <connections>
+                                                                        <action selector="healthyButtonClick:" destination="YuE-ci-agz" eventType="touchUpInside" id="qV7-zg-s8q"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                         </stackView>
@@ -825,6 +835,9 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="CLHLabel" destination="dDB-o3-TlF" id="T3D-2V-NWm"/>
+                                            <outlet property="commentButton" destination="c6k-Ue-RtN" id="cvZ-Hd-e15"/>
+                                            <outlet property="healthyButton" destination="l5Z-Q0-o8u" id="aSz-j9-iaC"/>
+                                            <outlet property="likeButton" destination="dTO-li-rGb" id="ptR-Wg-34a"/>
                                             <outlet property="postImage" destination="6Nb-Lw-P2y" id="fpV-zk-yb6"/>
                                             <outlet property="recipeName" destination="hEq-uY-ol2" id="ghB-kg-J7s"/>
                                             <outlet property="tagsLabel" destination="dDB-o3-TlF" id="AlL-PM-XzV"/>
@@ -1152,6 +1165,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="Sdh-LD-F9R"/>
         <segue reference="AEM-5h-8p5"/>
         <segue reference="GZU-QQ-2CA"/>
     </inferredMetricsTieBreakers>
