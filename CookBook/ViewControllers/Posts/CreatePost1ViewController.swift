@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var myPictureSwitch: UISwitch!
     @IBOutlet weak var createPostImage: UIImageView!
@@ -18,6 +18,7 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     var postItem: Posts?
     var newID: String?
+    let username: String = "currentUser"
     
     var mealTypeData: [String] = [
         "Main Course",
@@ -37,7 +38,6 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
 
         view.addGestureRecognizer(tap)
-    
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -87,6 +87,7 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
          
         postItem!.recipeName = createPostRecipeName.text!
         postItem!.postImage = "default"
+        postItem!.username = self.username
          
         let pickerRow = createPostPicker.selectedRow(inComponent: 0)
         let selectedPickerText = mealTypeData[pickerRow]
@@ -113,6 +114,64 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
             progressToIngredientsButton.isEnabled = true
             progressToIngredientsButton.setTitleColor(UIColor.purple, for: .normal)
         }
+    }
+    
+    @IBAction func AddImageButton(_ sender: Any) {
+        let alert1 = UIAlertController(
+            title: "How would you like to add a picture?",
+            message: "",
+            preferredStyle: .alert
+        )
+        
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            
+            alert1.addAction(
+                UIAlertAction(
+                    title: "Camera",
+                    style: .default,
+                    handler: {
+                        action in
+                        let imagePicker = UIImagePickerController()
+                        imagePicker.delegate = self
+                        imagePicker.allowsEditing = true
+                        
+                        imagePicker.sourceType = .camera
+                        self.present(imagePicker, animated: true)
+                })
+             )
+        }
+        
+        alert1.addAction(
+           UIAlertAction(
+               title: "Library",
+               style: .default,
+               handler: {
+                action in
+                let imagePicker = UIImagePickerController()
+                imagePicker.delegate = self
+                imagePicker.allowsEditing = true
+                
+                imagePicker.sourceType = .photoLibrary
+                self.present(imagePicker, animated: true)
+           })
+        )
+    
+        self.present(alert1, animated: true, completion: nil)
+        
+        return
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let chosenImage : UIImage = info[.editedImage] as! UIImage
+        self.createPostImage!.image = chosenImage
+        UIImageWriteToSavedPhotosAlbum(chosenImage, nil, nil, nil)
+        
+        
+        picker.dismiss(animated: true)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
     }
 }
     

@@ -42,6 +42,10 @@
 		181DDFBB24A4AB02006F463F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181DDFBA24A4AB02006F463F /* SceneDelegate.swift */; };
 		181DDFC424A4AB05006F463F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 181DDFC324A4AB05006F463F /* Assets.xcassets */; };
 		18405BFF24ADC8DF00A645F2 /* IngredientSteps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18405BFE24ADC8DF00A645F2 /* IngredientSteps.swift */; };
+		18DD2D3624BA10EA00539A19 /* LikePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD2D3524BA10EA00539A19 /* LikePost.swift */; };
+		18DD2D3824BA110800539A19 /* HealthyPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD2D3724BA110800539A19 /* HealthyPost.swift */; };
+		18DD2D3A24BA11E300539A19 /* likePostDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD2D3924BA11E300539A19 /* likePostDataManager.swift */; };
+		18DD2D3C24BA11F900539A19 /* healthyPostDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD2D3B24BA11F900539A19 /* healthyPostDataManager.swift */; };
 		18EE4C7324B4C889009FE5A5 /* StepItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE4C7224B4C889009FE5A5 /* StepItemCell.swift */; };
 		3B61353024AB58860013178C /* Meal.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B61352F24AB58860013178C /* Meal.storyboard */; };
 		3B61353224AB5B580013178C /* FindRecipe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B61353124AB5B580013178C /* FindRecipe.storyboard */; };
@@ -94,6 +98,10 @@
 		181DDFC324A4AB05006F463F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		181DDFC824A4AB05006F463F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18405BFE24ADC8DF00A645F2 /* IngredientSteps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientSteps.swift; sourceTree = "<group>"; };
+		18DD2D3524BA10EA00539A19 /* LikePost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikePost.swift; sourceTree = "<group>"; };
+		18DD2D3724BA110800539A19 /* HealthyPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthyPost.swift; sourceTree = "<group>"; };
+		18DD2D3924BA11E300539A19 /* likePostDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = likePostDataManager.swift; sourceTree = "<group>"; };
+		18DD2D3B24BA11F900539A19 /* healthyPostDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = healthyPostDataManager.swift; sourceTree = "<group>"; };
 		18EE4C7224B4C889009FE5A5 /* StepItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepItemCell.swift; sourceTree = "<group>"; };
 		3B61352F24AB58860013178C /* Meal.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Meal.storyboard; sourceTree = "<group>"; };
 		3B61353124AB5B580013178C /* FindRecipe.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FindRecipe.storyboard; sourceTree = "<group>"; };
@@ -259,6 +267,8 @@
 				180D2C4924A501D5000F0A89 /* PostComment.swift */,
 				18405BFE24ADC8DF00A645F2 /* IngredientSteps.swift */,
 				180D2C4A24A501D6000F0A89 /* Posts.swift */,
+				18DD2D3524BA10EA00539A19 /* LikePost.swift */,
+				18DD2D3724BA110800539A19 /* HealthyPost.swift */,
 			);
 			path = Posts;
 			sourceTree = "<group>";
@@ -282,6 +292,8 @@
 				180D2C4124A501A0000F0A89 /* commentDataManager.swift */,
 				180D2C4224A501A0000F0A89 /* IngredientDataManager.swift */,
 				180D2C4024A501A0000F0A89 /* postsDataManager.swift */,
+				18DD2D3924BA11E300539A19 /* likePostDataManager.swift */,
+				18DD2D3B24BA11F900539A19 /* healthyPostDataManager.swift */,
 			);
 			path = Posts;
 			sourceTree = "<group>";
@@ -465,6 +477,7 @@
 				18196EB824ABA2CE00C5209A /* RecipeViewController.swift in Sources */,
 				1440211924B242270058141F /* FriendCell.swift in Sources */,
 				1489E5EA24A8FA8A0086C479 /* FriendDetailViewController.swift in Sources */,
+				18DD2D3824BA110800539A19 /* HealthyPost.swift in Sources */,
 				180D2C4524A501A0000F0A89 /* IngredientDataManager.swift in Sources */,
 				18EE4C7324B4C889009FE5A5 /* StepItemCell.swift in Sources */,
 				1458E69624B1CEDD0035CE9B /* chatDataManager.swift in Sources */,
@@ -472,6 +485,7 @@
 				D4ACEBCB24B5713600112DE7 /* RecipeCell.swift in Sources */,
 				D4F833D424A9D50D001F9951 /* ChefBotViewController.swift in Sources */,
 				18196EB624ABA2CE00C5209A /* ViewController.swift in Sources */,
+				18DD2D3A24BA11E300539A19 /* likePostDataManager.swift in Sources */,
 				180D2C5824A501F2000F0A89 /* CreatePost1ViewController.swift in Sources */,
 				180D2C5A24A501F2000F0A89 /* PostInfoViewController.swift in Sources */,
 				180D2C4C24A501D6000F0A89 /* PostComment.swift in Sources */,
@@ -490,8 +504,10 @@
 				181DDFBB24A4AB02006F463F /* SceneDelegate.swift in Sources */,
 				180D2C6424A501FE000F0A89 /* PostCell.swift in Sources */,
 				D4ACEBCE24B5720800112DE7 /* recipesDataManager.swift in Sources */,
+				18DD2D3624BA10EA00539A19 /* LikePost.swift in Sources */,
 				180D2C4324A501A0000F0A89 /* postsDataManager.swift in Sources */,
 				1489E5F024A9068A0086C479 /* ChatViewController.swift in Sources */,
+				18DD2D3C24BA11F900539A19 /* healthyPostDataManager.swift in Sources */,
 				18405BFF24ADC8DF00A645F2 /* IngredientSteps.swift in Sources */,
 				180D2C6524A501FE000F0A89 /* CommentCell.swift in Sources */,
 			);
