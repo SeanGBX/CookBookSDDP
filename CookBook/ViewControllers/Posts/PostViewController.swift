@@ -7,21 +7,25 @@
 //
 
 import UIKit
+import FirebaseStorage
 
-class PostViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
+class PostViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CustomCellUpdate
 {
     var postList: [Posts] = []
-    var likeList: [LikePost] = []
-    var healthyList: [HealthyPost] = []
-    var userLikes: [LikePost] = []
-    var userHealthy: [HealthyPost] = []
     let username: String = "currentUser"
     
     @IBOutlet weak var tableView: UITableView!
     
+    func updateTableView(){
+        tableView.reloadData()
+        print("table has been updated from cell")
+    }
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
         loadCompletePosts()
         
         self.navigationItem.setHidesBackButton(true, animated: true);
@@ -35,38 +39,6 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-    func loadLikes(id: String){
-        likePostDataManager.loadLikesByPost(id){
-            likeList in
-            self.likeList = likeList
-            self.tableView.reloadData()
-        }
-    }
-    
-    func loadHealthy(id: String){
-        healthyPostDataManager.loadHealthyByPost(id){
-            healthyList in
-            self.healthyList = healthyList
-            self.tableView.reloadData()
-        }
-    }
-    
-    func loadUserLikes(id: String){
-        likePostDataManager.loadUniqueLikes(id, username){
-            uniqueLikeList in
-            self.userLikes = uniqueLikeList
-            self.tableView.reloadData()
-        }
-    }
-    
-    func loadUserHealthy(id: String){
-        healthyPostDataManager.loadUniqueHealthy(id, username){
-            uniqueHealthyList in
-            self.userHealthy = uniqueHealthyList
-            self.tableView.reloadData()
-        }
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postList.count
     }
@@ -75,15 +47,25 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostCell
         
         let p = postList[indexPath.row]
-        loadLikes(id: p.postId)
-        loadHealthy(id: p.postId)
-        loadUserLikes(id: p.postId)
-        loadUserHealthy(id: p.postId)
         cell.recipeName.text = p.recipeName
         cell.userName.text = p.username
         cell.CLHLabel.text = "10 comments, \(p.likes) likes, \(p.healthy) users find this healthy"
         cell.tagsLabel.text = "\(p.tagBudget), \(p.tagPrep), \(p.tagStyle)"
-        cell.postImage.image = UIImage(named: p.postImage)
+        cell.postID = p.postId
+        cell.delegate = self
+        cell.loadCell()
+        
+        let imageRef = Storage.storage().reference(withPath: p.postImage)
+        imageRef.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
+            if let error = error {
+                print("Error downloading image: \(error.localizedDescription)")
+                return
+            }
+            if let data = data {
+                cell.postImage.image = UIImage(data: data)
+            }
+        }
+
         
         return cell
         

@@ -15,8 +15,7 @@ class LikePost: NSObject, Codable {
     var likeId: String
     
     
-    init (postId: String, comment: String, username: String,
-          likeId: String = "")
+    init (postId: String, username: String, likeId: String = "")
     {
         self.postId = postId
         self.username = username

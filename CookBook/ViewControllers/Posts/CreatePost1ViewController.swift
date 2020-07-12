@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseStorage
 
 class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -86,13 +87,27 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
         postItem = Posts(recipeName: "", username: "", mealType: "", likes: 0, healthy: 0, tagBudget: "", tagStyle: "", tagPrep: "", postImage: "", postComplete: "0")
          
         postItem!.recipeName = createPostRecipeName.text!
-        postItem!.postImage = "default"
         postItem!.username = self.username
          
         let pickerRow = createPostPicker.selectedRow(inComponent: 0)
         let selectedPickerText = mealTypeData[pickerRow]
         
         postItem!.mealType = selectedPickerText
+        
+        let randomID = UUID.init().uuidString
+        let imagePath = "postImages/\(randomID).jpg"
+        let uploadRef = Storage.storage().reference(withPath: imagePath)
+        guard let imageData = createPostImage.image?.jpegData(compressionQuality: 0.75) else {return}
+        let uploadMetaData = StorageMetadata.init()
+        uploadMetaData.contentType = "image/jpeg"
+        uploadRef.putData(imageData, metadata: uploadMetaData) {(downloadMetadata, error) in
+            if let error = error {
+                print ("error here \(error.localizedDescription)")
+                return
+            }
+            print("upload Image complete: \(downloadMetadata)")
+        }
+        postItem!.postImage = imagePath
          
         let vc =
             storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController

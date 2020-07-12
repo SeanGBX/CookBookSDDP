@@ -15,8 +15,7 @@ class HealthyPost: NSObject, Codable {
     var healthyId: String
     
     
-    init (postId: String, comment: String, username: String,
-          healthyId: String = "")
+    init (postId: String, username: String, healthyId: String = "")
     {
         self.postId = postId
         self.username = username

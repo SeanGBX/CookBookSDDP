@@ -797,9 +797,6 @@
                                                                         <constraint firstAttribute="height" constant="50" id="psQ-EB-NT6"/>
                                                                     </constraints>
                                                                     <state key="normal" title="Comment"/>
-                                                                    <connections>
-                                                                        <action selector="commentButtonClick:" destination="YuE-ci-agz" eventType="touchUpInside" id="ooG-od-XFx"/>
-                                                                    </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dTO-li-rGb">
                                                                     <rect key="frame" x="138" y="0.0" width="138" height="50"/>
@@ -835,7 +832,6 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="CLHLabel" destination="dDB-o3-TlF" id="T3D-2V-NWm"/>
-                                            <outlet property="commentButton" destination="c6k-Ue-RtN" id="cvZ-Hd-e15"/>
                                             <outlet property="healthyButton" destination="l5Z-Q0-o8u" id="aSz-j9-iaC"/>
                                             <outlet property="likeButton" destination="dTO-li-rGb" id="ptR-Wg-34a"/>
                                             <outlet property="postImage" destination="6Nb-Lw-P2y" id="fpV-zk-yb6"/>
