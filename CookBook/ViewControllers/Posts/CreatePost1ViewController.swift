@@ -100,7 +100,7 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
                let randomID = UUID.init().uuidString
                let imagePath = "postImages/\(randomID).jpg"
                let uploadRef = Storage.storage().reference(withPath: imagePath)
-               guard let imageData = createPostImage.image?.jpegData(compressionQuality: 0.75) else {return}
+               guard let imageData = createPostImage.image?.jpegData(compressionQuality: 0.5) else {return}
                let uploadMetaData = StorageMetadata.init()
                uploadMetaData.contentType = "image/jpeg"
                uploadRef.putData(imageData, metadata: uploadMetaData) {(downloadMetadata, error) in

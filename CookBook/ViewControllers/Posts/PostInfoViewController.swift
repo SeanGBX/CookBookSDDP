@@ -86,8 +86,16 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
                 let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientCell", for: indexPath) as! IngredientCell
             
             cell.ingredientLabel.text = "\(p.ingredient) - \(p.measureVal) \(p.measureType)"
-            
-            cell.ingredientImage.image = UIImage(named: p.ingredientImage)
+            let ingredientImageRef = Storage.storage().reference(withPath: p.ingredientImage)
+            ingredientImageRef.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
+                if let error = error {
+                    print("Error downloading image: \(error.localizedDescription)")
+                    return
+                }
+                if let data = data {
+                    cell.ingredientImage.image = UIImage(data: data)
+                }
+            }
             
             return cell
         } else if (tableView == stepTable){
