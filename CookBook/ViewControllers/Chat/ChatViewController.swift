@@ -7,14 +7,36 @@
 //
 
 import UIKit
+import JGProgressHUD
 
-class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate{
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var editButton: UIBarButtonItem!
     
     var convList : [Conversations] = []
     var friendsList : [Friend] = []
+    private var results: [Conversations] = []
+    
+    private let spinner = JGProgressHUD(style: .dark)
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    
+    var isFiltering: Bool {
+      return searchController.isActive && !isSearchBarEmpty
+    }
+    
+    var isSearchBarEmpty: Bool {
+      return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    func filterContentForSearchText(_ searchText: String) {
+        results = convList.filter { (conv: Conversations) -> Bool in
+            return conv.secondUserName.lowercased().contains(searchText.lowercased())
+      }
+      
+      tableView.reloadData()
+    }
     
     func loadChat(){
         chatDataManager.loadConversations(){
@@ -37,7 +59,16 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(didTapComposeButton))
         self.navigationItem.title = "Messages"
+        navigationItem.searchController = searchController
+        searchController.searchBar.placeholder = "Search..."
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchResultsUpdater = self
+        definesPresentationContext = true
         loadChat()
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+        
         
     }
     
@@ -56,7 +87,9 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
                       }
     }
     
-       
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
     
     @objc private func didTapComposeButton(){
         let vc = NewConversationViewController()
@@ -77,6 +110,10 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltering {
+            return results.count
+        }
+        
         return convList.count
     }
     
@@ -93,8 +130,18 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as! FriendCell
-        let p = convList[indexPath.row]
-        let countOfList = convList[indexPath.row].messages.count
+        let p : Conversations
+        let countOfList: Int
+        if isFiltering {
+            p = results[indexPath.row]
+            countOfList = results[indexPath.row].messages.count
+        }
+        else{
+            p = convList[indexPath.row]
+            countOfList = convList[indexPath.row].messages.count
+            
+        }
+        
         cell.friendnameLabel.text = p.secondUserName
         cell.friendtextLabel.text = p.messages[countOfList - 1]["message"]
         cell.friendImage.image = UIImage(named: p.imageName)
@@ -107,6 +154,8 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         return cell
     }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -129,5 +178,12 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     
+}
+
+extension ChatViewController: UISearchResultsUpdating {
+  func updateSearchResults(for searchController: UISearchController) {
+    let searchBar = searchController.searchBar
+    filterContentForSearchText(searchBar.text!)
+  }
 }
 

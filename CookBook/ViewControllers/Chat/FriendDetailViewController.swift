@@ -97,17 +97,23 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         messageInputBar.delegate = self
-        self.messagesCollectionView.scrollToBottom()
-
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+//        tap.cancelsTouchesInView = true
+//        view.addGestureRecognizer(tap)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.messagesCollectionView.scrollToBottom()
         messageInputBar.inputTextView.becomeFirstResponder()
-
     }
     
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+        print("")
+    }
     
     func currentSender() -> SenderType {
         return currentUser
