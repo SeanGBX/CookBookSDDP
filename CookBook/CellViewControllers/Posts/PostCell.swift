@@ -24,6 +24,7 @@ class PostCell: UITableViewCell {
     
     weak var delegate: CustomCellUpdate?
     var postID: String?
+    var postItem: Posts?
     var username: String = "currentUser"
     var likePostItem: LikePost?
     var healthyPostItem: HealthyPost?
@@ -38,12 +39,6 @@ class PostCell: UITableViewCell {
         loadHealthy(id: postID!)
         loadUserLikes(id: postID!)
         loadUserHealthy(id: postID!)
-        if (userLikes.count > 0) {
-            likeButton.setTitle("Unlike", for: .normal)
-        }
-        if (userHealthy.count > 0){
-            healthyButton.setTitle("Unhealthy", for: .normal)
-        }
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -69,6 +64,9 @@ class PostCell: UITableViewCell {
         likePostDataManager.loadUniqueLikes(id, username){
             uniqueLikeList in
             self.userLikes = uniqueLikeList
+            if (self.userLikes.count > 0) {
+                self.likeButton.setTitle("Unlike", for: .normal)
+            }
         }
     }
     
@@ -76,6 +74,9 @@ class PostCell: UITableViewCell {
         healthyPostDataManager.loadUniqueHealthy(id, username){
             uniqueHealthyList in
             self.userHealthy = uniqueHealthyList
+            if (self.userHealthy.count > 0){
+                self.healthyButton.setTitle("Unhealthy", for: .normal)
+            }
         }
     }
     
@@ -110,5 +111,13 @@ class PostCell: UITableViewCell {
         }
     }
     
-    
+    @IBAction func deletePostButton(_ sender: Any) {
+        if (postItem!.username == username){
+            postsDataManager.deletePost(postID!)
+            print("bbbbbbb\(postItem!.postId)")
+            print("bbbbbbb\(postID!)")
+        } else {
+            print("You cannot delete someone elses post")
+        }
+    }
 }

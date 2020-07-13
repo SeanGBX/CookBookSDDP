@@ -40,7 +40,16 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return postList.count
+        if (postList.count == 0){
+            var emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
+            emptyLabel.text = "There are no more posts"
+            emptyLabel.textAlignment = NSTextAlignment.center
+            self.tableView.backgroundView = emptyLabel
+            self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+            return 0
+        } else {
+            return postList.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -52,6 +61,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.CLHLabel.text = "10 comments, \(p.likes) likes, \(p.healthy) users find this healthy"
         cell.tagsLabel.text = "\(p.tagBudget), \(p.tagPrep), \(p.tagStyle)"
         cell.postID = p.postId
+        cell.postItem = p
         cell.delegate = self
         cell.loadCell()
         

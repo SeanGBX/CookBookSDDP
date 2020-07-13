@@ -20,7 +20,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
     @IBOutlet weak var stepInfo: UITextField!
     @IBOutlet weak var enableIngredientSwitch: UISwitch!
     @IBOutlet weak var enableIngredientLabel: UILabel!
-    
+    @IBOutlet weak var ingredientNameLabel: UILabel!
     @IBOutlet weak var addIngredientImageButton: UIButton!
     
     var ingredientItem: IngredientSteps?
@@ -56,6 +56,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         ingredientInfoName.isHidden = true
         ingredientInfoImage.isHidden = true
         addIngredientImageButton.isHidden = true
+        ingredientNameLabel.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,7 +86,6 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
                 enableIngredientSwitch.isEnabled = false
                 enableIngredientSwitch.isHidden = true
                 enableIngredientLabel.isHidden = true
-                addIngredientImageButton.isHidden = true
                 ingredientInfoImage.isHidden = true
                 if (ingredientItem!.ingredient != "") {
                     enableIngredientSwitch.isOn = true
@@ -242,12 +242,14 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
             ingredientInfoName.isHidden = false
             ingredientInfoImage.isHidden = false
             addIngredientImageButton.isHidden = false
+            ingredientNameLabel.isHidden = false
         } else {
             ingredientInfoMeasureVal.isHidden = true
             ingredientInfoMeasureType.isHidden = true
             ingredientInfoName.isHidden = true
             ingredientInfoImage.isHidden = true
             addIngredientImageButton.isHidden = true
+            ingredientNameLabel.isHidden = true
         }
     }
     

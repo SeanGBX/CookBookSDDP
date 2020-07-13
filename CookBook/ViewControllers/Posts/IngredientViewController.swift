@@ -32,7 +32,16 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (ingredientItemList.count == 0){
+            var emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
+            emptyLabel.text = "No ingredients have been added"
+            emptyLabel.textAlignment = NSTextAlignment.center
+            self.ingredientTableView.backgroundView = emptyLabel
+            self.ingredientTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+            return 0
+        } else {
         return ingredientItemList.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

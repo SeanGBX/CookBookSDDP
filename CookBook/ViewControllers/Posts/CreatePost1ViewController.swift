@@ -56,6 +56,14 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
         view.endEditing(true)
     }
     
+    func areEqualImages(img1: UIImage, img2: UIImage) -> Bool {
+
+        guard let data1 = img1.pngData() else { return false }
+        guard let data2 = img2.pngData() else { return false }
+
+       return data1 == data2
+    }
+    
     @IBAction func progressToIngredients(_ sender: Any) {
         if (myPictureSwitch.isOn == true ){
             var error: String = ""
@@ -64,9 +72,11 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
                    error += "Recipe Name cannot be empty\n\n"
                }
         
-                if(createPostImage.image == UIImage(named: "default")){
-                    error += "Please add an image\n\n"
-                }
+            print("yumyum\(createPostImage.image!)")
+            print("yumyum\(UIImage(named: "default"))")
+//            if(areEqualImages(img1: createPostImage.image!, img2: UIImage(named:"default")!) == true){
+//                    error += "Please add an image\n\n"
+//                }
                
                if(error != ""){
                       let alert = UIAlertController(
