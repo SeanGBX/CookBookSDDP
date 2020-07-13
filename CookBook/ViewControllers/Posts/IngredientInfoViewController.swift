@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import FirebaseStorage
 
-class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     
     @IBOutlet weak var ingredientInfoName: UITextField!
@@ -19,6 +20,8 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
     @IBOutlet weak var stepInfo: UITextField!
     @IBOutlet weak var enableIngredientSwitch: UISwitch!
     @IBOutlet weak var enableIngredientLabel: UILabel!
+    
+    @IBOutlet weak var addIngredientImageButton: UIButton!
     
     var ingredientItem: IngredientSteps?
     var postID: String?
@@ -52,11 +55,23 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         ingredientInfoMeasureType.isHidden = true
         ingredientInfoName.isHidden = true
         ingredientInfoImage.isHidden = true
+        addIngredientImageButton.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         if ingredientItem != nil {
-            ingredientInfoImage.image = UIImage(named: ingredientItem!.ingredientImage)
+            let imageRef = Storage.storage().reference(withPath: ingredientItem!.ingredientImage)
+            imageRef.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
+                if let error = error {
+                    print("Error downloading image: \(error.localizedDescription)")
+                    return
+                }
+                if let data = data {
+                    self!.ingredientInfoImage.image = UIImage(data: data)
+                } else {
+                    self!.ingredientInfoImage.image = UIImage(named: "default")
+                }
+            }
             ingredientInfoName.text = ingredientItem!.ingredient
             ingredientInfoMeasureVal.text = "\(ingredientItem!.measureVal)"
             stepInfo.text = ingredientItem!.step
@@ -70,6 +85,8 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
                 enableIngredientSwitch.isEnabled = false
                 enableIngredientSwitch.isHidden = true
                 enableIngredientLabel.isHidden = true
+                addIngredientImageButton.isHidden = true
+                ingredientInfoImage.isHidden = true
                 if (ingredientItem!.ingredient != "") {
                     enableIngredientSwitch.isOn = true
                     
@@ -77,6 +94,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
                     ingredientInfoMeasureType.isHidden = false
                     ingredientInfoName.isHidden = false
                     ingredientInfoImage.isHidden = false
+                    addIngredientImageButton.isHidden = false
                 }
             }
         }
@@ -127,6 +145,9 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
             } else {
                 error += "Please enter a valid measurement value\n\n"
             }
+            if (ingredientInfoImage.image == UIImage(named: "default")){
+                error += "Please add an image for your ingredient\n\n"
+            }
         }
         
         if (stepInfo.text == ""){
@@ -156,16 +177,29 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         
         if (enableIngredientSwitch.isOn == true){
             ingredientItem!.ingredient = ingredientInfoName.text!
-            ingredientItem!.ingredientImage = "implement image"
             ingredientItem!.measureVal = measureValue != nil ? measureValue! : 0
             
             let pickerRow = ingredientInfoMeasureType.selectedRow(inComponent: 0)
             let selectedPickerText = measurementTypeData[pickerRow]
             ingredientItem!.measureType = selectedPickerText
+            let randomID = UUID.init().uuidString
+            let imagePath = "ingredientImages/\(randomID).jpg"
+            let uploadRef = Storage.storage().reference(withPath: imagePath)
+            guard let imageData = ingredientInfoImage.image?.jpegData(compressionQuality: 0.5) else {return}
+            let uploadMetaData = StorageMetadata.init()
+            uploadMetaData.contentType = "image/jpeg"
+            uploadRef.putData(imageData, metadata: uploadMetaData) {(downloadMetadata, error) in
+                if let error = error {
+                    print ("error here \(error.localizedDescription)")
+                    return
+                }
+                print("upload Image complete: \(downloadMetadata)")
+            }
+            ingredientItem!.ingredientImage = imagePath
             
         } else {
             ingredientItem!.ingredient = ""
-            ingredientItem!.ingredientImage = ""
+            ingredientItem!.ingredientImage = "default"
             ingredientItem!.measureVal = 0
             ingredientItem!.measureType = "ml"
         }
@@ -207,11 +241,72 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
             ingredientInfoMeasureType.isHidden = false
             ingredientInfoName.isHidden = false
             ingredientInfoImage.isHidden = false
+            addIngredientImageButton.isHidden = false
         } else {
             ingredientInfoMeasureVal.isHidden = true
             ingredientInfoMeasureType.isHidden = true
             ingredientInfoName.isHidden = true
             ingredientInfoImage.isHidden = true
+            addIngredientImageButton.isHidden = true
         }
+    }
+    
+    
+    @IBAction func addIngredientImage(_ sender: Any) {
+        let alert1 = UIAlertController(
+                   title: "How would you like to add a picture?",
+                   message: "",
+                   preferredStyle: .alert
+               )
+               
+               if UIImagePickerController.isSourceTypeAvailable(.camera){
+                   
+                   alert1.addAction(
+                       UIAlertAction(
+                           title: "Camera",
+                           style: .default,
+                           handler: {
+                               action in
+                               let imagePicker = UIImagePickerController()
+                               imagePicker.delegate = self
+                               imagePicker.allowsEditing = true
+                               
+                               imagePicker.sourceType = .camera
+                               self.present(imagePicker, animated: true)
+                       })
+                    )
+               }
+               
+               alert1.addAction(
+                  UIAlertAction(
+                      title: "Library",
+                      style: .default,
+                      handler: {
+                       action in
+                       let imagePicker = UIImagePickerController()
+                       imagePicker.delegate = self
+                       imagePicker.allowsEditing = true
+                       
+                       imagePicker.sourceType = .photoLibrary
+                       self.present(imagePicker, animated: true)
+                  })
+               )
+               
+               alert1.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
+           
+               self.present(alert1, animated: true, completion: nil)
+               
+               return
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let chosenImage : UIImage = info[.editedImage] as! UIImage
+        self.ingredientInfoImage!.image = chosenImage
+        UIImageWriteToSavedPhotosAlbum(chosenImage, nil, nil, nil)
+        picker.dismiss(animated: true)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
     }
 }

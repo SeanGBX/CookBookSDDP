@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseStorage
 
 class IngredientViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -38,7 +39,16 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
         let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientItemCell", for: indexPath) as! IngredientItemCell
         let p = ingredientItemList[indexPath.row]
         cell.IngredientItemLabel.text = "\(p.step.prefix(30))..."
-        cell.ingredientItemImage.image = UIImage(named: p.ingredientImage)
+        let imageRef = Storage.storage().reference(withPath: p.ingredientImage)
+        imageRef.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
+            if let error = error {
+                print("Error downloading image: \(error.localizedDescription)")
+                return
+            }
+            if let data = data {
+                cell.ingredientItemImage.image = UIImage(data: data)
+            }
+        }
         return cell
     }
     
