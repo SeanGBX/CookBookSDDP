@@ -22,6 +22,17 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     let searchController = UISearchController(searchResultsController: nil)
     
+    private let noResultsLabel: UILabel = {
+           let label = UILabel()
+           label.isHidden = true
+           label.text = "No Results"
+           label.textAlignment = .center
+           label.textColor = .darkGray
+           label.font = .systemFont(ofSize: 21, weight: .medium)
+           
+           return label
+       }()
+    
     var isFiltering: Bool {
       return searchController.isActive && !isSearchBarEmpty
     }
@@ -31,11 +42,34 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func filterContentForSearchText(_ searchText: String) {
+        let text = searchText.trimmingCharacters(in: .whitespaces)
         results = convList.filter { (conv: Conversations) -> Bool in
-            return conv.secondUserName.lowercased().contains(searchText.lowercased())
-      }
-      
-      tableView.reloadData()
+            return conv.secondUserName.lowercased().contains(text.lowercased())
+            }
+        if text == ""{
+            results = convList
+        }
+        updateUI()
+        tableView.reloadData()
+        
+    }
+    func updateUI(){
+        if results.isEmpty && isFiltering{
+                   self.noResultsLabel.isHidden = false
+                   self.tableView.isHidden = true
+               }
+               else{
+                   self.noResultsLabel.isHidden = true
+                   self.tableView.isHidden = false
+               }
+    }
+    
+    func addSearchBar(){
+        navigationItem.searchController = searchController
+        searchController.searchBar.placeholder = "Search..."
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchResultsUpdater = self
+        definesPresentationContext = true
     }
     
     func loadChat(){
@@ -53,27 +87,32 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             self.tableView.reloadData()
         }
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(didTapComposeButton))
         self.navigationItem.title = "Messages"
-        navigationItem.searchController = searchController
-        searchController.searchBar.placeholder = "Search..."
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchResultsUpdater = self
-        definesPresentationContext = true
-        loadChat()
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        addSearchBar()
+        view.addSubview(noResultsLabel)
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
+        spinner.show(in: view)
         
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
         loadChat()
+        self.spinner.dismiss()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        noResultsLabel.frame = CGRect(x: view.frame.width/4, y: (view.frame.height-200)/2, width: view.frame.width/2, height: 100)
     }
     
     
@@ -94,7 +133,6 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     @objc private func didTapComposeButton(){
         let vc = NewConversationViewController()
         vc.completion = { [weak self] result in
-            print(result.friendName)
             self?.createNewConversation(result: result)
         }
         let navVC = UINavigationController(rootViewController: vc)
@@ -103,30 +141,52 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     private func createNewConversation(result: Friend){
         let vc = FriendDetailViewController()
+        var resultconv : Conversations?
         vc.friendList = result
-        vc.isNewConversation = true
         vc.navigationItem.largeTitleDisplayMode = .never
-        navigationController?.pushViewController(vc, animated: true)
+        chatDataManager.loadSpecificChat(result.friendId){
+            specificConv in
+            resultconv = specificConv
+            
+            
+        }
+        chatDataManager.findSpecificChat(result.friendId){
+            isSuccessful in
+            if isSuccessful{
+                vc.isNewConversation = false
+                vc.convItems = resultconv
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            else{
+                vc.isNewConversation = true
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+        
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+           if editingStyle == .delete
+           {
+               let conv = convList[indexPath.row]
+               convList.remove(at: indexPath.row)
+               chatDataManager.deleteConv(conv)
+               
+               tableView.deleteRows(at: [indexPath], with: .automatic)
+           }
+       }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering {
             return results.count
         }
-        
+        if !isFiltering{
+            self.noResultsLabel.isHidden = true
+            self.tableView.isHidden = false
+        }
         return convList.count
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete
-        {
-            let conv = convList[indexPath.row]
-            convList.remove(at: indexPath.row)
-            chatDataManager.deleteConv(conv)
-            
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-        }
-    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as! FriendCell

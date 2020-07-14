@@ -142,16 +142,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     }
     */
     func fetchChat(){
-        chatDataManager.loadSpecificChat(convItems!.secondUserId){
-            convListFromFirestore in
-
-            self.convItems = convListFromFirestore
-            for i in convListFromFirestore.messages{
-                print(i["message"])
-            }
-            
-        }
-        self.viewDidLoad()
+        
     }
 }
 
@@ -166,7 +157,8 @@ extension FriendDetailViewController: InputBarAccessoryViewDelegate {
         
         if isNewConversation {
             let message =  Message(sender: currentUser, messageId: createMessageId()!, sentDate: Date(), kind: .text(text))
-            chatDataManager.init().createNewConversation(with: "seangwee", friend: friendList!, firstMessage: message, textMessage: text, completion: {success in
+            chatDataManager.init().createNewConversation(with: "seangwee", friend: friendList!, firstMessage: message, textMessage: text, completion: {
+                success in
                 if success {
                     print("Message Sent")
                     self.messages = []

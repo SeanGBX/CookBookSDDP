@@ -35,25 +35,47 @@ class chatDataManager: NSObject {
         }
     }
     
-    static func loadSpecificChat(_ userId: String, onComplete: ((Conversations) -> Void)?){
-        db.collection("conversations").whereField("secondUserId", isEqualTo: userId).getDocuments(){
+     static func loadSpecificChat(_ userId: String, onComplete: ((Conversations) -> Void)?){
+         db.collection("conversations").document("seangwee_\(userId)").getDocument(){
+               
+               (querySnapshot, err) in
+               var specificConv : Conversations?
+               
+               if let err = err{
+                   print("Error getting documents: \(err)")
+               }
+               else{
+                       let conv = try? querySnapshot?.data(as: Conversations.self)
+                       
+                       if conv != nil{
+                            specificConv = conv
+                            onComplete?(specificConv!)
+                       }
+                   }
+               
+           }
+       }
+    
+    static func findSpecificChat(_ userId: String, onComplete: ((Bool) -> Void)?){
+        db.collection("conversations").document("seangwee_\(userId)").getDocument(){
             
             (querySnapshot, err) in
-            var specificConv : Conversations?
+            var isSuccessful : Bool = false
             
             if let err = err{
                 print("Error getting documents: \(err)")
             }
             else{
-                for document in querySnapshot!.documents{
-                    var conv = try? document.data(as: Conversations.self) as! Conversations
+                
+                let conv = try? querySnapshot?.data(as: Conversations.self)
                     
                     if conv != nil{
-                        specificConv = conv
+                        isSuccessful = true
                     }
-                }
+                    
+                
             }
-            onComplete?(specificConv!)
+            onComplete?(isSuccessful)
         }
     }
     
