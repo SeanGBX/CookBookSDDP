@@ -43,12 +43,15 @@ class RecipeViewController: UIViewController,  UITableViewDataSource, UITableVie
     @IBOutlet weak var cuisineStyleLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var recipeTableView: UITableView!
+    @IBOutlet weak var recipeNameLabel: UILabel!
     var chosenCuisine: String = ""
     var budget: String = ""
     var prepTime: String = ""
     var cuisineStyle: String = ""
+    var recipeItem: Posts?
     var recipeList: [Posts] = []
     var filteredRecipes: [Posts] = []
+    var recipe: PostViewController?
     let searchController = UISearchController(searchResultsController: nil)
     var isSearchBarEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
@@ -80,28 +83,33 @@ class RecipeViewController: UIViewController,  UITableViewDataSource, UITableVie
             recipeListFromFirestore in
             self.recipeList = recipeListFromFirestore
             print(self.recipeList.count)
-
-            self.recipeTableView.reloadData()
+            
+            if self.recipeList.count == 0 {
+                self.recipeNameLabel.text = "There are no recipes found!"
+                self.recipeTableView.isHidden = true
+            }
+            
+            else {
+                self.recipeNameLabel.text = ""
+                self.recipeTableView.reloadData()
+            }
+        }
     }
-        
-        
-//        func loadSpecificRecipes() {
-//            RecipeDataManager.loadSpecificRecipes(titleLabel.text!) {
-//                recipeListFromFirestore in self.recipeList = recipeListFromFirestore
-//                print(">>> This codes are causing errors")
-//
-//                self.recipeTableView.reloadData()
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+//    {
+//        if segue.destination is PostInfoViewController {
+//            let PostInfoViewController = segue.destination as! PostInfoViewController
+
+            
+//            let myIndexPath = recipe?.tableView.indexPathForSelectedRow
+            
+//            if (myIndexPath != nil) {
+//                let recipe = recipeList[myIndexPath!.row]
+//                PostInfoViewController.postItem = recipe
 //            }
 //        }
-            
-//            postsDataManager.loadCompletePosts(){
-//                postListFromFirestore in
-//                self.recipeList = postListFromFirestore
-//                print(postListFromFirestore.count)
-//                print(self.recipeList.count)
-//                self.recipeTableView.reloadData()
-//            }
-    }
+//    }
     
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
