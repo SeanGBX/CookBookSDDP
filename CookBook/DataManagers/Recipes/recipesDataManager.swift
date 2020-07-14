@@ -13,8 +13,8 @@ import FirebaseFirestoreSwift
 class RecipeDataManager: NSObject {
     static let db = Firestore.firestore()
     
-    static func loadRecipes(onComplete: (([Posts]) -> Void)?) {
-        db.collection("posts").getDocuments() {
+    static func loadRecipes(_ mealCourse: String, budget: String, prepTime: String, cuisineStyle: String, onComplete: (([Posts]) -> Void)?) {
+        db.collection("posts").whereField("mealType", isEqualTo: mealCourse).whereField("tagBudget", isEqualTo: budget).whereField("tagPrep", isEqualTo: prepTime).whereField("tagStyle", isEqualTo: cuisineStyle).getDocuments() {
             (querySnapshot, err) in
             var recipeList: [Posts] = []
             
@@ -35,5 +35,4 @@ class RecipeDataManager: NSObject {
             onComplete?(recipeList)
         }
     }
-
 }

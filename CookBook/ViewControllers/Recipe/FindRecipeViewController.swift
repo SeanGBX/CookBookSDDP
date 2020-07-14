@@ -167,7 +167,7 @@ class FindRecipeViewController: UIViewController, UITextFieldDelegate, UIPickerV
             let vc = segue.destination as? RecipeViewController
             vc?.budget = budgetTextField.text!
             vc?.prepTime = prepTimeTextField.text!
-            vc?.chosenCuisine = "List of " + chosenCuisinLabel.text! + " recipes"
+            vc?.chosenCuisine = chosenCuisinLabel.text!
             vc?.cuisineStyle = cuisineStyleTextField.text!
         }
     }
