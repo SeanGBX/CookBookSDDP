@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseStorage
+import Foundation
 
 class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -116,8 +117,14 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         view.endEditing(true)
     }
     
-    func isInteger(_ string: String) -> Bool {
-        if (Int(string) != nil){
+    func isInteger() -> Bool {
+        return CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: ingredientInfoMeasureVal.text!))
+    }
+    
+    func areEqualImages() -> Bool {
+        let image1 = #imageLiteral(resourceName: "Default").pngData()
+        let image2 = ingredientInfoImage.image?.pngData()
+        if image1 == image2{
             return true
         } else {
             return false
@@ -125,7 +132,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
     
     @IBAction func addEditIngredient(_ sender: Any) {
-        var error = ""
+        var error1 = ""
         let measureValue = Int(ingredientInfoMeasureVal.text!)
         
         //do integer checking for measurevalue before image
@@ -133,31 +140,31 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         if (enableIngredientSwitch.isOn == true){
             
             if (ingredientInfoMeasureVal.text == "" || ingredientInfoMeasureVal.text == "0"){
-                error += "Please enter a valid measurement value\n\n"
+                error1 += "Please enter a valid measurement value\n\n"
             }
             if (ingredientInfoName.text == ""){
-                error += "Please enter an ingredient name\n\n"
+                error1 += "Please enter an ingredient name\n\n"
             }
-            if (isInteger(ingredientInfoMeasureVal.text!) == true){
+            if (isInteger() == true){
                 if (measureValue! <= 0){
-                    error += "Please enter a valid measurement value\n\n"
+                    error1 += "Please enter a valid measurement value\n\n"
                 }
             } else {
-                error += "Please enter a valid measurement value\n\n"
+                error1 += "Please enter a valid measurement value\n\n"
             }
-            if (ingredientInfoImage.image == UIImage(named: "default")){
-                error += "Please add an image for your ingredient\n\n"
+            if (areEqualImages() == true){
+                error1 += "Please add an image for your ingredient\n\n"
             }
         }
         
         if (stepInfo.text == ""){
-            error += "Please enter step information"
+            error1 += "Please enter step information"
         }
         
-        if(error != ""){
+        if(error1 != ""){
                let alert = UIAlertController(
-                   title: "Problems with below fields",
-                   message: error,
+                   title: error1,
+                   message: "",
                    preferredStyle: .alert
                )
                 
@@ -195,11 +202,10 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
                 }
                 print("upload Image complete: \(downloadMetadata)")
             }
-            ingredientItem!.ingredientImage = imagePath
-            
+            print("--x-->\(imagePath)")
+            self.ingredientItem!.ingredientImage = imagePath
         } else {
             ingredientItem!.ingredient = ""
-            ingredientItem!.ingredientImage = "default"
             ingredientItem!.measureVal = 0
             ingredientItem!.measureType = "ml"
         }
@@ -215,8 +221,10 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         }
         
         vc.postID = self.postID!
-        vc.loadIngredients()
-        self.show(vc, sender: self)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+            vc.loadIngredients()
+            self.show(vc, sender: self)
+        })
     }
     
     

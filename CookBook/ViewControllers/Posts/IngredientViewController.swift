@@ -34,13 +34,15 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (ingredientItemList.count == 0){
             var emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
-            emptyLabel.text = "No ingredients have been added"
+            emptyLabel.text = "There are no ingredients"
             emptyLabel.textAlignment = NSTextAlignment.center
             self.ingredientTableView.backgroundView = emptyLabel
             self.ingredientTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
             return 0
         } else {
-        return ingredientItemList.count
+            self.ingredientTableView.backgroundView = nil
+            self.ingredientTableView.separatorStyle = UITableViewCell.SeparatorStyle.singleLine
+            return ingredientItemList.count
         }
     }
     
@@ -89,10 +91,11 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBAction func proceedToSteps(_ sender: Any) {
         
-        if (ingredientItemList == []){
+        
+        if (ingredientItemList.count == 0){
             
            let alert = UIAlertController(
-               title: "Please add at least 1 step",
+               title: "Please add at least 1 step and ingredient",
                message: "",
                preferredStyle: .alert
            )

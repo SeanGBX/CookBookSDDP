@@ -48,6 +48,8 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
             return 0
         } else {
+            self.tableView.backgroundView = nil
+            self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.singleLine
             return postList.count
         }
     }
