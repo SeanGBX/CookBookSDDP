@@ -56,98 +56,98 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
         view.endEditing(true)
     }
     
-    func areEqualImages(img1: UIImage, img2: UIImage) -> Bool {
-
-        guard let data1 = img1.pngData() else { return false }
-        guard let data2 = img2.pngData() else { return false }
-
-       return data1 == data2
+    func areEqualImages() -> Bool {
+        let image1 = #imageLiteral(resourceName: "Default").pngData()
+        let image2 = createPostImage.image?.pngData()
+        if image1 == image2{
+            return true
+        } else {
+            return false
+        }
     }
     
     @IBAction func progressToIngredients(_ sender: Any) {
         if (myPictureSwitch.isOn == true ){
             var error: String = ""
                 
-               if(createPostRecipeName.text == ""){
-                   error += "Recipe Name cannot be empty\n\n"
-               }
-        
-            print("yumyum\(createPostImage.image!)")
-            print("yumyum\(UIImage(named: "default"))")
-//            if(areEqualImages(img1: createPostImage.image!, img2: UIImage(named:"default")!) == true){
-//                    error += "Please add an image\n\n"
-//                }
-               
-               if(error != ""){
-                      let alert = UIAlertController(
-                          title: error,
-                          message: "",
-                          preferredStyle: .alert
-                      )
-                       
-                      alert.addAction(
-                          UIAlertAction(
-                              title: "OK",
-                              style: .default,
-                              handler: nil)
-                      )
-                   
-                      self.present(alert, animated: true, completion: nil)
-                       
-                      return
-               }
-                
-               postItem = Posts(recipeName: "", username: "", mealType: "", likes: 0, healthy: 0, tagBudget: "", tagStyle: "", tagPrep: "", postImage: "", postComplete: "0")
-                
-               postItem!.recipeName = createPostRecipeName.text!
-               postItem!.username = self.username
-                
-               let pickerRow = createPostPicker.selectedRow(inComponent: 0)
-               let selectedPickerText = mealTypeData[pickerRow]
-               
-               postItem!.mealType = selectedPickerText
-               
-               let randomID = UUID.init().uuidString
-               let imagePath = "postImages/\(randomID).jpg"
-               let uploadRef = Storage.storage().reference(withPath: imagePath)
-               guard let imageData = createPostImage.image?.jpegData(compressionQuality: 0.5) else {return}
-               let uploadMetaData = StorageMetadata.init()
-               uploadMetaData.contentType = "image/jpeg"
-               uploadRef.putData(imageData, metadata: uploadMetaData) {(downloadMetadata, error) in
-                   if let error = error {
-                       print ("error here \(error.localizedDescription)")
-                       return
-                   }
-                   print("upload Image complete: \(downloadMetadata)")
-               }
-               postItem!.postImage = imagePath
-                
-               let vc =
-                   storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
-                
-               postsDataManager.insertPost(newID ?? "", postItem!){
-                   postId in
-                   self.newID = postsDataManager.storePostID(postId)
-                   vc.postID = self.newID!
-                   self.show(vc, sender: self)
-               }
-        } else {
-               let alertMyPic = UIAlertController(
-                   title: "Please switch on the 'This is my picture' switch",
-                   message: "",
-                   preferredStyle: .alert
-               )
-                
-               alertMyPic.addAction(
-                   UIAlertAction(
-                       title: "OK",
-                       style: .default,
-                       handler: nil)
-               )
+            if(createPostRecipeName.text == ""){
+               error += "Recipe Name cannot be empty\n\n"
+            }
             
-               self.present(alertMyPic, animated: true, completion: nil)
+            if(areEqualImages() == true){
+                error += "Please add a picture of your recipe"
+            }
+               
+           if(error != ""){
+              let alert = UIAlertController(
+                  title: error,
+                  message: "",
+                  preferredStyle: .alert
+              )
+               
+              alert.addAction(
+                  UIAlertAction(
+                      title: "OK",
+                      style: .default,
+                      handler: nil)
+              )
+           
+              self.present(alert, animated: true, completion: nil)
+               
+              return
+           }
                 
-               return
+           postItem = Posts(recipeName: "", username: "", mealType: "", likes: 0, healthy: 0, tagBudget: "", tagStyle: "", tagPrep: "", postImage: "", postComplete: "0")
+            
+           postItem!.recipeName = createPostRecipeName.text!
+           postItem!.username = self.username
+            
+           let pickerRow = createPostPicker.selectedRow(inComponent: 0)
+           let selectedPickerText = mealTypeData[pickerRow]
+               
+           postItem!.mealType = selectedPickerText
+           
+           let randomID = UUID.init().uuidString
+           let imagePath = "postImages/\(randomID).jpg"
+           let uploadRef = Storage.storage().reference(withPath: imagePath)
+           guard let imageData = createPostImage.image?.jpegData(compressionQuality: 0.5) else {return}
+           let uploadMetaData = StorageMetadata.init()
+           uploadMetaData.contentType = "image/jpeg"
+           uploadRef.putData(imageData, metadata: uploadMetaData) {(downloadMetadata, error) in
+               if let error = error {
+                   print ("error here \(error.localizedDescription)")
+                   return
+               }
+               print("upload Image complete: \(downloadMetadata)")
+           }
+           postItem!.postImage = imagePath
+            
+           let vc =
+               storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
+            
+           postsDataManager.insertPost(newID ?? "", postItem!){
+               postId in
+               self.newID = postsDataManager.storePostID(postId)
+               vc.postID = self.newID!
+               self.show(vc, sender: self)
+           }
+        } else {
+           let alertMyPic = UIAlertController(
+               title: "Please switch on the 'This is my picture' switch",
+               message: "",
+               preferredStyle: .alert
+           )
+            
+           alertMyPic.addAction(
+               UIAlertAction(
+                   title: "OK",
+                   style: .default,
+                   handler: nil)
+           )
+        
+           self.present(alertMyPic, animated: true, completion: nil)
+            
+           return
         }
     }
     
