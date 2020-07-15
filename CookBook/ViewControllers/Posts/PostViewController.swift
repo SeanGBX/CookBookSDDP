@@ -18,7 +18,6 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func updateTableView(){
         tableView.reloadData()
-        print("table has been updated from cell")
     }
     
     override func viewDidLoad()

@@ -34,23 +34,8 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("--->\(self.postID!)")
         self.navigationItem.setHidesBackButton(true, animated: true);
         loadSpecificPost()
-        print("--->\(selectedPost)")
-        for i in selectedPost{
-            let imageRef = Storage.storage().reference(withPath: i.postImage)
-            imageRef.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
-                if let error = error {
-                    print("Error downloading image: \(error.localizedDescription)")
-                    return
-                }
-                if let data = data {
-                    self?.finalImage.image = UIImage(data: data)
-                }
-            }
-            finalName.text = i.recipeName
-        }
         // Do any additional setup after loading the view.
     }
     
@@ -58,8 +43,19 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
         postsDataManager.loadSpecificPost(self.postID!){
             postFromFirestore in
             self.selectedPost = postFromFirestore
-            print("Im causing errors \(postFromFirestore)")
-            return
+            for i in self.selectedPost{
+                let imageRef = Storage.storage().reference(withPath: i.postImage)
+                imageRef.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
+                    if let error = error {
+                        print("Error downloading image: \(error.localizedDescription)")
+                        return
+                    }
+                    if let data = data {
+                        self?.finalImage.image = UIImage(data: data)
+                    }
+                }
+                self.finalName.text = i.recipeName
+            }
         }
     }
     

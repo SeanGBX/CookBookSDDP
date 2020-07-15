@@ -34,7 +34,6 @@ class PostCell: UITableViewCell {
     var userHealthy: [HealthyPost] = []
     
     func loadCell() {
-        print("uuuu\(postID!)")
         loadLikes(id: postID!)
         loadHealthy(id: postID!)
         loadUserLikes(id: postID!)
@@ -104,7 +103,6 @@ class PostCell: UITableViewCell {
         }
         
         else if (userHealthy.count > 0){
-            print(userHealthy.count)
             healthyButton.setTitle("Healthy", for: .normal)
             healthyPostDataManager.deleteHealthy(userHealthy)
             delegate?.updateTableView()
@@ -114,8 +112,6 @@ class PostCell: UITableViewCell {
     @IBAction func deletePostButton(_ sender: Any) {
         if (postItem!.username == username){
             postsDataManager.deletePost(postID!)
-            print("bbbbbbb\(postItem!.postId)")
-            print("bbbbbbb\(postID!)")
         } else {
             print("You cannot delete someone elses post")
         }

@@ -9,9 +9,25 @@
 import UIKit
 import FirebaseStorage
 
+class IntrinsicIngredientTableView: UITableView {
+
+    override var contentSize:CGSize {
+        didSet {
+            self.invalidateIntrinsicContentSize()
+        }
+    }
+
+    override var intrinsicContentSize: CGSize {
+        self.layoutIfNeeded()
+        return CGSize(width: UIView.noIntrinsicMetric, height: contentSize.height)
+    }
+
+}
+
 class IngredientViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var ingredientTableView: UITableView!
+    @IBOutlet weak var tableHeightConstraint: NSLayoutConstraint!
     
     var ingredientItemList : [IngredientSteps] = []
     var postID: String?
@@ -21,6 +37,11 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
         
         self.navigationItem.setHidesBackButton(true, animated: true);
         loadIngredients()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.updateViewConstraints()
+        self.tableHeightConstraint?.constant = self.ingredientTableView.intrinsicContentSize.height
     }
     
     func loadIngredients(){
@@ -60,6 +81,7 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
                 cell.ingredientItemImage.image = UIImage(data: data)
             }
         }
+//        self.tableHeightConstraint?.constant = self.ingredientTableView.contentSize.height
         return cell
     }
     
@@ -91,6 +113,14 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBAction func proceedToSteps(_ sender: Any) {
         
+        var notEmptyIngredients = 0
+        
+        for i in ingredientItemList{
+            if (i.ingredient != ""){
+                notEmptyIngredients += 1
+            }
+        }
+        
         
         if (ingredientItemList.count == 0){
             
@@ -112,11 +142,31 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
            return
             
         } else {
-            let vc = storyboard?.instantiateViewController(identifier: "FinishPostViewController") as! FinishPostViewController
+            if (notEmptyIngredients > 0){
+                let vc = storyboard?.instantiateViewController(identifier: "FinishPostViewController") as! FinishPostViewController
+                
+                vc.postID = self.postID!
+                vc.ingredientList = ingredientItemList
+                self.show(vc, sender: self)
+            } else {
+               let alert2 = UIAlertController(
+                   title: "Please add at least 1 step and ingredient",
+                   message: "",
+                   preferredStyle: .alert
+               )
+                
+               alert2.addAction(
+                   UIAlertAction(
+                       title: "OK",
+                       style: .default,
+                       handler: nil)
+               )
             
-            vc.postID = self.postID!
-            vc.ingredientList = ingredientItemList
-            self.show(vc, sender: self)
+               self.present(alert2, animated: true, completion: nil)
+                
+               return
+            }
+
         }
     }
     

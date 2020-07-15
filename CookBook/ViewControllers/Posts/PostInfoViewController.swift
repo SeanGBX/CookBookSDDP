@@ -101,7 +101,6 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         } else if (tableView == stepTable){
             let cell = tableView.dequeueReusableCell(withIdentifier: "StepCell", for: indexPath) as! StepCell
             let s = stepList[indexPath.row]
-            print("---->\(s)")
             cell.stepLabel.text = "\(indexPath.row + 1).  \(s.prefix(30))..."
             
             return cell

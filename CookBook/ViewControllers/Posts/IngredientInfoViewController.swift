@@ -49,6 +49,8 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         
         view.addGestureRecognizer(tap)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
 
         enableIngredientSwitch.isOn = false
 
@@ -81,8 +83,6 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
             
             ingredientInfoMeasureType.selectRow(indexOfMeasureType ?? 0, inComponent: 0, animated: true)
             
-        
-            print("--->\(segueIdentifier!)")
             if (segueIdentifier! == "EditIngredient"){
                 enableIngredientSwitch.isEnabled = false
                 enableIngredientSwitch.isHidden = true
@@ -117,6 +117,20 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         view.endEditing(true)
     }
     
+//    @objc func keyboardWillShow(notification: NSNotification) {
+//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+//            if self.view.frame.origin.y == 0 {
+//                self.view.frame.origin.y -= keyboardSize.height
+//            }
+//        }
+//    }
+//
+//    @objc func keyboardWillHide(notification: NSNotification) {
+//        if self.view.frame.origin.y != 0 {
+//            self.view.frame.origin.y = 0
+//        }
+//    }
+    
     func isInteger() -> Bool {
         return CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: ingredientInfoMeasureVal.text!))
     }
@@ -139,19 +153,17 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         
         if (enableIngredientSwitch.isOn == true){
             
-            if (ingredientInfoMeasureVal.text == "" || ingredientInfoMeasureVal.text == "0"){
-                error1 += "Please enter a valid measurement value\n\n"
-            }
             if (ingredientInfoName.text == ""){
                 error1 += "Please enter an ingredient name\n\n"
             }
             if (isInteger() == true){
                 if (measureValue! <= 0){
-                    error1 += "Please enter a valid measurement value\n\n"
+                    error1 += "Please enter a measurement value above 0\n\n"
                 }
             } else {
                 error1 += "Please enter a valid measurement value\n\n"
             }
+
             if (areEqualImages() == true){
                 error1 += "Please add an image for your ingredient\n\n"
             }
@@ -162,20 +174,20 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         }
         
         if(error1 != ""){
-               let alert = UIAlertController(
+               let alert4 = UIAlertController(
                    title: error1,
                    message: "",
                    preferredStyle: .alert
                )
                 
-               alert.addAction(
+               alert4.addAction(
                    UIAlertAction(
                        title: "OK",
                        style: .default,
                        handler: nil)
                )
             
-               self.present(alert, animated: true, completion: nil)
+               self.present(alert4, animated: true, completion: nil)
                 
                return
         }
@@ -202,7 +214,6 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
                 }
                 print("upload Image complete: \(downloadMetadata)")
             }
-            print("--x-->\(imagePath)")
             self.ingredientItem!.ingredientImage = imagePath
         } else {
             ingredientItem!.ingredient = ""
@@ -221,6 +232,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         }
         
         vc.postID = self.postID!
+        addEditIngredientButton.isEnabled = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
             vc.loadIngredients()
             self.show(vc, sender: self)
@@ -231,15 +243,68 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
     @IBAction func deleteIngredient(_ sender: Any) {
         if (segueIdentifier! == "AddIngredient"){
             let vc = storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
-            vc.postID = self.postID!
-            self.show(vc, sender: self)
+            
+               let alert3 = UIAlertController(
+                   title: "Are you sure you want to delete this ingredient?",
+                   message: "",
+                   preferredStyle: .alert
+               )
+                
+                alert3.addAction(
+                    UIAlertAction(
+                        title: "Cancel",
+                        style: .destructive,
+                        handler: nil)
+                )
+                
+               alert3.addAction(
+                   UIAlertAction(
+                       title: "OK",
+                       style: .default,
+                       handler: { handler in
+                        vc.postID = self.postID!
+                        self.show(vc, sender: self)
+                    })
+               )
+                
+            
+               self.present(alert3, animated: true, completion: nil)
+                
+               return
         }
         else{
             let vc = storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
             
-            IngredientsDataManager.deleteIngredient( ingredientItem!.ingredientStepId)
-            vc.postID = self.postID!
-            self.show(vc, sender: self)
+           let alert = UIAlertController(
+               title: "Are you sure you want to delete this ingredient?",
+               message: "",
+               preferredStyle: .alert
+           )
+            
+            alert.addAction(
+                UIAlertAction(
+                    title: "Cancel",
+                    style: .destructive,
+                    handler: nil)
+            )
+            
+           alert.addAction(
+               UIAlertAction(
+                   title: "OK",
+                   style: .default,
+                   handler: { handler in
+                    IngredientsDataManager.deleteIngredient( self.ingredientItem!.ingredientStepId)
+                    vc.postID = self.postID!
+                    self.show(vc, sender: self)
+                })
+           )
+            
+        
+           self.present(alert, animated: true, completion: nil)
+            
+           return
+            
+            
         }
     }
     
