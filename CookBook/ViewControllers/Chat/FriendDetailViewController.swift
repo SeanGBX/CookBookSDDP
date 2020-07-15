@@ -62,6 +62,8 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let customMenuItem = UIMenuItem(title: "Forward", action: #selector(MessageCollectionViewCell.forward(_:)))
+        UIMenuController.shared.menuItems = [customMenuItem]
         if !isNewConversation{
             otherUser.displayName = convItems!.secondUserName
             otherUser.photoURL = convItems!.imageName
@@ -73,12 +75,12 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
                 kind: .text("Hello!")
             ))
             messages.append(Message(
-                       sender: otherUser,
-                       messageId: "2",
-                       sentDate: Date().addingTimeInterval(-70000),
-                       kind: .photo(Media(url: nil, image: UIImage(named: convItems?.imageName as! String)!, placeholderImage: UIImage(named: convItems?.imageName as! String)!, size: CGSize(width: 250, height: 250)))
-                   ))
-
+                sender: otherUser,
+                messageId: "2",
+                sentDate: Date().addingTimeInterval(-70000),
+                kind: .photo(Media(url: nil, image: UIImage(named: convItems?.imageName as! String)!, placeholderImage: UIImage(named: convItems?.imageName as! String)!, size: CGSize(width: 250, height: 250)))
+            ))
+            
             for i in convItems!.messages{
                 print(i["message"]!)
                 messages.append(Message(sender: currentUser, messageId: "", sentDate: Date(), kind: .text(i["message"]!)))
@@ -97,9 +99,9 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         messageInputBar.delegate = self
-//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
-//        tap.cancelsTouchesInView = true
-//        view.addGestureRecognizer(tap)
+        //        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        //        tap.cancelsTouchesInView = true
+        //        view.addGestureRecognizer(tap)
         
     }
     
@@ -126,23 +128,50 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
         return messages.count
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    func fetchChat(){
+    
+    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
         
+        if action == NSSelectorFromString("delete:") {
+            return true
+        }
+        else if action == NSSelectorFromString("forward:"){
+            return true
+        }
+        else {
+            return super.collectionView(collectionView, canPerformAction: action, forItemAt: indexPath, withSender: sender)
+        }
+        
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+        
+        if action == NSSelectorFromString("delete:") {
+            // 1.) Remove from datasource
+            // insert your code here
+            
+            // 2.) Delete sections
+            messageList[indexPath.section] = [
+                "date" : Self.dateFormatter.string(from: Date()),
+                "is_read": "false",
+                "message": "• Message Deleted •",
+                "sentBy": "seangwee"
+            ]
+            messages[indexPath.section] = Message(sender: currentUser, messageId: "\(indexPath.section)", sentDate: Date(), kind: .text("• Message Deleted •"))
+            chatDataManager.appendChat(convItems!, messageList)
+            self.messagesCollectionView.reloadData()
+            print("Deleting \(messages[indexPath.section])")
+        }
+        else if action == NSSelectorFromString("forward:"){
+            print("Forwarding")
+        }
+        else {
+            super.collectionView(collectionView, performAction: action, forItemAt: indexPath, withSender: sender)
+        }
     }
 }
 
@@ -195,7 +224,7 @@ extension FriendDetailViewController: InputBarAccessoryViewDelegate {
     }
     
     private func createMessageId() -> String? {
-       
+        
         guard let currentId = friendList?.friendId else {
             return nil
         }
@@ -203,5 +232,32 @@ extension FriendDetailViewController: InputBarAccessoryViewDelegate {
         let newIdentifier = "\(friendList?.friendId)_seangwee_\(dateString)"
         print(newIdentifier)
         return newIdentifier
+    }
+}
+
+extension MessageCollectionViewCell {
+    
+    override open func delete(_ sender: Any?) {
+        
+        // Get the collectionView
+        if let collectionView = self.superview as? UICollectionView {
+            // Get indexPath
+            if let indexPath = collectionView.indexPath(for: self) {
+                // Trigger action
+                collectionView.delegate?.collectionView?(collectionView, performAction: NSSelectorFromString("delete:"), forItemAt: indexPath, withSender: sender)
+            }
+        }
+    }
+    
+    @objc func forward(_ sender: Any?) {
+        
+        // Get the collectionView
+        if let collectionView = self.superview as? UICollectionView {
+            // Get indexPath
+            if let indexPath = collectionView.indexPath(for: self) {
+                // Trigger action
+                collectionView.delegate?.collectionView?(collectionView, performAction: #selector(MessageCollectionViewCell.forward(_:)), forItemAt: indexPath, withSender: sender)
+            }
+        }
     }
 }
