@@ -9,6 +9,36 @@
 import UIKit
 import FirebaseStorage
 
+class IntrinsicStepItemTableView: UITableView {
+
+    override var contentSize:CGSize {
+        didSet {
+            self.invalidateIntrinsicContentSize()
+        }
+    }
+
+    override var intrinsicContentSize: CGSize {
+        self.layoutIfNeeded()
+        return CGSize(width: UIView.noIntrinsicMetric, height: contentSize.height)
+    }
+
+}
+
+class IntrinsicIngredientItemTableView: UITableView {
+
+    override var contentSize:CGSize {
+        didSet {
+            self.invalidateIntrinsicContentSize()
+        }
+    }
+
+    override var intrinsicContentSize: CGSize {
+        self.layoutIfNeeded()
+        return CGSize(width: UIView.noIntrinsicMetric, height: contentSize.height)
+    }
+
+}
+
 class PostInfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var ingredientTable: UITableView!
@@ -18,6 +48,9 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var postInfoUsername: UILabel!
     @IBOutlet weak var postInfoLCH: UILabel!
     @IBOutlet weak var postInfoTags: UILabel!
+    @IBOutlet weak var ingredientTableConstraints: NSLayoutConstraint!
+    @IBOutlet weak var stepTableConstraints: NSLayoutConstraint!
+    
     
     var postItem: Posts?
     var ingredientList : [IngredientSteps] = []
@@ -27,6 +60,12 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         super.viewDidLoad()
         loadIngredients()
         loadSteps()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.updateViewConstraints()
+        self.ingredientTableConstraints?.constant = self.ingredientTable.intrinsicContentSize.height
+        self.stepTableConstraints?.constant = self.stepTable.intrinsicContentSize.height
     }
     
     func loadIngredients(){
@@ -101,7 +140,11 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         } else if (tableView == stepTable){
             let cell = tableView.dequeueReusableCell(withIdentifier: "StepCell", for: indexPath) as! StepCell
             let s = stepList[indexPath.row]
-            cell.stepLabel.text = "\(indexPath.row + 1).  \(s.prefix(30))..."
+            if (s.count > 40){
+                cell.stepLabel.text = "\(indexPath.row + 1).  \(s.prefix(40))..."
+            } else {
+                cell.stepLabel.text = "\(indexPath.row + 1).  \(s)"
+            }
             
             return cell
         } else {

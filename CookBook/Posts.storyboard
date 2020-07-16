@@ -262,15 +262,16 @@
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="g3j-Xy-ksV">
                                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
                                                                     <subviews>
-                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="HLl-Oq-sOi">
-                                                                            <rect key="frame" x="8" y="8" width="50" height="54"/>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-sole-52" translatesAutoresizingMaskIntoConstraints="NO" id="HLl-Oq-sOi">
+                                                                            <rect key="frame" x="15" y="8" width="30" height="54"/>
                                                                             <constraints>
-                                                                                <constraint firstAttribute="height" constant="50" id="Wtm-bP-lgi"/>
-                                                                                <constraint firstAttribute="width" constant="50" id="n8z-tb-DjH"/>
+                                                                                <constraint firstAttribute="height" constant="30" id="Wtm-bP-lgi"/>
+                                                                                <constraint firstAttribute="width" constant="30" id="n8z-tb-DjH"/>
                                                                             </constraints>
+                                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                                                         </imageView>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GpQ-L1-NL3">
-                                                                            <rect key="frame" x="68" y="8" width="316" height="54"/>
+                                                                            <rect key="frame" x="55" y="8" width="329" height="54"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="100" id="HYM-DD-mhx"/>
                                                                             </constraints>
@@ -279,7 +280,7 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                     </subviews>
-                                                                    <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="30"/>
+                                                                    <edgeInsets key="layoutMargins" top="8" left="15" bottom="8" right="30"/>
                                                                 </stackView>
                                                             </subviews>
                                                             <constraints>
@@ -885,7 +886,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="CLHLabel" destination="dDB-o3-TlF" id="T3D-2V-NWm"/>
+                                            <outlet property="CLHLabel" destination="mn2-t6-tDB" id="u6a-TR-MsZ"/>
                                             <outlet property="healthyButton" destination="l5Z-Q0-o8u" id="aSz-j9-iaC"/>
                                             <outlet property="likeButton" destination="dTO-li-rGb" id="ptR-Wg-34a"/>
                                             <outlet property="postImage" destination="6Nb-Lw-P2y" id="fpV-zk-yb6"/>
@@ -1053,7 +1054,7 @@
                                                 </subviews>
                                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                             </stackView>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NLf-Ft-snH">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NLf-Ft-snH" customClass="IntrinsicIngredientItemTableView" customModule="CookBook" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="483" width="414" height="300"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
@@ -1124,7 +1125,7 @@
                                                 </subviews>
                                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                             </stackView>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="c6n-vc-mKL">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="c6n-vc-mKL" customClass="IntrinsicStepItemTableView" customModule="CookBook" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="829.66666666666663" width="414" height="299.99999999999989"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
@@ -1181,12 +1182,14 @@
                     <navigationItem key="navigationItem" title="User's Recipe" id="uuG-Kb-bmh"/>
                     <connections>
                         <outlet property="ingredientTable" destination="NLf-Ft-snH" id="LmS-db-S6h"/>
+                        <outlet property="ingredientTableConstraints" destination="hcm-Yc-aH4" id="t4o-wd-FSq"/>
                         <outlet property="postInfoImage" destination="ge9-rB-3eA" id="c86-Wu-9VG"/>
                         <outlet property="postInfoLCH" destination="p9Z-nQ-hm2" id="Vii-2y-38J"/>
                         <outlet property="postInfoRecipeName" destination="Rh1-tq-N7q" id="mgq-GE-Byr"/>
                         <outlet property="postInfoTags" destination="wa4-0T-bKt" id="bOI-bU-qnZ"/>
                         <outlet property="postInfoUsername" destination="9wB-Cr-0vg" id="MpU-Av-uaa"/>
                         <outlet property="stepTable" destination="c6n-vc-mKL" id="xpL-Kx-sZm"/>
+                        <outlet property="stepTableConstraints" destination="n4D-2m-bYU" id="OrH-DK-thc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MRh-47-Raa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1215,12 +1218,14 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="Sdh-LD-F9R"/>
         <segue reference="AEM-5h-8p5"/>
         <segue reference="GZU-QQ-2CA"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Default" width="281" height="179"/>
         <image name="book" catalog="system" width="128" height="101"/>
+        <image name="icons8-sole-52" width="52" height="52"/>
         <image name="icons8-tags-24" width="24" height="24"/>
     </resources>
 </document>

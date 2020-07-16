@@ -59,7 +59,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let p = postList[indexPath.row]
         cell.recipeName.text = p.recipeName
         cell.userName.text = p.username
-        cell.CLHLabel.text = "10 comments, \(p.likes) likes, \(p.healthy) users find this healthy"
+        cell.CLHLabel.text = "\(p.likes) likes, 10 comments, \(p.healthy) users find this healthy"
         cell.tagsLabel.text = "\(p.tagBudget), \(p.tagPrep), \(p.tagStyle)"
         cell.postID = p.postId
         cell.postItem = p

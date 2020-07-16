@@ -84,12 +84,14 @@ class PostCell: UITableViewCell {
         if (userLikes.count == 0) {
             likeButton.setTitle("Unlike", for: .normal)
             likePostDataManager.insertLike(likePostItem!)
+            postsDataManager.insertPostLike(postID!)
             delegate?.updateTableView()
         }
         
         else if (userLikes.count > 0) {
             likeButton.setTitle("Like", for: .normal)
             likePostDataManager.deleteLike(userLikes)
+            postsDataManager.deletePostLike(postID!)
             delegate?.updateTableView()
         }
     }
@@ -98,12 +100,14 @@ class PostCell: UITableViewCell {
         healthyPostItem = HealthyPost(postId: postID!, username: username)
         if (userHealthy.count == 0) {
             healthyButton.setTitle("Unhealthy", for: .normal)
+            postsDataManager.insertPostHealthy(postID!)
             healthyPostDataManager.insertHealthy(healthyPostItem!)
             delegate?.updateTableView()
         }
         
         else if (userHealthy.count > 0){
             healthyButton.setTitle("Healthy", for: .normal)
+            postsDataManager.deletePostHealthy(postID!)
             healthyPostDataManager.deleteHealthy(userHealthy)
             delegate?.updateTableView()
         }

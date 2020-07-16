@@ -159,4 +159,73 @@ class postsDataManager: NSObject {
             }
         }
     }
+    
+    static func insertPostLike(_ postID: String){
+        let post = db
+        try? db.collection("posts")
+            .document(postID)
+            .updateData([
+                "likes": FieldValue.increment(Int64(1))
+                ])
+        {
+            err in
+            
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document successfully fixed")
+            }
+        }
+    }
+    
+    static func deletePostLike(_ postID: String){
+        try? db.collection("posts")
+            .document(postID)
+            .updateData([
+                "likes": FieldValue.increment(Int64(-1))
+                ])
+        {
+            err in
+            
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document successfully fixed")
+            }
+        }
+    }
+    
+    static func insertPostHealthy(_ postID: String){
+        try? db.collection("posts")
+            .document(postID)
+            .updateData([
+                "healthy": FieldValue.increment(Int64(1))
+                ])
+        {
+            err in
+            
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document successfully fixed")
+            }
+        }
+    }
+    
+    static func deletePostHealthy(_ postID: String){
+        try? db.collection("posts")
+            .document(postID)
+            .updateData([
+                "healthy": FieldValue.increment(Int64(-1))
+                ])
+        {
+            err in
+            
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document successfully fixed")
+            }
+        }
+    }
 }

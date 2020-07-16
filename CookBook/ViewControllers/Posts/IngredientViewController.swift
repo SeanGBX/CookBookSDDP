@@ -70,7 +70,11 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientItemCell", for: indexPath) as! IngredientItemCell
         let p = ingredientItemList[indexPath.row]
-        cell.IngredientItemLabel.text = "\(p.step.prefix(30))..."
+        if (p.step.count > 40){
+            cell.IngredientItemLabel.text = "\(p.step.prefix(40))..."
+        } else {
+            cell.IngredientItemLabel.text = p.step
+        }
         let imageRef = Storage.storage().reference(withPath: p.ingredientImage)
         imageRef.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
             if let error = error {
