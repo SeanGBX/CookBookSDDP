@@ -26,3 +26,4 @@ class PostComment: NSObject, Codable {
     }
 
 }
+
