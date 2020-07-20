@@ -156,7 +156,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
                 vc.isNewConversation = false
                 vc.convItems = resultconv
                 self.navigationController?.pushViewController(vc, animated: true)
-            }
+            }	
             else{
                 vc.isNewConversation = true
                 self.navigationController?.pushViewController(vc, animated: true)

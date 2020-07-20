@@ -82,8 +82,15 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
             ))
             
             for i in convItems!.messages{
-                print(i["message"]!)
-                messages.append(Message(sender: currentUser, messageId: "", sentDate: Date(), kind: .text(i["message"]!)))
+                print(i["sentBy"], convItems?.secondUserId)
+                if i["sentBy"] == convItems?.secondUserId{
+                    messages.append(Message(sender: otherUser, messageId: "", sentDate: Date(), kind: .text(i["message"]!)))
+                }
+                else{
+                    print(i["message"]!)
+                    messages.append(Message(sender: currentUser, messageId: "", sentDate: Date(), kind: .text(i["message"]!)))
+                }
+                
             }
             
             messageList = convItems!.messages
@@ -113,7 +120,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     
     
     @objc func dismissKeyboard() {
-        view.endEditing(true)
+        view.endEditing(true)	
         print("")
     }
     
