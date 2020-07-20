@@ -174,7 +174,12 @@ extension chatDataManager{
                 "sentBy": "seangwee"
                 ]]
         )
-        
+        if friend.friendId < "seangwee"{
+            print("\(friend.friendId)_seangwee")
+        }
+        else{
+            print("seangwee_\(friend.friendId)")
+        }
         
         try? chatDataManager.db.collection("conversations")
             .document("seangwee_\(friend.friendId)")
