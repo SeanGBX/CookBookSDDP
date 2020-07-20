@@ -7,6 +7,37 @@
 //
 
 import UIKit
+import FirebaseStorage
+
+class IntrinsicStepItemTableView: UITableView {
+
+    override var contentSize:CGSize {
+        didSet {
+            self.invalidateIntrinsicContentSize()
+        }
+    }
+
+    override var intrinsicContentSize: CGSize {
+        self.layoutIfNeeded()
+        return CGSize(width: UIView.noIntrinsicMetric, height: contentSize.height)
+    }
+
+}
+
+class IntrinsicIngredientItemTableView: UITableView {
+
+    override var contentSize:CGSize {
+        didSet {
+            self.invalidateIntrinsicContentSize()
+        }
+    }
+
+    override var intrinsicContentSize: CGSize {
+        self.layoutIfNeeded()
+        return CGSize(width: UIView.noIntrinsicMetric, height: contentSize.height)
+    }
+
+}
 
 class PostInfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -17,6 +48,9 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var postInfoUsername: UILabel!
     @IBOutlet weak var postInfoLCH: UILabel!
     @IBOutlet weak var postInfoTags: UILabel!
+    @IBOutlet weak var ingredientTableConstraints: NSLayoutConstraint!
+    @IBOutlet weak var stepTableConstraints: NSLayoutConstraint!
+    
     
     var postItem: Posts?
     var ingredientList : [IngredientSteps] = []
@@ -26,6 +60,12 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         super.viewDidLoad()
         loadIngredients()
         loadSteps()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.updateViewConstraints()
+        self.ingredientTableConstraints?.constant = self.ingredientTable.intrinsicContentSize.height
+        self.stepTableConstraints?.constant = self.stepTable.intrinsicContentSize.height
     }
     
     func loadIngredients(){
@@ -47,7 +87,17 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        postInfoImage.image = UIImage(named: postItem!.postImage)
+        let imageRef = Storage.storage().reference(withPath: postItem!.postImage)
+        imageRef.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
+            if let error = error {
+                print("Error downloading image: \(error.localizedDescription)")
+                return
+            }
+            if let data = data {
+                self?.postInfoImage.image = UIImage(data: data)
+            }
+        }
+    
         postInfoRecipeName.text = postItem?.recipeName
         postInfoUsername.text = postItem?.username
         postInfoLCH.text = "\(postItem!.likes) likes, 3 comments, \(postItem!.healthy) find this healthy"
@@ -75,15 +125,26 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
                 let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientCell", for: indexPath) as! IngredientCell
             
             cell.ingredientLabel.text = "\(p.ingredient) - \(p.measureVal) \(p.measureType)"
-            
-            cell.ingredientImage.image = UIImage(named: p.ingredientImage)
+            let ingredientImageRef = Storage.storage().reference(withPath: p.ingredientImage)
+            ingredientImageRef.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
+                if let error = error {
+                    print("Error downloading image: \(error.localizedDescription)")
+                    return
+                }
+                if let data = data {
+                    cell.ingredientImage.image = UIImage(data: data)
+                }
+            }
             
             return cell
         } else if (tableView == stepTable){
             let cell = tableView.dequeueReusableCell(withIdentifier: "StepCell", for: indexPath) as! StepCell
             let s = stepList[indexPath.row]
-            print("---->\(s)")
-            cell.stepLabel.text = "\(indexPath.row + 1).  \(s.prefix(30))..."
+            if (s.count > 40){
+                cell.stepLabel.text = "\(indexPath.row + 1).  \(s.prefix(40))..."
+            } else {
+                cell.stepLabel.text = "\(indexPath.row + 1).  \(s)"
+            }
             
             return cell
         } else {

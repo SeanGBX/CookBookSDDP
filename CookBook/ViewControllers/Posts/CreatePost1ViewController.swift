@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseStorage
 
 class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -26,14 +27,13 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
         "Drinks",
         "Desserts",
         "Appetizers",
-        "Snacks"
+        "Brunch"
     ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         myPictureSwitch.isOn = false
         progressToIngredientsButton.setTitleColor(UIColor.gray, for: .normal)
-        progressToIngredientsButton.isEnabled = false
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
 
@@ -56,63 +56,98 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
         view.endEditing(true)
     }
     
-    @IBAction func progressToIngredients(_ sender: Any) {
-
-        var error: String = ""
-         
-        if(createPostRecipeName.text == ""){
-            error += "Recipe Name cannot be empty\n"
-        }
-        
-        if(error != ""){
-               let alert = UIAlertController(
-                   title: error,
-                   message: "",
-                   preferredStyle: .alert
-               )
-                
-               alert.addAction(
-                   UIAlertAction(
-                       title: "OK",
-                       style: .default,
-                       handler: nil)
-               )
-            
-               self.present(alert, animated: true, completion: nil)
-                
-               return
-        }
-         
-        postItem = Posts(recipeName: "", username: "", mealType: "", likes: 0, healthy: 0, tagBudget: "", tagStyle: "", tagPrep: "", postImage: "", postComplete: "0")
-         
-        postItem!.recipeName = createPostRecipeName.text!
-        postItem!.postImage = "default"
-        postItem!.username = self.username
-         
-        let pickerRow = createPostPicker.selectedRow(inComponent: 0)
-        let selectedPickerText = mealTypeData[pickerRow]
-        
-        postItem!.mealType = selectedPickerText
-         
-        let vc =
-            storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
-         
-        postsDataManager.insertPost(newID ?? "", postItem!){
-            postId in
-            self.newID = postsDataManager.storePostID(postId)
-            vc.postID = self.newID!
-            self.show(vc, sender: self)
+    func areEqualImages() -> Bool {
+        let image1 = #imageLiteral(resourceName: "Default").pngData()
+        let image2 = createPostImage.image?.pngData()
+        if image1 == image2{
+            return true
+        } else {
+            return false
         }
     }
     
-    @IBAction func myPictureSwitchChanged(_ sender: Any) {
-        if (myPictureSwitch.isOn == false){
-            progressToIngredientsButton.isEnabled = false
-            progressToIngredientsButton.setTitleColor(UIColor.gray, for: .normal)
-        }
-        else{
-            progressToIngredientsButton.isEnabled = true
-            progressToIngredientsButton.setTitleColor(UIColor.purple, for: .normal)
+    @IBAction func progressToIngredients(_ sender: Any) {
+        if (myPictureSwitch.isOn == true ){
+            var error: String = ""
+                
+            if(createPostRecipeName.text == ""){
+               error += "Recipe Name cannot be empty\n\n"
+            }
+            
+            if(areEqualImages() == true){
+                error += "Please add a picture of your recipe"
+            }
+               
+           if(error != ""){
+              let alert = UIAlertController(
+                  title: error,
+                  message: "",
+                  preferredStyle: .alert
+              )
+               
+              alert.addAction(
+                  UIAlertAction(
+                      title: "OK",
+                      style: .default,
+                      handler: nil)
+              )
+           
+              self.present(alert, animated: true, completion: nil)
+               
+              return
+           }
+                
+           postItem = Posts(recipeName: "", username: "", mealType: "", likes: 0, healthy: 0, tagBudget: "", tagStyle: "", tagPrep: "", postImage: "", postComplete: "0")
+            
+           postItem!.recipeName = createPostRecipeName.text!
+           postItem!.username = self.username
+            
+           let pickerRow = createPostPicker.selectedRow(inComponent: 0)
+           let selectedPickerText = mealTypeData[pickerRow]
+               
+           postItem!.mealType = selectedPickerText
+           
+           let randomID = UUID.init().uuidString
+           let imagePath = "postImages/\(randomID).jpg"
+           let uploadRef = Storage.storage().reference(withPath: imagePath)
+           guard let imageData = createPostImage.image?.jpegData(compressionQuality: 0.5) else {return}
+           let uploadMetaData = StorageMetadata.init()
+           uploadMetaData.contentType = "image/jpeg"
+           uploadRef.putData(imageData, metadata: uploadMetaData) {(downloadMetadata, error) in
+               if let error = error {
+                   print ("error here \(error.localizedDescription)")
+                   return
+               }
+               print("upload Image complete: \(downloadMetadata)")
+           }
+           postItem!.postImage = imagePath
+            
+           let vc =
+               storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
+            
+           postsDataManager.insertPost(newID ?? "", postItem!){
+               postId in
+               self.newID = postsDataManager.storePostID(postId)
+               vc.postID = self.newID!
+               self.show(vc, sender: self)
+           }
+        } else {
+           let alertMyPic = UIAlertController(
+               title: "Please switch on the 'This is my picture' switch",
+               message: "",
+               preferredStyle: .alert
+           )
+            
+           alertMyPic.addAction(
+               UIAlertAction(
+                   title: "OK",
+                   style: .default,
+                   handler: nil)
+           )
+        
+           self.present(alertMyPic, animated: true, completion: nil)
+            
+           return
         }
     }
     
@@ -155,6 +190,8 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
                 self.present(imagePicker, animated: true)
            })
         )
+        
+        alert1.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
     
         self.present(alert1, animated: true, completion: nil)
         
@@ -172,6 +209,15 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
+    }
+    
+    
+    @IBAction func myPicSwitchClick(_ sender: Any) {
+        if (myPictureSwitch.isOn == true){
+            progressToIngredientsButton.setTitleColor(UIColor.systemPurple, for: .normal)
+        } else {
+            progressToIngredientsButton.setTitleColor(UIColor.gray, for: .normal)
+        }
     }
 }
     

@@ -7,10 +7,27 @@
 //
 
 import UIKit
+import FirebaseStorage
+
+class IntrinsicIngredientTableView: UITableView {
+
+    override var contentSize:CGSize {
+        didSet {
+            self.invalidateIntrinsicContentSize()
+        }
+    }
+
+    override var intrinsicContentSize: CGSize {
+        self.layoutIfNeeded()
+        return CGSize(width: UIView.noIntrinsicMetric, height: contentSize.height)
+    }
+
+}
 
 class IngredientViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var ingredientTableView: UITableView!
+    @IBOutlet weak var tableHeightConstraint: NSLayoutConstraint!
     
     var ingredientItemList : [IngredientSteps] = []
     var postID: String?
@@ -22,6 +39,11 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
         loadIngredients()
     }
     
+    override func viewWillLayoutSubviews() {
+        super.updateViewConstraints()
+        self.tableHeightConstraint?.constant = self.ingredientTableView.intrinsicContentSize.height
+    }
+    
     func loadIngredients(){
         IngredientsDataManager.loadIngredients(self.postID!){
             ingredientListFromFirestore in
@@ -31,14 +53,39 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ingredientItemList.count
+        if (ingredientItemList.count == 0){
+            var emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
+            emptyLabel.text = "There are no ingredients"
+            emptyLabel.textAlignment = NSTextAlignment.center
+            self.ingredientTableView.backgroundView = emptyLabel
+            self.ingredientTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+            return 0
+        } else {
+            self.ingredientTableView.backgroundView = nil
+            self.ingredientTableView.separatorStyle = UITableViewCell.SeparatorStyle.singleLine
+            return ingredientItemList.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientItemCell", for: indexPath) as! IngredientItemCell
         let p = ingredientItemList[indexPath.row]
-        cell.IngredientItemLabel.text = "\(p.step.prefix(30))..."
-        cell.ingredientItemImage.image = UIImage(named: p.ingredientImage)
+        if (p.step.count > 40){
+            cell.IngredientItemLabel.text = "\(p.step.prefix(40))..."
+        } else {
+            cell.IngredientItemLabel.text = p.step
+        }
+        let imageRef = Storage.storage().reference(withPath: p.ingredientImage)
+        imageRef.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
+            if let error = error {
+                print("Error downloading image: \(error.localizedDescription)")
+                return
+            }
+            if let data = data {
+                cell.ingredientItemImage.image = UIImage(data: data)
+            }
+        }
+//        self.tableHeightConstraint?.constant = self.ingredientTableView.contentSize.height
         return cell
     }
     
@@ -70,10 +117,19 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBAction func proceedToSteps(_ sender: Any) {
         
-        if (ingredientItemList == []){
+        var notEmptyIngredients = 0
+        
+        for i in ingredientItemList{
+            if (i.ingredient != ""){
+                notEmptyIngredients += 1
+            }
+        }
+        
+        
+        if (ingredientItemList.count == 0){
             
            let alert = UIAlertController(
-               title: "Please add at least 1 step",
+               title: "Please add at least 1 step and ingredient",
                message: "",
                preferredStyle: .alert
            )
@@ -90,11 +146,31 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
            return
             
         } else {
-            let vc = storyboard?.instantiateViewController(identifier: "FinishPostViewController") as! FinishPostViewController
+            if (notEmptyIngredients > 0){
+                let vc = storyboard?.instantiateViewController(identifier: "FinishPostViewController") as! FinishPostViewController
+                
+                vc.postID = self.postID!
+                vc.ingredientList = ingredientItemList
+                self.show(vc, sender: self)
+            } else {
+               let alert2 = UIAlertController(
+                   title: "Please add at least 1 step and ingredient",
+                   message: "",
+                   preferredStyle: .alert
+               )
+                
+               alert2.addAction(
+                   UIAlertAction(
+                       title: "OK",
+                       style: .default,
+                       handler: nil)
+               )
             
-            vc.postID = self.postID!
-            vc.ingredientList = ingredientItemList
-            self.show(vc, sender: self)
+               self.present(alert2, animated: true, completion: nil)
+                
+               return
+            }
+
         }
     }
     

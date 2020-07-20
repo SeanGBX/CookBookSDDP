@@ -7,21 +7,24 @@
 //
 
 import UIKit
+import FirebaseStorage
 
-class PostViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
+class PostViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CustomCellUpdate
 {
     var postList: [Posts] = []
-    var likeList: [LikePost] = []
-    var healthyList: [HealthyPost] = []
-    var userLikes: [LikePost] = []
-    var userHealthy: [HealthyPost] = []
     let username: String = "currentUser"
     
     @IBOutlet weak var tableView: UITableView!
     
+    func updateTableView(){
+        tableView.reloadData()
+    }
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
         loadCompletePosts()
         
         self.navigationItem.setHidesBackButton(true, animated: true);
@@ -35,55 +38,45 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-    func loadLikes(id: String){
-        likePostDataManager.loadLikesByPost(id){
-            likeList in
-            self.likeList = likeList
-            self.tableView.reloadData()
-        }
-    }
-    
-    func loadHealthy(id: String){
-        healthyPostDataManager.loadHealthyByPost(id){
-            healthyList in
-            self.healthyList = healthyList
-            self.tableView.reloadData()
-        }
-    }
-    
-    func loadUserLikes(id: String){
-        likePostDataManager.loadUniqueLikes(id, username){
-            uniqueLikeList in
-            self.userLikes = uniqueLikeList
-            self.tableView.reloadData()
-        }
-    }
-    
-    func loadUserHealthy(id: String){
-        healthyPostDataManager.loadUniqueHealthy(id, username){
-            uniqueHealthyList in
-            self.userHealthy = uniqueHealthyList
-            self.tableView.reloadData()
-        }
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return postList.count
+        if (postList.count == 0){
+            var emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
+            emptyLabel.text = "There are no more posts"
+            emptyLabel.textAlignment = NSTextAlignment.center
+            self.tableView.backgroundView = emptyLabel
+            self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+            return 0
+        } else {
+            self.tableView.backgroundView = nil
+            self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.singleLine
+            return postList.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostCell
         
         let p = postList[indexPath.row]
-        loadLikes(id: p.postId)
-        loadHealthy(id: p.postId)
-        loadUserLikes(id: p.postId)
-        loadUserHealthy(id: p.postId)
         cell.recipeName.text = p.recipeName
         cell.userName.text = p.username
-        cell.CLHLabel.text = "10 comments, \(p.likes) likes, \(p.healthy) users find this healthy"
+        cell.CLHLabel.text = "\(p.likes) likes, 10 comments, \(p.healthy) users find this healthy"
         cell.tagsLabel.text = "\(p.tagBudget), \(p.tagPrep), \(p.tagStyle)"
-        cell.postImage.image = UIImage(named: p.postImage)
+        cell.postID = p.postId
+        cell.postItem = p
+        cell.delegate = self
+        cell.loadCell()
+        
+        let imageRef = Storage.storage().reference(withPath: p.postImage)
+        imageRef.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
+            if let error = error {
+                print("Error downloading image: \(error.localizedDescription)")
+                return
+            }
+            if let data = data {
+                cell.postImage.image = UIImage(data: data)
+            }
+        }
+
         
         return cell
         

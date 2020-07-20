@@ -35,31 +35,53 @@ class chatDataManager: NSObject {
         }
     }
     
-    static func loadSpecificChat(_ userId: String, onComplete: ((Conversations) -> Void)?){
-        db.collection("conversations").whereField("otherUserId", isEqualTo: userId).getDocuments(){
+     static func loadSpecificChat(_ userId: String, onComplete: ((Conversations) -> Void)?){
+         db.collection("conversations").document("seangwee_\(userId)").getDocument(){
+               
+               (querySnapshot, err) in
+               var specificConv : Conversations?
+               
+               if let err = err{
+                   print("Error getting documents: \(err)")
+               }
+               else{
+                       let conv = try? querySnapshot?.data(as: Conversations.self)
+                       
+                       if conv != nil{
+                            specificConv = conv
+                            onComplete?(specificConv!)
+                       }
+                   }
+               
+           }
+       }
+    
+    static func findSpecificChat(_ userId: String, onComplete: ((Bool) -> Void)?){
+        db.collection("conversations").document("seangwee_\(userId)").getDocument(){
             
             (querySnapshot, err) in
-            var specificConv : Conversations?
+            var isSuccessful : Bool = false
             
             if let err = err{
                 print("Error getting documents: \(err)")
             }
             else{
-                for document in querySnapshot!.documents{
-                    var conv = try? document.data(as: Conversations.self) as! Conversations
+                
+                let conv = try? querySnapshot?.data(as: Conversations.self)
                     
                     if conv != nil{
-                        specificConv = conv
+                        isSuccessful = true
                     }
-                }
+                    
+                
             }
-            onComplete?(specificConv!)
+            onComplete?(isSuccessful)
         }
     }
     
     
     static func appendChat(_ conv: Conversations, _ sentmsg: [[String:String]]) {
-        try? db.collection("conversations").document("currUser_\(conv.otherUserId)")
+        try? db.collection("conversations").document("seangwee_\(conv.secondUserId)")
             .updateData([
                 "messages" : sentmsg
                         ])
@@ -77,7 +99,7 @@ class chatDataManager: NSObject {
     static func deleteConv(_ conv: Conversations)
     {
         
-        db.collection("collections").document(conv.otherUserId).delete() {
+        db.collection("conversations").document("seangwee_\(conv.secondUserId)").delete() {
             err in
             
             if let err = err {
@@ -117,7 +139,7 @@ extension chatDataManager{
     }
     
     
-    public func createNewConversation(with otherFriendId: String, friend: Friend, firstMessage: Message, textMessage: String, completion: @escaping (Bool) -> Void){
+    public func createNewConversation(with sentBy: String, friend: Friend, firstMessage: Message, textMessage: String, completion: @escaping (Bool) -> Void){
         let messageDate = firstMessage.sentDate
         let dateString = FriendDetailViewController.dateFormatter.string(from: messageDate)
         
@@ -145,15 +167,17 @@ extension chatDataManager{
         }
         
         let newConversationData = Conversations(
-            currUserId: "currUser", otherUserId: otherFriendId, otherUserName: friend.friendName, imageName: friend.imageName, messages: [[
+            firstUserId: "seangwee", secondUserId: friend.friendId, firstUserName: "Sean Gwee", secondUserName: friend.friendName, imageName: friend.imageName, messages: [[
                 "date": dateString,
                 "message": textMessage,
-                "is_read": "false"]]
+                "is_read": "false",
+                "sentBy": "seangwee"
+                ]]
         )
         
         
         try? chatDataManager.db.collection("conversations")
-            .document("currUser_\(otherFriendId)")
+            .document("seangwee_\(friend.friendId)")
             .setData(from: newConversationData, encoder: Firestore.Encoder()) {
                 err in
                 if let err = err {

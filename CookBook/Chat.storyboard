@@ -34,7 +34,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="T5Z-8J-mfC">
-                                <rect key="frame" x="0.0" y="88" width="414" height="648"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="692"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendCell" rowHeight="80" id="T8v-6c-GOd" customClass="FriendCell" customModule="CookBook" customModuleProvider="target">
@@ -77,21 +77,13 @@
                                     <outlet property="delegate" destination="HAx-pE-yZj" id="7HB-z0-Rwu"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="AfT-dS-LJo">
-                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="T5Z-8J-mfC" firstAttribute="bottom" secondItem="mxB-KN-Z56" secondAttribute="bottom" id="8E6-eX-qQP"/>
-                            <constraint firstItem="T5Z-8J-mfC" firstAttribute="top" secondItem="AfT-dS-LJo" secondAttribute="bottom" id="8fj-uU-GBw"/>
-                            <constraint firstItem="T5Z-8J-mfC" firstAttribute="top" secondItem="mxB-KN-Z56" secondAttribute="top" constant="44" id="BVI-7o-0RD"/>
-                            <constraint firstItem="AfT-dS-LJo" firstAttribute="leading" secondItem="mxB-KN-Z56" secondAttribute="leading" id="Clu-kN-0Ap"/>
+                            <constraint firstItem="T5Z-8J-mfC" firstAttribute="top" secondItem="mxB-KN-Z56" secondAttribute="top" id="BVI-7o-0RD"/>
                             <constraint firstItem="T5Z-8J-mfC" firstAttribute="trailing" secondItem="mxB-KN-Z56" secondAttribute="trailing" id="JFM-wH-lNm"/>
                             <constraint firstItem="T5Z-8J-mfC" firstAttribute="leading" secondItem="mxB-KN-Z56" secondAttribute="leading" id="JON-gb-1W5"/>
-                            <constraint firstItem="AfT-dS-LJo" firstAttribute="top" secondItem="mxB-KN-Z56" secondAttribute="top" id="cDp-WX-y0V"/>
-                            <constraint firstItem="AfT-dS-LJo" firstAttribute="trailing" secondItem="mxB-KN-Z56" secondAttribute="trailing" id="qog-5I-xja"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mxB-KN-Z56"/>
                     </view>
@@ -109,7 +101,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2HO-oR-fIE" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1673.913043478261" y="923.4375"/>
+            <point key="canvasLocation" x="1673.913043478261" y="922.82608695652186"/>
         </scene>
         <!--Friend Detail View Controller-->
         <scene sceneID="Zhp-XI-7if">

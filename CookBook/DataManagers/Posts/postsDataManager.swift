@@ -36,6 +36,29 @@ class postsDataManager: NSObject {
         }
     }
     
+    static func loadSpecificPost(_ postID: String, onComplete: (([Posts]) -> Void)?){
+        db.collection("posts").whereField("postId", isEqualTo: postID).getDocuments(){
+            
+            (querySnapshot, err) in
+            var specificPostList : [Posts] = []
+            
+            if let err = err{
+                print("Error getting documents: \(err)")
+            }
+            else{
+                for document in querySnapshot!.documents{
+                    var post = try? document.data(as: Posts.self) as! Posts
+                    
+                    
+                    if post != nil{
+                        specificPostList.append(post!)
+                    }
+                }
+            }
+            onComplete?(specificPostList)
+        }
+    }
+    
     static func loadCompletePosts(onComplete: (([Posts]) -> Void)?){
         db.collection("posts").whereField("postComplete", isEqualTo: "1").getDocuments(){
             
@@ -137,25 +160,72 @@ class postsDataManager: NSObject {
         }
     }
     
-    static func loadSpecificPost(_ postID: String, onComplete: ((Posts) -> Void)?){
-        db.collection("posts").whereField("postId", isEqualTo: postID).getDocuments(){
+    static func insertPostLike(_ postID: String){
+        let post = db
+        try? db.collection("posts")
+            .document(postID)
+            .updateData([
+                "likes": FieldValue.increment(Int64(1))
+                ])
+        {
+            err in
             
-            (querySnapshot, err) in
-            var specificPost : Posts?
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document successfully fixed")
+            }
+        }
+    }
+    
+    static func deletePostLike(_ postID: String){
+        try? db.collection("posts")
+            .document(postID)
+            .updateData([
+                "likes": FieldValue.increment(Int64(-1))
+                ])
+        {
+            err in
             
-            if let err = err{
-                print("Error getting documents: \(err)")
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document successfully fixed")
             }
-            else{
-                for document in querySnapshot!.documents{
-                    var post = try? document.data(as: Posts.self) as! Posts
-                    
-                    if post != nil{
-                        specificPost = post
-                    }
-                }
+        }
+    }
+    
+    static func insertPostHealthy(_ postID: String){
+        try? db.collection("posts")
+            .document(postID)
+            .updateData([
+                "healthy": FieldValue.increment(Int64(1))
+                ])
+        {
+            err in
+            
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document successfully fixed")
             }
-            onComplete?(specificPost!)
+        }
+    }
+    
+    static func deletePostHealthy(_ postID: String){
+        try? db.collection("posts")
+            .document(postID)
+            .updateData([
+                "healthy": FieldValue.increment(Int64(-1))
+                ])
+        {
+            err in
+            
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document successfully fixed")
+            }
         }
     }
 }

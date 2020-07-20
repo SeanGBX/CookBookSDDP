@@ -90,6 +90,6 @@ class likePostDataManager: NSObject {
             }
             onComplete?(likeList)
         }
-    }
+    } 
 
 }

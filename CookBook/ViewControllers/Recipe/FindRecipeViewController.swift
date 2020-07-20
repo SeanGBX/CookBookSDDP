@@ -162,12 +162,13 @@ class FindRecipeViewController: UIViewController, UITextFieldDelegate, UIPickerV
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
         if (segue.destination is RecipeViewController) {
             let vc = segue.destination as? RecipeViewController
             vc?.budget = budgetTextField.text!
             vc?.prepTime = prepTimeTextField.text!
-            vc?.chosenCuisine = "List of " + chosenCuisinLabel.text! + " recipes"
+            vc?.chosenCuisine = chosenCuisinLabel.text!
             vc?.cuisineStyle = cuisineStyleTextField.text!
         }
     }
