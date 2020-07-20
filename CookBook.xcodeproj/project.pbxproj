@@ -52,6 +52,20 @@
 		3B61353224AB5B580013178C /* FindRecipe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B61353124AB5B580013178C /* FindRecipe.storyboard */; };
 		3B61353424AB5BB30013178C /* Recipes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B61353324AB5BB30013178C /* Recipes.storyboard */; };
 		561F4A915E99F368E8FE85C5 /* Pods_CookBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E61FF4F153AD6A3F694E746E /* Pods_CookBook.framework */; };
+		6911969324C493C600B157C3 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6911969224C493C600B157C3 /* ProfileCell.swift */; };
+		69250F5D24C21BEA005D94B6 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69250F5C24C21BEA005D94B6 /* EditProfileViewController.swift */; };
+		693858AF24C46A7B0077F449 /* FollowersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693858AE24C46A7B0077F449 /* FollowersViewController.swift */; };
+		693858B124C46A8E0077F449 /* FollowingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693858B024C46A8E0077F449 /* FollowingViewController.swift */; };
+		693858B324C46DB90077F449 /* Followers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693858B224C46DB90077F449 /* Followers.swift */; };
+		693858B524C4729B0077F449 /* Following.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693858B424C4729B0077F449 /* Following.swift */; };
+		693858B724C474010077F449 /* followDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693858B624C474010077F449 /* followDataManager.swift */; };
+		6966E1A024C0CA0C00C50285 /* SetupProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6966E19F24C0CA0C00C50285 /* SetupProfileViewController.swift */; };
+		69C1D9AD24BB08C1009716D9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C1D9AC24BB08C1009716D9 /* LoginViewController.swift */; };
+		69C1D9AF24BB08D1009716D9 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C1D9AE24BB08D1009716D9 /* RegisterViewController.swift */; };
+		69CC5D2F24BD97FC008EF291 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CC5D2E24BD97FC008EF291 /* Profile.swift */; };
+		69CF9A9724BD82A300B70CBA /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69CF9A9624BD82A300B70CBA /* Profile.storyboard */; };
+		69CF9A9A24BD895600B70CBA /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CF9A9924BD895600B70CBA /* ProfileViewController.swift */; };
+		69CF9A9D24BD908E00B70CBA /* profileDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CF9A9C24BD908E00B70CBA /* profileDataManager.swift */; };
 		D448104C24AC3BCE00B5A376 /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D448104B24AC3BCE00B5A376 /* NewConversationViewController.swift */; };
 		D4ACEBCB24B5713600112DE7 /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ACEBCA24B5713600112DE7 /* RecipeCell.swift */; };
 		D4ACEBCE24B5720800112DE7 /* recipesDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ACEBCD24B5720800112DE7 /* recipesDataManager.swift */; };
@@ -109,6 +123,20 @@
 		3B61353124AB5B580013178C /* FindRecipe.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FindRecipe.storyboard; sourceTree = "<group>"; };
 		3B61353324AB5BB30013178C /* Recipes.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Recipes.storyboard; sourceTree = "<group>"; };
 		419C8AD5F5379FBCCF018B7F /* Pods-CookBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookBook.debug.xcconfig"; path = "Target Support Files/Pods-CookBook/Pods-CookBook.debug.xcconfig"; sourceTree = "<group>"; };
+		6911969224C493C600B157C3 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
+		69250F5C24C21BEA005D94B6 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		693858AE24C46A7B0077F449 /* FollowersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersViewController.swift; sourceTree = "<group>"; };
+		693858B024C46A8E0077F449 /* FollowingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingViewController.swift; sourceTree = "<group>"; };
+		693858B224C46DB90077F449 /* Followers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Followers.swift; sourceTree = "<group>"; };
+		693858B424C4729B0077F449 /* Following.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Following.swift; sourceTree = "<group>"; };
+		693858B624C474010077F449 /* followDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = followDataManager.swift; sourceTree = "<group>"; };
+		6966E19F24C0CA0C00C50285 /* SetupProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProfileViewController.swift; sourceTree = "<group>"; };
+		69C1D9AC24BB08C1009716D9 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		69C1D9AE24BB08D1009716D9 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		69CC5D2E24BD97FC008EF291 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		69CF9A9624BD82A300B70CBA /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		69CF9A9924BD895600B70CBA /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		69CF9A9C24BD908E00B70CBA /* profileDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileDataManager.swift; sourceTree = "<group>"; };
 		A8C4217F31A1F766B69A6D38 /* Pods-CookBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookBook.release.xcconfig"; path = "Target Support Files/Pods-CookBook/Pods-CookBook.release.xcconfig"; sourceTree = "<group>"; };
 		D448104B24AC3BCE00B5A376 /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
 		D4ACEBCA24B5713600112DE7 /* RecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCell.swift; sourceTree = "<group>"; };
@@ -168,6 +196,8 @@
 		180D2C3C24A50100000F0A89 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				69CF9A9824BD893D00B70CBA /* Profile */,
+				69C1D9AB24BB08A7009716D9 /* Login */,
 				18196EB924ABA3CB00C5209A /* Posts */,
 				3B61352824AB53570013178C /* Recipe */,
 				D4F833D224A9D4BA001F9951 /* ChefBot */,
@@ -179,6 +209,7 @@
 		180D2C3D24A5010C000F0A89 /* DataManagers */ = {
 			isa = PBXGroup;
 			children = (
+				69CF9A9B24BD8FD900B70CBA /* Profile */,
 				D4ACEBCC24B571E700112DE7 /* Recipes */,
 				1458E69424B1CEC80035CE9B /* Chat */,
 				185D610D24AE313F0000DDE7 /* Posts */,
@@ -189,6 +220,7 @@
 		180D2C3E24A50116000F0A89 /* CellViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				6911969124C4935C00B157C3 /* Profile */,
 				D4ACEBC924B570F500112DE7 /* Recipe */,
 				185D610C24AE31100000DDE7 /* Posts */,
 				1489E5F224A90A2D0086C479 /* Chat */,
@@ -199,6 +231,7 @@
 		180D2C3F24A5014B000F0A89 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				69CC5D2D24BD97A1008EF291 /* Profile */,
 				185D610B24AE30FB0000DDE7 /* Posts */,
 				1489E5F324A90A390086C479 /* Chat */,
 			);
@@ -250,6 +283,7 @@
 				181DDFBA24A4AB02006F463F /* SceneDelegate.swift */,
 				180D2C6724A50218000F0A89 /* LaunchScreen.storyboard */,
 				180D2C6824A50218000F0A89 /* Main.storyboard */,
+				69CF9A9624BD82A300B70CBA /* Profile.storyboard */,
 				3B61352F24AB58860013178C /* Meal.storyboard */,
 				3B61353124AB5B580013178C /* FindRecipe.storyboard */,
 				3B61353324AB5BB30013178C /* Recipes.storyboard */,
@@ -320,6 +354,54 @@
 			path = Recipe;
 			sourceTree = "<group>";
 		};
+		6911969124C4935C00B157C3 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				6911969224C493C600B157C3 /* ProfileCell.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		69C1D9AB24BB08A7009716D9 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				69C1D9AC24BB08C1009716D9 /* LoginViewController.swift */,
+				69C1D9AE24BB08D1009716D9 /* RegisterViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		69CC5D2D24BD97A1008EF291 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				69CC5D2E24BD97FC008EF291 /* Profile.swift */,
+				693858B224C46DB90077F449 /* Followers.swift */,
+				693858B424C4729B0077F449 /* Following.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		69CF9A9824BD893D00B70CBA /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				69CF9A9924BD895600B70CBA /* ProfileViewController.swift */,
+				6966E19F24C0CA0C00C50285 /* SetupProfileViewController.swift */,
+				69250F5C24C21BEA005D94B6 /* EditProfileViewController.swift */,
+				693858AE24C46A7B0077F449 /* FollowersViewController.swift */,
+				693858B024C46A8E0077F449 /* FollowingViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		69CF9A9B24BD8FD900B70CBA /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				69CF9A9C24BD908E00B70CBA /* profileDataManager.swift */,
+				693858B624C474010077F449 /* followDataManager.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		BB4F85644C43F5E1FFB51776 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -364,6 +446,7 @@
 				181DDFB224A4AB02006F463F /* Frameworks */,
 				181DDFB324A4AB02006F463F /* Resources */,
 				661DCE5F5E5A4DDB10C16559 /* [CP] Embed Pods Frameworks */,
+				3954F18A5C1563F6D3C5439D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -414,6 +497,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1489E5F524A910C40086C479 /* Chat.storyboard in Resources */,
+				69CF9A9724BD82A300B70CBA /* Profile.storyboard in Resources */,
 				181DDFC424A4AB05006F463F /* Assets.xcassets in Resources */,
 				3B61353024AB58860013178C /* Meal.storyboard in Resources */,
 				180D2C6B24A50218000F0A89 /* Main.storyboard in Resources */,
@@ -429,6 +513,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		3954F18A5C1563F6D3C5439D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CookBook/Pods-CookBook-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CookBook/Pods-CookBook-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CookBook/Pods-CookBook-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		661DCE5F5E5A4DDB10C16559 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -476,22 +577,31 @@
 			buildActionMask = 2147483647;
 			files = (
 				180D2C5524A501F2000F0A89 /* CommentsViewController.swift in Sources */,
+				693858B324C46DB90077F449 /* Followers.swift in Sources */,
 				1489E5EC24A8FF1D0086C479 /* Friend.swift in Sources */,
 				18196EB824ABA2CE00C5209A /* RecipeViewController.swift in Sources */,
 				1440211924B242270058141F /* FriendCell.swift in Sources */,
+				69CF9A9D24BD908E00B70CBA /* profileDataManager.swift in Sources */,
 				1489E5EA24A8FA8A0086C479 /* FriendDetailViewController.swift in Sources */,
 				18DD2D3824BA110800539A19 /* HealthyPost.swift in Sources */,
 				180D2C4524A501A0000F0A89 /* IngredientDataManager.swift in Sources */,
 				18EE4C7324B4C889009FE5A5 /* StepItemCell.swift in Sources */,
 				1458E69624B1CEDD0035CE9B /* chatDataManager.swift in Sources */,
+				69250F5D24C21BEA005D94B6 /* EditProfileViewController.swift in Sources */,
 				180D2C5924A501F2000F0A89 /* PostViewController.swift in Sources */,
+				6911969324C493C600B157C3 /* ProfileCell.swift in Sources */,
 				1446131A24B7500600E5FA78 /* Conversations.swift in Sources */,
 				D4ACEBCB24B5713600112DE7 /* RecipeCell.swift in Sources */,
 				D4F833D424A9D50D001F9951 /* ChefBotViewController.swift in Sources */,
 				18196EB624ABA2CE00C5209A /* ViewController.swift in Sources */,
+				693858B524C4729B0077F449 /* Following.swift in Sources */,
 				18DD2D3A24BA11E300539A19 /* likePostDataManager.swift in Sources */,
+				69C1D9AF24BB08D1009716D9 /* RegisterViewController.swift in Sources */,
 				180D2C5824A501F2000F0A89 /* CreatePost1ViewController.swift in Sources */,
+				693858AF24C46A7B0077F449 /* FollowersViewController.swift in Sources */,
+				6966E1A024C0CA0C00C50285 /* SetupProfileViewController.swift in Sources */,
 				180D2C5A24A501F2000F0A89 /* PostInfoViewController.swift in Sources */,
+				69CF9A9A24BD895600B70CBA /* ProfileViewController.swift in Sources */,
 				180D2C4C24A501D6000F0A89 /* PostComment.swift in Sources */,
 				180D2C5B24A501F2000F0A89 /* IngredientViewController.swift in Sources */,
 				180D2C6224A501FE000F0A89 /* StepCell.swift in Sources */,
@@ -499,19 +609,23 @@
 				180D2C3B24A500A4000F0A89 /* BridgingHeader.m in Sources */,
 				180D2C5624A501F2000F0A89 /* IngredientInfoViewController.swift in Sources */,
 				D448104C24AC3BCE00B5A376 /* NewConversationViewController.swift in Sources */,
+				693858B724C474010077F449 /* followDataManager.swift in Sources */,
 				180D2C6324A501FE000F0A89 /* IngredientItemCell.swift in Sources */,
 				180D2C4424A501A0000F0A89 /* commentDataManager.swift in Sources */,
 				180D2C4D24A501D6000F0A89 /* Posts.swift in Sources */,
 				181DDFB924A4AB02006F463F /* AppDelegate.swift in Sources */,
+				69C1D9AD24BB08C1009716D9 /* LoginViewController.swift in Sources */,
 				180D2C6124A501FE000F0A89 /* IngredientCell.swift in Sources */,
 				180D2C5724A501F2000F0A89 /* FinishPostViewController.swift in Sources */,
 				181DDFBB24A4AB02006F463F /* SceneDelegate.swift in Sources */,
 				180D2C6424A501FE000F0A89 /* PostCell.swift in Sources */,
 				D4ACEBCE24B5720800112DE7 /* recipesDataManager.swift in Sources */,
+				693858B124C46A8E0077F449 /* FollowingViewController.swift in Sources */,
 				18DD2D3624BA10EA00539A19 /* LikePost.swift in Sources */,
 				180D2C4324A501A0000F0A89 /* postsDataManager.swift in Sources */,
 				1489E5F024A9068A0086C479 /* ChatViewController.swift in Sources */,
 				18DD2D3C24BA11F900539A19 /* healthyPostDataManager.swift in Sources */,
+				69CC5D2F24BD97FC008EF291 /* Profile.swift in Sources */,
 				18405BFF24ADC8DF00A645F2 /* IngredientSteps.swift in Sources */,
 				180D2C6524A501FE000F0A89 /* CommentCell.swift in Sources */,
 			);
