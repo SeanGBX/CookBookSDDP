@@ -11,12 +11,12 @@ import JGProgressHUD
 
 class NewConversationViewController: UIViewController{
 
-    public var completion: ((Friend) -> (Void))?
+    public var completion: ((Profile) -> (Void))?
     
     private let spinner = JGProgressHUD(style: .dark)
     
-    private var users : [Friend] = []
-    private var results: [Friend] = []
+    private var users : [Profile] = []
+    private var results: [Profile] = []
     
     private let searchController = UISearchController(searchResultsController: nil)
     
@@ -98,8 +98,8 @@ class NewConversationViewController: UIViewController{
     
     func filterContentForSearchText(_ searchText: String) {
         let text = searchText.trimmingCharacters(in: .whitespaces)
-        results = users.filter { (friend : Friend) -> Bool in
-            return friend.friendName.lowercased().contains(text.lowercased())
+        results = users.filter { (following : Profile) -> Bool in
+            return following.displayName.lowercased().contains(text.lowercased())
         }
         if text == ""{
             results = users
@@ -141,7 +141,7 @@ extension NewConversationViewController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        let p : Friend
+        let p : Profile
         
         if isFiltering {
             p = results[indexPath.row]
@@ -150,12 +150,12 @@ extension NewConversationViewController: UITableViewDelegate, UITableViewDataSou
             p = users[indexPath.row]
             
         }
-        cell.textLabel?.text = p.friendName
+        cell.textLabel?.text = p.displayName
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let targetUser : Friend
+        let targetUser : Profile
         if isFiltering{
             targetUser = results[indexPath.row]
             dismissSelf()

@@ -8,6 +8,7 @@
 
 import UIKit
 import JGProgressHUD
+import FirebaseAuth
 
 class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate{
     
@@ -15,8 +16,9 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var editButton: UIBarButtonItem!
     
     var convList : [Conversations] = []
-    var friendsList : [Friend] = []
+    var followingList : [Profile] = []
     private var results: [Conversations] = []
+    let currUserId = Auth.auth().currentUser!.uid
     
     private let spinner = JGProgressHUD(style: .dark)
     
@@ -83,7 +85,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         chatDataManager.loadChat(){
             friendListFromFirestore in
 
-            self.friendsList = friendListFromFirestore
+            self.followingList = friendListFromFirestore
             
             self.tableView.reloadData()
         }
@@ -139,18 +141,19 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         present(navVC, animated: true)
     }
     
-    private func createNewConversation(result: Friend){
+    private func createNewConversation(result: Profile){
         let vc = FriendDetailViewController()
         var resultconv : Conversations?
-        vc.friendList = result
+        vc.followingList = result
         vc.navigationItem.largeTitleDisplayMode = .never
-        chatDataManager.loadSpecificChat(result.friendId){
+        
+        chatDataManager.loadSpecificChat(result.UID, currUserId){
             specificConv in
             resultconv = specificConv
             
             
         }
-        chatDataManager.findSpecificChat(result.friendId){
+        chatDataManager.findSpecificChat(result.UID, currUserId){
             isSuccessful in
             if isSuccessful{
                 vc.isNewConversation = false
@@ -170,7 +173,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
            {
                let conv = convList[indexPath.row]
                convList.remove(at: indexPath.row)
-               chatDataManager.deleteConv(conv)
+               chatDataManager.deleteConv(conv, currUserId)
                
                tableView.deleteRows(at: [indexPath], with: .automatic)
            }

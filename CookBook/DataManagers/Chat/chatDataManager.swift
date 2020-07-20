@@ -14,10 +14,10 @@ class chatDataManager: NSObject {
     
     static let db = Firestore.firestore()
     
-    static func loadChat(onComplete: (([Friend]) -> Void)?){
-        db.collection("friends").getDocuments()
+    static func loadChat(onComplete: (([Profile]) -> Void)?){
+        db.collection("profiles").getDocuments()
             {
-                (querySnapshot, err) in var friendsList : [Friend] = []
+                (querySnapshot, err) in var followingList : [Profile] = []
                 
                 if let err = err{
                     print("Error getting documents: \(err)")
@@ -25,18 +25,27 @@ class chatDataManager: NSObject {
                 else{
                     for document in querySnapshot!.documents
                     {
-                        var friend = try? document.data(as: Friend.self) as! Friend
-                        if friend != nil{
-                            friendsList.append(friend!)
+                        var following = try? document.data(as: Profile.self) as! Profile
+                        if following != nil{
+                            followingList.append(following!)
                         }
                     }
                 }
-                onComplete?(friendsList)
+                onComplete?(followingList)
         }
     }
     
-     static func loadSpecificChat(_ userId: String, onComplete: ((Conversations) -> Void)?){
-         db.collection("conversations").document("seangwee_\(userId)").getDocument(){
+    static func loadSpecificChat(_ userId: String, _ currUserId : String, onComplete: ((Conversations) -> Void)?){
+        var conversationId = ""
+        if userId < currUserId{
+           print("\(userId)_\(currUserId)")
+           conversationId = "\(userId)_\(currUserId)"
+        }
+        else{
+           print("\(currUserId)_\(userId)")
+           conversationId = "\(currUserId)_\(userId)"
+        }
+         db.collection("conversations").document(conversationId).getDocument(){
                
                (querySnapshot, err) in
                var specificConv : Conversations?
@@ -56,8 +65,17 @@ class chatDataManager: NSObject {
            }
        }
     
-    static func findSpecificChat(_ userId: String, onComplete: ((Bool) -> Void)?){
-        db.collection("conversations").document("seangwee_\(userId)").getDocument(){
+    static func findSpecificChat(_ userId: String, _ currUserId: String, onComplete: ((Bool) -> Void)?){
+        var conversationId = ""
+        if userId < currUserId{
+           print("\(userId)_\(currUserId)")
+           conversationId = "\(userId)_\(currUserId)"
+        }
+        else{
+           print("\(currUserId)_\(userId)")
+           conversationId = "\(currUserId)_\(userId)"
+        }
+        db.collection("conversations").document(conversationId).getDocument(){
             
             (querySnapshot, err) in
             var isSuccessful : Bool = false
@@ -80,8 +98,17 @@ class chatDataManager: NSObject {
     }
     
     
-    static func appendChat(_ conv: Conversations, _ sentmsg: [[String:String]]) {
-        try? db.collection("conversations").document("seangwee_\(conv.secondUserId)")
+    static func appendChat(_ conv: Conversations, _ currUserId: String, _ sentmsg: [[String:String]]) {
+        var conversationId = ""
+        if conv.secondUserId < currUserId{
+           print("\(conv.secondUserId)_\(currUserId)")
+           conversationId = "\(conv.secondUserId)_\(currUserId)"
+        }
+        else{
+           print("\(currUserId)_\(conv.secondUserId)")
+           conversationId = "\(currUserId)_\(conv.secondUserId)"
+        }
+        try? db.collection("conversations").document(conversationId)
             .updateData([
                 "messages" : sentmsg
                         ])
@@ -96,10 +123,20 @@ class chatDataManager: NSObject {
                 }
     }
     
-    static func deleteConv(_ conv: Conversations)
+    static func deleteConv(_ conv: Conversations, _ currUserId: String)
     {
+        var conversationId = ""
         
-        db.collection("conversations").document("seangwee_\(conv.secondUserId)").delete() {
+        if conv.secondUserId < currUserId{
+            print("\(conv.secondUserId)_\(currUserId)")
+            conversationId = "\(conv.secondUserId)_\(currUserId)"
+        }
+        else{
+            print("\(currUserId)_\(conv.secondUserId)")
+            conversationId = "\(currUserId)_\(conv.secondUserId)"
+        }
+        
+        db.collection("conversations").document(conversationId).delete() {
             err in
             
             if let err = err {
@@ -139,11 +176,12 @@ extension chatDataManager{
     }
     
     
-    public func createNewConversation(with sentBy: String, friend: Friend, firstMessage: Message, textMessage: String, completion: @escaping (Bool) -> Void){
+    public func createNewConversation(with sentBy: String, following: Profile, currUserName: String, firstMessage: Message, textMessage: String, completion: @escaping (Bool) -> Void){
         let messageDate = firstMessage.sentDate
         let dateString = FriendDetailViewController.dateFormatter.string(from: messageDate)
         
         var message = ""
+        var conversationId = ""
         
         switch firstMessage.kind{
         case .text(let messageText):
@@ -167,22 +205,24 @@ extension chatDataManager{
         }
         
         let newConversationData = Conversations(
-            firstUserId: "seangwee", secondUserId: friend.friendId, firstUserName: "Sean Gwee", secondUserName: friend.friendName, imageName: friend.imageName, messages: [[
+            firstUserId: sentBy, secondUserId: following.UID, firstUserName: currUserName, secondUserName: following.displayName, imageName: "defaultprofile", messages: [[
                 "date": dateString,
                 "message": textMessage,
                 "is_read": "false",
-                "sentBy": "seangwee"
+                "sentBy": sentBy
                 ]]
         )
-        if friend.friendId < "seangwee"{
-            print("\(friend.friendId)_seangwee")
+        if following.UID < sentBy{
+            print("\(following.UID)_\(sentBy)")
+            conversationId = "\(following.UID)_\(sentBy)"
         }
         else{
-            print("seangwee_\(friend.friendId)")
+            print("\(sentBy)_\(following.UID)")
+            conversationId = "\(sentBy)_\(following.UID)"	
         }
         
         try? chatDataManager.db.collection("conversations")
-            .document("seangwee_\(friend.friendId)")
+            .document(conversationId)
             .setData(from: newConversationData, encoder: Firestore.Encoder()) {
                 err in
                 if let err = err {
@@ -197,7 +237,7 @@ extension chatDataManager{
         
     }
     
-    public func getAllConversation(for friendId: String, completion: @escaping (Result<String, Error>) -> Void){
+    public func getAllConversation(for followingId: String, completion: @escaping (Result<String, Error>) -> Void){
         
     }
     
