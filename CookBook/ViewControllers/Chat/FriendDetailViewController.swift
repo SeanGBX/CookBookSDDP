@@ -56,6 +56,8 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     
     var currUserName = ""
     let currUserId = Auth.auth().currentUser!.uid
+    var otherUserName = ""
+    var otherUserId = ""
     
     var currUser = Sender(photoURL:"default", senderId: "curr", displayName: "")
     var otherUser = Sender(photoURL: "default", senderId: "other", displayName: "")
@@ -69,12 +71,21 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
         profileDataManager.loadProfile(currUserId) { profiledb in
             self.currUserName = profiledb[0].displayName
         }
+        if convItems?.firstUserId != currUserId{
+            otherUserName = convItems!.firstUserName
+            otherUserId = convItems!.firstUserId
+        }
+        else{
+            otherUserName = convItems!.secondUserName
+            otherUserId = convItems!.secondUserId
+
+        }
         if !isNewConversation{
-            otherUser.displayName = convItems!.secondUserName
-            otherUser.photoURL = convItems!.imageName
-            currUser.displayName = convItems!.firstUserName
-            currUser.senderId = convItems!.firstUserId
-            self.navigationItem.title = convItems?.secondUserName
+            otherUser.displayName = otherUserName
+            otherUser.photoURL = "default"
+            currUser.displayName = currUserName
+            currUser.senderId = otherUserName
+            self.navigationItem.title = otherUserName
 //            messages.append(Message(
 //                sender: otherUser,
 //                messageId: "1",
@@ -89,8 +100,8 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
 //            ))
             
             for i in convItems!.messages{
-                print(i["sentBy"], convItems?.secondUserId)
-                if i["sentBy"] == convItems?.secondUserId{
+                print(i["sentBy"], otherUserId)
+                if i["sentBy"] == otherUserId{
                     messages.append(Message(sender: otherUser, messageId: "", sentDate: Date(), kind: .text(i["message"]!)))
                 }
                 else{
@@ -178,7 +189,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
                 "sentBy": currUserId
             ]
             messages[indexPath.section] = Message(sender: currUser, messageId: "\(indexPath.section)", sentDate: Date(), kind: .text("• Message Deleted •"))
-            chatDataManager.appendChat(convItems!, currUserId, messageList)
+            chatDataManager.appendChat(otherUserId, currUserId, messageList)
             self.messagesCollectionView.reloadData()
             print("Deleting \(messages[indexPath.section])")
         }
@@ -234,7 +245,7 @@ extension FriendDetailViewController: InputBarAccessoryViewDelegate {
                 sentDate: Date(),
                 kind: .text(text)
             ))
-            chatDataManager.appendChat(convItems!, currUserId, messageList)
+            chatDataManager.appendChat(otherUserId, currUserId, messageList)
             self.messagesCollectionView.reloadData()
         }
     }

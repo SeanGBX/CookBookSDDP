@@ -98,15 +98,13 @@ class chatDataManager: NSObject {
     }
     
     
-    static func appendChat(_ conv: Conversations, _ currUserId: String, _ sentmsg: [[String:String]]) {
+    static func appendChat(_ otherUserId: String, _ currUserId: String, _ sentmsg: [[String:String]]) {
         var conversationId = ""
-        if conv.secondUserId < currUserId{
-           print("\(conv.secondUserId)_\(currUserId)")
-           conversationId = "\(conv.secondUserId)_\(currUserId)"
+        if otherUserId < currUserId{
+           conversationId = "\(otherUserId)_\(currUserId)"
         }
         else{
-           print("\(currUserId)_\(conv.secondUserId)")
-           conversationId = "\(currUserId)_\(conv.secondUserId)"
+           conversationId = "\(currUserId)_\(otherUserId)"
         }
         try? db.collection("conversations").document(conversationId)
             .updateData([
@@ -123,17 +121,15 @@ class chatDataManager: NSObject {
                 }
     }
     
-    static func deleteConv(_ conv: Conversations, _ currUserId: String)
+    static func deleteConv(_ otherUserId: String, _ currUserId: String)
     {
         var conversationId = ""
         
-        if conv.secondUserId < currUserId{
-            print("\(conv.secondUserId)_\(currUserId)")
-            conversationId = "\(conv.secondUserId)_\(currUserId)"
+        if otherUserId < currUserId{
+            conversationId = "\(otherUserId)_\(currUserId)"
         }
         else{
-            print("\(currUserId)_\(conv.secondUserId)")
-            conversationId = "\(currUserId)_\(conv.secondUserId)"
+            conversationId = "\(currUserId)_\(otherUserId)"
         }
         
         db.collection("conversations").document(conversationId).delete() {
@@ -154,6 +150,27 @@ class chatDataManager: NSObject {
 }
 
 extension chatDataManager{
+    static func loadUserConversations(onComplete: (([Conversations]) -> Void)?){
+        db.collection("conversations").getDocuments()
+            {
+                (querySnapshot, err) in var convList : [Conversations] = []
+                
+                if let err = err{
+                    print("Error getting documents: \(err)")
+                }
+                else{
+                    for document in querySnapshot!.documents
+                    {
+                        var conv = try? document.data(as: Conversations.self) as! Conversations
+                        if conv != nil{
+                            convList.append(conv!)
+                        }
+                    }
+                }
+                onComplete?(convList)
+        }
+    }
+    
     static func loadConversations(onComplete: (([Conversations]) -> Void)?){
         db.collection("conversations").getDocuments()
             {
@@ -182,6 +199,10 @@ extension chatDataManager{
         
         var message = ""
         var conversationId = ""
+        var firstId = ""
+        var secondId = ""
+        var firstName = ""
+        var secondName = ""
         
         switch firstMessage.kind{
         case .text(let messageText):
@@ -204,22 +225,32 @@ extension chatDataManager{
             break
         }
         
+        if following.UID < sentBy{
+            print("\(following.UID)_\(sentBy)")
+            conversationId = "\(following.UID)_\(sentBy)"
+            firstId = following.UID
+            firstName = following.displayName
+            secondId = sentBy
+            secondName = currUserName
+        }
+        else{
+            print("\(sentBy)_\(following.UID)")
+            conversationId = "\(sentBy)_\(following.UID)"
+            firstId = sentBy
+            firstName = currUserName
+            secondId = following.UID
+            secondName = following.displayName
+        }
+        
         let newConversationData = Conversations(
-            firstUserId: sentBy, secondUserId: following.UID, firstUserName: currUserName, secondUserName: following.displayName, imageName: "defaultprofile", messages: [[
+            firstUserId: firstId, secondUserId: secondId, firstUserName: firstName, secondUserName: secondName, imageName: "defaultprofile", messages: [[
                 "date": dateString,
                 "message": textMessage,
                 "is_read": "false",
                 "sentBy": sentBy
                 ]]
         )
-        if following.UID < sentBy{
-            print("\(following.UID)_\(sentBy)")
-            conversationId = "\(following.UID)_\(sentBy)"
-        }
-        else{
-            print("\(sentBy)_\(following.UID)")
-            conversationId = "\(sentBy)_\(following.UID)"	
-        }
+        
         
         try? chatDataManager.db.collection("conversations")
             .document(conversationId)
