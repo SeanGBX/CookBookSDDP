@@ -16,7 +16,6 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var editButton: UIBarButtonItem!
     
     var convList : [Conversations] = []
-    var allConvList : [Conversations] = []
     var followingList : [Profile] = []
     private var results: [Conversations] = []
     
@@ -76,36 +75,21 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         definesPresentationContext = true
     }
     
-    func userConv(){
-        convList = []
-        for conv in allConvList{
-            print(conv.firstUserId, conv.secondUserId, currUserId)
-            if conv.firstUserId == currUserId{
-                convList.append(conv)
-            }
-            else if conv.secondUserId == currUserId{
-                convList.append(conv)
-            }
-        }
-        self.tableView.reloadData()
-    }
-    
     func loadChat(){
-        chatDataManager.loadConversations(){
+        chatDataManager.loadConversations(currUserId){
             convListFromFirestore in
 
-            self.allConvList = convListFromFirestore
+            self.convList = convListFromFirestore
             
             self.tableView.reloadData()
         }
-        chatDataManager.loadChat(){
+        chatDataManager.loadChat(currUserId){
             friendListFromFirestore in
 
             self.followingList = friendListFromFirestore
             
             self.tableView.reloadData()
         }
-        userConv()
         
     }
     
@@ -230,8 +214,14 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             countOfList = convList[indexPath.row].messages.count
             
         }
-        
-        cell.friendnameLabel.text = p.secondUserName
+        if p.firstUserId != currUserId{
+             cell.friendnameLabel.text = p.firstUserName
+        }
+        else{
+            cell.friendnameLabel.text = p.secondUserName
+
+        }
+       
         cell.friendtextLabel.text = p.messages[countOfList - 1]["message"]
         cell.friendImage.image = UIImage(named: p.imageName)
         cell.friendImage.layer.borderWidth = 1

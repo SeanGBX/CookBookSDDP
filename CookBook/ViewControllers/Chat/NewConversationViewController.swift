@@ -8,6 +8,7 @@
 
 import UIKit
 import JGProgressHUD
+import FirebaseAuth
 
 class NewConversationViewController: UIViewController{
 
@@ -17,6 +18,8 @@ class NewConversationViewController: UIViewController{
     
     private var users : [Profile] = []
     private var results: [Profile] = []
+    
+    let currUserId = Auth.auth().currentUser!.uid
     
     private let searchController = UISearchController(searchResultsController: nil)
     
@@ -53,7 +56,7 @@ class NewConversationViewController: UIViewController{
     }
     
     func loadUsers(){
-        chatDataManager.loadChat(){
+        chatDataManager.loadChat(currUserId){
             UserListFromFirestore in
             
             self.users = UserListFromFirestore

@@ -14,7 +14,7 @@ class chatDataManager: NSObject {
     
     static let db = Firestore.firestore()
     
-    static func loadChat(onComplete: (([Profile]) -> Void)?){
+    static func loadChat(_ currUserId: String,onComplete: (([Profile]) -> Void)?){
         db.collection("profiles").getDocuments()
             {
                 (querySnapshot, err) in var followingList : [Profile] = []
@@ -27,7 +27,10 @@ class chatDataManager: NSObject {
                     {
                         var following = try? document.data(as: Profile.self) as! Profile
                         if following != nil{
-                            followingList.append(following!)
+                            if following!.UID != currUserId{
+                                followingList.append(following!)
+                            }
+                            
                         }
                     }
                 }
@@ -150,28 +153,8 @@ class chatDataManager: NSObject {
 }
 
 extension chatDataManager{
-    static func loadUserConversations(onComplete: (([Conversations]) -> Void)?){
-        db.collection("conversations").getDocuments()
-            {
-                (querySnapshot, err) in var convList : [Conversations] = []
-                
-                if let err = err{
-                    print("Error getting documents: \(err)")
-                }
-                else{
-                    for document in querySnapshot!.documents
-                    {
-                        var conv = try? document.data(as: Conversations.self) as! Conversations
-                        if conv != nil{
-                            convList.append(conv!)
-                        }
-                    }
-                }
-                onComplete?(convList)
-        }
-    }
     
-    static func loadConversations(onComplete: (([Conversations]) -> Void)?){
+    static func loadConversations(_ currUserId: String, onComplete: (([Conversations]) -> Void)?){
         db.collection("conversations").getDocuments()
             {
                 (querySnapshot, err) in var convList : [Conversations] = []
@@ -184,7 +167,12 @@ extension chatDataManager{
                     {
                         var conv = try? document.data(as: Conversations.self) as! Conversations
                         if conv != nil{
-                            convList.append(conv!)
+                            if conv!.firstUserId == currUserId{
+                                convList.append(conv!)
+                            }
+                            else if conv!.secondUserId == currUserId{
+                                convList.append(conv!)
+                            }
                         }
                     }
                 }

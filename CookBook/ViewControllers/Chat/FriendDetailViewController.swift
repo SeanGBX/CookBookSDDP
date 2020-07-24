@@ -54,7 +54,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     
     var messageList : [[String: String]] = []
     
-    var currUserName = ""
+    var currUserName = ""				
     let currUserId = Auth.auth().currentUser!.uid
     var otherUserName = ""
     var otherUserId = ""
@@ -63,7 +63,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     var otherUser = Sender(photoURL: "default", senderId: "other", displayName: "")
     
     var messages = [MessageType]()
-    
+    	
     override func viewDidLoad() {
         super.viewDidLoad()
         let customMenuItem = UIMenuItem(title: "Forward", action: #selector(MessageCollectionViewCell.forward(_:)))
@@ -71,16 +71,17 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
         profileDataManager.loadProfile(currUserId) { profiledb in
             self.currUserName = profiledb[0].displayName
         }
-        if convItems?.firstUserId != currUserId{
-            otherUserName = convItems!.firstUserName
-            otherUserId = convItems!.firstUserId
-        }
-        else{
-            otherUserName = convItems!.secondUserName
-            otherUserId = convItems!.secondUserId
-
-        }
+        
         if !isNewConversation{
+            if convItems?.firstUserId != currUserId{
+                otherUserName = convItems!.firstUserName
+                otherUserId = convItems!.firstUserId
+            }
+            else{
+                otherUserName = convItems!.secondUserName
+                otherUserId = convItems!.secondUserId
+
+            }
             otherUser.displayName = otherUserName
             otherUser.photoURL = "default"
             currUser.displayName = currUserName
@@ -114,7 +115,8 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
             messageList = convItems!.messages
         }
         else{
-            
+            otherUserName = followingList!.displayName
+            otherUserId = followingList!.UID
             otherUser.displayName = followingList!.displayName
             otherUser.photoURL = "defaultprofile"
             currUser.displayName = currUserName
@@ -231,6 +233,7 @@ extension FriendDetailViewController: InputBarAccessoryViewDelegate {
                     print("Failed to send")
                 }
             })
+            isNewConversation = false
         }
         else{
             messageList.append([
