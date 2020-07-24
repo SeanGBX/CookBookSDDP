@@ -46,16 +46,20 @@ class FindRecipeViewController: UIViewController, UITextFieldDelegate, UIPickerV
         prepTimePickerView.tag = 2
         cuisinePickerView.tag = 3
         
+        budgetTextField.text = budgetPickerData[0]
+        cuisineStyleTextField.text = cuisinePickerData[0]
+        prepTimeTextField.text = prepTimePickerData[0]
+        
         chosenCuisinLabel?.text = cuisineTitle
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        budgetTextField.text = budgetPickerData[0]
-        cuisineStyleTextField.text = cuisinePickerData[0]
-        prepTimeTextField.text = prepTimePickerData[0]
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        budgetTextField.text = budgetPickerData[0]
+//        cuisineStyleTextField.text = cuisinePickerData[0]
+//        prepTimeTextField.text = prepTimePickerData[0]
+//    }
     
     @objc func dismissKeyboard() {
         view.endEditing(true)

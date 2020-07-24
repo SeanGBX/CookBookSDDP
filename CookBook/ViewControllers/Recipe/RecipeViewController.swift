@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseStorage
 
 class RecipeViewController: UIViewController,  UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -23,6 +24,7 @@ class RecipeViewController: UIViewController,  UITableViewDataSource, UITableVie
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeCell
         
         let recipe: Posts
+        let recipeSteps: IngredientSteps
         
         if isFiltering {
             recipe = filteredRecipes[indexPath.row]
@@ -33,10 +35,31 @@ class RecipeViewController: UIViewController,  UITableViewDataSource, UITableVie
         }
         
         cell.recipeTitleLabel.text = recipe.recipeName
+        // cell.recipeStepsLabel.text = recipeSteps.step
+        cell.layer.borderColor = UIColor.purple.cgColor
+        
+        let image = Storage.storage().reference(withPath: recipe.postImage)
+        image.getData(maxSize: 4 * 1024 * 1024) {
+            [weak self] (data, error) in
+            if let error = error {
+                print("Error in getting the image: \(error.localizedDescription)")
+                return
+            }
+            
+            if let data = data {
+                cell.recipeImage.image = UIImage(data: data)
+                let imageViewWidthConstraint = NSLayoutConstraint(item: cell.recipeImage, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 210)
+                let imageViewHeightConstraint = NSLayoutConstraint(item: cell.recipeImage, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 210)
+                cell.recipeImage.addConstraints([imageViewWidthConstraint, imageViewHeightConstraint])
+            }
+        }
         
         return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 260.0
+    }
     
     @IBOutlet weak var budgetLabel: UILabel!
     @IBOutlet weak var prepTimeLabel: UILabel!
@@ -96,20 +119,16 @@ class RecipeViewController: UIViewController,  UITableViewDataSource, UITableVie
         }
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-//    {
-//        if segue.destination is PostInfoViewController {
-//            let PostInfoViewController = segue.destination as! PostInfoViewController
-
-            
-//            let myIndexPath = recipe?.tableView.indexPathForSelectedRow
-            
-//            if (myIndexPath != nil) {
-//                let recipe = recipeList[myIndexPath!.row]
-//                PostInfoViewController.postItem = recipe
-//            }
-//        }
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = storyboard?.instantiateViewController(identifier: "PostInfoViewController") as! PostInfoViewController
+        
+        let myIndexPath = self.recipeTableView.indexPathForSelectedRow
+        
+        if (myIndexPath != nil) {
+            let recipe = recipeList[myIndexPath!.row]
+            vc.postItem = recipe
+        }
+    }
     
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
