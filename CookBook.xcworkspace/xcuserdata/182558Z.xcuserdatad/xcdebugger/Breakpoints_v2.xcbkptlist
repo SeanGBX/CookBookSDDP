@@ -3,4 +3,86 @@
    uuid = "E3C25A60-0D3C-4D5F-AB2C-73B80F0929A4"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "08E0B302-17A8-4613-8F2E-CADB248CC22B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CookBook/CellViewControllers/Posts/PostCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "likeButtonClick(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5B4AF4D1-0298-4DC0-84DA-6A0859F61F18"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CookBook/CellViewControllers/Posts/PostCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "likeButtonClick(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5B4AF4D1-0298-4DC0-84DA-6A0859F61F18 - fccd04f0a862736a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CookBook.PostCell.likeButtonClick(Any) -&gt; ()"
+                  moduleName = "CookBook"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/182558Z/Desktop/CookBookSDDP/CookBook/CellViewControllers/Posts/PostCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "87"
+                  endingLineNumber = "87"
+                  offsetFromSymbolStart = "1022">
+               </Location>
+               <Location
+                  uuid = "5B4AF4D1-0298-4DC0-84DA-6A0859F61F18 - b8a40f3541a8969e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in CookBook.PostCell.likeButtonClick(Any) -&gt; ()"
+                  moduleName = "CookBook"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/182558Z/Desktop/CookBookSDDP/CookBook/CellViewControllers/Posts/PostCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "88"
+                  endingLineNumber = "88"
+                  offsetFromSymbolStart = "52">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "99037588-7C17-4658-9CB9-F7365F1A5C58"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CookBook/CellViewControllers/Posts/PostCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "likeButtonClick(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

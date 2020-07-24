@@ -8,8 +8,8 @@
 
 import UIKit
 
-protocol CustomCellUpdate: class {
-    func updateTableView()
+protocol CustomCellLoadData: class {
+    func loadCompletePosts()
 }
 
 class PostCell: UITableViewCell {
@@ -22,7 +22,7 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var healthyButton: UIButton!
     
-    weak var delegate: CustomCellUpdate?
+    weak var delegate: CustomCellLoadData?
     var postID: String?
     var postItem: Posts?
     var username: String = "currentUser"
@@ -64,7 +64,7 @@ class PostCell: UITableViewCell {
             uniqueLikeList in
             self.userLikes = uniqueLikeList
             if (self.userLikes.count > 0) {
-                self.likeButton.setTitle("Unlike", for: .normal)
+                self.likeButton.setImage(#imageLiteral(resourceName: "icons8-love-48"), for: .normal)
             }
         }
     }
@@ -74,42 +74,47 @@ class PostCell: UITableViewCell {
             uniqueHealthyList in
             self.userHealthy = uniqueHealthyList
             if (self.userHealthy.count > 0){
-                self.healthyButton.setTitle("Unhealthy", for: .normal)
+                self.healthyButton.setImage(#imageLiteral(resourceName: "icons8-kawaii-broccoli-50-2"), for: .normal)
             }
         }
     }
     
     @IBAction func likeButtonClick(_ sender: Any) {
+        
         likePostItem = LikePost(postId: postID!, username: username)
         if (userLikes.count == 0) {
-            likeButton.setTitle("Unlike", for: .normal)
+            likeButton.setImage(#imageLiteral(resourceName: "icons8-love-48"), for: .normal)
             likePostDataManager.insertLike(likePostItem!)
-            postsDataManager.insertPostLike(postID!)
-            delegate?.updateTableView()
+            postsDataManager.insertPostLike(postID!){
+                self.delegate?.loadCompletePosts()
+            }
         }
         
         else if (userLikes.count > 0) {
-            likeButton.setTitle("Like", for: .normal)
+            likeButton.setImage(#imageLiteral(resourceName: "icons8-love-48-2"), for: .normal)
             likePostDataManager.deleteLike(userLikes)
-            postsDataManager.deletePostLike(postID!)
-            delegate?.updateTableView()
+            postsDataManager.deletePostLike(postID!){
+                self.delegate?.loadCompletePosts()
+            }
         }
     }
     
     @IBAction func healthyButtonClick(_ sender: Any) {
         healthyPostItem = HealthyPost(postId: postID!, username: username)
         if (userHealthy.count == 0) {
-            healthyButton.setTitle("Unhealthy", for: .normal)
-            postsDataManager.insertPostHealthy(postID!)
+            healthyButton.setImage(#imageLiteral(resourceName: "icons8-kawaii-broccoli-50-2"), for: .normal)
             healthyPostDataManager.insertHealthy(healthyPostItem!)
-            delegate?.updateTableView()
+            postsDataManager.insertPostHealthy(postID!){
+                self.delegate?.loadCompletePosts()
+            }
         }
         
         else if (userHealthy.count > 0){
-            healthyButton.setTitle("Healthy", for: .normal)
-            postsDataManager.deletePostHealthy(postID!)
+            healthyButton.setImage(#imageLiteral(resourceName: "icons8-kawaii-broccoli-50"), for: .normal)
             healthyPostDataManager.deleteHealthy(userHealthy)
-            delegate?.updateTableView()
+            postsDataManager.deletePostHealthy(postID!){
+                self.delegate?.loadCompletePosts()
+            }
         }
     }
     

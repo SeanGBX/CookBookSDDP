@@ -50,6 +50,9 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
         
     }
     
+    @IBAction func backButtonClick(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(identifier: "PostViewController") as! PostViewController
+        self.show(vc, sender: self)
+    }
     
-
 }

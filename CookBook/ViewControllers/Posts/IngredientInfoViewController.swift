@@ -384,4 +384,10 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
     }
+    
+    @IBAction func backButtonClick(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
+        vc.postID = self.postID
+        self.show(vc, sender: self)
+    }
 }

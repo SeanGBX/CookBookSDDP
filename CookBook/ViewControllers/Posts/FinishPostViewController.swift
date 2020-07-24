@@ -142,4 +142,11 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
         let vc = storyboard?.instantiateViewController(identifier: "PostViewController") as! PostViewController
         self.show(vc, sender: self)
     }
+    
+    
+    @IBAction func backButtonClick(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
+        vc.postID = self.postID
+        self.show(vc, sender: self)
+    }
 }

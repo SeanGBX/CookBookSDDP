@@ -20,6 +20,7 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
     var postItem: Posts?
     var newID: String?
     let username: String = "currentUser"
+    var selectedPost: [Posts] = []
     
     var mealTypeData: [String] = [
         "Main Course",
@@ -29,6 +30,37 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
         "Appetizers",
         "Brunch"
     ]
+    
+    func loadSpecificPost(id: String){
+        postsDataManager.loadSpecificPost(id){
+            post in
+            print("-.-!\(id)")
+            for i in post{
+                self.postItem = i
+            }
+            let indexOfMeasureType:Int = self.mealTypeData.firstIndex(of: self.postItem!.mealType) ?? 0
+            
+            self.createPostPicker.selectRow(indexOfMeasureType ?? 0, inComponent: 0, animated: true)
+            self.createPostRecipeName.text = self.postItem!.recipeName
+            let imageRef = Storage.storage().reference(withPath: self.postItem!.postImage)
+            imageRef.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
+                if let error = error {
+                    print("Error downloading image: \(error.localizedDescription)")
+                    return
+                }
+                if let data = data {
+                    self!.createPostImage.image = UIImage(data: data)
+                }
+            }
+        }
+    }
+    
+    func postExists(id: String){
+        postsDataManager.loadSpecificPost(id){
+            post in
+            self.selectedPost = post
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,12 +157,23 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
            let vc =
                storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
             
-           postsDataManager.insertPost(newID ?? "", postItem!){
-               postId in
-               self.newID = postsDataManager.storePostID(postId)
-               vc.postID = self.newID!
-               self.show(vc, sender: self)
-           }
+            if (selectedPost.count == 0){
+                postsDataManager.insertPost(postItem!){
+                    postId in
+                    self.newID = postsDataManager.storePostID(postId)
+                    vc.postID = self.newID!
+                    self.show(vc, sender: self)
+                }
+            } else {
+                print("-.-\(self.newID!)")
+                postsDataManager.editPost(self.newID!, postItem!){
+                    postId in
+                    self.newID = postsDataManager.storePostID(postId)
+                    vc.postID = self.newID!
+                    self.show(vc, sender: self)
+                }
+            }
+            
         } else {
            let alertMyPic = UIAlertController(
                title: "Please switch on the 'This is my picture' switch",
@@ -218,6 +261,11 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
         } else {
             progressToIngredientsButton.setTitleColor(UIColor.gray, for: .normal)
         }
+    }
+    
+    @IBAction func backButtonClick(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(identifier: "PostViewController") as! PostViewController
+        self.show(vc, sender: self)
     }
 }
     

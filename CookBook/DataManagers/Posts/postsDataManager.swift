@@ -81,49 +81,48 @@ class postsDataManager: NSObject {
         }
     }
     
+    static func editPost(_ postID: String, _ post: Posts, onComplete: ((String)-> Void)?){
+        try? db.collection("posts")
+            .document(postID)
+            .setData(from: post, encoder: Firestore.Encoder())
+        {
+            err in
+            
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document successfully fixed")
+                onComplete?(postID)
+            }
+        }
+    }
+    
     static func storePostID(_ ID: String) -> String {
         var selectedPost =
             try? db.collection("posts")
                 .document(ID)
         var selectedID = selectedPost?.documentID
         
+        print("-.-\(selectedID!)")
         return selectedID!
     }
     
-    static func insertPost(_ postID: String, _ post: Posts, onComplete: ((String)-> Void)?){
-        if (db.collection("posts").whereField("postId", isEqualTo: postID) != nil)
+    static func insertPost(_ post: Posts, onComplete: ((String)-> Void)?){
+        var addedDocument = try? db.collection("posts").addDocument(from: post, encoder: Firestore.Encoder())
         
-        {
-            var addedDocument = try? db.collection("posts").addDocument(from: post, encoder: Firestore.Encoder())
-            
-            post.postId = String(addedDocument?.documentID ?? "")
+        post.postId = String(addedDocument?.documentID ?? "")
 
-            try? db.collection("posts")
-                .document(String(post.postId))
-                .setData(from: post, encoder: Firestore.Encoder())
-            {
-                err in
-                
-                if let err = err {
-                    print("Error adding document: \(err)")
-                } else {
-                    print("Document successfully added")
-                    onComplete?(post.postId)
-                }
-            }
-        } else {
-            try? db.collection("posts")
-                .document(postID)
-                .setData(from: post, encoder: Firestore.Encoder())
-            {
-                err in
-                
-                if let err = err {
-                    print("Error adding document: \(err)")
-                } else {
-                    print("Document successfully fixed")
-                    onComplete?(post.postId)
-                }
+        try? db.collection("posts")
+            .document(String(post.postId))
+            .setData(from: post, encoder: Firestore.Encoder())
+        {
+            err in
+            
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document successfully added")
+                onComplete?(post.postId)
             }
         }
     }
@@ -160,7 +159,7 @@ class postsDataManager: NSObject {
         }
     }
     
-    static func insertPostLike(_ postID: String){
+    static func insertPostLike(_ postID: String, onComplete: (()-> Void)?){
         let post = db
         try? db.collection("posts")
             .document(postID)
@@ -174,11 +173,12 @@ class postsDataManager: NSObject {
                 print("Error adding document: \(err)")
             } else {
                 print("Document successfully fixed")
+                onComplete?()
             }
         }
     }
     
-    static func deletePostLike(_ postID: String){
+    static func deletePostLike(_ postID: String, onComplete: (()-> Void)?){
         try? db.collection("posts")
             .document(postID)
             .updateData([
@@ -191,11 +191,12 @@ class postsDataManager: NSObject {
                 print("Error adding document: \(err)")
             } else {
                 print("Document successfully fixed")
+                onComplete?()
             }
         }
     }
     
-    static func insertPostHealthy(_ postID: String){
+    static func insertPostHealthy(_ postID: String, onComplete: (()-> Void)?){
         try? db.collection("posts")
             .document(postID)
             .updateData([
@@ -208,11 +209,12 @@ class postsDataManager: NSObject {
                 print("Error adding document: \(err)")
             } else {
                 print("Document successfully fixed")
+                onComplete?()
             }
         }
     }
     
-    static func deletePostHealthy(_ postID: String){
+    static func deletePostHealthy(_ postID: String, onComplete: (()-> Void)?){
         try? db.collection("posts")
             .document(postID)
             .updateData([
@@ -225,6 +227,7 @@ class postsDataManager: NSObject {
                 print("Error adding document: \(err)")
             } else {
                 print("Document successfully fixed")
+                onComplete?()
             }
         }
     }

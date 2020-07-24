@@ -36,6 +36,7 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
         super.viewDidLoad()
         
         self.navigationItem.setHidesBackButton(true, animated: true);
+        print("-.-\(self.postID!)")
         loadIngredients()
     }
     
@@ -181,4 +182,18 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
         let vc = storyboard?.instantiateViewController(identifier: "PostViewController") as! PostViewController
         self.show(vc, sender: self)
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        ingredientTableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    @IBAction func backButtonClick(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(identifier: "CreatePost1ViewController") as! CreatePost1ViewController
+        print("-.-\(self.postID!)")
+        vc.loadSpecificPost(id: self.postID!)
+        vc.postExists(id: self.postID!)
+        vc.newID = self.postID!
+        self.show(vc, sender: self)
+    }
 }
+

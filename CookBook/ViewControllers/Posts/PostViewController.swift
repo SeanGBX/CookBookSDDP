@@ -9,16 +9,12 @@
 import UIKit
 import FirebaseStorage
 
-class PostViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CustomCellUpdate
+class PostViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CustomCellLoadData
 {
     var postList: [Posts] = []
     let username: String = "currentUser"
     
     @IBOutlet weak var tableView: UITableView!
-    
-    func updateTableView(){
-        tableView.reloadData()
-    }
     
     override func viewDidLoad()
     {
@@ -79,7 +75,6 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
         
         return cell
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -94,4 +89,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }

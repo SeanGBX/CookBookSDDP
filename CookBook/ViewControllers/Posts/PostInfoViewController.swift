@@ -50,22 +50,80 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var postInfoTags: UILabel!
     @IBOutlet weak var ingredientTableConstraints: NSLayoutConstraint!
     @IBOutlet weak var stepTableConstraints: NSLayoutConstraint!
-    
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var healthyButton: UIButton!
     
     var postItem: Posts?
+    var selectedPost: [Posts] = []
     var ingredientList : [IngredientSteps] = []
     var stepList : [String] = []
+    var likeList : [LikePost] = []
+    var healthyList : [HealthyPost] = []
+    var userHealthy : [HealthyPost] = []
+    var userLikes: [LikePost] = []
+    var likePostItem: LikePost?
+    var healthyPostItem: HealthyPost?
+    let username = "currentUser"
 
     override func viewDidLoad() {
         super.viewDidLoad()
         loadIngredients()
         loadSteps()
+        loadLikes(id: postItem!.postId)
+        loadHealthy(id: postItem!.postId)
+        loadUserLikes(id: postItem!.postId)
+        loadUserHealthy(id: postItem!.postId)
+        self.navigationItem.setHidesBackButton(true, animated: true);
+    }
+    
+    func loadSpecificPost(){
+        postsDataManager.loadSpecificPost(postItem!.postId){
+            post in
+            self.selectedPost = post
+            for i in self.selectedPost{
+                self.postInfoLCH.text = "\(i.likes) likes, 3 comments, \(i.healthy) find this healthy"
+            }
+        }
     }
     
     override func viewWillLayoutSubviews() {
         super.updateViewConstraints()
         self.ingredientTableConstraints?.constant = self.ingredientTable.intrinsicContentSize.height
         self.stepTableConstraints?.constant = self.stepTable.intrinsicContentSize.height
+    }
+    
+    func loadLikes(id: String){
+        likePostDataManager.loadLikesByPost(id){
+            likeList in
+            self.likeList = likeList
+        }
+    }
+    
+    func loadHealthy(id: String){
+        healthyPostDataManager.loadHealthyByPost(id){
+            healthyList in
+            self.healthyList = healthyList
+        }
+    }
+    
+    func loadUserLikes(id: String){
+        likePostDataManager.loadUniqueLikes(id, username){
+            uniqueLikeList in
+            self.userLikes = uniqueLikeList
+            if (self.userLikes.count > 0) {
+                self.likeButton.setImage(#imageLiteral(resourceName: "icons8-love-48"), for: .normal)
+            }
+        }
+    }
+    
+    func loadUserHealthy(id: String){
+        healthyPostDataManager.loadUniqueHealthy(id, username){
+            uniqueHealthyList in
+            self.userHealthy = uniqueHealthyList
+            if (self.userHealthy.count > 0){
+                self.healthyButton.setImage(#imageLiteral(resourceName: "icons8-kawaii-broccoli-50-2"), for: .normal)
+            }
+        }
     }
     
     func loadIngredients(){
@@ -140,16 +198,69 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         } else if (tableView == stepTable){
             let cell = tableView.dequeueReusableCell(withIdentifier: "StepCell", for: indexPath) as! StepCell
             let s = stepList[indexPath.row]
-            if (s.count > 40){
-                cell.stepLabel.text = "\(indexPath.row + 1).  \(s.prefix(40))..."
-            } else {
-                cell.stepLabel.text = "\(indexPath.row + 1).  \(s)"
-            }
-            
+            cell.stepLabel.text = "\(indexPath.row + 1).  \(s)"
             return cell
         } else {
             return UITableViewCell()
         }
     }
     
+    
+    @IBAction func postInfoCommentClick(_ sender: Any) {
+    }
+    
+    @IBAction func postInfoLikeClick(_ sender: Any) {
+        likePostItem = LikePost(postId: postItem!.postId, username: username)
+        if (userLikes.count == 0) {
+            likeButton.setImage(#imageLiteral(resourceName: "icons8-love-48"), for: .normal)
+            likePostDataManager.insertLike(likePostItem!)
+            postsDataManager.insertPostLike(postItem!.postId){
+                self.loadSpecificPost()
+            }
+        }
+        
+        else if (userLikes.count > 0) {
+            likeButton.setImage(#imageLiteral(resourceName: "icons8-love-48-2"), for: .normal)
+            likePostDataManager.deleteLike(userLikes)
+            postsDataManager.deletePostLike(postItem!.postId){
+                self.loadSpecificPost()
+            }
+        }
+        loadUserLikes(id: postItem!.postId)
+    }
+    
+    @IBAction func postInfoHealthyClick(_ sender: Any) {
+        healthyPostItem = HealthyPost(postId: postItem!.postId, username: username)
+        if (userHealthy.count == 0) {
+            healthyButton.setImage(#imageLiteral(resourceName: "icons8-kawaii-broccoli-50-2"), for: .normal)
+            postsDataManager.insertPostHealthy(postItem!.postId){
+                self.loadSpecificPost()
+            }
+            healthyPostDataManager.insertHealthy(healthyPostItem!)
+        }
+        
+        else if (userHealthy.count > 0){
+            healthyButton.setImage(#imageLiteral(resourceName: "icons8-kawaii-broccoli-50"), for: .normal)
+            postsDataManager.deletePostHealthy(postItem!.postId){
+                self.loadSpecificPost()
+            }
+            healthyPostDataManager.deleteHealthy(userHealthy)
+        }
+        loadUserHealthy(id: postItem!.postId)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == ingredientTable{
+            ingredientTable.deselectRow(at: indexPath, animated: true)
+        } else {
+            stepTable.deselectRow(at: indexPath, animated: true)
+        }
+    }
+    
+    
+    @IBAction func backButtonClicked(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(identifier: "PostViewController") as! PostViewController
+        vc.loadCompletePosts()
+        self.show(vc, sender: self)
+    }
 }

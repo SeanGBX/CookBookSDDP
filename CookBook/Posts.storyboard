@@ -75,7 +75,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gvs-CP-oXW"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Comments" id="92o-jE-P3S"/>
+                    <navigationItem key="navigationItem" title="Comments" id="92o-jE-P3S">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="icons8-back-30" id="Wde-uA-XhT">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="backButtonClick:" destination="IeY-Bc-tiJ" id="fYs-xP-CeY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LgR-eC-kPd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -86,11 +93,11 @@
             <objects>
                 <viewController storyboardIdentifier="CreatePost1ViewController" id="Nzb-t8-NUm" customClass="CreatePost1ViewController" customModule="CookBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="w5n-gZ-n47">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8f2-wm-wjl">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="643"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="RtZ-rF-4fY">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="659.33333333333337"/>
@@ -109,7 +116,7 @@
                                                 <edgeInsets key="layoutMargins" top="20" left="60" bottom="8" right="60"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vW2-59-bgF">
-                                                <rect key="frame" x="0.0" y="214.33333333333334" width="414" height="64.000000000000028"/>
+                                                <rect key="frame" x="0.0" y="214.33333333333331" width="414" height="64"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qhu-Da-OQR">
                                                         <rect key="frame" x="8" y="8" width="398" height="36"/>
@@ -213,7 +220,14 @@
                         <viewLayoutGuide key="safeArea" id="JZt-g6-ct2"/>
                     </view>
                     <navigationItem key="navigationItem" title="Create Recipe" id="nZC-bn-EuN">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="icons8-back-30" id="J1r-D2-WbO">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="backButtonClick:" destination="Nzb-t8-NUm" id="ewA-ex-X4O"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="stop" id="efy-LG-0i2">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <segue destination="9pv-A4-QxB" kind="show" id="AEM-5h-8p5"/>
                             </connections>
@@ -340,13 +354,21 @@
                         <viewLayoutGuide key="safeArea" id="j2H-3c-eCF"/>
                     </view>
                     <navigationItem key="navigationItem" title="Steps &amp; Ingredients" id="0FX-dR-sCr">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="icons8-back-30" id="RNj-bv-pbi">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="backButtonClick:" destination="zzG-6W-fFu" id="bhY-dr-9Pi"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="stop" id="tf1-38-hy6">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="cancelCreatePost:" destination="zzG-6W-fFu" id="6IT-tm-Jzw"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="add" id="SPu-ho-v9z">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <segue destination="nQw-w4-PDj" kind="show" identifier="AddIngredient" id="GZU-QQ-2CA"/>
                                 </connections>
@@ -513,6 +535,12 @@
                         <viewLayoutGuide key="safeArea" id="JWZ-nP-yU3"/>
                     </view>
                     <navigationItem key="navigationItem" title="Post Recipe" id="vmI-mc-ucA">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="icons8-back-30" id="kLT-1X-O9q">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="backButtonClick:" destination="UA6-YX-OCa" id="8VM-da-aGE"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="stop" id="xkX-DU-PUr">
                             <connections>
                                 <action selector="cancelPostCreate:" destination="UA6-YX-OCa" id="g1N-GV-KgT"/>
@@ -694,7 +722,14 @@
                         <viewLayoutGuide key="safeArea" id="OCI-wK-HBH"/>
                     </view>
                     <navigationItem key="navigationItem" title="Add/Edit Steps" id="Ner-gT-TkV">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="icons8-back-30" id="dA5-ky-JVR">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="backButtonClick:" destination="nQw-w4-PDj" id="MnI-oh-9ns"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="trash" id="B08-Bk-OIN">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="deleteIngredient:" destination="nQw-w4-PDj" id="Dyv-Rk-i6c"/>
                             </connections>
@@ -722,11 +757,11 @@
             <objects>
                 <viewController storyboardIdentifier="PostViewController" id="9pv-A4-QxB" customClass="PostViewController" customModule="CookBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="550" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SQ1-d0-aBE">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="667"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="643"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="550" id="YuE-ci-agz" customClass="PostCell" customModule="CookBook" customModuleProvider="target">
@@ -740,19 +775,19 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="550"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="l2Z-jf-xAg">
-                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="52"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hEq-uY-ol2">
-                                                                    <rect key="frame" x="14.999999999999996" y="8" width="61.666666666666657" height="39"/>
+                                                                    <rect key="frame" x="14.999999999999996" y="8" width="61.666666666666657" height="36"/>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                                                     <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UKm-qF-uig">
-                                                                    <rect key="frame" x="364" y="8" width="30" height="39"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UKm-qF-uig">
+                                                                    <rect key="frame" x="356" y="8" width="48" height="36"/>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                                     <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <state key="normal" title="...">
+                                                                    <state key="normal" image="icons8-menu-vertical-48">
                                                                         <color key="titleColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     </state>
                                                                     <connections>
@@ -760,10 +795,10 @@
                                                                     </connections>
                                                                 </button>
                                                             </subviews>
-                                                            <edgeInsets key="layoutMargins" top="8" left="15" bottom="5" right="20"/>
+                                                            <edgeInsets key="layoutMargins" top="8" left="15" bottom="5" right="10"/>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="taX-H0-5B7">
-                                                            <rect key="frame" x="0.0" y="52" width="414" height="43"/>
+                                                            <rect key="frame" x="0.0" y="49" width="414" height="43"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="SYf-QK-0SU">
                                                                     <rect key="frame" x="15" y="0.0" width="35" height="35"/>
@@ -783,16 +818,16 @@
                                                             <edgeInsets key="layoutMargins" top="0.0" left="15" bottom="8" right="20"/>
                                                         </stackView>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="6Nb-Lw-P2y">
-                                                            <rect key="frame" x="0.0" y="95" width="414" height="250"/>
+                                                            <rect key="frame" x="0.0" y="92" width="414" height="250"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="250" id="Txf-tT-vE7"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bCf-Yr-Ced">
-                                                            <rect key="frame" x="0.0" y="345" width="414" height="50.333333333333314"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bCf-Yr-Ced">
+                                                            <rect key="frame" x="0.0" y="342" width="414" height="30.333333333333314"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Sean Gwee   This is a nice dish" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uzj-uK-K0x">
-                                                                    <rect key="frame" x="10" y="8" width="396" height="34.333333333333336"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sean Gwee   This is a nice dish" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uzj-uK-K0x">
+                                                                    <rect key="frame" x="10" y="8" width="396" height="14.333333333333336"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                     <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -800,10 +835,10 @@
                                                             </subviews>
                                                             <edgeInsets key="layoutMargins" top="8" left="10" bottom="8" right="8"/>
                                                         </stackView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bwv-kr-Sx8">
-                                                            <rect key="frame" x="0.0" y="395.33333333333331" width="414" height="22.333333333333314"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bwv-kr-Sx8">
+                                                            <rect key="frame" x="0.0" y="372.33333333333331" width="414" height="22.333333333333314"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Ian Loi   Lovely" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wJn-BF-aEt">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ian Loi   Lovely" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wJn-BF-aEt">
                                                                     <rect key="frame" x="10" y="0.0" width="396" height="14.333333333333334"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                     <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -812,10 +847,10 @@
                                                             </subviews>
                                                             <edgeInsets key="layoutMargins" top="0.0" left="10" bottom="8" right="8"/>
                                                         </stackView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N4S-iN-AL5">
-                                                            <rect key="frame" x="0.0" y="417.66666666666669" width="414" height="36.333333333333314"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N4S-iN-AL5">
+                                                            <rect key="frame" x="0.0" y="394.66666666666669" width="414" height="36.333333333333314"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mn2-t6-tDB">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mn2-t6-tDB">
                                                                     <rect key="frame" x="10" y="14" width="396" height="14.333333333333336"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                     <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
@@ -825,7 +860,7 @@
                                                             <edgeInsets key="layoutMargins" top="14" left="10" bottom="8" right="8"/>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="hf7-VG-BGk">
-                                                            <rect key="frame" x="0.0" y="454" width="414" height="46"/>
+                                                            <rect key="frame" x="0.0" y="431" width="414" height="46"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-tags-24" translatesAutoresizingMaskIntoConstraints="NO" id="YqM-Sz-f6M">
                                                                     <rect key="frame" x="10" y="8" width="35" height="30"/>
@@ -844,36 +879,42 @@
                                                             <edgeInsets key="layoutMargins" top="8" left="10" bottom="8" right="8"/>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="5J7-ij-VvR">
-                                                            <rect key="frame" x="0.0" y="500" width="414" height="50"/>
+                                                            <rect key="frame" x="0.0" y="477" width="414" height="73"/>
                                                             <subviews>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c6k-Ue-RtN">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="138" height="50"/>
+                                                                <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c6k-Ue-RtN">
+                                                                    <rect key="frame" x="8" y="8" width="132.66666666666666" height="50"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="50" id="psQ-EB-NT6"/>
                                                                     </constraints>
-                                                                    <state key="normal" title="Comment"/>
+                                                                    <state key="normal" image="icons8-chat-bubble-48"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="imageView.contentMode">
+                                                                            <integer key="value" value="1"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dTO-li-rGb">
-                                                                    <rect key="frame" x="138" y="0.0" width="138" height="50"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dTO-li-rGb">
+                                                                    <rect key="frame" x="140.66666666666669" y="8" width="132.66666666666669" height="50"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="50" id="Fth-ko-i5A"/>
                                                                     </constraints>
-                                                                    <state key="normal" title="Like"/>
+                                                                    <state key="normal" image="icons8-love-48-2"/>
                                                                     <connections>
                                                                         <action selector="likeButtonClick:" destination="YuE-ci-agz" eventType="touchUpInside" id="XNQ-qs-Jx9"/>
                                                                     </connections>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l5Z-Q0-o8u">
-                                                                    <rect key="frame" x="276" y="0.0" width="138" height="50"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l5Z-Q0-o8u">
+                                                                    <rect key="frame" x="273.33333333333331" y="8" width="132.66666666666669" height="50"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="50" id="4aJ-H7-uDJ"/>
                                                                     </constraints>
-                                                                    <state key="normal" title="Healthy"/>
+                                                                    <state key="normal" image="icons8-kawaii-broccoli-50"/>
                                                                     <connections>
                                                                         <action selector="healthyButtonClick:" destination="YuE-ci-agz" eventType="touchUpInside" id="qV7-zg-s8q"/>
                                                                     </connections>
                                                                 </button>
                                                             </subviews>
+                                                            <edgeInsets key="layoutMargins" top="8" left="8" bottom="15" right="8"/>
                                                         </stackView>
                                                     </subviews>
                                                 </stackView>
@@ -914,6 +955,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Recipes" id="MWe-lI-Vv6">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ua4-ri-5jx">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <segue destination="Nzb-t8-NUm" kind="show" identifier="AddPost" id="Sdh-LD-F9R"/>
                             </connections>
@@ -933,14 +975,14 @@
             <objects>
                 <viewController storyboardIdentifier="PostInfoViewController" id="vVH-eg-zGe" customClass="PostInfoViewController" customModule="CookBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ph9-hA-eLS">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tm8-qn-Evh">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="643"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="NmX-Z1-1TU">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1129.6666666666667"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1149.6666666666667"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="ge9-rB-3eA">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
@@ -949,13 +991,13 @@
                                                 </constraints>
                                             </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="kGQ-n5-Adt">
-                                                <rect key="frame" x="0.0" y="250" width="414" height="46"/>
+                                                <rect key="frame" x="0.0" y="250" width="414" height="66"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eb6-7V-F9b">
-                                                        <rect key="frame" x="15" y="8" width="150" height="30"/>
+                                                        <rect key="frame" x="15" y="8" width="150" height="50"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rh1-tq-N7q">
-                                                                <rect key="frame" x="0.0" y="0.0" width="150" height="30"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="150" height="50"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                                                 <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -966,19 +1008,33 @@
                                                         </constraints>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="lvU-hR-S4D">
-                                                        <rect key="frame" x="173" y="8" width="233" height="30"/>
+                                                        <rect key="frame" x="173" y="8" width="233" height="50"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bAg-Nq-JJh">
-                                                                <rect key="frame" x="0.0" y="0.0" width="77.666666666666671" height="30"/>
-                                                                <state key="normal" title="Comment"/>
+                                                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bAg-Nq-JJh">
+                                                                <rect key="frame" x="0.0" y="0.0" width="77.666666666666671" height="50"/>
+                                                                <state key="normal" title="Comment" image="icons8-chat-bubble-48"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageView.contentMode">
+                                                                        <integer key="value" value="1"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="postInfoCommentClick:" destination="vVH-eg-zGe" eventType="touchUpInside" id="Uqq-Yw-SU0"/>
+                                                                </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dbh-5u-fJq">
-                                                                <rect key="frame" x="77.666666666666657" y="0.0" width="77.666666666666657" height="30"/>
-                                                                <state key="normal" title="Like"/>
+                                                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dbh-5u-fJq">
+                                                                <rect key="frame" x="77.666666666666657" y="0.0" width="77.666666666666657" height="50"/>
+                                                                <state key="normal" title="Like" image="icons8-love-48-2"/>
+                                                                <connections>
+                                                                    <action selector="postInfoLikeClick:" destination="vVH-eg-zGe" eventType="touchUpInside" id="nnO-69-NaK"/>
+                                                                </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="drq-RQ-dAa">
-                                                                <rect key="frame" x="155.33333333333331" y="0.0" width="77.666666666666686" height="30"/>
-                                                                <state key="normal" title="Healthy"/>
+                                                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="drq-RQ-dAa">
+                                                                <rect key="frame" x="155.33333333333331" y="0.0" width="77.666666666666686" height="50"/>
+                                                                <state key="normal" title="Healthy" image="icons8-kawaii-broccoli-50"/>
+                                                                <connections>
+                                                                    <action selector="postInfoHealthyClick:" destination="vVH-eg-zGe" eventType="touchUpInside" id="MLh-Ra-G8a"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -986,7 +1042,7 @@
                                                 <edgeInsets key="layoutMargins" top="8" left="15" bottom="8" right="8"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="W3L-Jm-4HU">
-                                                <rect key="frame" x="0.0" y="296" width="414" height="58"/>
+                                                <rect key="frame" x="0.0" y="316" width="414" height="58"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="p5N-Q4-BvB">
                                                         <rect key="frame" x="15" y="8" width="35" height="35"/>
@@ -1005,7 +1061,7 @@
                                                 <edgeInsets key="layoutMargins" top="8" left="15" bottom="15" right="8"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mQg-fu-L8X">
-                                                <rect key="frame" x="0.0" y="354" width="414" height="36.333333333333314"/>
+                                                <rect key="frame" x="0.0" y="374" width="414" height="36.333333333333314"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9Z-nQ-hm2">
                                                         <rect key="frame" x="15" y="7.9999999999999982" width="391" height="20.333333333333329"/>
@@ -1017,7 +1073,7 @@
                                                 <edgeInsets key="layoutMargins" top="8" left="15" bottom="8" right="8"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WMX-ME-3l9">
-                                                <rect key="frame" x="0.0" y="390.33333333333331" width="414" height="46"/>
+                                                <rect key="frame" x="0.0" y="410.33333333333331" width="414" height="46"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-tags-24" translatesAutoresizingMaskIntoConstraints="NO" id="MnC-gF-oKg">
                                                         <rect key="frame" x="15" y="8" width="35" height="30"/>
@@ -1036,14 +1092,14 @@
                                                 <edgeInsets key="layoutMargins" top="8" left="15" bottom="8" right="8"/>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7IN-G2-F5B">
-                                                <rect key="frame" x="0.0" y="436.33333333333331" width="414" height="2"/>
+                                                <rect key="frame" x="0.0" y="456.33333333333331" width="414" height="2"/>
                                                 <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="2" id="OYE-PO-WLZ"/>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1K4-5C-8kP">
-                                                <rect key="frame" x="0.0" y="438.33333333333331" width="414" height="44.666666666666686"/>
+                                                <rect key="frame" x="0.0" y="458.33333333333331" width="414" height="44.666666666666686"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ingredients" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pqd-bS-qP1">
                                                         <rect key="frame" x="8" y="8.0000000000000018" width="398" height="28.666666666666671"/>
@@ -1055,7 +1111,7 @@
                                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                             </stackView>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NLf-Ft-snH" customClass="IntrinsicIngredientItemTableView" customModule="CookBook" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="483" width="414" height="300"/>
+                                                <rect key="frame" x="0.0" y="503" width="414" height="300"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="300" id="hcm-Yc-aH4"/>
@@ -1107,14 +1163,14 @@
                                                 </connections>
                                             </tableView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MD5-of-0bt">
-                                                <rect key="frame" x="0.0" y="783" width="414" height="2"/>
+                                                <rect key="frame" x="0.0" y="803" width="414" height="2"/>
                                                 <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="2" id="AL8-B8-r4r"/>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KcJ-YN-hVt">
-                                                <rect key="frame" x="0.0" y="785" width="414" height="44.666666666666629"/>
+                                                <rect key="frame" x="0.0" y="805" width="414" height="44.666666666666629"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Steps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="60t-as-hbp">
                                                         <rect key="frame" x="8" y="8.0000000000000018" width="398" height="28.666666666666671"/>
@@ -1126,7 +1182,7 @@
                                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                             </stackView>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="c6n-vc-mKL" customClass="IntrinsicStepItemTableView" customModule="CookBook" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="829.66666666666663" width="414" height="299.99999999999989"/>
+                                                <rect key="frame" x="0.0" y="849.66666666666663" width="414" height="299.99999999999989"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="300" id="n4D-2m-bYU"/>
@@ -1179,10 +1235,19 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9Y9-jM-UkW"/>
                     </view>
-                    <navigationItem key="navigationItem" title="User's Recipe" id="uuG-Kb-bmh"/>
+                    <navigationItem key="navigationItem" title="User's Recipe" id="uuG-Kb-bmh">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="icons8-back-30" id="LJ6-be-xCg">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="backButtonClicked:" destination="vVH-eg-zGe" id="JRG-hm-ayz"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="healthyButton" destination="drq-RQ-dAa" id="2kJ-4X-daP"/>
                         <outlet property="ingredientTable" destination="NLf-Ft-snH" id="LmS-db-S6h"/>
                         <outlet property="ingredientTableConstraints" destination="hcm-Yc-aH4" id="t4o-wd-FSq"/>
+                        <outlet property="likeButton" destination="dbh-5u-fJq" id="PYb-Bx-bT9"/>
                         <outlet property="postInfoImage" destination="ge9-rB-3eA" id="c86-Wu-9VG"/>
                         <outlet property="postInfoLCH" destination="p9Z-nQ-hm2" id="Vii-2y-38J"/>
                         <outlet property="postInfoRecipeName" destination="Rh1-tq-N7q" id="mgq-GE-Byr"/>
@@ -1196,16 +1261,21 @@
             </objects>
             <point key="canvasLocation" x="2477" y="-320"/>
         </scene>
-        <!--CookBook-->
+        <!--Recipes-->
         <scene sceneID="iCr-kV-WfG">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Azk-W3-7m0" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="CookBook" image="book" catalog="system" id="yaj-du-cTr"/>
+                    <tabBarItem key="tabBarItem" title="Recipes" image="book" catalog="system" id="yaj-du-cTr">
+                        <color key="badgeColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="loQ-rF-aU2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1218,13 +1288,17 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Sdh-LD-F9R"/>
-        <segue reference="AEM-5h-8p5"/>
+        <segue reference="LCd-hv-oyG"/>
         <segue reference="GZU-QQ-2CA"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Default" width="281" height="179"/>
         <image name="book" catalog="system" width="128" height="101"/>
+        <image name="icons8-back-30" width="30" height="30"/>
+        <image name="icons8-chat-bubble-48" width="48" height="48"/>
+        <image name="icons8-kawaii-broccoli-50" width="50" height="50"/>
+        <image name="icons8-love-48-2" width="48" height="48"/>
+        <image name="icons8-menu-vertical-48" width="48" height="48"/>
         <image name="icons8-sole-52" width="52" height="52"/>
         <image name="icons8-tags-24" width="24" height="24"/>
     </resources>
