@@ -28,6 +28,8 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBOutlet weak var ingredientTableView: UITableView!
     @IBOutlet weak var tableHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var noLabel: UILabel!
+    
     
     var ingredientItemList : [IngredientSteps] = []
     var postID: String?
@@ -38,6 +40,11 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
         self.navigationItem.setHidesBackButton(true, animated: true);
         print("-.-\(self.postID!)")
         loadIngredients()
+        if (ingredientItemList.count > 0){
+            noLabel.isHidden = true
+        } else {
+            noLabel.isHidden = false
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -50,13 +57,18 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
             ingredientListFromFirestore in
             self.ingredientItemList = ingredientListFromFirestore
             self.ingredientTableView.reloadData()
+            if (self.ingredientItemList.count > 0){
+                self.noLabel.isHidden = true
+            } else {
+                self.noLabel.isHidden = false
+            }
         }
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (ingredientItemList.count == 0){
             var emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
-            emptyLabel.text = "There are no ingredients"
+            emptyLabel.text = "No ingredients have been added"
             emptyLabel.textAlignment = NSTextAlignment.center
             self.ingredientTableView.backgroundView = emptyLabel
             self.ingredientTableView.separatorStyle = UITableViewCell.SeparatorStyle.none

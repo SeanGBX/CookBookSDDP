@@ -257,7 +257,7 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     @IBAction func myPicSwitchClick(_ sender: Any) {
         if (myPictureSwitch.isOn == true){
-            progressToIngredientsButton.setTitleColor(UIColor.systemPurple, for: .normal)
+            progressToIngredientsButton.setTitleColor(UIColor.systemIndigo, for: .normal)
         } else {
             progressToIngredientsButton.setTitleColor(UIColor.gray, for: .normal)
         }

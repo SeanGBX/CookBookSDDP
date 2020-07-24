@@ -23,6 +23,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
     @IBOutlet weak var enableIngredientLabel: UILabel!
     @IBOutlet weak var ingredientNameLabel: UILabel!
     @IBOutlet weak var addIngredientImageButton: UIButton!
+    @IBOutlet weak var loadingBar: UIProgressView!
     
     var ingredientItem: IngredientSteps?
     var postID: String?
@@ -53,7 +54,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
 //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
 
         enableIngredientSwitch.isOn = false
-
+        loadingBar.isHidden = true
         ingredientInfoMeasureVal.isHidden = true
         ingredientInfoMeasureType.isHidden = true
         ingredientInfoName.isHidden = true
@@ -233,6 +234,9 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         
         vc.postID = self.postID!
         addEditIngredientButton.isEnabled = false
+        
+        loadingBar.isHidden = false
+        loadingBar.setProgress(3, animated: true)
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
             vc.loadIngredients()
             self.show(vc, sender: self)

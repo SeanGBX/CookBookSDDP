@@ -13,6 +13,11 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
 {
     var postList: [Posts] = []
     let username: String = "currentUser"
+    lazy var refresher: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(loadCompletePosts1), for: .valueChanged)
+        return refreshControl
+    }()
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -24,6 +29,8 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         loadCompletePosts()
         
         self.navigationItem.setHidesBackButton(true, animated: true);
+        
+        tableView.refreshControl = refresher
     }
     
     func loadCompletePosts(){
@@ -34,10 +41,22 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
+    @objc
+    func loadCompletePosts1(){
+        postsDataManager.loadCompletePosts(){
+            postListFromFirestore in
+            self.postList = postListFromFirestore
+            self.tableView.reloadData()
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)){
+                self.refresher.endRefreshing()
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (postList.count == 0){
             var emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
-            emptyLabel.text = "There are no more posts"
+            emptyLabel.text = "No Posts Available"
             emptyLabel.textAlignment = NSTextAlignment.center
             self.tableView.backgroundView = emptyLabel
             self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
