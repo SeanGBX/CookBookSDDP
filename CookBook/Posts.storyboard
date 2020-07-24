@@ -93,11 +93,11 @@
             <objects>
                 <viewController storyboardIdentifier="CreatePost1ViewController" id="Nzb-t8-NUm" customClass="CreatePost1ViewController" customModule="CookBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="w5n-gZ-n47">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8f2-wm-wjl">
-                                <rect key="frame" x="0.0" y="44" width="414" height="643"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="RtZ-rF-4fY">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="659.33333333333337"/>
@@ -116,13 +116,13 @@
                                                 <edgeInsets key="layoutMargins" top="20" left="60" bottom="8" right="60"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vW2-59-bgF">
-                                                <rect key="frame" x="0.0" y="214.33333333333331" width="414" height="64"/>
+                                                <rect key="frame" x="0.0" y="214.33333333333334" width="414" height="64.000000000000028"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qhu-Da-OQR">
                                                         <rect key="frame" x="8" y="8" width="398" height="36"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                         <state key="normal" title="Add an Image">
-                                                            <color key="titleColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="titleColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="AddImageButton:" destination="Nzb-t8-NUm" eventType="touchUpInside" id="uFc-hb-zVr"/>
@@ -189,7 +189,7 @@
                                                         <rect key="frame" x="8" y="30" width="398" height="36"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                         <state key="normal" title="NEXT">
-                                                            <color key="titleColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="titleColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="progressToIngredients:" destination="Nzb-t8-NUm" eventType="touchUpInside" id="xMp-6F-cGl"/>
@@ -257,7 +257,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="KMy-aS-b5Q">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="356"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="398.33333333333331"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="I5c-Uq-8sY" customClass="IntrinsicIngredientTableView" customModule="CookBook" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
@@ -316,14 +316,26 @@
                                                     <outlet property="delegate" destination="zzG-6W-fFu" id="5OW-cV-n80"/>
                                                 </connections>
                                             </tableView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KnV-MZ-pgC">
+                                                <rect key="frame" x="0.0" y="250.00000000000003" width="414" height="42.333333333333343"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Ingredients have been added" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jrQ-kM-Tvt">
+                                                        <rect key="frame" x="8" y="7.9999999999999982" width="398" height="26.333333333333329"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                                            </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yVf-Mv-EIt">
-                                                <rect key="frame" x="0.0" y="250" width="414" height="106"/>
+                                                <rect key="frame" x="0.0" y="292.33333333333331" width="414" height="106"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qzy-05-bK5">
                                                         <rect key="frame" x="8" y="20" width="398" height="36"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                         <state key="normal" title="NEXT">
-                                                            <color key="titleColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="titleColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="proceedToSteps:" destination="zzG-6W-fFu" eventType="touchUpInside" id="4eW-Bc-fyX"/>
@@ -377,6 +389,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="ingredientTableView" destination="I5c-Uq-8sY" id="rpW-69-8U5"/>
+                        <outlet property="noLabel" destination="jrQ-kM-Tvt" id="Pbw-SC-VO1"/>
                         <outlet property="tableHeightConstraint" destination="2e6-94-yZl" id="tYT-4r-pLu"/>
                     </connections>
                 </viewController>
@@ -396,7 +409,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="RLx-gJ-S4E">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="798.33333333333337"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="788.33333333333337"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QVd-rv-8k4">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="220"/>
@@ -411,19 +424,19 @@
                                                 <edgeInsets key="layoutMargins" top="8" left="80" bottom="0.0" right="80"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nKH-ch-iVP">
-                                                <rect key="frame" x="0.0" y="220" width="414" height="54.333333333333314"/>
+                                                <rect key="frame" x="0.0" y="220" width="414" height="44.333333333333314"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zw0-qS-3VO">
-                                                        <rect key="frame" x="8" y="20" width="398" height="26.333333333333329"/>
+                                                        <rect key="frame" x="8" y="9.9999999999999982" width="398" height="26.333333333333329"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                         <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <edgeInsets key="layoutMargins" top="20" left="8" bottom="8" right="8"/>
+                                                <edgeInsets key="layoutMargins" top="10" left="8" bottom="8" right="8"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="cuj-7t-2r4">
-                                                <rect key="frame" x="0.0" y="274.33333333333331" width="414" height="150"/>
+                                                <rect key="frame" x="0.0" y="264.33333333333331" width="414" height="150"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Budget" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvu-Uw-Xpj">
                                                         <rect key="frame" x="60" y="0.0" width="150" height="150"/>
@@ -448,7 +461,7 @@
                                                 <edgeInsets key="layoutMargins" top="0.0" left="60" bottom="0.0" right="30"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Rdx-Dn-UED">
-                                                <rect key="frame" x="0.0" y="424.33333333333331" width="414" height="149.99999999999994"/>
+                                                <rect key="frame" x="0.0" y="414.33333333333331" width="414" height="149.99999999999994"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cooking Style" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ECL-wN-vrd">
                                                         <rect key="frame" x="60" y="0.0" width="150" height="150"/>
@@ -473,7 +486,7 @@
                                                 <edgeInsets key="layoutMargins" top="0.0" left="60" bottom="0.0" right="30"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Td9-2k-JtI">
-                                                <rect key="frame" x="0.0" y="574.33333333333337" width="414" height="150"/>
+                                                <rect key="frame" x="0.0" y="564.33333333333337" width="414" height="150"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prep Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ypx-dF-cs6">
                                                         <rect key="frame" x="60" y="0.0" width="150" height="150"/>
@@ -498,7 +511,7 @@
                                                 <edgeInsets key="layoutMargins" top="0.0" left="60" bottom="0.0" right="30"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nlp-Nb-CYj">
-                                                <rect key="frame" x="0.0" y="724.33333333333337" width="414" height="74"/>
+                                                <rect key="frame" x="0.0" y="714.33333333333337" width="414" height="74"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufF-vE-AOk">
                                                         <rect key="frame" x="8" y="30" width="398" height="36"/>
@@ -571,7 +584,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BOj-XD-JkK">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="631"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="660"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="uN9-3S-UiJ">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="84"/>
@@ -630,7 +643,7 @@
                                                         <rect key="frame" x="8" y="0.0" width="398" height="36"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                         <state key="normal" title="Add an Image">
-                                                            <color key="titleColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="titleColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="AddImageButton:" destination="Nzb-t8-NUm" eventType="touchUpInside" id="aoa-A5-sxU"/>
@@ -685,20 +698,30 @@
                                                 <edgeInsets key="layoutMargins" top="8" left="15" bottom="8" right="15"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RHZ-FM-ZXh">
-                                                <rect key="frame" x="0.0" y="579" width="414" height="52"/>
+                                                <rect key="frame" x="0.0" y="579" width="414" height="69"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nT8-7e-YjU">
                                                         <rect key="frame" x="8" y="8" width="398" height="36"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                         <state key="normal" title="CONFIRM">
-                                                            <color key="titleColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="titleColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="addEditIngredient:" destination="nQw-w4-PDj" eventType="touchUpInside" id="NMS-de-gEF"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="25" right="8"/>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i2t-8m-boL">
+                                                <rect key="frame" x="0.0" y="648" width="414" height="12"/>
+                                                <subviews>
+                                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Ijf-Y6-qCq">
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="2"/>
+                                                        <color key="progressTintColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </progressView>
+                                                </subviews>
+                                                <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="10" right="0.0"/>
                                             </stackView>
                                         </subviews>
                                     </stackView>
@@ -745,6 +768,7 @@
                         <outlet property="ingredientInfoMeasureVal" destination="B7c-9i-SeE" id="5AP-34-PeN"/>
                         <outlet property="ingredientInfoName" destination="Sta-Ab-4bp" id="qpb-ed-tgb"/>
                         <outlet property="ingredientNameLabel" destination="biZ-0z-bsg" id="J8L-Zy-gkX"/>
+                        <outlet property="loadingBar" destination="Ijf-Y6-qCq" id="Q7R-h5-7o6"/>
                         <outlet property="stepInfo" destination="ojd-VW-hMM" id="bhC-V6-GbJ"/>
                     </connections>
                 </viewController>
@@ -757,11 +781,11 @@
             <objects>
                 <viewController storyboardIdentifier="PostViewController" id="9pv-A4-QxB" customClass="PostViewController" customModule="CookBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="550" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SQ1-d0-aBE">
-                                <rect key="frame" x="0.0" y="44" width="414" height="643"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="667"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="550" id="YuE-ci-agz" customClass="PostCell" customModule="CookBook" customModuleProvider="target">
@@ -811,7 +835,7 @@
                                                                     <rect key="frame" x="60" y="0.0" width="334" height="35"/>
                                                                     <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                                    <color key="textColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <color key="textColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
@@ -975,11 +999,11 @@
             <objects>
                 <viewController storyboardIdentifier="PostInfoViewController" id="vVH-eg-zGe" customClass="PostInfoViewController" customModule="CookBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ph9-hA-eLS">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tm8-qn-Evh">
-                                <rect key="frame" x="0.0" y="44" width="414" height="643"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="NmX-Z1-1TU">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1149.6666666666667"/>
@@ -1054,7 +1078,7 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9wB-Cr-0vg">
                                                         <rect key="frame" x="60" y="8" width="346" height="35"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                        <color key="textColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="textColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -1288,7 +1312,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="LCd-hv-oyG"/>
+        <segue reference="AEM-5h-8p5"/>
         <segue reference="GZU-QQ-2CA"/>
     </inferredMetricsTieBreakers>
     <resources>
