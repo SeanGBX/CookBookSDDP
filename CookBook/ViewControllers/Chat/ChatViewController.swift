@@ -8,6 +8,7 @@
 
 import UIKit
 import JGProgressHUD
+import FirebaseAuth
 
 class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate{
     
@@ -15,8 +16,11 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var editButton: UIBarButtonItem!
     
     var convList : [Conversations] = []
-    var friendsList : [Friend] = []
+    var allConvList : [Conversations] = []
+    var followingList : [Profile] = []
     private var results: [Conversations] = []
+    
+    let currUserId = Auth.auth().currentUser!.uid
     
     private let spinner = JGProgressHUD(style: .dark)
     
@@ -72,21 +76,36 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         definesPresentationContext = true
     }
     
+    func userConv(){
+        convList = []
+        for conv in allConvList{
+            print(conv.firstUserId, conv.secondUserId, currUserId)
+            if conv.firstUserId == currUserId{
+                convList.append(conv)
+            }
+            else if conv.secondUserId == currUserId{
+                convList.append(conv)
+            }
+        }
+        self.tableView.reloadData()
+    }
+    
     func loadChat(){
         chatDataManager.loadConversations(){
             convListFromFirestore in
 
-            self.convList = convListFromFirestore
+            self.allConvList = convListFromFirestore
             
             self.tableView.reloadData()
         }
         chatDataManager.loadChat(){
             friendListFromFirestore in
 
-            self.friendsList = friendListFromFirestore
+            self.followingList = friendListFromFirestore
             
             self.tableView.reloadData()
         }
+        userConv()
         
     }
     
@@ -94,6 +113,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(didTapComposeButton))
         self.navigationItem.title = "Messages"
+        
         addSearchBar()
         view.addSubview(noResultsLabel)
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
@@ -105,7 +125,6 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
         loadChat()
         self.spinner.dismiss()
     }
@@ -139,24 +158,25 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         present(navVC, animated: true)
     }
     
-    private func createNewConversation(result: Friend){
+    private func createNewConversation(result: Profile){
         let vc = FriendDetailViewController()
         var resultconv : Conversations?
-        vc.friendList = result
+        vc.followingList = result
         vc.navigationItem.largeTitleDisplayMode = .never
-        chatDataManager.loadSpecificChat(result.friendId){
+        
+        chatDataManager.loadSpecificChat(result.UID, currUserId){
             specificConv in
             resultconv = specificConv
             
             
         }
-        chatDataManager.findSpecificChat(result.friendId){
+        chatDataManager.findSpecificChat(result.UID, currUserId){
             isSuccessful in
             if isSuccessful{
                 vc.isNewConversation = false
                 vc.convItems = resultconv
                 self.navigationController?.pushViewController(vc, animated: true)
-            }
+            }	
             else{
                 vc.isNewConversation = true
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -169,8 +189,17 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
            if editingStyle == .delete
            {
                let conv = convList[indexPath.row]
+
+               var otherUserId = ""
+               if conv.firstUserId != currUserId{
+                    otherUserId = conv.firstUserId
+                }
+               else{
+                    otherUserId = conv.secondUserId
+
+                }
                convList.remove(at: indexPath.row)
-               chatDataManager.deleteConv(conv)
+               chatDataManager.deleteConv(otherUserId, currUserId)
                
                tableView.deleteRows(at: [indexPath], with: .automatic)
            }

@@ -7,6 +7,7 @@ target 'CookBook' do
 
   # Pods for CookBook
   pod 'Firebase/Firestore'
+  pod 'FirebaseUI'
   pod 'FirebaseFirestoreSwift'
   pod 'MessageKit'
   pod 'JGProgressHUD'

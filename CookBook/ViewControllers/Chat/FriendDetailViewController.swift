@@ -9,6 +9,7 @@
 import UIKit
 import MessageKit
 import InputBarAccessoryView
+import FirebaseAuth
 
 struct Sender: SenderType {
     public var photoURL: String
@@ -49,14 +50,17 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     public var isNewConversation = false
     
     var convItems : Conversations?
-    
-    var friendList : Friend?
+    var followingList : Profile?
     
     var messageList : [[String: String]] = []
     
-    let currentUser = Sender(photoURL:"default", senderId: "self", displayName: "Sean Gwee")
+    var currUserName = ""
+    let currUserId = Auth.auth().currentUser!.uid
+    var otherUserName = ""
+    var otherUserId = ""
     
-    var otherUser = Sender(photoURL: "", senderId: "other", displayName: "")
+    var currUser = Sender(photoURL:"default", senderId: "curr", displayName: "")
+    var otherUser = Sender(photoURL: "default", senderId: "other", displayName: "")
     
     var messages = [MessageType]()
     
@@ -64,35 +68,58 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
         super.viewDidLoad()
         let customMenuItem = UIMenuItem(title: "Forward", action: #selector(MessageCollectionViewCell.forward(_:)))
         UIMenuController.shared.menuItems = [customMenuItem]
+        profileDataManager.loadProfile(currUserId) { profiledb in
+            self.currUserName = profiledb[0].displayName
+        }
+        if convItems?.firstUserId != currUserId{
+            otherUserName = convItems!.firstUserName
+            otherUserId = convItems!.firstUserId
+        }
+        else{
+            otherUserName = convItems!.secondUserName
+            otherUserId = convItems!.secondUserId
+
+        }
         if !isNewConversation{
-            otherUser.displayName = convItems!.secondUserName
-            otherUser.photoURL = convItems!.imageName
-            self.navigationItem.title = convItems?.secondUserName
-            messages.append(Message(
-                sender: otherUser,
-                messageId: "1",
-                sentDate: Date().addingTimeInterval(-70400),
-                kind: .text("Hello!")
-            ))
-            messages.append(Message(
-                sender: otherUser,
-                messageId: "2",
-                sentDate: Date().addingTimeInterval(-70000),
-                kind: .photo(Media(url: nil, image: UIImage(named: convItems?.imageName as! String)!, placeholderImage: UIImage(named: convItems?.imageName as! String)!, size: CGSize(width: 250, height: 250)))
-            ))
+            otherUser.displayName = otherUserName
+            otherUser.photoURL = "default"
+            currUser.displayName = currUserName
+            currUser.senderId = otherUserName
+            self.navigationItem.title = otherUserName
+//            messages.append(Message(
+//                sender: otherUser,
+//                messageId: "1",
+//                sentDate: Date().addingTimeInterval(-70400),
+//                kind: .text("Hello!")
+//            ))
+//            messages.append(Message(
+//                sender: otherUser,
+//                messageId: "2",
+//                sentDate: Date().addingTimeInterval(-70000),
+//                kind: .photo(Media(url: nil, image: UIImage(named: convItems?.imageName as! String)!, placeholderImage: UIImage(named: convItems?.imageName as! String)!, size: CGSize(width: 250, height: 250)))
+//            ))
             
             for i in convItems!.messages{
-                print(i["message"]!)
-                messages.append(Message(sender: currentUser, messageId: "", sentDate: Date(), kind: .text(i["message"]!)))
+                print(i["sentBy"], otherUserId)
+                if i["sentBy"] == otherUserId{
+                    messages.append(Message(sender: otherUser, messageId: "", sentDate: Date(), kind: .text(i["message"]!)))
+                }
+                else{
+                    print(i["message"]!)
+                    messages.append(Message(sender: currUser, messageId: "", sentDate: Date(), kind: .text(i["message"]!)))
+                }
+                
             }
             
             messageList = convItems!.messages
         }
         else{
             
-            otherUser.displayName = friendList!.friendName
-            otherUser.photoURL = friendList!.imageName
-            self.navigationItem.title = friendList?.friendName
+            otherUser.displayName = followingList!.displayName
+            otherUser.photoURL = "defaultprofile"
+            currUser.displayName = currUserName
+            currUser.senderId = currUserId
+            self.navigationItem.title = followingList?.displayName
         }
         
         messagesCollectionView.messagesDataSource = self
@@ -113,12 +140,12 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     
     
     @objc func dismissKeyboard() {
-        view.endEditing(true)
+        view.endEditing(true)	
         print("")
     }
     
     func currentSender() -> SenderType {
-        return currentUser
+        return currUser
     }
     
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
@@ -159,10 +186,10 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
                 "date" : Self.dateFormatter.string(from: Date()),
                 "is_read": "false",
                 "message": "• Message Deleted •",
-                "sentBy": "seangwee"
+                "sentBy": currUserId
             ]
-            messages[indexPath.section] = Message(sender: currentUser, messageId: "\(indexPath.section)", sentDate: Date(), kind: .text("• Message Deleted •"))
-            chatDataManager.appendChat(convItems!, messageList)
+            messages[indexPath.section] = Message(sender: currUser, messageId: "\(indexPath.section)", sentDate: Date(), kind: .text("• Message Deleted •"))
+            chatDataManager.appendChat(otherUserId, currUserId, messageList)
             self.messagesCollectionView.reloadData()
             print("Deleting \(messages[indexPath.section])")
         }
@@ -185,15 +212,15 @@ extension FriendDetailViewController: InputBarAccessoryViewDelegate {
         print("Sending: \(text)")
         
         if isNewConversation {
-            let message =  Message(sender: currentUser, messageId: createMessageId()!, sentDate: Date(), kind: .text(text))
-            chatDataManager.init().createNewConversation(with: "seangwee", friend: friendList!, firstMessage: message, textMessage: text, completion: {
+            let message =  Message(sender: currUser, messageId: createMessageId()!, sentDate: Date(), kind: .text(text))
+            chatDataManager.init().createNewConversation(with: currUserId, following: followingList!, currUserName: currUserName, firstMessage: message, textMessage: text, completion: {
                 success in
                 if success {
                     print("Message Sent")
                     self.messages = []
                     self.messages.append(
                         Message(
-                            sender: self.currentUser,
+                            sender: self.currUser,
                             messageId: "\(self.messageList.count + 1)",
                             sentDate: Date(),
                             kind: .text(text)
@@ -210,26 +237,26 @@ extension FriendDetailViewController: InputBarAccessoryViewDelegate {
                 "date" : Self.dateFormatter.string(from: Date()),
                 "is_read": "false",
                 "message": text,
-                "sentBy": "seangwee"
+                "sentBy": currUserId
             ])
             messages.append(Message(
-                sender: currentUser,
+                sender: currUser,
                 messageId: "\(messageList.count + 1)",
                 sentDate: Date(),
                 kind: .text(text)
             ))
-            chatDataManager.appendChat(convItems!, messageList)
+            chatDataManager.appendChat(otherUserId, currUserId, messageList)
             self.messagesCollectionView.reloadData()
         }
     }
     
     private func createMessageId() -> String? {
         
-        guard let currentId = friendList?.friendId else {
+        guard let currentId = followingList?.UID else {
             return nil
         }
         let dateString = Self.dateFormatter.string(from: Date())
-        let newIdentifier = "\(friendList?.friendId)_seangwee_\(dateString)"
+        let newIdentifier = "\(followingList?.UID)_\(currUserId)_\(dateString)"
         print(newIdentifier)
         return newIdentifier
     }
