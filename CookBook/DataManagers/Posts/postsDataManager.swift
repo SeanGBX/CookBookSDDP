@@ -82,6 +82,7 @@ class postsDataManager: NSObject {
     }
     
     static func editPost(_ postID: String, _ post: Posts, onComplete: ((String)-> Void)?){
+        post.postId = postID
         try? db.collection("posts")
             .document(postID)
             .setData(from: post, encoder: Firestore.Encoder())
@@ -103,7 +104,6 @@ class postsDataManager: NSObject {
                 .document(ID)
         var selectedID = selectedPost?.documentID
         
-        print("-.-\(selectedID!)")
         return selectedID!
     }
     

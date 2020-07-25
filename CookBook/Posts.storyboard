@@ -555,6 +555,7 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="stop" id="xkX-DU-PUr">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="cancelPostCreate:" destination="UA6-YX-OCa" id="g1N-GV-KgT"/>
                             </connections>
