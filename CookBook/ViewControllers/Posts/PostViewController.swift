@@ -8,18 +8,46 @@
 
 import UIKit
 import FirebaseStorage
+import FirebaseAuth
 
-class PostViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CustomCellLoadData
+class IntrinsicPostTableView: UITableView {
+
+    override var contentSize:CGSize {
+        didSet {
+            self.invalidateIntrinsicContentSize()
+        }
+    }
+
+    override var intrinsicContentSize: CGSize {
+        self.layoutIfNeeded()
+        return CGSize(width: UIView.noIntrinsicMetric, height: contentSize.height)
+    }
+
+}
+
+class PostViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CustomCellLoadData, AlertShower
 {
     var postList: [Posts] = []
-    let username: String = "currentUser"
+    let username: String = Auth.auth().currentUser!.uid
+    var userList: [Profile] = []
+    
     lazy var refresher: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(loadCompletePosts1), for: .valueChanged)
+        if (segmentedControl.selectedSegmentIndex == 0){
+            refreshControl.addTarget(self, action: #selector(loadCompletePosts1), for: .valueChanged)
+        } else if (segmentedControl.selectedSegmentIndex == 0){
+            refreshControl.addTarget(self, action: #selector(loadCompletePosts1), for: .valueChanged)
+        } else if (segmentedControl.selectedSegmentIndex == 0){
+            refreshControl.addTarget(self, action: #selector(loadCompletePostsByHealthy1), for: .valueChanged)
+        }
         return refreshControl
     }()
     
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var postScrollView: UIScrollView!
+    
     
     override func viewDidLoad()
     {
@@ -29,8 +57,16 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         loadCompletePosts()
         
         self.navigationItem.setHidesBackButton(true, animated: true);
+        let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemIndigo]
+        segmentedControl.setTitleTextAttributes(titleTextAttributes, for: .normal)
+        segmentedControl.setTitleTextAttributes(titleTextAttributes, for: .selected)
         
-        tableView.refreshControl = refresher
+        postScrollView.refreshControl = refresher
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.updateViewConstraints()
+        self.heightConstraint?.constant = self.tableView.intrinsicContentSize.height
     }
     
     func loadCompletePosts(){
@@ -41,9 +77,29 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
+    func loadCompletePostsByHealthy(){
+        postsDataManager.loadCompletePostsByHealthy(){
+            postListFromFirestore in
+            self.postList = postListFromFirestore
+            self.tableView.reloadData()
+        }
+    }
+    
     @objc
     func loadCompletePosts1(){
         postsDataManager.loadCompletePosts(){
+            postListFromFirestore in
+            self.postList = postListFromFirestore
+            self.tableView.reloadData()
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)){
+                self.refresher.endRefreshing()
+            }
+        }
+    }
+    
+    @objc
+    func loadCompletePostsByHealthy1(){
+        postsDataManager.loadCompletePostsByHealthy(){
             postListFromFirestore in
             self.postList = postListFromFirestore
             self.tableView.reloadData()
@@ -73,12 +129,19 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         let p = postList[indexPath.row]
         cell.recipeName.text = p.recipeName
-        cell.userName.text = p.username
+        profileDataManager.loadProfile(p.username){
+            user in
+            self.userList = user
+            for i in self.userList{
+                cell.userName.text = i.displayName
+            }
+        }
         cell.CLHLabel.text = "\(p.likes) likes, 10 comments, \(p.healthy) users find this healthy"
         cell.tagsLabel.text = "\(p.tagBudget), \(p.tagPrep), \(p.tagStyle)"
         cell.postID = p.postId
         cell.postItem = p
         cell.delegate = self
+        cell.delegate1 = self
         cell.loadCell()
         
         let imageRef = Storage.storage().reference(withPath: p.postImage)
@@ -110,5 +173,20 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    
+    @IBAction func segmentedControlSwitch(_ sender: Any) {
+        if (segmentedControl.selectedSegmentIndex == 0){
+            loadCompletePosts()
+        } else if (segmentedControl.selectedSegmentIndex == 1){
+            loadCompletePosts()
+        } else if (segmentedControl.selectedSegmentIndex == 2){
+            loadCompletePostsByHealthy()
+        }
+    }
+    
+    func showAlert(_ alert: PopupViewController){
+        present(alert, animated: true, completion: nil)
     }
 }

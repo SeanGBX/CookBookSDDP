@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseStorage
+import FirebaseAuth
 
 class IntrinsicStepItemTableView: UITableView {
 
@@ -63,7 +64,8 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     var userLikes: [LikePost] = []
     var likePostItem: LikePost?
     var healthyPostItem: HealthyPost?
-    let username = "currentUser"
+    let username = Auth.auth().currentUser!.uid
+    var userList: [Profile] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -157,7 +159,13 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     
         postInfoRecipeName.text = postItem?.recipeName
-        postInfoUsername.text = postItem?.username
+        profileDataManager.loadProfile(postItem!.username){
+            user in
+            self.userList = user
+            for i in self.userList{
+                self.postInfoUsername.text = i.displayName
+            }
+        }
         postInfoLCH.text = "\(postItem!.likes) likes, 3 comments, \(postItem!.healthy) find this healthy"
         postInfoTags.text = "\(postItem!.tagBudget), \(postItem!.tagStyle), \(postItem!.tagPrep)"
         

@@ -29,6 +29,7 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var ingredientTableView: UITableView!
     @IBOutlet weak var tableHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var noLabel: UILabel!
+    @IBOutlet weak var nextButton: UIButton!
     
     
     var ingredientItemList : [IngredientSteps] = []
@@ -42,8 +43,11 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
         loadIngredients()
         if (ingredientItemList.count > 0){
             noLabel.isHidden = true
+            nextButton.isHidden = false
+            
         } else {
             noLabel.isHidden = false
+            nextButton.isHidden = true
         }
     }
     
@@ -59,8 +63,10 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
             self.ingredientTableView.reloadData()
             if (self.ingredientItemList.count > 0){
                 self.noLabel.isHidden = true
+                self.nextButton.isHidden = false
             } else {
                 self.noLabel.isHidden = false
+                self.nextButton.isHidden = true
             }
         }
     }
@@ -167,7 +173,7 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
                 self.show(vc, sender: self)
             } else {
                let alert2 = UIAlertController(
-                   title: "Please add at least 1 step and ingredient",
+                   title: "Please add at least 1 step AND ingredient",
                    message: "",
                    preferredStyle: .alert
                )

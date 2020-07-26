@@ -7,9 +7,14 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 protocol CustomCellLoadData: class {
     func loadCompletePosts()
+}
+
+protocol AlertShower: class {
+    func showAlert(_ alert: PopupViewController)
 }
 
 class PostCell: UITableViewCell {
@@ -23,15 +28,17 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var healthyButton: UIButton!
     
     weak var delegate: CustomCellLoadData?
+    weak var delegate1: AlertShower?
     var postID: String?
     var postItem: Posts?
-    var username: String = "currentUser"
+    var username: String = Auth.auth().currentUser!.uid
     var likePostItem: LikePost?
     var healthyPostItem: HealthyPost?
     var likeList: [LikePost] = []
     var healthyList: [HealthyPost] = []
     var userLikes: [LikePost] = []
     var userHealthy: [HealthyPost] = []
+    let alertService = AlertService()
     
     func loadCell() {
         loadLikes(id: postID!)
@@ -119,10 +126,13 @@ class PostCell: UITableViewCell {
     }
     
     @IBAction func deletePostButton(_ sender: Any) {
-        if (postItem!.username == username){
-            postsDataManager.deletePost(postID!)
-        } else {
-            print("You cannot delete someone elses post")
-        }
+        let alertVC = alertService.alert()
+        delegate1?.showAlert(alertVC)
+
+//        if (postItem!.username == username){
+//            postsDataManager.deletePost(postID!)
+//        } else {
+//            print("You cannot delete someone elses post")
+//        }
     }
 }

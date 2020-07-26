@@ -43,6 +43,8 @@
 		181DDFBB24A4AB02006F463F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181DDFBA24A4AB02006F463F /* SceneDelegate.swift */; };
 		181DDFC424A4AB05006F463F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 181DDFC324A4AB05006F463F /* Assets.xcassets */; };
 		18405BFF24ADC8DF00A645F2 /* IngredientSteps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18405BFE24ADC8DF00A645F2 /* IngredientSteps.swift */; };
+		1847721224CDCD570027C32D /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1847721124CDCD570027C32D /* PopupViewController.swift */; };
+		1847721824CDE7320027C32D /* AlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1847721724CDE7320027C32D /* AlertService.swift */; };
 		18DD2D3624BA10EA00539A19 /* LikePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD2D3524BA10EA00539A19 /* LikePost.swift */; };
 		18DD2D3824BA110800539A19 /* HealthyPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD2D3724BA110800539A19 /* HealthyPost.swift */; };
 		18DD2D3A24BA11E300539A19 /* likePostDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD2D3924BA11E300539A19 /* likePostDataManager.swift */; };
@@ -114,6 +116,8 @@
 		181DDFC324A4AB05006F463F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		181DDFC824A4AB05006F463F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18405BFE24ADC8DF00A645F2 /* IngredientSteps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientSteps.swift; sourceTree = "<group>"; };
+		1847721124CDCD570027C32D /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
+		1847721724CDE7320027C32D /* AlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertService.swift; sourceTree = "<group>"; };
 		18DD2D3524BA10EA00539A19 /* LikePost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikePost.swift; sourceTree = "<group>"; };
 		18DD2D3724BA110800539A19 /* HealthyPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthyPost.swift; sourceTree = "<group>"; };
 		18DD2D3924BA11E300539A19 /* likePostDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = likePostDataManager.swift; sourceTree = "<group>"; };
@@ -248,6 +252,7 @@
 				180D2C5424A501F2000F0A89 /* IngredientViewController.swift */,
 				180D2C5324A501F2000F0A89 /* PostInfoViewController.swift */,
 				180D2C5224A501F1000F0A89 /* PostViewController.swift */,
+				1847721124CDCD570027C32D /* PopupViewController.swift */,
 			);
 			path = Posts;
 			sourceTree = "<group>";
@@ -294,6 +299,7 @@
 				181DDFC824A4AB05006F463F /* Info.plist */,
 				180D9FD224A5EC30001BD4F7 /* GoogleService-Info.plist */,
 				180D2C3824A500A2000F0A89 /* CookBook-Bridging-Header.h */,
+				1847721724CDE7320027C32D /* AlertService.swift */,
 			);
 			path = CookBook;
 			sourceTree = "<group>";
@@ -610,6 +616,7 @@
 				180D2C5624A501F2000F0A89 /* IngredientInfoViewController.swift in Sources */,
 				D448104C24AC3BCE00B5A376 /* NewConversationViewController.swift in Sources */,
 				693858B724C474010077F449 /* followDataManager.swift in Sources */,
+				1847721824CDE7320027C32D /* AlertService.swift in Sources */,
 				180D2C6324A501FE000F0A89 /* IngredientItemCell.swift in Sources */,
 				180D2C4424A501A0000F0A89 /* commentDataManager.swift in Sources */,
 				180D2C4D24A501D6000F0A89 /* Posts.swift in Sources */,
@@ -628,6 +635,7 @@
 				69CC5D2F24BD97FC008EF291 /* Profile.swift in Sources */,
 				18405BFF24ADC8DF00A645F2 /* IngredientSteps.swift in Sources */,
 				180D2C6524A501FE000F0A89 /* CommentCell.swift in Sources */,
+				1847721224CDCD570027C32D /* PopupViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

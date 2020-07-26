@@ -81,6 +81,28 @@ class postsDataManager: NSObject {
         }
     }
     
+    static func loadCompletePostsByHealthy(onComplete: (([Posts]) -> Void)?){
+        db.collection("posts").whereField("postComplete", isEqualTo: "1").order(by: "healthy", descending: true).getDocuments(){
+            
+            (querySnapshot, err) in
+            var postList : [Posts] = []
+            
+            if let err = err{
+                print("Error getting documents: \(err)")
+            }
+            else{
+                for document in querySnapshot!.documents{
+                    var post = try? document.data(as: Posts.self) as! Posts
+                    
+                    if post != nil{
+                        postList.append(post!)
+                    }
+                }
+            }
+            onComplete?(postList)
+        }
+    }
+    
     static func editPost(_ postID: String, _ post: Posts, onComplete: ((String)-> Void)?){
         post.postId = postID
         try? db.collection("posts")

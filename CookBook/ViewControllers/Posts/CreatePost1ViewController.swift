@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseStorage
+import FirebaseAuth
 
 class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -19,7 +20,7 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     var postItem: Posts?
     var newID: String?
-    let username: String = "currentUser"
+    let username: String = Auth.auth().currentUser!.uid
     var selectedPost: [Posts] = []
     
     var mealTypeData: [String] = [
@@ -132,7 +133,7 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
            postItem = Posts(recipeName: "", username: "", mealType: "", likes: 0, healthy: 0, tagBudget: "", tagStyle: "", tagPrep: "", postImage: "", postComplete: "0")
             
            postItem!.recipeName = createPostRecipeName.text!
-           postItem!.username = self.username
+            postItem!.username = username
             
            let pickerRow = createPostPicker.selectedRow(inComponent: 0)
            let selectedPickerText = mealTypeData[pickerRow]
