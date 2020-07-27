@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="N5Z-Mb-7Lg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="N5Z-Mb-7Lg">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -10,7 +10,7 @@
         <!--Find Recipes-->
         <scene sceneID="dvM-l7-2Ut">
             <objects>
-                <viewController id="N5Z-Mb-7Lg" customClass="FindRecipeViewController" customModule="CookBook" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FindRecipeViewController" id="N5Z-Mb-7Lg" customClass="FindRecipeViewController" customModule="CookBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="w7v-YS-sdt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -98,7 +98,14 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="NXh-Rj-mrQ"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Find Recipes" id="Ert-oD-0Rm"/>
+                    <navigationItem key="navigationItem" title="Find Recipes" id="Ert-oD-0Rm">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="icons8-back-30" id="LKj-2g-7P0">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="backButton:" destination="N5Z-Mb-7Lg" id="b4M-BC-N6e"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="budgetTextField" destination="FIC-SQ-j19" id="y2d-XL-72o"/>
                         <outlet property="chosenCuisinLabel" destination="LDh-J7-rxk" id="Eot-YZ-PxW"/>
@@ -123,4 +130,7 @@
             <point key="canvasLocation" x="3171" y="49"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icons8-back-30" width="30" height="30"/>
+    </resources>
 </document>

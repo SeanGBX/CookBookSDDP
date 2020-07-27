@@ -8,11 +8,24 @@
 
 import UIKit
 
+protocol loadRecipeInfo: class {
+    func loadRecipeInfo(_ post: Posts, _ cuisine: String, _ budget: String, _ prepTime: String, _ mealType: String)
+}
+
 class RecipeCell: UITableViewCell {
 
-   @IBOutlet weak var recipeTitleLabel: UILabel!
+    @IBOutlet weak var recipeTitleLabel: UILabel!
     @IBOutlet weak var recipeImage: UIImageView!
     @IBOutlet weak var recipeStepsLabel: UILabel!
+    @IBOutlet weak var recipeButton: UIButton!
+    var cuisine: String?
+    var budget: String?
+    var prepTime: String?
+    var mealType: String?
+    
+    var recipe: Posts?
+    var recipeList: [Posts] = []
+    weak var delegate: loadRecipeInfo?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,4 +38,8 @@ class RecipeCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    @IBAction func recipeButtonPressed(_ sender: Any) {
+        
+        self.delegate?.loadRecipeInfo(recipe!, mealType!, budget!, prepTime!, cuisine!)
+    }
 }

@@ -66,6 +66,10 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     var healthyPostItem: HealthyPost?
     let username = Auth.auth().currentUser!.uid
     var userList: [Profile] = []
+    var isCuisine = ""
+    var isBudget = ""
+    var isPrepTime = ""
+    var isMealtype = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -267,8 +271,19 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     
     
     @IBAction func backButtonClicked(_ sender: Any) {
-        let vc = storyboard?.instantiateViewController(identifier: "PostViewController") as! PostViewController
-        vc.loadCompletePosts()
-        self.show(vc, sender: self)
+        if (isCuisine != "") {
+            let vc = UIStoryboard(name: "Recipes", bundle: nil).instantiateViewController(identifier: "RecipeViewController") as! RecipeViewController
+            vc.chosenCuisine = isCuisine
+            vc.budget = isBudget
+            vc.prepTime = isPrepTime
+            vc.cuisineStyle = isMealtype
+            self.show(vc, sender: self)
+            
+        }
+        else {
+            let vc = storyboard?.instantiateViewController(identifier: "PostViewController") as! PostViewController
+            vc.loadCompletePosts()
+            self.show(vc, sender: self)
+        }
     }
 }

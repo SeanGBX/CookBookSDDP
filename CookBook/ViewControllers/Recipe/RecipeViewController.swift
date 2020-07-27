@@ -9,7 +9,8 @@
 import UIKit
 import FirebaseStorage
 
-class RecipeViewController: UIViewController,  UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating {
+class RecipeViewController: UIViewController,  UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, loadRecipeInfo {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering {
             return filteredRecipes.count
@@ -24,7 +25,7 @@ class RecipeViewController: UIViewController,  UITableViewDataSource, UITableVie
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeCell
         
         let recipe: Posts
-        let recipeSteps: IngredientSteps
+        //let recipeSteps: IngredientSteps
         
         if isFiltering {
             recipe = filteredRecipes[indexPath.row]
@@ -37,6 +38,13 @@ class RecipeViewController: UIViewController,  UITableViewDataSource, UITableVie
         cell.recipeTitleLabel.text = recipe.recipeName
         // cell.recipeStepsLabel.text = recipeSteps.step
         cell.layer.borderColor = UIColor.purple.cgColor
+        
+        cell.cuisine = recipe.tagStyle
+        cell.budget = recipe.tagBudget
+        cell.prepTime = recipe.tagPrep
+        cell.mealType = recipe.mealType
+        cell.delegate = self
+        cell.recipe = recipe
         
         let image = Storage.storage().reference(withPath: recipe.postImage)
         image.getData(maxSize: 4 * 1024 * 1024) {
@@ -59,6 +67,17 @@ class RecipeViewController: UIViewController,  UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 260.0
+    }
+    
+    func loadRecipeInfo(_ post: Posts, _ chosenCuisine: String, _ budget: String, _ prepTime: String, _ mealType: String) {
+        let vc = UIStoryboard(name: "Posts", bundle: nil).instantiateViewController(identifier: "PostInfoViewController") as! PostInfoViewController
+        
+        vc.postItem = post
+        vc.isCuisine = chosenCuisine
+        vc.isBudget = budget
+        vc.isPrepTime = prepTime
+        vc.isMealtype = mealType
+        self.show(vc, sender: self)
     }
     
     @IBOutlet weak var budgetLabel: UILabel!
@@ -98,6 +117,8 @@ class RecipeViewController: UIViewController,  UITableViewDataSource, UITableVie
         navigationItem.searchController = searchController
         definesPresentationContext = true
         loadRecipes()
+        
+        self.navigationItem.setHidesBackButton(true, animated: true);
         // Do any additional setup after loading the view.
     }
     
@@ -105,7 +126,7 @@ class RecipeViewController: UIViewController,  UITableViewDataSource, UITableVie
         RecipeDataManager.loadRecipes(self.chosenCuisine, budget: self.budget, prepTime: self.prepTime, cuisineStyle: self.cuisineStyle) {
             recipeListFromFirestore in
             self.recipeList = recipeListFromFirestore
-            print(self.recipeList.count)
+            print("-->\(self.recipeList.count)")
             
             if self.recipeList.count == 0 {
                 self.recipeNameLabel.text = "There are no recipes found!"
@@ -142,28 +163,14 @@ class RecipeViewController: UIViewController,  UITableViewDataSource, UITableVie
         
         recipeTableView.reloadData()
     }
+    
+    
+    @IBAction func backButton(_ sender: Any) {
+        let vc = UIStoryboard(name: "FindRecipe", bundle: nil).instantiateViewController(identifier: "FindRecipeViewController") as! FindRecipeViewController
         
-//        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//            return recipeList.count
-//        }
-//
-//        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeCell
-//
-//            let recipe = recipeList[indexPath.row]
-//            cell.recipeTitleLabel.text = recipe.recipeName
-//
-//            return cell
-//        }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        vc.cuisineTitle = chosenCuisine
+        
+        self.show(vc, sender: self)
     }
-    */
 
 }
