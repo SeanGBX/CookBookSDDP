@@ -257,7 +257,6 @@ extension chatDataManager{
     }
     
     public func getAllConversation(for followingId: String, completion: @escaping (Result<String, Error>) -> Void){
-        
     }
     
     public func getAllMessagesForConversation(with id: String, coompletion: @escaping (Result<String, Error>) -> Void){

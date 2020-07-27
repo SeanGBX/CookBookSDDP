@@ -219,7 +219,12 @@ extension FriendDetailViewController: InputBarAccessoryViewDelegate {
                 success in
                 if success {
                     print("Message Sent")
-                    self.messages = []
+                    self.messageList.append([
+                        "date" : Self.dateFormatter.string(from: Date()),
+                        "is_read": "false",
+                        "message": text,
+                        "sentBy": self.currUserId
+                    ])
                     self.messages.append(
                         Message(
                             sender: self.currUser,
@@ -227,6 +232,7 @@ extension FriendDetailViewController: InputBarAccessoryViewDelegate {
                             sentDate: Date(),
                             kind: .text(text)
                     ))
+                    chatDataManager.appendChat(self.otherUserId, self.currUserId, self.messageList)
                     self.messagesCollectionView.reloadData()
                 }
                 else{

@@ -13,7 +13,7 @@ import FirebaseAuth
 class NewConversationViewController: UIViewController{
 
     public var completion: ((Profile) -> (Void))?
-    // test
+    
     private let spinner = JGProgressHUD(style: .dark)
     
     private var users : [Profile] = []

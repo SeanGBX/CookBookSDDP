@@ -108,6 +108,11 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
+    private func startListeningForConversation(){
+        
+    }
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         loadChat()
         self.spinner.dismiss()
