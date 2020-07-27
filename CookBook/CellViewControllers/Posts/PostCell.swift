@@ -11,10 +11,10 @@ import FirebaseAuth
 
 protocol CustomCellLoadData: class {
     func loadCompletePosts()
-}
-
-protocol AlertShower: class {
+    func loadCompletePostsByHealthy()
+//    func loadCompletePostsByFollower()
     func showAlert(_ alert: PopupViewController)
+    func getSegmentIndex() -> Int
 }
 
 class PostCell: UITableViewCell {
@@ -27,8 +27,8 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var healthyButton: UIButton!
     
+    
     weak var delegate: CustomCellLoadData?
-    weak var delegate1: AlertShower?
     var postID: String?
     var postItem: Posts?
     var username: String = Auth.auth().currentUser!.uid
@@ -87,13 +87,20 @@ class PostCell: UITableViewCell {
     }
     
     @IBAction func likeButtonClick(_ sender: Any) {
-        
+        let vc = UIStoryboard(name: "Posts", bundle: .main).instantiateViewController(identifier: "PostViewController") as! PostViewController
         likePostItem = LikePost(postId: postID!, username: username)
         if (userLikes.count == 0) {
             likeButton.setImage(#imageLiteral(resourceName: "icons8-love-48"), for: .normal)
             likePostDataManager.insertLike(likePostItem!)
             postsDataManager.insertPostLike(postID!){
-                self.delegate?.loadCompletePosts()
+                let index = self.delegate?.getSegmentIndex()
+                if (index! == 0){
+                    self.delegate?.loadCompletePosts()
+                } else if (index! == 1){
+                    self.delegate?.loadCompletePosts()
+                } else if (index! == 2) {
+                    self.delegate?.loadCompletePostsByHealthy()
+                }
             }
         }
         
@@ -101,7 +108,14 @@ class PostCell: UITableViewCell {
             likeButton.setImage(#imageLiteral(resourceName: "icons8-love-48-2"), for: .normal)
             likePostDataManager.deleteLike(userLikes)
             postsDataManager.deletePostLike(postID!){
-                self.delegate?.loadCompletePosts()
+                let index = self.delegate?.getSegmentIndex()
+                if (index! == 0){
+                    self.delegate?.loadCompletePosts()
+                } else if (index! == 1){
+                    self.delegate?.loadCompletePosts()
+                } else if (index! == 2) {
+                    self.delegate?.loadCompletePostsByHealthy()
+                }
             }
         }
     }
@@ -112,7 +126,15 @@ class PostCell: UITableViewCell {
             healthyButton.setImage(#imageLiteral(resourceName: "icons8-kawaii-broccoli-50-2"), for: .normal)
             healthyPostDataManager.insertHealthy(healthyPostItem!)
             postsDataManager.insertPostHealthy(postID!){
-                self.delegate?.loadCompletePosts()
+                let index = self.delegate?.getSegmentIndex()
+                print("-.-\(index!)")
+                if (index! == 0){
+                    self.delegate?.loadCompletePosts()
+                } else if (index! == 1){
+                    self.delegate?.loadCompletePosts()
+                } else if (index! == 2) {
+                    self.delegate?.loadCompletePostsByHealthy()
+                }
             }
         }
         
@@ -120,14 +142,21 @@ class PostCell: UITableViewCell {
             healthyButton.setImage(#imageLiteral(resourceName: "icons8-kawaii-broccoli-50"), for: .normal)
             healthyPostDataManager.deleteHealthy(userHealthy)
             postsDataManager.deletePostHealthy(postID!){
-                self.delegate?.loadCompletePosts()
+                let index = self.delegate?.getSegmentIndex()
+                if (index! == 0){
+                    self.delegate?.loadCompletePosts()
+                } else if (index! == 1){
+                    self.delegate?.loadCompletePosts()
+                } else if (index! == 2) {
+                    self.delegate?.loadCompletePostsByHealthy()
+                }
             }
         }
     }
     
     @IBAction func deletePostButton(_ sender: Any) {
         let alertVC = alertService.alert()
-        delegate1?.showAlert(alertVC)
+        delegate?.showAlert(alertVC)
 
 //        if (postItem!.username == username){
 //            postsDataManager.deletePost(postID!)

@@ -25,7 +25,7 @@ class IntrinsicPostTableView: UITableView {
 
 }
 
-class PostViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CustomCellLoadData, AlertShower
+class PostViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CustomCellLoadData
 {
     var postList: [Posts] = []
     let username: String = Auth.auth().currentUser!.uid
@@ -110,18 +110,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (postList.count == 0){
-            var emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
-            emptyLabel.text = "No Posts Available"
-            emptyLabel.textAlignment = NSTextAlignment.center
-            self.tableView.backgroundView = emptyLabel
-            self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-            return 0
-        } else {
-            self.tableView.backgroundView = nil
-            self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.singleLine
-            return postList.count
-        }
+        return postList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -141,7 +130,6 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.postID = p.postId
         cell.postItem = p
         cell.delegate = self
-        cell.delegate1 = self
         cell.loadCell()
         
         let imageRef = Storage.storage().reference(withPath: p.postImage)
@@ -188,5 +176,9 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func showAlert(_ alert: PopupViewController){
         present(alert, animated: true, completion: nil)
+    }
+    
+    func getSegmentIndex() -> Int{
+        return segmentedControl.selectedSegmentIndex
     }
 }
