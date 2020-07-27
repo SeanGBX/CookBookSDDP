@@ -23,6 +23,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         cuisineView.isHidden = true
+        
+        self.navigationItem.setHidesBackButton(true, animated: true);
         // Do any additional setup after loading the view.
     }
     

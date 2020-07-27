@@ -51,6 +51,7 @@ class FindRecipeViewController: UIViewController, UITextFieldDelegate, UIPickerV
         prepTimeTextField.text = prepTimePickerData[0]
         
         chosenCuisinLabel?.text = cuisineTitle
+        self.navigationItem.setHidesBackButton(true, animated: true);
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
     }
@@ -175,6 +176,13 @@ class FindRecipeViewController: UIViewController, UITextFieldDelegate, UIPickerV
             vc?.chosenCuisine = chosenCuisinLabel.text!
             vc?.cuisineStyle = cuisineStyleTextField.text!
         }
+    }
+    
+    
+    @IBAction func backButton(_ sender: Any) {
+        let vc = UIStoryboard(name: "Meal", bundle: nil).instantiateViewController(identifier: "MealRecipe") as! ViewController
+        
+        self.show(vc, sender: self)
     }
     
     
