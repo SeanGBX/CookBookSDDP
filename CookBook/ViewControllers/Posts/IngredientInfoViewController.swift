@@ -337,6 +337,8 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
                    message: "",
                    preferredStyle: .alert
                )
+        
+                alert1.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
                
                if UIImagePickerController.isSourceTypeAvailable(.camera){
                    
@@ -371,7 +373,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
                   })
                )
                
-               alert1.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
+
            
                self.present(alert1, animated: true, completion: nil)
                

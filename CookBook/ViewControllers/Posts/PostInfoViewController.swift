@@ -79,6 +79,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         loadHealthy(id: postItem!.postId)
         loadUserLikes(id: postItem!.postId)
         loadUserHealthy(id: postItem!.postId)
+        
         self.navigationItem.setHidesBackButton(true, animated: true);
     }
     
@@ -137,6 +138,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
             ingredientFromFirestore in
             self.ingredientList = ingredientFromFirestore
             self.ingredientTable.reloadData()
+
         }
     }
     
@@ -145,6 +147,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
             stepFromFirestore in
             self.stepList = stepFromFirestore
             self.stepTable.reloadData()
+
         }
     }
     

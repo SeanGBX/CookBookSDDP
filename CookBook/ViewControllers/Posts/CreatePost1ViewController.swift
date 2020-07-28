@@ -202,6 +202,8 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
             preferredStyle: .alert
         )
         
+        alert1.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
+        
         if UIImagePickerController.isSourceTypeAvailable(.camera){
             
             alert1.addAction(
@@ -234,8 +236,6 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
                 self.present(imagePicker, animated: true)
            })
         )
-        
-        alert1.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
     
         self.present(alert1, animated: true, completion: nil)
         

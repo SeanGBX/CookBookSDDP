@@ -174,8 +174,83 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-    func showAlert(_ alert: PopupViewController){
-        present(alert, animated: true, completion: nil)
+    func showAlert(_ id: String, _ username1: String){
+       let alert = UIAlertController(
+           title: nil,
+           message: "",
+           preferredStyle: .alert
+       )
+        
+       alert.addAction(
+           UIAlertAction(
+               title: "Cancel",
+               style: .default,
+               handler: nil)
+       )
+        
+        alert.addAction(
+            UIAlertAction(
+                title: "Unfollow",
+                style: .default,
+                handler: nil)
+        )
+        
+        if (username1 == username){
+            IngredientsDataManager.loadIngredients(id, onComplete: {
+                ingredients in
+                print("-.-\(ingredients.count)")
+                let ingredientItemList = ingredients
+                alert.addAction(
+                    UIAlertAction(
+                        title: "Delete",
+                        style: .destructive,
+                        handler: {
+                            handler in
+                            alert.dismiss(animated: true)
+                            let alert1 = UIAlertController(
+                                title: "Are you sure you want to delete this post?",
+                                message: "",
+                                preferredStyle: .alert
+                            )
+                            
+                            alert1.addAction(
+                                UIAlertAction(
+                                    title: "Cancel",
+                                    style: .destructive,
+                                    handler: nil)
+                            )
+                             
+                            alert1.addAction(
+                                UIAlertAction(
+                                    title: "Yes",
+                                    style: .default,
+                                    handler: {
+                                        handler in
+                                        postsDataManager.deletePost(id)
+                                        IngredientsDataManager.deleteIngredientByPost(ingredients: ingredientItemList)
+                                        if (self.segmentedControl.selectedSegmentIndex == 0){
+                                            self.loadCompletePosts()
+                                        } else if (self.segmentedControl.selectedSegmentIndex == 1){
+                                            self.loadCompletePosts()
+                                        } else if(self.segmentedControl.selectedSegmentIndex == 2){
+                                            self.loadCompletePostsByHealthy()
+                                        }
+                                })
+                            )
+                            
+                            self.present(alert1, animated: true, completion: nil)
+                            
+                            return
+                    })
+                )
+            })
+
+        }
+
+    
+       self.present(alert, animated: true, completion: nil)
+        
+       return
     }
     
     func getSegmentIndex() -> Int{

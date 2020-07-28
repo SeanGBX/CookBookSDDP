@@ -1284,32 +1284,32 @@
                                                 </subviews>
                                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                             </stackView>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NLf-Ft-snH" customClass="IntrinsicIngredientItemTableView" customModule="CookBook" customModuleProvider="target">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NLf-Ft-snH" customClass="IntrinsicIngredientItemTableView" customModule="CookBook" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="503" width="414" height="300"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="300" id="hcm-Yc-aH4"/>
                                                 </constraints>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IngredientCell" rowHeight="70" id="8Er-AI-LjZ" customClass="IngredientCell" customModule="CookBook" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="28" width="414" height="70"/>
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IngredientCell" rowHeight="90" id="8Er-AI-LjZ" customClass="IngredientCell" customModule="CookBook" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="28" width="414" height="90"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8Er-AI-LjZ" id="lsJ-S0-8Sq">
-                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="90"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0Nr-2E-AaJ">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="90"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cwQ-s2-CUO">
-                                                                            <rect key="frame" x="8" y="8" width="45" height="54"/>
+                                                                            <rect key="frame" x="8" y="8" width="45" height="74"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="35" id="Gjf-o4-ceb"/>
                                                                                 <constraint firstAttribute="width" constant="45" id="IlJ-ke-ObG"/>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LVh-W5-dUd">
-                                                                            <rect key="frame" x="63" y="8" width="343" height="54"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LVh-W5-dUd">
+                                                                            <rect key="frame" x="63" y="8" width="343" height="74"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                             <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -1355,7 +1355,7 @@
                                                 </subviews>
                                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                             </stackView>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="c6n-vc-mKL" customClass="IntrinsicStepItemTableView" customModule="CookBook" customModuleProvider="target">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="c6n-vc-mKL" customClass="IntrinsicStepItemTableView" customModule="CookBook" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="849.66666666666663" width="414" height="299.99999999999989"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
@@ -1369,14 +1369,19 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EtF-Ow-XMZ">
-                                                                    <rect key="frame" x="20" y="8" width="398" height="54"/>
-                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EtF-Ow-XMZ">
+                                                                    <rect key="frame" x="20" y="0.0" width="386" height="70"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                    <nil key="textColor"/>
+                                                                    <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
+                                                            <constraints>
+                                                                <constraint firstAttribute="bottom" secondItem="EtF-Ow-XMZ" secondAttribute="bottom" id="Arh-ma-RJm"/>
+                                                                <constraint firstAttribute="trailing" secondItem="EtF-Ow-XMZ" secondAttribute="trailing" constant="8" id="cLf-um-7Ne"/>
+                                                                <constraint firstItem="EtF-Ow-XMZ" firstAttribute="top" secondItem="suX-hG-k7G" secondAttribute="top" id="kXH-nz-n06"/>
+                                                                <constraint firstItem="EtF-Ow-XMZ" firstAttribute="leading" secondItem="suX-hG-k7G" secondAttribute="leading" constant="20" id="pMT-G4-0D4"/>
+                                                            </constraints>
                                                         </tableViewCellContentView>
                                                         <connections>
                                                             <outlet property="stepLabel" destination="EtF-Ow-XMZ" id="b39-A6-1eV"/>
@@ -1433,7 +1438,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MRh-47-Raa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2477" y="-320"/>
+            <point key="canvasLocation" x="2476.811594202899" y="-320.38043478260875"/>
         </scene>
         <!--Recipes-->
         <scene sceneID="iCr-kV-WfG">

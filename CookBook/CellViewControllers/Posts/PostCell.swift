@@ -13,7 +13,7 @@ protocol CustomCellLoadData: class {
     func loadCompletePosts()
     func loadCompletePostsByHealthy()
 //    func loadCompletePostsByFollower()
-    func showAlert(_ alert: PopupViewController)
+    func showAlert(_ id: String, _ username: String)
     func getSegmentIndex() -> Int
 }
 
@@ -155,13 +155,6 @@ class PostCell: UITableViewCell {
     }
     
     @IBAction func deletePostButton(_ sender: Any) {
-        let alertVC = alertService.alert()
-        delegate?.showAlert(alertVC)
-
-//        if (postItem!.username == username){
-//            postsDataManager.deletePost(postID!)
-//        } else {
-//            print("You cannot delete someone elses post")
-//        }
+        delegate?.showAlert(postID!, username)
     }
 }
