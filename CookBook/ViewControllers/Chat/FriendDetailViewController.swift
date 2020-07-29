@@ -99,20 +99,9 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
 //                sentDate: Date().addingTimeInterval(-70000),
 //                kind: .photo(Media(url: nil, image: UIImage(named: convItems?.imageName as! String)!, placeholderImage: UIImage(named: convItems?.imageName as! String)!, size: CGSize(width: 250, height: 250)))
 //            ))
+            refreshView()
             
-            for i in convItems!.messages{
-                print(i["sentBy"], otherUserId)
-                if i["sentBy"] == otherUserId{
-                    messages.append(Message(sender: otherUser, messageId: "", sentDate: Date(), kind: .text(i["message"]!)))
-                }
-                else{
-                    print(i["message"]!)
-                    messages.append(Message(sender: currUser, messageId: "", sentDate: Date(), kind: .text(i["message"]!)))
-                }
-                
-            }
             
-            messageList = convItems!.messages
         }
         else{
             otherUserName = followingList!.displayName
@@ -128,6 +117,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         messageInputBar.delegate = self
+        startListeningForConversation()
         //        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         //        tap.cancelsTouchesInView = true
         //        view.addGestureRecognizer(tap)
@@ -136,8 +126,35 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.messagesCollectionView.scrollToBottom()
         messageInputBar.inputTextView.becomeFirstResponder()
+    }
+    
+    private func refreshView(){
+        messages = []
+        for i in convItems!.messages{
+            if i["sentBy"] == otherUserId{
+                messages.append(Message(sender: otherUser, messageId: "", sentDate: Date(), kind: .text(i["message"]!)))
+            }
+            else{
+                print(i["message"]!)
+                messages.append(Message(sender: currUser, messageId: "", sentDate: Date(), kind: .text(i["message"]!)))
+            }
+            
+        }
+        
+        messageList = convItems!.messages
+        self.messagesCollectionView.reloadData()
+        self.messagesCollectionView.scrollToBottom()
+    }
+    
+    private func startListeningForConversation(){
+        chatDataManager.getListenConversation(otherUserId, currUserId) { Conv in
+            self.convItems = Conv
+            print(Conv.messages.count)
+            self.refreshView()
+        }
+        
+       
     }
     
     
@@ -219,21 +236,8 @@ extension FriendDetailViewController: InputBarAccessoryViewDelegate {
                 success in
                 if success {
                     print("Message Sent")
-                    self.messageList.append([
-                        "date" : Self.dateFormatter.string(from: Date()),
-                        "is_read": "false",
-                        "message": text,
-                        "sentBy": self.currUserId
-                    ])
-                    self.messages.append(
-                        Message(
-                            sender: self.currUser,
-                            messageId: "\(self.messageList.count + 1)",
-                            sentDate: Date(),
-                            kind: .text(text)
-                    ))
                     chatDataManager.appendChat(self.otherUserId, self.currUserId, self.messageList)
-                    self.messagesCollectionView.reloadData()
+
                 }
                 else{
                     print("Failed to send")
@@ -255,7 +259,7 @@ extension FriendDetailViewController: InputBarAccessoryViewDelegate {
                 kind: .text(text)
             ))
             chatDataManager.appendChat(otherUserId, currUserId, messageList)
-            self.messagesCollectionView.reloadData()
+
         }
     }
     

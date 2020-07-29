@@ -83,13 +83,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             self.tableView.reloadData()
         }
-        chatDataManager.loadChat(currUserId){
-            friendListFromFirestore in
 
-            self.followingList = friendListFromFirestore
-            
-            self.tableView.reloadData()
-        }
         
     }
     
@@ -104,17 +98,21 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
         spinner.show(in: view)
+        startListeningForConversation()
         
         
     }
     
-    private func startListeningForConversation(){
-        
-    }
-    
+
     
     override func viewDidAppear(_ animated: Bool) {
-        loadChat()
+        chatDataManager.loadChat(currUserId){
+            friendListFromFirestore in
+
+            self.followingList = friendListFromFirestore
+            
+            self.tableView.reloadData()
+        }
         self.spinner.dismiss()
     }
     
@@ -123,6 +121,16 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         noResultsLabel.frame = CGRect(x: view.frame.width/4, y: (view.frame.height-200)/2, width: view.frame.width/2, height: 100)
     }
     
+    private func startListeningForConversation(){
+        chatDataManager.getAllListenConversation(currUserId){
+            convListFromFirestore in
+
+            self.convList = convListFromFirestore
+            
+            self.tableView.reloadData()
+        }
+        self.spinner.dismiss()
+        }
     
     @IBAction func didTapEditButton(_ sender: Any) {
         self.tableView.setEditing(!tableView.isEditing, animated: true)

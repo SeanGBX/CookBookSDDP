@@ -255,9 +255,60 @@ extension chatDataManager{
         
         
     }
-    
-    public func getAllConversation(for followingId: String, completion: @escaping (Result<String, Error>) -> Void){
+    static func getAllListenConversation(_ currUserId: String, onComplete: (([Conversations]) -> Void)?){
+        db.collection("conversations").addSnapshotListener
+            {
+                (querySnapshot, err) in var convList : [Conversations] = []
+                
+                if let err = err{
+                    print("Error getting documents: \(err)")
+                }
+                else{
+                    for document in querySnapshot!.documents
+                    {
+                        var conv = try? document.data(as: Conversations.self) as! Conversations
+                        if conv != nil{
+                            if conv!.firstUserId == currUserId{
+                                convList.append(conv!)
+                            }
+                            else if conv!.secondUserId == currUserId{
+                                convList.append(conv!)
+                            }
+                        }
+                    }
+                }
+                print("entire conv updated")
+                onComplete?(convList)
+        }
     }
+    
+    static func getListenConversation(_ userId: String, _ currUserId : String, onComplete: ((Conversations) -> Void)?){
+    var conversationId = ""
+    if userId < currUserId{
+       print("\(userId)_\(currUserId)")
+       conversationId = "\(userId)_\(currUserId)"
+    }
+    else{
+       print("\(currUserId)_\(userId)")
+       conversationId = "\(currUserId)_\(userId)"
+    }
+     chatDataManager.db.collection("conversations").document(conversationId).addSnapshotListener {
+         documentSnapshot, error in
+         guard let document = documentSnapshot else {
+           print("Error fetching document: \(error!)")
+           return
+         }
+         guard let data = document.data() else {
+           print("Document data was empty.")
+           return
+         }
+        var conv = try? document.data(as: Conversations.self) as! Conversations
+        print("Conv was updated")
+        onComplete?(conv!)
+         
+     }
+    }
+           
     
     public func getAllMessagesForConversation(with id: String, coompletion: @escaping (Result<String, Error>) -> Void){
         
