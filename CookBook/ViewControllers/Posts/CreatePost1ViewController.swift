@@ -35,7 +35,6 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
     func loadSpecificPost(id: String){
         postsDataManager.loadSpecificPost(id){
             post in
-            print("-.-!\(id)")
             for i in post{
                 self.postItem = i
             }
@@ -166,7 +165,6 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
                     self.show(vc, sender: self)
                 }
             } else {
-                print("-.-\(self.newID!)")
                 postsDataManager.editPost(self.newID!, postItem!){
                     postId in
                     self.newID = postsDataManager.storePostID(postId)

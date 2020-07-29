@@ -1421,6 +1421,13 @@
                                 <action selector="backButtonClicked:" destination="vVH-eg-zGe" id="JRG-hm-ayz"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="icons8-menu-vertical-48" id="dGI-Xd-eKy">
+                            <inset key="imageInsets" minX="0.0" minY="3" maxX="-10" maxY="-3"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="moreOptionButton:" destination="vVH-eg-zGe" id="wvW-d4-sBh"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="healthyButton" destination="drq-RQ-dAa" id="2kJ-4X-daP"/>

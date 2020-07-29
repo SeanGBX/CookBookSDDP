@@ -39,7 +39,6 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
         super.viewDidLoad()
         
         self.navigationItem.setHidesBackButton(true, animated: true);
-        print("-.-\(self.postID!)")
         loadIngredients()
         if (ingredientItemList.count > 0){
             noLabel.isHidden = true
@@ -196,7 +195,6 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBAction func backButtonClick(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(identifier: "CreatePost1ViewController") as! CreatePost1ViewController
-        print("-.-\(self.postID!)")
         vc.loadSpecificPost(id: self.postID!)
         vc.postExists(id: self.postID!)
         vc.newID = self.postID!

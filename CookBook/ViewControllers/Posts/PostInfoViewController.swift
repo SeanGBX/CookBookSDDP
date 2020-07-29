@@ -40,6 +40,10 @@ class IntrinsicIngredientItemTableView: UITableView {
 
 }
 
+protocol getSegment: class {
+    func getSegmentIndex() -> Int
+}
+
 class PostInfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var ingredientTable: UITableView!
@@ -70,6 +74,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     var isBudget = ""
     var isPrepTime = ""
     var isMealtype = ""
+    weak var delegate: getSegment?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -225,7 +230,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @IBAction func postInfoLikeClick(_ sender: Any) {
-        likePostItem = LikePost(postId: postItem!.postId, username: username)
+        likePostItem = LikePost(postId: postItem!.postId, username: username, budget: postItem!.tagBudget, prepTime: postItem!.tagPrep, cookStyle: postItem!.tagStyle)
         if (userLikes.count == 0) {
             likeButton.setImage(#imageLiteral(resourceName: "icons8-love-48"), for: .normal)
             likePostDataManager.insertLike(likePostItem!)
@@ -289,4 +294,86 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
             self.show(vc, sender: self)
         }
     }
+    
+    
+    @IBAction func moreOptionButton(_ sender: Any) {
+        let alert = UIAlertController(
+               title: nil,
+               message: "",
+               preferredStyle: .alert
+           )
+            
+           alert.addAction(
+               UIAlertAction(
+                   title: "Cancel",
+                   style: .default,
+                   handler: nil)
+           )
+            
+            alert.addAction(
+                UIAlertAction(
+                    title: "Unfollow",
+                    style: .default,
+                    handler: nil)
+            )
+            
+            if (postItem!.username == username){
+                IngredientsDataManager.loadIngredients(postItem!.postId, onComplete: {
+                    ingredients in
+                    let ingredientItemList = ingredients
+                    alert.addAction(
+                        UIAlertAction(
+                            title: "Delete",
+                            style: .destructive,
+                            handler: {
+                                handler in
+                                alert.dismiss(animated: true)
+                                let alert1 = UIAlertController(
+                                    title: "Are you sure you want to delete this post?",
+                                    message: "",
+                                    preferredStyle: .alert
+                                )
+                                
+                                alert1.addAction(
+                                    UIAlertAction(
+                                        title: "Cancel",
+                                        style: .destructive,
+                                        handler: nil)
+                                )
+                                 
+                                alert1.addAction(
+                                    UIAlertAction(
+                                        title: "Yes",
+                                        style: .default,
+                                        handler: {
+                                            handler in
+                                            postsDataManager.deletePost(self.postItem!.postId)
+                                            IngredientsDataManager.deleteIngredientByPost(ingredients: ingredientItemList)
+                                            let vc = self.storyboard?.instantiateViewController(identifier: "PostViewController") as! PostViewController
+                                            if (self.delegate?.getSegmentIndex() == 0){
+                                                vc.loadCompletePosts()
+                                            } else if (self.delegate?.getSegmentIndex() == 1){
+                                                vc.loadCompletePosts()
+                                            } else if(self.delegate?.getSegmentIndex() == 2){
+                                                vc.loadCompletePostsByHealthy()
+                                            }
+                                            self.show(vc, sender: self)
+                                    })
+                                )
+                                
+                                self.present(alert1, animated: true, completion: nil)
+                                
+                                return
+                        })
+                    )
+                })
+
+            }
+
+        
+           self.present(alert, animated: true, completion: nil)
+            
+           return
+        }
+    
 }
