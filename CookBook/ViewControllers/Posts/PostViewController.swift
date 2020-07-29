@@ -25,7 +25,7 @@ class IntrinsicPostTableView: UITableView {
 
 }
 
-class PostViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CustomCellLoadData
+class PostViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CustomCellLoadData, getSegment
 {
     var postList: [Posts] = []
     let username: String = Auth.auth().currentUser!.uid
@@ -198,7 +198,6 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if (username1 == username){
             IngredientsDataManager.loadIngredients(id, onComplete: {
                 ingredients in
-                print("-.-\(ingredients.count)")
                 let ingredientItemList = ingredients
                 alert.addAction(
                     UIAlertAction(

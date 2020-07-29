@@ -88,7 +88,7 @@ class PostCell: UITableViewCell {
     
     @IBAction func likeButtonClick(_ sender: Any) {
         let vc = UIStoryboard(name: "Posts", bundle: .main).instantiateViewController(identifier: "PostViewController") as! PostViewController
-        likePostItem = LikePost(postId: postID!, username: username)
+        likePostItem = LikePost(postId: postID!, username: username, budget: postItem!.tagBudget, prepTime: postItem!.tagPrep, cookStyle: postItem!.tagStyle)
         if (userLikes.count == 0) {
             likeButton.setImage(#imageLiteral(resourceName: "icons8-love-48"), for: .normal)
             likePostDataManager.insertLike(likePostItem!)
@@ -127,7 +127,6 @@ class PostCell: UITableViewCell {
             healthyPostDataManager.insertHealthy(healthyPostItem!)
             postsDataManager.insertPostHealthy(postID!){
                 let index = self.delegate?.getSegmentIndex()
-                print("-.-\(index!)")
                 if (index! == 0){
                     self.delegate?.loadCompletePosts()
                 } else if (index! == 1){
