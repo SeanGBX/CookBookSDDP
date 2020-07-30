@@ -253,4 +253,28 @@ class postsDataManager: NSObject {
             }
         }
     }
+    
+    //Post Recommendation AI
+    static func RecommendationAI(_ username: String, onComplete: (([Posts]) -> Void)?){
+        
+        db.collection("posts").whereField("postComplete", isEqualTo: "1").order(by: "healthy").getDocuments(){
+            
+            (querySnapshot, err) in
+            var postList : [Posts] = []
+            
+            if let err = err{
+                print("Error getting documents: \(err)")
+            }
+            else{
+                for document in querySnapshot!.documents{
+                    var post = try? document.data(as: Posts.self) as! Posts
+                    
+                    if post != nil{
+                        postList.append(post!)
+                    }
+                }
+            }
+            onComplete?(postList)
+        }
+    }
 }

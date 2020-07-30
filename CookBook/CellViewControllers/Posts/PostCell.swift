@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAuth
 
 protocol CustomCellLoadData: class {
+    func loadRecommend()
     func loadCompletePosts()
     func loadCompletePostsByHealthy()
 //    func loadCompletePostsByFollower()
@@ -95,7 +96,7 @@ class PostCell: UITableViewCell {
             postsDataManager.insertPostLike(postID!){
                 let index = self.delegate?.getSegmentIndex()
                 if (index! == 0){
-                    self.delegate?.loadCompletePosts()
+                    self.delegate?.loadRecommend()
                 } else if (index! == 1){
                     self.delegate?.loadCompletePosts()
                 } else if (index! == 2) {
@@ -110,7 +111,7 @@ class PostCell: UITableViewCell {
             postsDataManager.deletePostLike(postID!){
                 let index = self.delegate?.getSegmentIndex()
                 if (index! == 0){
-                    self.delegate?.loadCompletePosts()
+                    self.delegate?.loadRecommend()
                 } else if (index! == 1){
                     self.delegate?.loadCompletePosts()
                 } else if (index! == 2) {
@@ -128,7 +129,7 @@ class PostCell: UITableViewCell {
             postsDataManager.insertPostHealthy(postID!){
                 let index = self.delegate?.getSegmentIndex()
                 if (index! == 0){
-                    self.delegate?.loadCompletePosts()
+                    self.delegate?.loadRecommend()
                 } else if (index! == 1){
                     self.delegate?.loadCompletePosts()
                 } else if (index! == 2) {
@@ -143,7 +144,7 @@ class PostCell: UITableViewCell {
             postsDataManager.deletePostHealthy(postID!){
                 let index = self.delegate?.getSegmentIndex()
                 if (index! == 0){
-                    self.delegate?.loadCompletePosts()
+                    self.delegate?.loadRecommend()
                 } else if (index! == 1){
                     self.delegate?.loadCompletePosts()
                 } else if (index! == 2) {

@@ -90,6 +90,54 @@ class likePostDataManager: NSObject {
             }
             onComplete?(likeList)
         }
-    } 
+    }
+    
+    //Recommendation AI
+    
+    static func loadLikesByUser(_ username: String, onComplete: (([LikePost]) -> Void)?){
+        db.collection("postLikes").whereField("username", isEqualTo: username).getDocuments(){
+            
+            (querySnapshot, err) in
+            var likeList : [LikePost] = []
+            
+            if let err = err{
+                print("Error getting documents: \(err)")
+            }
+            else{
+                for document in querySnapshot!.documents{
+                    var like = try? document.data(as: LikePost.self) as! LikePost
+                    
+                    if like != nil{
+                        likeList.append(like!)
+                    }
+                }
+            }
+            onComplete?(likeList)
+        }
+    }
+    
+    static func loadLikesByUserWestern(_ username: String, onComplete: (([LikePost]) -> Void)?){
+        db.collection("postLikes")
+            .whereField("username", isEqualTo: username)
+            .whereField("cookStyle", isEqualTo: "Western").getDocuments(){
+            
+            (querySnapshot, err) in
+            var likeList : [LikePost] = []
+            
+            if let err = err{
+                print("Error getting documents: \(err)")
+            }
+            else{
+                for document in querySnapshot!.documents{
+                    var like = try? document.data(as: LikePost.self) as! LikePost
+                    
+                    if like != nil{
+                        likeList.append(like!)
+                    }
+                }
+            }
+            onComplete?(likeList)
+        }
+    }
 
 }

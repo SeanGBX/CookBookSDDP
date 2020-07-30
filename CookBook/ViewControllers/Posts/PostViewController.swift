@@ -34,7 +34,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     lazy var refresher: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         if (segmentedControl.selectedSegmentIndex == 0){
-            refreshControl.addTarget(self, action: #selector(loadCompletePosts1), for: .valueChanged)
+            refreshControl.addTarget(self, action: #selector(loadRecommend1), for: .valueChanged)
         } else if (segmentedControl.selectedSegmentIndex == 0){
             refreshControl.addTarget(self, action: #selector(loadCompletePosts1), for: .valueChanged)
         } else if (segmentedControl.selectedSegmentIndex == 0){
@@ -54,7 +54,6 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        loadCompletePosts()
         
         self.navigationItem.setHidesBackButton(true, animated: true);
         let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemIndigo]
@@ -62,12 +61,183 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         segmentedControl.setTitleTextAttributes(titleTextAttributes, for: .selected)
         
         postScrollView.refreshControl = refresher
+        loadRecommend()
     }
     
     override func viewWillLayoutSubviews() {
         super.updateViewConstraints()
         self.heightConstraint?.constant = self.tableView.intrinsicContentSize.height
     }
+    
+    func loadRecommend(){
+        
+        var asianCount = 0
+        var westernCount = 0
+        var mexicanCount = 0
+        var middleECount = 0
+        var cheapCount = 0
+        var moderatePCount = 10
+        var expensiveCount = 0
+        var quickCount = 35
+        var moderateCount = 0
+        var longCount = 40
+        var categoryCount = [String: Int]()
+        likePostDataManager.loadLikesByUser(username, onComplete: {
+            like in
+//            likes = like
+            for i in like {
+                if i.cookStyle.lowercased() == "asian"{
+                    asianCount += 1
+                }
+                if i.cookStyle.lowercased() == "western"{
+                    westernCount += 1
+                }
+                if i.cookStyle.lowercased() == "mexican"{
+                    mexicanCount += 1
+                }
+                if i.cookStyle.lowercased() == "middle-eastern"{
+                    middleECount += 1
+                }
+                if i.budget.lowercased() == "cheap"{
+                    cheapCount += 1
+                }
+                if i.budget.lowercased() == "moderately-priced"{
+                    moderatePCount += 1
+                }
+                if i.budget.lowercased() == "expensive"{
+                    expensiveCount += 1
+                }
+                if i.prepTime.lowercased() == "quick"{
+                    quickCount += 1
+                }
+                if i.prepTime.lowercased() == "moderate"{
+                    moderateCount += 1
+                }
+                if i.prepTime.lowercased() == "long"{
+                    longCount += 1
+                }
+            }
+            
+            categoryCount["Asian"] = asianCount
+            categoryCount["Western"] = westernCount
+            categoryCount["Mexican"] = mexicanCount
+            categoryCount["Middle-Eastern"] = middleECount
+            categoryCount["Cheap"] = cheapCount
+            categoryCount["Moderately-Priced"] = moderatePCount
+            categoryCount["Expensive"] = expensiveCount
+            categoryCount["Quick"] = quickCount
+            categoryCount["Moderate"] = moderateCount
+            categoryCount["Long"] = longCount
+            var sortedCount = categoryCount.sorted { $0.1 > $1.1 }
+            var recommendFields: [String] = []
+            for i in sortedCount{
+                recommendFields.append(i.key)
+            }
+            var recommendedPosts: [Posts] = []
+            postsDataManager.loadCompletePosts(){
+                postListFromFirestore in
+                var list = postListFromFirestore
+                for c in recommendFields{
+                     for p in list{
+                        if p.tagBudget == c || p.tagStyle == c || p.tagPrep == c {
+                            if !recommendedPosts.contains(p){
+                                recommendedPosts.append(p)
+                            }
+                        }
+                    }
+                }
+                self.postList = recommendedPosts
+                self.tableView.reloadData()
+            }
+        })
+    }
+    
+    @objc
+    func loadRecommend1(){
+            
+            var asianCount = 0
+            var westernCount = 0
+            var mexicanCount = 0
+            var middleECount = 0
+            var cheapCount = 0
+            var moderatePCount = 0
+            var expensiveCount = 0
+            var quickCount = 0
+            var moderateCount = 0
+            var longCount = 0
+            var categoryCount = [String: Int]()
+            likePostDataManager.loadLikesByUser(username, onComplete: {
+                like in
+    //            likes = like
+                for i in like {
+                    if i.cookStyle.lowercased() == "asian"{
+                        asianCount += 1
+                    }
+                    if i.cookStyle.lowercased() == "western"{
+                        westernCount += 1
+                    }
+                    if i.cookStyle.lowercased() == "mexican"{
+                        mexicanCount += 1
+                    }
+                    if i.cookStyle.lowercased() == "middle-eastern"{
+                        middleECount += 1
+                    }
+                    if i.budget.lowercased() == "cheap"{
+                        cheapCount += 1
+                    }
+                    if i.budget.lowercased() == "moderately-priced"{
+                        moderatePCount += 1
+                    }
+                    if i.budget.lowercased() == "expensive"{
+                        expensiveCount += 1
+                    }
+                    if i.prepTime.lowercased() == "quick"{
+                        quickCount += 1
+                    }
+                    if i.prepTime.lowercased() == "moderate"{
+                        moderateCount += 1
+                    }
+                    if i.prepTime.lowercased() == "long"{
+                        longCount += 1
+                    }
+                }
+                
+                categoryCount["Asian"] = asianCount
+                categoryCount["Western"] = westernCount
+                categoryCount["Mexican"] = mexicanCount
+                categoryCount["Middle-Eastern"] = middleECount
+                categoryCount["Cheap"] = cheapCount
+                categoryCount["Moderately-Priced"] = moderatePCount
+                categoryCount["Expensive"] = expensiveCount
+                categoryCount["Quick"] = quickCount
+                categoryCount["Moderate"] = moderateCount
+                categoryCount["Long"] = longCount
+                var sortedCount = categoryCount.sorted { $0.1 > $1.1 }
+                var recommendFields: [String] = []
+                for i in sortedCount{
+                    recommendFields.append(i.key)
+                }
+                var recommendedPosts: [Posts] = []
+                postsDataManager.loadCompletePosts(){
+                    postListFromFirestore in
+                    var list = postListFromFirestore
+                    for c in recommendFields{
+                         for p in list{
+                            if p.tagBudget == c || p.tagStyle == c || p.tagPrep == c {
+                                if !recommendedPosts.contains(p){
+                                    recommendedPosts.append(p)
+                                }
+                            }
+                        }
+                    }
+                    self.postList = recommendedPosts
+                    self.tableView.reloadData()
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)){
+                        self.refresher.endRefreshing()
+                    }
+                }
+            })
+        }
     
     func loadCompletePosts(){
         postsDataManager.loadCompletePosts(){
@@ -166,7 +336,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBAction func segmentedControlSwitch(_ sender: Any) {
         if (segmentedControl.selectedSegmentIndex == 0){
-            loadCompletePosts()
+            loadRecommend()
         } else if (segmentedControl.selectedSegmentIndex == 1){
             loadCompletePosts()
         } else if (segmentedControl.selectedSegmentIndex == 2){
@@ -228,7 +398,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                         postsDataManager.deletePost(id)
                                         IngredientsDataManager.deleteIngredientByPost(ingredients: ingredientItemList)
                                         if (self.segmentedControl.selectedSegmentIndex == 0){
-                                            self.loadCompletePosts()
+                                            self.loadRecommend()
                                         } else if (self.segmentedControl.selectedSegmentIndex == 1){
                                             self.loadCompletePosts()
                                         } else if(self.segmentedControl.selectedSegmentIndex == 2){
