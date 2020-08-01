@@ -168,7 +168,6 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
             var categoryCount = [String: Int]()
             likePostDataManager.loadLikesByUser(username, onComplete: {
                 like in
-    //            likes = like
                 for i in like {
                     if i.cookStyle.lowercased() == "asian"{
                         asianCount += 1
@@ -284,9 +283,11 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostCell
         
         let p = postList[indexPath.row]
+        print("\(indexPath.row)")
         cell.recipeName.text = p.recipeName
         profileDataManager.loadProfile(p.username){
             user in
@@ -300,7 +301,6 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.postID = p.postId
         cell.postItem = p
         cell.delegate = self
-        cell.loadCell()
         
         let imageRef = Storage.storage().reference(withPath: p.postImage)
         imageRef.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
@@ -312,7 +312,8 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 cell.postImage.image = UIImage(data: data)
             }
         }
-
+        
+        cell.loadCell()
         
         return cell
     }
