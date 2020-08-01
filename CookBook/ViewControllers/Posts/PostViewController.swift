@@ -33,13 +33,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     lazy var refresher: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        if (segmentedControl.selectedSegmentIndex == 0){
-            refreshControl.addTarget(self, action: #selector(loadRecommend1), for: .valueChanged)
-        } else if (segmentedControl.selectedSegmentIndex == 0){
-            refreshControl.addTarget(self, action: #selector(loadCompletePosts1), for: .valueChanged)
-        } else if (segmentedControl.selectedSegmentIndex == 0){
-            refreshControl.addTarget(self, action: #selector(loadCompletePostsByHealthy1), for: .valueChanged)
-        }
+        refreshControl.addTarget(self, action: #selector(allCalls), for: .valueChanged)
         return refreshControl
     }()
     
@@ -60,13 +54,23 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         segmentedControl.setTitleTextAttributes(titleTextAttributes, for: .normal)
         segmentedControl.setTitleTextAttributes(titleTextAttributes, for: .selected)
         
-        postScrollView.refreshControl = refresher
         loadRecommend()
+        postScrollView.refreshControl = refresher
     }
     
     override func viewWillLayoutSubviews() {
         super.updateViewConstraints()
         self.heightConstraint?.constant = self.tableView.intrinsicContentSize.height
+    }
+    
+    @objc func allCalls(_ sender:UIRefreshControl) {
+       if (segmentedControl.selectedSegmentIndex == 0){
+            loadRecommend1()
+       } else if (segmentedControl.selectedSegmentIndex == 1){
+            loadCompletePosts1()
+       } else if (segmentedControl.selectedSegmentIndex == 2){
+            loadCompletePostsByHealthy1()
+       }
     }
     
     func loadRecommend(){
@@ -79,7 +83,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var moderatePCount = 10
         var expensiveCount = 0
         var quickCount = 35
-        var moderateCount = 0
+        var moderateCount = 60
         var longCount = 40
         var categoryCount = [String: Int]()
         likePostDataManager.loadLikesByUser(username, onComplete: {
@@ -160,11 +164,11 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
             var mexicanCount = 0
             var middleECount = 0
             var cheapCount = 0
-            var moderatePCount = 0
+            var moderatePCount = 10
             var expensiveCount = 0
-            var quickCount = 0
-            var moderateCount = 0
-            var longCount = 0
+            var quickCount = 35
+            var moderateCount = 60
+            var longCount = 40
             var categoryCount = [String: Int]()
             likePostDataManager.loadLikesByUser(username, onComplete: {
                 like in
@@ -338,11 +342,18 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBAction func segmentedControlSwitch(_ sender: Any) {
         if (segmentedControl.selectedSegmentIndex == 0){
             loadRecommend()
+//            refresher.addTarget(self, action: #selector(loadRecommend1), for: .valueChanged)
         } else if (segmentedControl.selectedSegmentIndex == 1){
             loadCompletePosts()
+//            refresher.addTarget(self, action: #selector(loadCompletePosts1), for: .valueChanged)
         } else if (segmentedControl.selectedSegmentIndex == 2){
             loadCompletePostsByHealthy()
+//            refresher.addTarget(self, action: #selector(loadCompletePostsByHealthy1), for: .valueChanged)
         }
+    }
+    
+    func refreshAccordingly(){
+        
     }
     
     func showAlert(_ id: String, _ username1: String){
