@@ -10,13 +10,13 @@ import UIKit
 
 class Followers: NSObject, Codable {
     
-    var mainAccountUID : String
-    var followedByAccountUID: String
+    var followerAccountUID : String
+    var targetAccountUID: String
     var followerID: String
     
-    init(mainAccountUID: String, followedByAccountUID: String, followerID: String){
-        self.mainAccountUID = mainAccountUID
-        self.followedByAccountUID = followedByAccountUID
+    init(followerAccountUID: String, targetAccountUID: String, followerID: String){
+        self.followerAccountUID = followerAccountUID
+        self.targetAccountUID = targetAccountUID
         self.followerID = followerID
     }
 }
