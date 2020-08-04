@@ -9,6 +9,7 @@ import UIKit
 import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseStorage
 
 class chatDataManager: NSObject {
     
@@ -308,9 +309,9 @@ extension chatDataManager{
          
      }
     }
-           
     
-    public func getAllMessagesForConversation(with id: String, coompletion: @escaping (Result<String, Error>) -> Void){
+    
+    public func getAllMessagesForConversation(with id: String, completion: @escaping (Result<String, Error>) -> Void){
         
     }
     

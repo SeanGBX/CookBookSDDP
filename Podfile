@@ -15,4 +15,5 @@ target 'CookBook' do
   pod 'SDWebImage'
   pod 'Firebase/Analytics'
   pod 'Firebase/Storage'
+  pod 'Kingfisher', '~> 5.0'
 end

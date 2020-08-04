@@ -10,6 +10,8 @@ import UIKit
 import MessageKit
 import InputBarAccessoryView
 import FirebaseAuth
+import FirebaseStorage
+import Kingfisher
 
 struct Sender: SenderType {
     public var photoURL: String
@@ -63,7 +65,6 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     var otherUser = Sender(photoURL: "default", senderId: "other", displayName: "")
     
     var messages = [MessageType]()
-    	
     override func viewDidLoad() {
         super.viewDidLoad()
         let customMenuItem = UIMenuItem(title: "Forward", action: #selector(MessageCollectionViewCell.forward(_:)))
@@ -87,21 +88,6 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
             currUser.displayName = currUserName
             currUser.senderId = otherUserName
             self.navigationItem.title = otherUserName
-//            messages.append(Message(
-//                sender: otherUser,
-//                messageId: "1",
-//                sentDate: Date().addingTimeInterval(-70400),
-//                kind: .text("Hello!")
-//            ))
-//            messages.append(Message(
-//                sender: otherUser,
-//                messageId: "2",
-//                sentDate: Date().addingTimeInterval(-70000),
-//                kind: .photo(Media(url: nil, image: UIImage(named: convItems?.imageName as! String)!, placeholderImage: UIImage(named: convItems?.imageName as! String)!, size: CGSize(width: 250, height: 250)))
-//            ))
-            refreshView()
-            
-            
         }
         else{
             otherUserName = followingList!.displayName
@@ -117,7 +103,10 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         messageInputBar.delegate = self
+
+        setupInputButton()
         startListeningForConversation()
+        
         //        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         //        tap.cancelsTouchesInView = true
         //        view.addGestureRecognizer(tap)
@@ -131,13 +120,34 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     
     private func refreshView(){
         messages = []
+        var image = UIImage(named: "ryantan")
         for i in convItems!.messages{
             if i["sentBy"] == otherUserId{
-                messages.append(Message(sender: otherUser, messageId: "", sentDate: Date(), kind: .text(i["message"]!)))
+                if i["is_read"] == "false"{
+                     messages.append(Message(sender: otherUser, messageId: "", sentDate: Date(), kind: .text(i["message"]!)))
+                }
+                else{
+                    messages.append(Message(
+                        sender: currUser,
+                        messageId: "\(messageList.count + 1)",
+                        sentDate: Date(),
+                        kind: .photo(Media(url: URL(string: i["message"]!), image: image!, placeholderImage: image!, size: CGSize(width: 250, height: 250)))
+                    ))
+                }
+                
             }
             else{
-                print(i["message"]!)
-                messages.append(Message(sender: currUser, messageId: "", sentDate: Date(), kind: .text(i["message"]!)))
+                if i["is_read"] == "false"{
+                     messages.append(Message(sender: currUser, messageId: "", sentDate: Date(), kind: .text(i["message"]!)))
+                }
+                else{
+                    messages.append(Message(
+                        sender: currUser,
+                        messageId: "\(messageList.count + 1)",
+                        sentDate: Date(),
+                        kind: .photo(Media(url: URL(string: i["message"]!), image: image!, placeholderImage: image!, size: CGSize(width: 250, height: 250)))
+                    ))
+                }
             }
             
         }
@@ -145,6 +155,42 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
         messageList = convItems!.messages
         self.messagesCollectionView.reloadData()
         self.messagesCollectionView.scrollToBottom()
+    }
+    
+    private func setupInputButton(){
+        let button = InputBarButtonItem()
+        button.setSize(CGSize(width: 35, height: 35), animated: false)
+        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.onTouchUpInside{ [weak self] _ in
+            self?.presentInputActionSheet()
+        }
+        messageInputBar.setLeftStackViewWidthConstant(to: 36, animated: false)
+        messageInputBar.setStackViewItems([button], forStack: .left, animated: false)
+    }
+    
+    private func presentInputActionSheet(){
+       let actionSheet = UIAlertController()
+
+       actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
+           let picker = UIImagePickerController()
+           
+           picker.sourceType = .camera
+           picker.delegate = self
+           picker.allowsEditing = true
+           self?.present(picker, animated: true)
+       }))
+       actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { [weak self] _ in
+           let picker = UIImagePickerController()
+           picker.sourceType = .photoLibrary
+           picker.delegate = self
+           picker.allowsEditing = true
+           self?.present(picker, animated: true)
+       }))
+       actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+       if !UIImagePickerController.isSourceTypeAvailable(.camera){
+           actionSheet.actions[0].isEnabled = false
+       }
+       present(actionSheet, animated: true)
     }
     
     private func startListeningForConversation(){
@@ -175,6 +221,20 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
         return messages.count
     }
     
+    func configureMediaMessageImageView(_ imageView: UIImageView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+        switch message.kind{
+        case .photo(let photoItem):
+            guard let url = photoItem.url else {
+                imageView.kf.indicator?.startAnimatingView()
+                return
+            }
+            imageView.kf.indicatorType = .activity
+            imageView.kf.setImage(with: url)
+        default:
+            break
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -197,10 +257,6 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
         
         if action == NSSelectorFromString("delete:") {
-            // 1.) Remove from datasource
-            // insert your code here
-            
-            // 2.) Delete sections
             messageList[indexPath.section] = [
                 "date" : Self.dateFormatter.string(from: Date()),
                 "is_read": "false",
@@ -221,6 +277,55 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     }
 }
 
+//Imagepicker extension
+extension FriendDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        //Upload Image
+        let randomID = UUID.init().uuidString
+        let uploadRef = Storage.storage().reference(withPath: "conversations/\(randomID).jpg")
+        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage,
+            let imageData = image.jpegData(compressionQuality: 0.75) else{
+            return
+        }
+        let uploadMetaData = StorageMetadata.init()
+        uploadMetaData.contentType = "image/jpeg"
+        uploadRef.putData(imageData, metadata: uploadMetaData){
+            (downloadMetadata, error) in
+            if let error = error {
+                print("An error occured : \(error.localizedDescription)")
+            }
+            print(downloadMetadata)
+            
+            uploadRef.downloadURL(completion: {(url, error) in
+                if let error = error{
+                    print("An error occured : \(error.localizedDescription)")
+                    return
+                }
+                if let url = url{
+                    print(url.absoluteString)
+                    self.messageList.append([
+                                          "date" : Self.dateFormatter.string(from: Date()),
+                                          "is_read": "true",
+                                          "message": url.absoluteString,
+                                          "sentBy": self.currUserId
+                                       ])
+                    chatDataManager.appendChat(self.otherUserId, self.currUserId, self.messageList)
+                    self.messagesCollectionView.reloadData()
+                }
+            })
+        }
+        //Send Image
+        
+       
+    }
+}
+
+//Text bar extension
 extension FriendDetailViewController: InputBarAccessoryViewDelegate {
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         guard !text.replacingOccurrences(of: " ", with: "").isEmpty else {
@@ -275,6 +380,7 @@ extension FriendDetailViewController: InputBarAccessoryViewDelegate {
     }
 }
 
+//Long press actions extension
 extension MessageCollectionViewCell {
     
     override open func delete(_ sender: Any?) {

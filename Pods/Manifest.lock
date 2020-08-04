@@ -412,6 +412,9 @@ PODS:
     - InputBarAccessoryView/Core (= 4.3.2)
   - InputBarAccessoryView/Core (4.3.2)
   - JGProgressHUD (2.1)
+  - Kingfisher (5.14.1):
+    - Kingfisher/Core (= 5.14.1)
+  - Kingfisher/Core (5.14.1)
   - leveldb-library (1.22)
   - MessageKit (3.1.0):
     - InputBarAccessoryView (~> 4.3.0)
@@ -437,6 +440,7 @@ DEPENDENCIES:
   - FirebaseFirestoreSwift
   - FirebaseUI
   - JGProgressHUD
+  - Kingfisher (~> 5.0)
   - MessageKit
   - RealmSwift
   - SDWebImage
@@ -472,6 +476,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - InputBarAccessoryView
     - JGProgressHUD
+    - Kingfisher
     - leveldb-library
     - MessageKit
     - nanopb
@@ -510,6 +515,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   InputBarAccessoryView: 7985d418040a05fe894bd4b8328dd43ab35517c3
   JGProgressHUD: aa403e9a5b45cae98903c4600cccdd98c0c3ec90
+  Kingfisher: 8050bc6f7f68cbf3908bd04df7ccbac188f6d6d6
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   MessageKit: 3beb578737a5aa2bba25cc27c7b6d6faa09af5a7
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
@@ -518,6 +524,6 @@ SPEC CHECKSUMS:
   RealmSwift: bf0ab78b52c5bafba8b3ad73be8dfb4c1ea5cf01
   SDWebImage: e3eae2eda88578db0685a0c88597fdadd9433f05
 
-PODFILE CHECKSUM: 1c16b9eef736e1ce1a142f8d96d13394ab33ec2a
+PODFILE CHECKSUM: d72251b5a5667f0138e2476202ca7c692ff1bbd6
 
 COCOAPODS: 1.9.3
