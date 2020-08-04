@@ -59,7 +59,6 @@
 		693858AF24C46A7B0077F449 /* FollowersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693858AE24C46A7B0077F449 /* FollowersViewController.swift */; };
 		693858B124C46A8E0077F449 /* FollowingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693858B024C46A8E0077F449 /* FollowingViewController.swift */; };
 		693858B324C46DB90077F449 /* Followers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693858B224C46DB90077F449 /* Followers.swift */; };
-		693858B524C4729B0077F449 /* Following.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693858B424C4729B0077F449 /* Following.swift */; };
 		693858B724C474010077F449 /* followDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693858B624C474010077F449 /* followDataManager.swift */; };
 		6966E1A024C0CA0C00C50285 /* SetupProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6966E19F24C0CA0C00C50285 /* SetupProfileViewController.swift */; };
 		69C1D9AD24BB08C1009716D9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C1D9AC24BB08C1009716D9 /* LoginViewController.swift */; };
@@ -132,7 +131,6 @@
 		693858AE24C46A7B0077F449 /* FollowersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersViewController.swift; sourceTree = "<group>"; };
 		693858B024C46A8E0077F449 /* FollowingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingViewController.swift; sourceTree = "<group>"; };
 		693858B224C46DB90077F449 /* Followers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Followers.swift; sourceTree = "<group>"; };
-		693858B424C4729B0077F449 /* Following.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Following.swift; sourceTree = "<group>"; };
 		693858B624C474010077F449 /* followDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = followDataManager.swift; sourceTree = "<group>"; };
 		6966E19F24C0CA0C00C50285 /* SetupProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProfileViewController.swift; sourceTree = "<group>"; };
 		69C1D9AC24BB08C1009716D9 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -382,7 +380,6 @@
 			children = (
 				69CC5D2E24BD97FC008EF291 /* Profile.swift */,
 				693858B224C46DB90077F449 /* Followers.swift */,
-				693858B424C4729B0077F449 /* Following.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -600,7 +597,6 @@
 				D4ACEBCB24B5713600112DE7 /* RecipeCell.swift in Sources */,
 				D4F833D424A9D50D001F9951 /* ChefBotViewController.swift in Sources */,
 				18196EB624ABA2CE00C5209A /* ViewController.swift in Sources */,
-				693858B524C4729B0077F449 /* Following.swift in Sources */,
 				18DD2D3A24BA11E300539A19 /* likePostDataManager.swift in Sources */,
 				69C1D9AF24BB08D1009716D9 /* RegisterViewController.swift in Sources */,
 				180D2C5824A501F2000F0A89 /* CreatePost1ViewController.swift in Sources */,
