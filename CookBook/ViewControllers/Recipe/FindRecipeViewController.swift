@@ -19,7 +19,7 @@ class FindRecipeViewController: UIViewController, UITextFieldDelegate, UIPickerV
     var cuisineTitle: String = ""
     
     var cuisinePickerData: [String] = ["Asian", "Western", "Mexican", "Middle-Eastern"]
-    var budgetPickerData: [String] = ["Cheap", "Moderately-priced", "Expensive"]
+    var budgetPickerData: [String] = ["Cheap", "Moderately-Priced", "Expensive"]
     var prepTimePickerData: [String] = ["Quick", "Moderate", "Long"]
     //var pickerView = UIPickerView()
     var budgetPickerView = UIPickerView()

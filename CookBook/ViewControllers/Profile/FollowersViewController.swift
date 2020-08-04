@@ -21,20 +21,16 @@ class FollowersViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
 
         
-        //loadAllProfiles()
-        profileList.append(Profile(UID:"",email:"",displayName:"HELO",bio: ""))
-        profileList.append(Profile(UID:"",email:"",displayName:"HELO",bio: ""))
-        profileList.append(Profile(UID:"",email:"",displayName:"HELO",bio: ""))
+        loadAllProfiles()
+        
         //print("profilenames:",self.profileList[0].displayName)
         
     }
     
     func loadAllProfiles() {
-        let user = Auth.auth().currentUser
-        let uid = user?.uid
-        profileDataManager.loadProfile(uid!) { profiledb in
+        profileDataManager.loadAllProfiles { profiledb in
             self.profileList = profiledb
-            print(self.profileList[0].displayName)
+            self.tableViewFollowers.reloadData()
         }
     }
 
@@ -49,10 +45,10 @@ class FollowersViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView,
     cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell", for: indexPath)
+        let cell: ProfileCell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell", for: indexPath) as! ProfileCell
         
         let p = profileList[indexPath.row]
-        cell.detailTextLabel?.text = p.displayName
+        cell.NameLabel?.text = p.displayName
 
         return cell
         

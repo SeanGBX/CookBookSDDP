@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAuth
 
 protocol CustomCellLoadData: class {
+    func loadRecommend()
     func loadCompletePosts()
     func loadCompletePostsByHealthy()
 //    func loadCompletePostsByFollower()
@@ -52,6 +53,11 @@ class PostCell: UITableViewCell {
 
     }
     
+    override func prepareForReuse() {
+        self.likeButton.setImage(#imageLiteral(resourceName: "icons8-love-48-2"), for: .normal)
+        self.healthyButton.setImage(#imageLiteral(resourceName: "icons8-kawaii-broccoli-50"), for: .normal)
+    }
+    
     func loadLikes(id: String){
         likePostDataManager.loadLikesByPost(id){
             likeList in
@@ -69,9 +75,11 @@ class PostCell: UITableViewCell {
     func loadUserLikes(id: String){
         likePostDataManager.loadUniqueLikes(id, username){
             uniqueLikeList in
-            self.userLikes = uniqueLikeList
-            if (self.userLikes.count > 0) {
-                self.likeButton.setImage(#imageLiteral(resourceName: "icons8-love-48"), for: .normal)
+            if id == self.postID!{
+                self.userLikes = uniqueLikeList
+                if (self.userLikes.count > 0) {
+                    self.likeButton.setImage(#imageLiteral(resourceName: "icons8-love-48"), for: .normal)
+                }
             }
         }
     }
@@ -79,9 +87,11 @@ class PostCell: UITableViewCell {
     func loadUserHealthy(id: String){
         healthyPostDataManager.loadUniqueHealthy(id, username){
             uniqueHealthyList in
-            self.userHealthy = uniqueHealthyList
-            if (self.userHealthy.count > 0){
-                self.healthyButton.setImage(#imageLiteral(resourceName: "icons8-kawaii-broccoli-50-2"), for: .normal)
+            if id == self.postID!{
+                self.userHealthy = uniqueHealthyList
+                if (self.userHealthy.count > 0){
+                    self.healthyButton.setImage(#imageLiteral(resourceName: "icons8-kawaii-broccoli-50-2"), for: .normal)
+                }
             }
         }
     }
@@ -90,12 +100,14 @@ class PostCell: UITableViewCell {
         let vc = UIStoryboard(name: "Posts", bundle: .main).instantiateViewController(identifier: "PostViewController") as! PostViewController
         likePostItem = LikePost(postId: postID!, username: username, budget: postItem!.tagBudget, prepTime: postItem!.tagPrep, cookStyle: postItem!.tagStyle)
         if (userLikes.count == 0) {
+            print("-.-\(userLikes.count)")
+            print(username)
             likeButton.setImage(#imageLiteral(resourceName: "icons8-love-48"), for: .normal)
             likePostDataManager.insertLike(likePostItem!)
             postsDataManager.insertPostLike(postID!){
                 let index = self.delegate?.getSegmentIndex()
                 if (index! == 0){
-                    self.delegate?.loadCompletePosts()
+                    self.delegate?.loadRecommend()
                 } else if (index! == 1){
                     self.delegate?.loadCompletePosts()
                 } else if (index! == 2) {
@@ -110,7 +122,7 @@ class PostCell: UITableViewCell {
             postsDataManager.deletePostLike(postID!){
                 let index = self.delegate?.getSegmentIndex()
                 if (index! == 0){
-                    self.delegate?.loadCompletePosts()
+                    self.delegate?.loadRecommend()
                 } else if (index! == 1){
                     self.delegate?.loadCompletePosts()
                 } else if (index! == 2) {
@@ -128,7 +140,7 @@ class PostCell: UITableViewCell {
             postsDataManager.insertPostHealthy(postID!){
                 let index = self.delegate?.getSegmentIndex()
                 if (index! == 0){
-                    self.delegate?.loadCompletePosts()
+                    self.delegate?.loadRecommend()
                 } else if (index! == 1){
                     self.delegate?.loadCompletePosts()
                 } else if (index! == 2) {
@@ -143,7 +155,7 @@ class PostCell: UITableViewCell {
             postsDataManager.deletePostHealthy(postID!){
                 let index = self.delegate?.getSegmentIndex()
                 if (index! == 0){
-                    self.delegate?.loadCompletePosts()
+                    self.delegate?.loadRecommend()
                 } else if (index! == 1){
                     self.delegate?.loadCompletePosts()
                 } else if (index! == 2) {

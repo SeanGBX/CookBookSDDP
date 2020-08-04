@@ -290,7 +290,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         else {
             let vc = storyboard?.instantiateViewController(identifier: "PostViewController") as! PostViewController
-            vc.loadCompletePosts()
+            vc.loadRecommend()
             self.show(vc, sender: self)
         }
     }
