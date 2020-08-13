@@ -14,12 +14,12 @@ class IntrinsicPostTableView: UITableView {
 
     override var contentSize:CGSize {
         didSet {
-            self.invalidateIntrinsicContentSize()
+            invalidateIntrinsicContentSize()
         }
     }
 
     override var intrinsicContentSize: CGSize {
-        self.layoutIfNeeded()
+        layoutIfNeeded()
         return CGSize(width: UIView.noIntrinsicMetric, height: contentSize.height)
     }
 
@@ -58,10 +58,10 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         postScrollView.refreshControl = refresher
     }
     
-    override func viewWillLayoutSubviews() {
-        super.updateViewConstraints()
-        self.heightConstraint?.constant = self.tableView.intrinsicContentSize.height
-    }
+//    override func viewWillLayoutSubviews() {
+//        super.updateViewConstraints()
+//        self.heightConstraint?.constant = self.tableView.intrinsicContentSize.height
+//    }
     
     @objc func allCalls(_ sender:UIRefreshControl) {
        if (segmentedControl.selectedSegmentIndex == 0){
@@ -80,7 +80,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var mexicanCount = 0
         var middleECount = 0
         var cheapCount = 0
-        var moderatePCount = 10
+        var moderatePCount = 80
         var expensiveCount = 0
         var quickCount = 35
         var moderateCount = 60
@@ -164,7 +164,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
             var mexicanCount = 0
             var middleECount = 0
             var cheapCount = 0
-            var moderatePCount = 10
+            var moderatePCount = 80
             var expensiveCount = 0
             var quickCount = 35
             var moderateCount = 60
@@ -319,6 +319,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         cell.loadCell()
         
+        
         return cell
     }
     
@@ -352,13 +353,9 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-    func refreshAccordingly(){
-        
-    }
-    
     func showAlert(_ id: String, _ username1: String){
        let alert = UIAlertController(
-           title: nil,
+           title: "Actions",
            message: "",
            preferredStyle: .alert
        )
@@ -436,5 +433,12 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func getSegmentIndex() -> Int{
         return segmentedControl.selectedSegmentIndex
+    }
+    
+    func moveToComments(postItem: Posts){
+        let vcComments = storyboard?.instantiateViewController(identifier: "CommentsViewController") as! CommentsViewController
+        
+        vcComments.postItem = postItem
+        self.show(vcComments, sender: self)
     }
 }

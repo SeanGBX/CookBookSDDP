@@ -11,28 +11,11 @@ import UIKit
 class CommentsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var postCommentList : [PostComment] = []
+    var postItem: Posts?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        postCommentList.append(PostComment(
-//            postId : 1,
-//            comment: "tomato",
-//            username: "Arman"
-//        ))
-//
-//        postCommentList.append(PostComment(
-//            postId : 1,
-//            comment: "potato",
-//            username: "Ian"
-//        ))
-//
-//        postCommentList.append(PostComment(
-//            postId : 1,
-//            comment: "chicken",
-//            username: "Sean"
-//        ))
-        
+        print(postItem!.recipeName)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -227,6 +227,10 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     
     
     @IBAction func postInfoCommentClick(_ sender: Any) {
+        let vcComments = storyboard?.instantiateViewController(identifier: "CommentsViewController") as! CommentsViewController
+        
+        vcComments.postItem = postItem
+        self.show(vcComments, sender: self)
     }
     
     @IBAction func postInfoLikeClick(_ sender: Any) {
@@ -298,7 +302,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBAction func moreOptionButton(_ sender: Any) {
         let alert = UIAlertController(
-               title: nil,
+               title: "Actions",
                message: "",
                preferredStyle: .alert
            )

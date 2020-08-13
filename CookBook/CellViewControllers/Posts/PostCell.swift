@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseStorage
 
 protocol CustomCellLoadData: class {
     func loadRecommend()
@@ -16,6 +17,7 @@ protocol CustomCellLoadData: class {
 //    func loadCompletePostsByFollower()
     func showAlert(_ id: String, _ username: String)
     func getSegmentIndex() -> Int
+    func moveToComments(postItem: Posts)
 }
 
 class PostCell: UITableViewCell {
@@ -27,6 +29,7 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var tagsLabel: UILabel!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var healthyButton: UIButton!
+
     
     
     weak var delegate: CustomCellLoadData?
@@ -167,5 +170,10 @@ class PostCell: UITableViewCell {
     
     @IBAction func deletePostButton(_ sender: Any) {
         delegate?.showAlert(postID!, username)
+    }
+    
+    
+    @IBAction func commentButtonClick(_ sender: Any) {
+        delegate?.moveToComments(postItem: postItem!)
     }
 }
