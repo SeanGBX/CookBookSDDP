@@ -57,6 +57,8 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var stepTableConstraints: NSLayoutConstraint!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var healthyButton: UIButton!
+    @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var userImage: UIImageView!
     
     var postItem: Posts?
     var selectedPost: [Posts] = []
@@ -69,6 +71,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     var likePostItem: LikePost?
     var healthyPostItem: HealthyPost?
     let username = Auth.auth().currentUser!.uid
+    
     var userList: [Profile] = []
     var isCuisine = ""
     var isBudget = ""
@@ -84,6 +87,8 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         loadHealthy(id: postItem!.postId)
         loadUserLikes(id: postItem!.postId)
         loadUserHealthy(id: postItem!.postId)
+        userImage.layer.cornerRadius =  userImage.frame.size.width / 2
+        userImage.clipsToBounds = true
         
         self.navigationItem.setHidesBackButton(true, animated: true);
     }
@@ -169,6 +174,25 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
                 self?.postInfoImage.image = UIImage(data: data)
             }
         }
+        
+        profileDataManager.loadProfile(postItem!.username){
+            user in
+            self.userList = user
+            print(self.postItem!.username)
+            for i in self.userList{
+                self.userName.text = i.displayName
+                let imageRef1 = Storage.storage().reference(withPath: "postImages/CC789BDD-7784-4A9C-B51B-F969504A59FB.jpg")
+                imageRef1.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
+                    if let error = error {
+                        print("Error downloading image: \(error.localizedDescription)")
+                        return
+                    }
+                    if let data = data {
+                        self!.userImage.image = UIImage(data: data)
+                    }
+                }
+            }
+        }
     
         postInfoRecipeName.text = postItem?.recipeName
         profileDataManager.loadProfile(postItem!.username){
@@ -230,6 +254,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         let vcComments = storyboard?.instantiateViewController(identifier: "CommentsViewController") as! CommentsViewController
         
         vcComments.postItem = postItem
+        vcComments.fromInfo = "1"
         self.show(vcComments, sender: self)
     }
     

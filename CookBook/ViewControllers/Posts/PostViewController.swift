@@ -298,6 +298,16 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.userList = user
             for i in self.userList{
                 cell.userName.text = i.displayName
+                let imageRef1 = Storage.storage().reference(withPath: "postImages/CC789BDD-7784-4A9C-B51B-F969504A59FB.jpg")
+                imageRef1.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
+                    if let error = error {
+                        print("Error downloading image: \(error.localizedDescription)")
+                        return
+                    }
+                    if let data = data {
+                        cell.userImage.image = UIImage(data: data)
+                    }
+                }
             }
         }
         cell.CLHLabel.text = "\(p.likes) likes, 10 comments, \(p.healthy) users find this healthy"
@@ -343,13 +353,10 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBAction func segmentedControlSwitch(_ sender: Any) {
         if (segmentedControl.selectedSegmentIndex == 0){
             loadRecommend()
-//            refresher.addTarget(self, action: #selector(loadRecommend1), for: .valueChanged)
         } else if (segmentedControl.selectedSegmentIndex == 1){
             loadCompletePosts()
-//            refresher.addTarget(self, action: #selector(loadCompletePosts1), for: .valueChanged)
         } else if (segmentedControl.selectedSegmentIndex == 2){
             loadCompletePostsByHealthy()
-//            refresher.addTarget(self, action: #selector(loadCompletePostsByHealthy1), for: .valueChanged)
         }
     }
     

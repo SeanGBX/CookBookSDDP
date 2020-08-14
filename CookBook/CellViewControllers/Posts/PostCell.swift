@@ -29,7 +29,8 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var tagsLabel: UILabel!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var healthyButton: UIButton!
-
+    @IBOutlet weak var userImage: UIImageView!
+    
     
     
     weak var delegate: CustomCellLoadData?
@@ -49,6 +50,8 @@ class PostCell: UITableViewCell {
         loadHealthy(id: postID!)
         loadUserLikes(id: postID!)
         loadUserHealthy(id: postID!)
+        userImage.layer.cornerRadius =  userImage.frame.size.width / 2
+        userImage.clipsToBounds = true
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -169,7 +172,7 @@ class PostCell: UITableViewCell {
     }
     
     @IBAction func deletePostButton(_ sender: Any) {
-        delegate?.showAlert(postID!, username)
+        delegate?.showAlert(postID!, postItem!.username)
     }
     
     
