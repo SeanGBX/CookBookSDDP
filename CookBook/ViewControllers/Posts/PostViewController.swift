@@ -14,12 +14,12 @@ class IntrinsicPostTableView: UITableView {
 
     override var contentSize:CGSize {
         didSet {
-            self.invalidateIntrinsicContentSize()
+            invalidateIntrinsicContentSize()
         }
     }
 
     override var intrinsicContentSize: CGSize {
-        self.layoutIfNeeded()
+        layoutIfNeeded()
         return CGSize(width: UIView.noIntrinsicMetric, height: contentSize.height)
     }
 
@@ -58,10 +58,10 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         postScrollView.refreshControl = refresher
     }
     
-    override func viewWillLayoutSubviews() {
-        super.updateViewConstraints()
-        self.heightConstraint?.constant = self.tableView.intrinsicContentSize.height
-    }
+//    override func viewWillLayoutSubviews() {
+//        super.updateViewConstraints()
+//        self.heightConstraint?.constant = self.tableView.intrinsicContentSize.height
+//    }
     
     @objc func allCalls(_ sender:UIRefreshControl) {
        if (segmentedControl.selectedSegmentIndex == 0){
@@ -80,7 +80,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var mexicanCount = 0
         var middleECount = 0
         var cheapCount = 0
-        var moderatePCount = 10
+        var moderatePCount = 80
         var expensiveCount = 0
         var quickCount = 35
         var moderateCount = 60
@@ -164,7 +164,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
             var mexicanCount = 0
             var middleECount = 0
             var cheapCount = 0
-            var moderatePCount = 10
+            var moderatePCount = 80
             var expensiveCount = 0
             var quickCount = 35
             var moderateCount = 60
@@ -298,6 +298,16 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.userList = user
             for i in self.userList{
                 cell.userName.text = i.displayName
+                let imageRef1 = Storage.storage().reference(withPath: "postImages/CC789BDD-7784-4A9C-B51B-F969504A59FB.jpg")
+                imageRef1.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
+                    if let error = error {
+                        print("Error downloading image: \(error.localizedDescription)")
+                        return
+                    }
+                    if let data = data {
+                        cell.userImage.image = UIImage(data: data)
+                    }
+                }
             }
         }
         cell.CLHLabel.text = "\(p.likes) likes, 10 comments, \(p.healthy) users find this healthy"
@@ -318,6 +328,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         
         cell.loadCell()
+        
         
         return cell
     }
@@ -342,23 +353,16 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBAction func segmentedControlSwitch(_ sender: Any) {
         if (segmentedControl.selectedSegmentIndex == 0){
             loadRecommend()
-//            refresher.addTarget(self, action: #selector(loadRecommend1), for: .valueChanged)
         } else if (segmentedControl.selectedSegmentIndex == 1){
             loadCompletePosts()
-//            refresher.addTarget(self, action: #selector(loadCompletePosts1), for: .valueChanged)
         } else if (segmentedControl.selectedSegmentIndex == 2){
             loadCompletePostsByHealthy()
-//            refresher.addTarget(self, action: #selector(loadCompletePostsByHealthy1), for: .valueChanged)
         }
-    }
-    
-    func refreshAccordingly(){
-        
     }
     
     func showAlert(_ id: String, _ username1: String){
        let alert = UIAlertController(
-           title: nil,
+           title: "Actions",
            message: "",
            preferredStyle: .alert
        )
@@ -436,5 +440,12 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func getSegmentIndex() -> Int{
         return segmentedControl.selectedSegmentIndex
+    }
+    
+    func moveToComments(postItem: Posts){
+        let vcComments = storyboard?.instantiateViewController(identifier: "CommentsViewController") as! CommentsViewController
+        
+        vcComments.postItem = postItem
+        self.show(vcComments, sender: self)
     }
 }
