@@ -69,7 +69,12 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func addSearchBar(){
         navigationItem.searchController = searchController
+        let searchField = searchController.searchBar.searchTextField
+        searchField.backgroundColor = .systemBackground
+        let cancelButtonAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        UIBarButtonItem.appearance().setTitleTextAttributes(cancelButtonAttributes , for: .normal)
         searchController.searchBar.placeholder = "Search..."
+        searchController.searchBar
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchResultsUpdater = self
         definesPresentationContext = true
@@ -90,11 +95,16 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(didTapComposeButton))
+        navigationItem.rightBarButtonItem?.tintColor = UIColor.white
         self.navigationItem.title = "Messages"
-        
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .systemIndigo
+        appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
+        navigationItem.standardAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
         addSearchBar()
         view.addSubview(noResultsLabel)
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKey))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
         spinner.show(in: view)
@@ -142,7 +152,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
                       }
     }
     
-    @objc func dismissKeyboard() {
+    @objc func dismissKey() {
         view.endEditing(true)
     }
     
