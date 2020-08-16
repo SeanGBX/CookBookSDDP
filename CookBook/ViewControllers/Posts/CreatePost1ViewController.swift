@@ -67,7 +67,7 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
         myPictureSwitch.isOn = false
         progressToIngredientsButton.setTitleColor(UIColor.gray, for: .normal)
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKey")
 
         view.addGestureRecognizer(tap)
     }
@@ -84,7 +84,7 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
         return mealTypeData[row]
     }
     
-    @objc func dismissKeyboard() {
+    @objc func dismissKey() {
         view.endEditing(true)
     }
     

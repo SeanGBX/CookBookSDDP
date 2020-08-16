@@ -107,7 +107,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
         setupInputButton()
         startListeningForConversation()
         
-        //        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        //        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKey")
         //        tap.cancelsTouchesInView = true
         //        view.addGestureRecognizer(tap)
         
@@ -204,10 +204,10 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     }
     
     
-    @objc func dismissKeyboard() {
-        view.endEditing(true)	
-        print("")
-    }
+//    @objc func dismissKey() {
+//        view.endEditing(true)
+//        print("")
+//    }
     
     func currentSender() -> SenderType {
         return currUser

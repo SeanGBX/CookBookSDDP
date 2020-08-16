@@ -98,7 +98,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         navigationItem.rightBarButtonItem?.tintColor = UIColor.white
         self.navigationItem.title = "Messages"
         let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .systemIndigo
+        appearance.backgroundColor = UIColor.systemIndigo
         appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance

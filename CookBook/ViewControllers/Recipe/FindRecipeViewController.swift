@@ -52,7 +52,7 @@ class FindRecipeViewController: UIViewController, UITextFieldDelegate, UIPickerV
         
         chosenCuisinLabel?.text = cuisineTitle
         self.navigationItem.setHidesBackButton(true, animated: true);
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKey")
         view.addGestureRecognizer(tap)
     }
     
@@ -62,7 +62,7 @@ class FindRecipeViewController: UIViewController, UITextFieldDelegate, UIPickerV
 //        prepTimeTextField.text = prepTimePickerData[0]
 //    }
     
-    @objc func dismissKeyboard() {
+    @objc func dismissKey() {
         view.endEditing(true)
     }
     
