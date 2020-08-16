@@ -34,6 +34,8 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBOutlet weak var commentsTable: UITableView!
     
+    @IBOutlet weak var noLabel: UILabel!
+    
     var postCommentList : [PostComment] = []
     var commentItem: PostComment?
     var postItem: Posts?
@@ -64,7 +66,9 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
             comment in
             self.postCommentList = comment
             self.commentsTable.reloadData()
-            self.commentsTable.sizeToFit()
+            if (self.postCommentList.count != 0){
+                self.noLabel.text = "\(self.postCommentList.count) comment(s)"
+            }
         })
     }
     
@@ -137,7 +141,6 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
         
         commentDataManager.insertComment(commentItem!, onComplete: {
             self.loadComments()
-            self.commentsTable.sizeToFit()
         })
     }
     
