@@ -54,6 +54,7 @@
 		3B61353224AB5B580013178C /* FindRecipe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B61353124AB5B580013178C /* FindRecipe.storyboard */; };
 		3B61353424AB5BB30013178C /* Recipes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B61353324AB5BB30013178C /* Recipes.storyboard */; };
 		561F4A915E99F368E8FE85C5 /* Pods_CookBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E61FF4F153AD6A3F694E746E /* Pods_CookBook.framework */; };
+		6903ADD524E6D461004BBA11 /* ProfileCellA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6903ADD424E6D461004BBA11 /* ProfileCellA.swift */; };
 		6911969324C493C600B157C3 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6911969224C493C600B157C3 /* ProfileCell.swift */; };
 		69250F5D24C21BEA005D94B6 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69250F5C24C21BEA005D94B6 /* EditProfileViewController.swift */; };
 		693858AF24C46A7B0077F449 /* FollowersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693858AE24C46A7B0077F449 /* FollowersViewController.swift */; };
@@ -61,6 +62,7 @@
 		693858B324C46DB90077F449 /* Followers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693858B224C46DB90077F449 /* Followers.swift */; };
 		693858B724C474010077F449 /* followDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693858B624C474010077F449 /* followDataManager.swift */; };
 		6966E1A024C0CA0C00C50285 /* SetupProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6966E19F24C0CA0C00C50285 /* SetupProfileViewController.swift */; };
+		6989802C24E6FEB500CB2A83 /* OthersProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6989802B24E6FEB500CB2A83 /* OthersProfileViewController.swift */; };
 		69C1D9AD24BB08C1009716D9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C1D9AC24BB08C1009716D9 /* LoginViewController.swift */; };
 		69C1D9AF24BB08D1009716D9 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C1D9AE24BB08D1009716D9 /* RegisterViewController.swift */; };
 		69CC5D2F24BD97FC008EF291 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CC5D2E24BD97FC008EF291 /* Profile.swift */; };
@@ -126,6 +128,7 @@
 		3B61353124AB5B580013178C /* FindRecipe.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FindRecipe.storyboard; sourceTree = "<group>"; };
 		3B61353324AB5BB30013178C /* Recipes.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Recipes.storyboard; sourceTree = "<group>"; };
 		419C8AD5F5379FBCCF018B7F /* Pods-CookBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookBook.debug.xcconfig"; path = "Target Support Files/Pods-CookBook/Pods-CookBook.debug.xcconfig"; sourceTree = "<group>"; };
+		6903ADD424E6D461004BBA11 /* ProfileCellA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCellA.swift; sourceTree = "<group>"; };
 		6911969224C493C600B157C3 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		69250F5C24C21BEA005D94B6 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		693858AE24C46A7B0077F449 /* FollowersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +136,7 @@
 		693858B224C46DB90077F449 /* Followers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Followers.swift; sourceTree = "<group>"; };
 		693858B624C474010077F449 /* followDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = followDataManager.swift; sourceTree = "<group>"; };
 		6966E19F24C0CA0C00C50285 /* SetupProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProfileViewController.swift; sourceTree = "<group>"; };
+		6989802B24E6FEB500CB2A83 /* OthersProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthersProfileViewController.swift; sourceTree = "<group>"; };
 		69C1D9AC24BB08C1009716D9 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		69C1D9AE24BB08D1009716D9 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		69CC5D2E24BD97FC008EF291 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
@@ -362,6 +366,7 @@
 			isa = PBXGroup;
 			children = (
 				6911969224C493C600B157C3 /* ProfileCell.swift */,
+				6903ADD424E6D461004BBA11 /* ProfileCellA.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -392,6 +397,7 @@
 				69250F5C24C21BEA005D94B6 /* EditProfileViewController.swift */,
 				693858AE24C46A7B0077F449 /* FollowersViewController.swift */,
 				693858B024C46A8E0077F449 /* FollowingViewController.swift */,
+				6989802B24E6FEB500CB2A83 /* OthersProfileViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -600,12 +606,14 @@
 				18DD2D3A24BA11E300539A19 /* likePostDataManager.swift in Sources */,
 				69C1D9AF24BB08D1009716D9 /* RegisterViewController.swift in Sources */,
 				180D2C5824A501F2000F0A89 /* CreatePost1ViewController.swift in Sources */,
+				6903ADD524E6D461004BBA11 /* ProfileCellA.swift in Sources */,
 				693858AF24C46A7B0077F449 /* FollowersViewController.swift in Sources */,
 				6966E1A024C0CA0C00C50285 /* SetupProfileViewController.swift in Sources */,
 				180D2C5A24A501F2000F0A89 /* PostInfoViewController.swift in Sources */,
 				69CF9A9A24BD895600B70CBA /* ProfileViewController.swift in Sources */,
 				180D2C4C24A501D6000F0A89 /* PostComment.swift in Sources */,
 				180D2C5B24A501F2000F0A89 /* IngredientViewController.swift in Sources */,
+				6989802C24E6FEB500CB2A83 /* OthersProfileViewController.swift in Sources */,
 				180D2C6224A501FE000F0A89 /* StepCell.swift in Sources */,
 				18196EB724ABA2CE00C5209A /* FindRecipeViewController.swift in Sources */,
 				180D2C3B24A500A4000F0A89 /* BridgingHeader.m in Sources */,

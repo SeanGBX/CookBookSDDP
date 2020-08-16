@@ -19,6 +19,8 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var flwnum: UIButton!
     @IBOutlet weak var flwingnum: UIButton!
     
+    @IBOutlet weak var flwbtn: UIButton!
+    @IBOutlet weak var msgbtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +65,12 @@ class ProfileViewController: UIViewController {
         present(vc, animated: true)
     }
 
+    @IBAction func otherProfileTapped(_ sender: Any) {
+        //redirect to edit profile page
+            let vc = storyboard?.instantiateViewController(identifier:"OthersProfile") as! OthersProfileViewController
+            self.show(vc, sender: self)
+    }
+    
     @IBAction func editProfileTapped(_ sender: Any) {
         //redirect to edit profile page
         let vc = storyboard?.instantiateViewController(identifier:"EditProfile") as! EditProfileViewController

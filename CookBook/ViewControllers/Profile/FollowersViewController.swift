@@ -15,22 +15,38 @@ class FollowersViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var tableViewFollowers: UITableView!
     
     
+    var followerList :[Followers] = []
     var profileList :[Profile] = []
 
     override func viewDidLoad() {
-        super.viewDidLoad()
-
-        
-        loadAllProfiles()
-        
-        //print("profilenames:",self.profileList[0].displayName)
-        
+        super.viewDidLoad()    
+        loadAllFollowers()
     }
     
-    func loadAllProfiles() {
-        profileDataManager.loadAllProfiles { profiledb in
-            self.profileList = profiledb
-            self.tableViewFollowers.reloadData()
+    override func viewDidAppear(_ animated: Bool) {
+        loadAllProfiles()
+    }
+    
+    
+    
+    func loadAllFollowers() {
+        let currentUser = Auth.auth().currentUser
+        let currentuid = currentUser?.uid
+        
+        followDataManager.loadFollowers(currentuid!) {
+            flwdb in
+            self.followerList = flwdb
+        }
+    }
+    
+    
+    func loadAllProfiles(){
+         for i in self.followerList {
+            profileDataManager.loadProfile(i.followerAccountUID){
+            profiledb in
+                self.profileList.append(profiledb[0])
+                self.tableViewFollowers.reloadData()
+            }
         }
     }
 
@@ -47,8 +63,10 @@ class FollowersViewController: UIViewController, UITableViewDelegate, UITableVie
     {
         let cell: ProfileCell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell", for: indexPath) as! ProfileCell
         
-        let p = profileList[indexPath.row]
+            
+            let p = profileList[indexPath.row]
         cell.NameLabel?.text = p.displayName
+        cell.followerAccountUID = p.UID
 
         return cell
         
