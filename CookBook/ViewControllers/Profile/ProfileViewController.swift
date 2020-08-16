@@ -36,7 +36,7 @@ class ProfileViewController: UIViewController {
             self.displayname.text = profiledb[0].displayName
             self.bio.text = profiledb[0].bio
         }
-        //set post num
+        //set post num 
         profileDataManager.calculatePosts(uid!) { posts in
             self.postnum.text = String(posts)
             print("TOTAL POST:",self.postnum.text)

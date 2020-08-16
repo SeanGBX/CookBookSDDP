@@ -35,6 +35,28 @@ class commentDataManager: NSObject {
             onComplete?(commentList)
         }
     }
+    
+    static func loadUserComments(_ postID: String, onComplete: (([PostComment]) -> Void)?){
+        db.collection("postComments").whereField("postId", isEqualTo: postID).getDocuments(){
+            
+            (querySnapshot, err) in
+            var commentList : [PostComment] = []
+            
+            if let err = err{
+                print("Error getting documents: \(err)")
+            }
+            else{
+                for document in querySnapshot!.documents{
+                    var comment = try? document.data(as: PostComment.self) as! PostComment
+                    
+                    if comment != nil{
+                        commentList.append(comment!)
+                    }
+                }
+            }
+            onComplete?(commentList)
+        }
+    }
 
     static func storeCommentID(_ ID: String) -> String {
         var selectedComment =
@@ -45,7 +67,7 @@ class commentDataManager: NSObject {
         return selectedID!
     }
 
-    static func insertComment(_ comment: PostComment, onComplete: ((String)-> Void)?){
+    static func insertComment(_ comment: PostComment, onComplete: (()-> Void)?){
         var addedDocument = try? db.collection("postComments").addDocument(from: comment, encoder: Firestore.Encoder())
         
         comment.commentId = String(addedDocument?.documentID ?? "")
@@ -60,7 +82,7 @@ class commentDataManager: NSObject {
                 print("Error adding document: \(err)")
             } else {
                 print("Document successfully added")
-                onComplete?(comment.commentId)
+                onComplete?()
             }
         }
     }
