@@ -18,20 +18,21 @@ protocol CustomCellLoadData: class {
     func showAlert(_ id: String, _ username: String)
     func getSegmentIndex() -> Int
     func moveToComments(postItem: Posts)
+    func moveToProfile(pos: Posts)
 }
 
 class PostCell: UITableViewCell {
 
     @IBOutlet weak var postImage: UIImageView!
     @IBOutlet weak var recipeName: UILabel!
-    @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var CLHLabel: UILabel!
     @IBOutlet weak var tagsLabel: UILabel!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var healthyButton: UIButton!
     @IBOutlet weak var userImage: UIImageView!
-    
-    
+    @IBOutlet weak var comment1Text: UILabel!
+    @IBOutlet weak var comment2Text: UILabel!
+    @IBOutlet weak var goToProfileButton: UIButton!
     
     weak var delegate: CustomCellLoadData?
     var postID: String?
@@ -179,4 +180,10 @@ class PostCell: UITableViewCell {
     @IBAction func commentButtonClick(_ sender: Any) {
         delegate?.moveToComments(postItem: postItem!)
     }
+    
+    
+    @IBAction func goToProfileButtonClick(_ sender: Any) {
+        delegate?.moveToProfile(pos: postItem!)
+    }
+    
 }

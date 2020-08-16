@@ -26,7 +26,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         view.addGestureRecognizer(tap)
     }
     
-    @objc func dismissKeyboard() {
+    @objc func dismissKey() {
         view.endEditing(true)
     }
     
