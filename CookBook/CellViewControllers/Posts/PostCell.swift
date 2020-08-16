@@ -12,9 +12,9 @@ import FirebaseStorage
 
 protocol CustomCellLoadData: class {
     func loadRecommend()
-    func loadCompletePosts()
+//    func loadCompletePosts()
     func loadCompletePostsByHealthy()
-//    func loadCompletePostsByFollower()
+    func loadFollowerPosts()
     func showAlert(_ id: String, _ username: String)
     func getSegmentIndex() -> Int
     func moveToComments(postItem: Posts)
@@ -116,7 +116,7 @@ class PostCell: UITableViewCell {
                 if (index! == 0){
                     self.delegate?.loadRecommend()
                 } else if (index! == 1){
-                    self.delegate?.loadCompletePosts()
+                    self.delegate?.loadFollowerPosts()
                 } else if (index! == 2) {
                     self.delegate?.loadCompletePostsByHealthy()
                 }
@@ -131,7 +131,7 @@ class PostCell: UITableViewCell {
                 if (index! == 0){
                     self.delegate?.loadRecommend()
                 } else if (index! == 1){
-                    self.delegate?.loadCompletePosts()
+                    self.delegate?.loadFollowerPosts()
                 } else if (index! == 2) {
                     self.delegate?.loadCompletePostsByHealthy()
                 }
@@ -149,7 +149,7 @@ class PostCell: UITableViewCell {
                 if (index! == 0){
                     self.delegate?.loadRecommend()
                 } else if (index! == 1){
-                    self.delegate?.loadCompletePosts()
+                    self.delegate?.loadFollowerPosts()
                 } else if (index! == 2) {
                     self.delegate?.loadCompletePostsByHealthy()
                 }
@@ -164,7 +164,7 @@ class PostCell: UITableViewCell {
                 if (index! == 0){
                     self.delegate?.loadRecommend()
                 } else if (index! == 1){
-                    self.delegate?.loadCompletePosts()
+                    self.delegate?.loadFollowerPosts()
                 } else if (index! == 2) {
                     self.delegate?.loadCompletePostsByHealthy()
                 }

@@ -81,7 +81,7 @@ class profileDataManager: NSObject {
     }
     
     static func getUserPosts(_ profileUID: String, onComplete: (([Posts]) -> Void)?){
-    db.collection("posts").whereField("username", isEqualTo: profileUID).getDocuments(){
+        db.collection("posts").whereField("username", isEqualTo: profileUID).whereField("postComplete", isEqualTo: "1").getDocuments(){
         
         (querySnapshot, err) in
         var postList : [Posts] = []
