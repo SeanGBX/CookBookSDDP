@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -338,6 +339,31 @@
                                     <action selector="otherProfileTapped:" destination="J15-G3-3dN" eventType="touchUpInside" id="rHk-T8-kx6"/>
                                 </connections>
                             </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="YiB-T1-RRk">
+                                <rect key="frame" x="0.0" y="328" width="414" height="408"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ynY-Cv-I0A">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="PostCollectionViewCell" id="7xb-nP-MHF" customClass="PostCollectionViewCell" customModule="CookBook" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Wck-Jn-WNk">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="J15-G3-3dN" id="E6M-id-TUP"/>
+                                    <outlet property="delegate" destination="J15-G3-3dN" id="EtC-6e-UGz"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="MZb-BR-xFm"/>
@@ -359,6 +385,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bio" destination="zCi-sT-5IQ" id="kcZ-OX-HUE"/>
+                        <outlet property="collectionView" destination="YiB-T1-RRk" id="JDm-TX-pr1"/>
                         <outlet property="displayname" destination="5Bd-eL-7DI" id="3Hx-Lh-mLV"/>
                         <outlet property="flwingnum" destination="Ujz-5O-Uje" id="1yi-MN-cbB"/>
                         <outlet property="flwnum" destination="t3l-SF-ad4" id="6b6-Yl-K1H"/>
@@ -370,7 +397,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="beN-hI-FG2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1514" y="903"/>
+            <point key="canvasLocation" x="-1514.4927536231885" y="902.44565217391312"/>
         </scene>
         <!--Followers-->
         <scene sceneID="i4o-14-Hed">
