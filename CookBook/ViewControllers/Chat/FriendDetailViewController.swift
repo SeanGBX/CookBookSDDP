@@ -335,8 +335,6 @@ extension FriendDetailViewController: UIImagePickerControllerDelegate, UINavigat
                 }
             })
         }
-        //Send Image
-        
        
     }
 }

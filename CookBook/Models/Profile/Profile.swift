@@ -12,13 +12,15 @@ class Profile: NSObject, Codable {
     
     var UID: String
     var email: String
+    var imageName: String
     var displayName: String
     var bio: String
     
     
-    init(UID: String, email: String, displayName: String, bio: String){
+    init(UID: String, email: String, imageName: String, displayName: String, bio: String){
         self.UID = UID
         self.email = email
+        self.imageName = imageName
         self.displayName = displayName
         self.bio = bio
     }

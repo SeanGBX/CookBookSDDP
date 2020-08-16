@@ -8,11 +8,13 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseStorage
 
 class EditProfileViewController: UIViewController {
 
     @IBOutlet weak var displayname: UITextField!
     @IBOutlet weak var bio: UITextView!
+    @IBOutlet weak var displayimage: UIImageView!
     
     
     override func viewDidLoad() {
@@ -33,6 +35,7 @@ class EditProfileViewController: UIViewController {
     @objc func dismissKey() {
         view.endEditing(true)
     }
+   
     
     func loadProfile() {
         let user = Auth.auth().currentUser
@@ -42,6 +45,11 @@ class EditProfileViewController: UIViewController {
             self.bio.text = profiledb[0].bio
         }
     }
+    
+    @IBAction func changePicBtn(_ sender: Any) {
+        presentInputActionSheet()
+    }
+    
     @IBAction func cancelTapped(_ sender: Any) {
         //redirect to profile page
         let nav = self.navigationController
@@ -69,13 +77,80 @@ class EditProfileViewController: UIViewController {
         let uid = user?.uid
         let email = user?.email
         //create profile with new data
-        let newpf = Profile(UID:uid!, email:email!, displayName:self.displayname.text!,bio:self.bio.text!)
+       
         
-        profileDataManager.editProfile(newpf)
+        let randomID = UUID.init().uuidString
+        let uploadRef = Storage.storage().reference(withPath: "profile/\(randomID).jpg")
+        guard let imageData = displayimage.image?.jpegData(compressionQuality: 0.75) else{
+            return
+        }
+        let uploadMetaData = StorageMetadata.init()
+        uploadMetaData.contentType = "image/jpeg"
+        uploadRef.putData(imageData, metadata: uploadMetaData){
+            (downloadMetadata, error) in
+            if let error = error {
+                print("An error occured : \(error.localizedDescription)")
+            }
+            print(downloadMetadata)
+            
+            uploadRef.downloadURL(completion: {(url, error) in
+                if let error = error{
+                    print("An error occured : \(error.localizedDescription)")
+                    return
+                }
+                if let url = url{
+                    print(url.absoluteString)
+                    let newpf = Profile(UID:uid!, email:email!, imageName: url.absoluteString, displayName:self.displayname.text!,bio:self.bio.text!)
+                           
+                    profileDataManager.editProfile(newpf)
+                }
+            })
+        }
         
         //redirect to profile page
         let vc = storyboard?.instantiateViewController(identifier:"Profile") as! ProfileViewController
         self.show(vc, sender: self)
         
+    }
+    
+   private func presentInputActionSheet(){
+         let actionSheet = UIAlertController()
+
+         actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
+             let picker = UIImagePickerController()
+             
+             picker.sourceType = .camera
+             picker.delegate = self
+             picker.allowsEditing = true
+             self?.present(picker, animated: true)
+         }))
+         actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { [weak self] _ in
+             let picker = UIImagePickerController()
+             picker.sourceType = .photoLibrary
+             picker.delegate = self
+             picker.allowsEditing = true
+             self?.present(picker, animated: true)
+         }))
+         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+         if !UIImagePickerController.isSourceTypeAvailable(.camera){
+             actionSheet.actions[0].isEnabled = false
+         }
+         present(actionSheet, animated: true)
+      }
+}
+
+
+extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
+        displayimage.image = image
+        picker.dismiss(animated: true, completion: nil)
+        
+        
+       
     }
 }

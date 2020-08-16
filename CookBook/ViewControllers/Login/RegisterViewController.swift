@@ -22,7 +22,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         //dismiss keyboard function
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKey")
         view.addGestureRecognizer(tap)
     }
     
@@ -77,7 +77,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         print("current user:",user,"UID:",uid,"email:",email)
         
         //create profile object for new user
-        let pf = Profile(UID:uid!, email:email!, displayName: "",bio: "")
+        let pf = Profile(UID:uid!, email:email!, imageName: "", displayName: "",bio: "")
         profileDataManager.insertProfile(pf)
     }
 }
