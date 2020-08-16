@@ -103,7 +103,12 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         messageInputBar.delegate = self
-
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = UIColor.systemIndigo
+        appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
+        navigationItem.standardAppearance = appearance
         setupInputButton()
         startListeningForConversation()
         
@@ -219,6 +224,17 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     
     func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
         return messages.count
+    }
+    
+    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+        let sender = message.sender
+        if sender.senderId == "other"
+        {
+            avatarView.image = UIImage(named: "defaultprofile")
+        }
+        else{
+            avatarView.image = UIImage(named: "ryantan")
+        }
     }
     
     func configureMediaMessageImageView(_ imageView: UIImageView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
