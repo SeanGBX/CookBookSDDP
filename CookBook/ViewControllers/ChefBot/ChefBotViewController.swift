@@ -39,8 +39,8 @@ class ChefBotViewController: UIViewController{
 //        messageField.text = ""
 //    }
     
-    let currUser = "test"
-    let currEmail = "Test@gmail.com"
+    let currUser = Auth.auth().currentUser!.uid
+    let currEmail = Auth.auth().currentUser!.email
     private let spinner = JGProgressHUD(style: .dark)
     
     override func viewDidLoad() {
