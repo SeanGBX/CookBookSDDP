@@ -30,6 +30,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var postList: [Posts] = []
     let username: String = Auth.auth().currentUser!.uid
     var userList: [Profile] = []
+    var commentList: [PostComment] = []
     
     lazy var refresher: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -297,7 +298,8 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
             user in
             self.userList = user
             for i in self.userList{
-                cell.userName.text = i.displayName
+                cell.goToProfileButton.setTitle(i.displayName, for: .normal)
+                cell.goToProfileButton.setTitle(i.displayName, for: .normal)
                 let imageRef1 = Storage.storage().reference(withPath: "postImages/CC789BDD-7784-4A9C-B51B-F969504A59FB.jpg")
                 imageRef1.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
                     if let error = error {
@@ -310,7 +312,22 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 }
             }
         }
-        cell.CLHLabel.text = "\(p.likes) likes, 10 comments, \(p.healthy) users find this healthy"
+        commentDataManager.loadUserComments(p.postId, onComplete: {
+            comment in
+            self.commentList = comment
+            cell.CLHLabel.text = "\(p.likes) likes, \(comment.count) comment(s), \(p.healthy) users find this healthy"
+            if (self.commentList.count > 0){
+                cell.comment1Text.text = comment[0].comment
+                if (self.commentList.count > 1) {
+                    cell.comment2Text.text = comment[1].comment
+                } else {
+                    cell.comment2Text.text = ""
+                }
+            } else {
+                cell.comment1Text.text = "No comments"
+                cell.comment2Text.text = ""
+            }
+        })
         cell.tagsLabel.text = "\(p.tagBudget), \(p.tagPrep), \(p.tagStyle)"
         cell.postID = p.postId
         cell.postItem = p
@@ -447,5 +464,11 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         vcComments.postItem = postItem
         self.show(vcComments, sender: self)
+    }
+    
+    func moveToProfile(pos: Posts){
+        let profilevc = UIStoryboard(name: "Profile", bundle: nil).instantiateViewController(identifier: "OthersProfile") as! OthersProfileViewController
+        profilevc.otherUser = pos
+        self.show(profilevc, sender: self)
     }
 }

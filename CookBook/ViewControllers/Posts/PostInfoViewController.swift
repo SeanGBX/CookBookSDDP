@@ -57,8 +57,8 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var stepTableConstraints: NSLayoutConstraint!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var healthyButton: UIButton!
-    @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var goToProfileButton: UIButton!
     
     var postItem: Posts?
     var selectedPost: [Posts] = []
@@ -98,7 +98,10 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
             post in
             self.selectedPost = post
             for i in self.selectedPost{
-                self.postInfoLCH.text = "\(i.likes) likes, 3 comments, \(i.healthy) find this healthy"
+                commentDataManager.loadUserComments(self.postItem!.postId, onComplete: {
+                    comment in
+                    self.postInfoLCH.text = "\(i.likes) likes, \(comment.count) comment(s), \(i.healthy) users find this healthy"
+                })
             }
         }
     }
@@ -180,7 +183,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
             self.userList = user
             print(self.postItem!.username)
             for i in self.userList{
-                self.userName.text = i.displayName
+                self.goToProfileButton.setTitle(i.displayName, for: .normal)
                 let imageRef1 = Storage.storage().reference(withPath: "postImages/CC789BDD-7784-4A9C-B51B-F969504A59FB.jpg")
                 imageRef1.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
                     if let error = error {
@@ -199,10 +202,13 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
             user in
             self.userList = user
             for i in self.userList{
-                self.postInfoUsername.text = i.displayName
+                self.goToProfileButton.setTitle(i.displayName, for: .normal)
             }
         }
-        postInfoLCH.text = "\(postItem!.likes) likes, 3 comments, \(postItem!.healthy) find this healthy"
+        commentDataManager.loadUserComments(postItem!.postId, onComplete: {
+            comment in
+            self.postInfoLCH.text = "\(self.postItem!.likes) likes, \(comment.count) comment(s), \(self.postItem!.healthy) users find this healthy"
+        })
         postInfoTags.text = "\(postItem!.tagBudget), \(postItem!.tagStyle), \(postItem!.tagPrep)"
         
         self.navigationItem.title = postItem?.recipeName
@@ -404,5 +410,11 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
             
            return
         }
+    
+    @IBAction func goToProfileButtonClick(_ sender: Any) {
+        let profilevc = UIStoryboard(name: "Profile", bundle: nil).instantiateViewController(identifier: "OthersProfile") as! OthersProfileViewController
+        profilevc.otherUser = postItem!
+        self.show(profilevc, sender: self)
+    }
     
 }
