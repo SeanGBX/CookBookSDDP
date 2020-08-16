@@ -1,5 +1,8 @@
 ${PODS_ROOT}/Target Support Files/Pods-CookBook/Pods-CookBook-frameworks.sh
+${BUILT_PRODUCTS_DIR}/ApiAI/ApiAI.framework
 ${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework
+${BUILT_PRODUCTS_DIR}/Applozic/Applozic.framework
+${BUILT_PRODUCTS_DIR}/ApplozicSwift/ApplozicSwift.framework
 ${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework
 ${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework
 ${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework
@@ -9,6 +12,8 @@ ${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework
 ${BUILT_PRODUCTS_DIR}/InputBarAccessoryView/InputBarAccessoryView.framework
 ${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework
 ${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework
+${BUILT_PRODUCTS_DIR}/Kommunicate/Kommunicate.framework
+${BUILT_PRODUCTS_DIR}/MGSwipeTableCell/MGSwipeTableCell.framework
 ${BUILT_PRODUCTS_DIR}/MessageKit/MessageKit.framework
 ${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework
 ${BUILT_PRODUCTS_DIR}/Realm/Realm.framework

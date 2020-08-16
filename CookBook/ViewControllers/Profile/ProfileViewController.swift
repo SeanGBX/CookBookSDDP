@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseUI
 import FirebaseAuth
+import Kommunicate
 
 class ProfileViewController: UIViewController {
 
@@ -57,6 +58,25 @@ class ProfileViewController: UIViewController {
         let uid = user?.uid
         let email = user?.email
         print("current user:",user,"UID:",uid,"email:",email)
+        
+        Kommunicate.logoutUser { (result) in
+            switch result {
+            case .success(_):
+                print("Logout success")
+            case .failure( _):
+                print("Logout failure, now registering remote notifications(if not registered)")
+                if !UIApplication.shared.isRegisteredForRemoteNotifications {
+                    UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]) { (granted, error) in
+                        if granted {
+                            DispatchQueue.main.async {
+                                UIApplication.shared.registerForRemoteNotifications()
+                            }
+                        }
+                    }
+                } else {
+                }
+            }
+        }
         
         //redirect to login page
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

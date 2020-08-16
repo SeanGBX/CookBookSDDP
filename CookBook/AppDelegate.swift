@@ -9,7 +9,8 @@
 import GoogleSignIn
 import UIKit
 import Firebase
-
+import ApiAI
+	
 @UIApplicationMain
 	class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
 
@@ -19,6 +20,13 @@ import Firebase
         FirebaseApp.configure()
         GIDSignIn.sharedInstance()?.clientID = "813373912188-oaakedkk49j7911tp8qfd5e9m131uihs.apps.googleusercontent.com"
         GIDSignIn.sharedInstance()?.delegate = self
+        
+//        ChefBot old AI code
+//        let configuration = AIDefaultConfiguration()
+//        configuration.clientAccessToken = "chefbot-ymna"
+//
+//        let apiai = ApiAI.shared()
+//        apiai?.configuration = configuration
         
         return true
     }

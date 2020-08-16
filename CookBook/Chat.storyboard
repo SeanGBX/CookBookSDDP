@@ -15,7 +15,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="n8h-Sn-FMb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="HAx-pE-yZj" kind="relationship" relationship="rootViewController" id="r6W-yC-VvE"/>
@@ -89,6 +89,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="n3C-2W-gIb">
                         <barButtonItem key="leftBarButtonItem" title="Edit" id="KCm-Ii-gsr">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="didTapEditButton:" destination="HAx-pE-yZj" id="CBY-ar-kUq"/>
                             </connections>

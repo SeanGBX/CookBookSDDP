@@ -47,7 +47,7 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKey")
 
         view.addGestureRecognizer(tap)
         
@@ -57,7 +57,7 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
         loadComments()
     }
     
-    @objc func dismissKeyboard() {
+    @objc func dismissKey() {
         view.endEditing(true)
     }
     

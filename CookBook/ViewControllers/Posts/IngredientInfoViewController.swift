@@ -47,7 +47,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKey")
         
         view.addGestureRecognizer(tap)
 //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -114,7 +114,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         return measurementTypeData[row]
     }
     
-    @objc func dismissKeyboard() {
+    @objc func dismissKey() {
         view.endEditing(true)
     }
     
