@@ -27,7 +27,9 @@ class FollowersViewController: UIViewController, UITableViewDelegate, UITableVie
         loadAllProfiles()
     }
     
-    
+    func loadData() {
+        self.tableViewFollowers.reloadData()
+    }
     
     func loadAllFollowers() {
         let currentUser = Auth.auth().currentUser

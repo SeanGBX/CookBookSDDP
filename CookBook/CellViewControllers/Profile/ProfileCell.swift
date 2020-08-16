@@ -32,6 +32,7 @@ class ProfileCell: UITableViewCell {
 
     @IBAction func FollowTapped(_ sender: Any) {
         loadUniqueFollower()
+        //FollowersViewController.loadData()
         
        
     }

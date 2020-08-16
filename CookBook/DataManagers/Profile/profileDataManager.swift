@@ -80,6 +80,28 @@ class profileDataManager: NSObject {
         }
     }
     
+    static func getUserPosts(_ profileUID: String, onComplete: (([Posts]) -> Void)?){
+    db.collection("posts").whereField("username", isEqualTo: profileUID).getDocuments(){
+        
+        (querySnapshot, err) in
+        var postList : [Posts] = []
+        
+        if let err = err{
+            print("Error getting documents: \(err)")
+        }
+        else{
+            for document in querySnapshot!.documents{
+                var post = try? document.data(as: Posts.self) as! Posts
+                
+                if post != nil{
+                    postList.append(post!)
+                }
+            }
+        }
+        onComplete?(postList)
+        }
+    }
+    
     static func insertProfile(_ profile: Profile){
         //create document and set values
         try? db.collection("profiles")

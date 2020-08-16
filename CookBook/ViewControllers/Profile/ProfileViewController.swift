@@ -12,7 +12,8 @@ import FirebaseUI
 import FirebaseAuth
 import Kommunicate
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController{
+    
 
     @IBOutlet weak var displayname: UILabel!
     @IBOutlet weak var bio: UITextView!
@@ -23,11 +24,43 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var flwbtn: UIButton!
     @IBOutlet weak var msgbtn: UIButton!
     
+    @IBOutlet var collectionView: UICollectionView!
+    
+    var postList :[Posts] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        collectionView.register(PostCollectionViewCell.nib(), forCellWithReuseIdentifier: PostCollectionViewCell.identifier)
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 128, height: 128)
+        collectionView.collectionViewLayout = layout
+        
         loadProfile()
+        loadUserPosts()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        collectionView.register(PostCollectionViewCell.nib(), forCellWithReuseIdentifier: PostCollectionViewCell.identifier)
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 128, height: 128)
+        collectionView.collectionViewLayout = layout
+        
+        loadProfile()
+        loadUserPosts()
+        
+    }
+    
     
     func loadProfile() {
         //set displayname and bio
@@ -43,7 +76,18 @@ class ProfileViewController: UIViewController {
             print("TOTAL POST:",self.postnum.text)
         }
     }
+    
+    func loadUserPosts() {
+        let user = Auth.auth().currentUser
+        let uid = user?.uid
 
+        //set postList
+        profileDataManager.getUserPosts(uid!) { posts in
+            self.postList = posts
+            self.collectionView.reloadData()
+        }
+    }
+    
     @IBAction func logoutTapped(_ sender: Any) {
         //signout user
         let firebaseAuth = Auth.auth()
@@ -107,5 +151,44 @@ class ProfileViewController: UIViewController {
          //redirect to edit profile page
         let vc = storyboard?.instantiateViewController(identifier:"Following") as! FollowingViewController
         self.show(vc, sender: self)
+    }
+}
+
+extension ProfileViewController: UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        
+        print ("CVCell Tapped!")
+    }
+}
+
+extension ProfileViewController: UICollectionViewDataSource{
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return postList.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCollectionViewCell.identifier, for: indexPath) as! PostCollectionViewCell
+        
+        let p = postList[indexPath.row]
+        let imageRef = Storage.storage().reference(withPath: p.postImage)
+        imageRef.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
+            if let error = error {
+                print("Error downloading image: \(error.localizedDescription)")
+                return
+            }
+            if let data = data {
+                cell.imageView.image = UIImage(data: data)
+            }
+        }
+        
+        return cell
+    }
+}
+
+extension ProfileViewController: UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 128, height: 128)
     }
 }
