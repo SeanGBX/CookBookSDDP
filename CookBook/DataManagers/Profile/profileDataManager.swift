@@ -59,7 +59,7 @@ class profileDataManager: NSObject {
     }
     
     static func calculatePosts(_ profileUID: String, onComplete: ((Int) -> Void)?){
-    db.collection("posts").whereField("username", isEqualTo: profileUID).getDocuments(){
+        db.collection("posts").whereField("username", isEqualTo: profileUID).whereField("postComplete", isEqualTo: "1").getDocuments(){
         
         (querySnapshot, err) in
         var postList : [Posts] = []

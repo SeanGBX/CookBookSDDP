@@ -1,4 +1,4 @@
-//
+    //
 //  SetupProfileViewController.swift
 //  CookBook
 //
@@ -19,7 +19,7 @@ class SetupProfileViewController: UIViewController {
         super.viewDidLoad()
         
         //dismiss keyboard function
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKey")
         view.addGestureRecognizer(tap)
         
         //bioText Styling
@@ -28,7 +28,7 @@ class SetupProfileViewController: UIViewController {
         bioText!.layer.cornerRadius = 5
     }
     
-    @objc func dismissKeyboard() {
+    @objc func dismissKey() {
     view.endEditing(true)
     }
     

@@ -19,7 +19,7 @@ class EditProfileViewController: UIViewController {
         super.viewDidLoad()
         
         //dismiss keyboard function
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKey")
         view.addGestureRecognizer(tap)
         
         //bioText Styling
@@ -30,7 +30,7 @@ class EditProfileViewController: UIViewController {
         loadProfile()
     }
     
-    @objc func dismissKeyboard() {
+    @objc func dismissKey() {
         view.endEditing(true)
     }
     

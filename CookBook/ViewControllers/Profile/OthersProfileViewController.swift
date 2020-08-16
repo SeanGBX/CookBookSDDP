@@ -22,6 +22,8 @@ class OthersProfileViewController: UIViewController {
     @IBOutlet weak var flwbtn: UIButton!
     @IBOutlet weak var msgbtn: UIButton!
     
+    var otherUser: Posts?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,15 +37,14 @@ class OthersProfileViewController: UIViewController {
     func loadOthersProfile() {
         //set displayname and bio
 
-        let currentUser = Auth.auth().currentUser
-        let currentuid = currentUser?.uid
-        let uid = currentuid
-        profileDataManager.loadProfile(uid!) { profiledb in
+        let otheruid = otherUser!.username
+        let uid = otheruid
+        profileDataManager.loadProfile(uid) { profiledb in
             self.displayname.text = profiledb[0].displayName
             self.bio.text = profiledb[0].bio
         }
         //set post num
-        profileDataManager.calculatePosts(uid!) { posts in
+        profileDataManager.calculatePosts(uid) { posts in
             self.postnum.text = String(posts)
             print("TOTAL POST:",self.postnum.text)
         }

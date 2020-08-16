@@ -9,16 +9,16 @@
 import UIKit
 import FirebaseStorage
 
-class IntrinsicIngredientTableView: UITableView {
+final class IntrinsicIngredientTableView: UITableView {
 
     override var contentSize:CGSize {
         didSet {
-            self.invalidateIntrinsicContentSize()
+            invalidateIntrinsicContentSize()
         }
     }
 
     override var intrinsicContentSize: CGSize {
-        self.layoutIfNeeded()
+        layoutIfNeeded()
         return CGSize(width: UIView.noIntrinsicMetric, height: contentSize.height)
     }
 
@@ -27,8 +27,8 @@ class IntrinsicIngredientTableView: UITableView {
 class IngredientViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var ingredientTableView: UITableView!
-    @IBOutlet weak var tableHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var noLabel: UILabel!
+//    @IBOutlet weak var tableHeightConstraint: NSLayoutConstraint!
+//    @IBOutlet weak var noLabel: UILabel!
     @IBOutlet weak var nextButton: UIButton!
     
     
@@ -41,19 +41,19 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
         self.navigationItem.setHidesBackButton(true, animated: true);
         loadIngredients()
         if (ingredientItemList.count > 0){
-            noLabel.isHidden = true
+//            noLabel.isHidden = true
             nextButton.isHidden = false
             
         } else {
-            noLabel.isHidden = false
+//            noLabel.isHidden = false
             nextButton.isHidden = true
         }
     }
     
-    override func viewWillLayoutSubviews() {
-        super.updateViewConstraints()
-        self.tableHeightConstraint?.constant = self.ingredientTableView.intrinsicContentSize.height
-    }
+//    override func viewWillLayoutSubviews() {
+//        super.updateViewConstraints()
+//        self.tableHeightConstraint?.constant = self.ingredientTableView.intrinsicContentSize.height
+//    }
     
     func loadIngredients(){
         IngredientsDataManager.loadIngredients(self.postID!){
@@ -61,10 +61,10 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
             self.ingredientItemList = ingredientListFromFirestore
             self.ingredientTableView.reloadData()
             if (self.ingredientItemList.count > 0){
-                self.noLabel.isHidden = true
+//                self.noLabel.isHidden = true
                 self.nextButton.isHidden = false
             } else {
-                self.noLabel.isHidden = false
+//                self.noLabel.isHidden = false
                 self.nextButton.isHidden = true
             }
         }
@@ -92,7 +92,7 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
                 cell.ingredientItemImage.image = UIImage(data: data)
             }
         }
-//        self.tableHeightConstraint?.constant = self.ingredientTableView.contentSize.height
+
         return cell
     }
     

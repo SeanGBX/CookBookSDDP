@@ -212,11 +212,46 @@ PODS:
     - abseil/base/base_internal
     - abseil/base/config
     - abseil/meta/type_traits
+  - ApiAI (0.7.2):
+    - ApiAI/AudioFileConverter (= 0.7.2)
+    - ApiAI/Core (= 0.7.2)
+    - ApiAI/Events (= 0.7.2)
+    - ApiAI/ResponseMapping (= 0.7.2)
+    - ApiAI/UIKit (= 0.7.2)
+    - ApiAI/UserEntities (= 0.7.2)
+    - ApiAI/VoiceFileRequest (= 0.7.2)
+    - ApiAI/VoiceRequest (= 0.7.2)
+  - ApiAI/AudioFileConverter (0.7.2):
+    - ApiAI/Core
+  - ApiAI/Core (0.7.2)
+  - ApiAI/Events (0.7.2):
+    - ApiAI/Core
+  - ApiAI/ResponseMapping (0.7.2):
+    - ApiAI/Core
+  - ApiAI/UIKit (0.7.2):
+    - ApiAI/Core
+    - ApiAI/VoiceRequest
+  - ApiAI/UserEntities (0.7.2):
+    - ApiAI/Core
+  - ApiAI/VoiceFileRequest (0.7.2):
+    - ApiAI/Core
+  - ApiAI/VoiceRequest (0.7.2):
+    - ApiAI/Core
   - AppAuth (1.4.0):
     - AppAuth/Core (= 1.4.0)
     - AppAuth/ExternalUserAgent (= 1.4.0)
   - AppAuth/Core (1.4.0)
   - AppAuth/ExternalUserAgent (1.4.0)
+  - Applozic (7.9.0):
+    - SDWebImage (~> 5.7.2)
+  - ApplozicSwift (5.9.0):
+    - ApplozicSwift/Complete (= 5.9.0)
+  - ApplozicSwift/Complete (5.9.0):
+    - Applozic (~> 7.9.0)
+    - ApplozicSwift/RichMessageKit
+    - Kingfisher (~> 5.14.0)
+    - MGSwipeTableCell (~> 1.6.11)
+  - ApplozicSwift/RichMessageKit (5.9.0)
   - BoringSSL-GRPC (0.0.7):
     - BoringSSL-GRPC/Implementation (= 0.0.7)
     - BoringSSL-GRPC/Interface (= 0.0.7)
@@ -415,9 +450,12 @@ PODS:
   - Kingfisher (5.14.1):
     - Kingfisher/Core (= 5.14.1)
   - Kingfisher/Core (5.14.1)
+  - Kommunicate (5.6.0):
+    - ApplozicSwift (~> 5.9.0)
   - leveldb-library (1.22)
   - MessageKit (3.1.0):
     - InputBarAccessoryView (~> 4.3.0)
+  - MGSwipeTableCell (1.6.11)
   - nanopb (1.30905.0):
     - nanopb/decode (= 1.30905.0)
     - nanopb/encode (= 1.30905.0)
@@ -429,11 +467,12 @@ PODS:
   - Realm/Headers (5.2.0)
   - RealmSwift (5.2.0):
     - Realm (= 5.2.0)
-  - SDWebImage (5.8.1):
-    - SDWebImage/Core (= 5.8.1)
-  - SDWebImage/Core (5.8.1)
+  - SDWebImage (5.7.4):
+    - SDWebImage/Core (= 5.7.4)
+  - SDWebImage/Core (5.7.4)
 
 DEPENDENCIES:
+  - ApiAI
   - Firebase/Analytics
   - Firebase/Firestore
   - Firebase/Storage
@@ -441,14 +480,17 @@ DEPENDENCIES:
   - FirebaseUI
   - JGProgressHUD
   - Kingfisher (~> 5.0)
+  - Kommunicate
   - MessageKit
   - RealmSwift
-  - SDWebImage
 
 SPEC REPOS:
   trunk:
     - abseil
+    - ApiAI
     - AppAuth
+    - Applozic
+    - ApplozicSwift
     - BoringSSL-GRPC
     - FBSDKCoreKit
     - FBSDKLoginKit
@@ -477,8 +519,10 @@ SPEC REPOS:
     - InputBarAccessoryView
     - JGProgressHUD
     - Kingfisher
+    - Kommunicate
     - leveldb-library
     - MessageKit
+    - MGSwipeTableCell
     - nanopb
     - PromisesObjC
     - Realm
@@ -487,7 +531,10 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
+  ApiAI: d4b49d3736f33ce6f3ef66dc33c0e0fccb23579e
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
+  Applozic: 5817caeaf33b9a0bd602e785755590ba364d2af3
+  ApplozicSwift: 5b10ff3d7822f4a07278207964ae228ee39538ba
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   FBSDKCoreKit: 1d5acf7c9d7a2f92bb1a242dc60cae5b7adb91df
   FBSDKLoginKit: f1ea8026a58b52d30c9f2e6a58ca7d813619fb83
@@ -516,14 +563,16 @@ SPEC CHECKSUMS:
   InputBarAccessoryView: 7985d418040a05fe894bd4b8328dd43ab35517c3
   JGProgressHUD: aa403e9a5b45cae98903c4600cccdd98c0c3ec90
   Kingfisher: 8050bc6f7f68cbf3908bd04df7ccbac188f6d6d6
+  Kommunicate: a8dde3b34104505e66740d5fbcee5c332f682c72
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   MessageKit: 3beb578737a5aa2bba25cc27c7b6d6faa09af5a7
+  MGSwipeTableCell: b804e4e450dee439c42250be90bd50458bf67fce
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Realm: f749c723e272f08fdf1939af5e61d2bd09b203e8
   RealmSwift: bf0ab78b52c5bafba8b3ad73be8dfb4c1ea5cf01
-  SDWebImage: e3eae2eda88578db0685a0c88597fdadd9433f05
+  SDWebImage: 48b88379b798fd1e4298f95bb25d2cdabbf4deb3
 
-PODFILE CHECKSUM: d72251b5a5667f0138e2476202ca7c692ff1bbd6
+PODFILE CHECKSUM: c143d187d7f78f24dccef8eb0c1f8d1ff8cc2cac
 
 COCOAPODS: 1.9.3
