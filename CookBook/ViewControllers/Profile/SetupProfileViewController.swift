@@ -49,6 +49,7 @@ class SetupProfileViewController: UIViewController {
         let user = Auth.auth().currentUser
         let uid = user?.uid
         let email = user?.email
+        
         //create profile with new data
         let newpf = Profile(UID:uid!, email:email!, displayName:displaynameText.text!,bio:bioText.text!)
         

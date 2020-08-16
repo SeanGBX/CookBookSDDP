@@ -7,11 +7,16 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseUI
 
 class ProfileCell: UITableViewCell {
 
     @IBOutlet weak var ImageView: UIImageView!
     @IBOutlet weak var NameLabel: UILabel!
+    
+    var followerAccountUID: String?
+    var uniqueFollower: [Followers]?
     
     
     override func awakeFromNib() {
@@ -26,6 +31,20 @@ class ProfileCell: UITableViewCell {
     }
 
     @IBAction func FollowTapped(_ sender: Any) {
+        loadUniqueFollower()
         
+       
+    }
+    
+    func loadUniqueFollower() {
+        let currentUser = Auth.auth().currentUser
+        let currentuid = currentUser?.uid
+        
+        followDataManager.deleteFollower(followerAccountUID!, targetAccountUID: currentuid!, onComplete: {
+            follower in
+            self.uniqueFollower = follower
+            followDataManager.actuallyDeleteFollower(follower: self.uniqueFollower!)
+            
+        })
     }
 }

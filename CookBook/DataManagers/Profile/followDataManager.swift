@@ -73,12 +73,47 @@ class followDataManager: NSObject {
             if let err = err {
                 print("Error adding document: \(err)")
             } else {
-                print("Document successfully added")
+                print("Follower successfully added")
             }
         }
     }
     
+    static func deleteFollower(_ followerAccountUID: String, targetAccountUID: String, onComplete: (([Followers]) -> Void)?){
+        db.collection("followers").whereField("followerAccountUID", isEqualTo: followerAccountUID).whereField("targetAccountUID", isEqualTo: targetAccountUID).getDocuments(){
+           
+           (querySnapshot, err) in
+           var followingList : [Followers] = []
+           
+           if let err = err{
+               print("Error getting documents: \(err)")
+           }
+           else{
+               for document in querySnapshot!.documents{
+                   var following = try? document.data(as: Followers.self) as! Followers
+                   
+                   if following != nil{
+                       followingList.append(following!)
+                   }
+               }
+           }
+           onComplete?(followingList)
+           }
+       }
     
+    static func actuallyDeleteFollower (follower: [Followers]){
+        for i in follower {
+        //delete profile by uid
+            db.collection("followers").document(i.followerID).delete() {
+            err in
+
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+                }
+            }
+        }
+    }
     
     
 
