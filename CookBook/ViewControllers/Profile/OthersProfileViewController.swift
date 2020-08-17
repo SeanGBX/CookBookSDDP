@@ -28,11 +28,23 @@ class OthersProfileViewController: UIViewController {
     
     var postList :[Posts] = []
     
+    var currentUse = Auth.auth().currentUser?.uid
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadOthersProfile()
+        followDataManager.deleteFollower(currentUse!, targetAccountUID: otherUser!.username, onComplete: {
+            unfollow in
+            if (unfollow.count > 0){
+                self.flwbtn.setTitle("Unfollow", for: .normal)
+                self.flwbtn.setTitleColor(.systemRed, for: .normal)
+            } else {
+                self.flwbtn.setTitle("Follow", for: .normal)
+                self.flwbtn.setTitleColor(self.view.tintColor, for: .normal)
+            }
+        })
 
         // Do any additional setup after loading the view.
     }
@@ -99,8 +111,27 @@ class OthersProfileViewController: UIViewController {
         let otheruid = otherUser!.username
         let uid = otheruid
         
-        let newflw = Followers(followerAccountUID: currentuid!, targetAccountUID: otherUser!.username, followerID: "0")
-        followDataManager.insertFollower(newflw)
+//        let newflw = Followers(followerAccountUID: currentuid!, targetAccountUID: otherUser!.username, followerID: "0")
+//        followDataManager.insertFollower(newflw)
+        
+        followDataManager.deleteFollower(currentuid!, targetAccountUID: otherUser!.username, onComplete: {
+            unfollow in
+            if (unfollow.count > 0){
+                followDataManager.actuallyDeleteFollower(follower: unfollow)
+                self.flwbtn.setTitle("Follow", for: .normal)
+                var flwNumber  = Int((self.flwnum.titleLabel?.text)!)
+                self.flwbtn.setTitleColor(self.view.tintColor, for: .normal)
+                self.flwnum.setTitle(String(flwNumber! - 1), for: .normal)
+            } else {
+                var follower23 = Followers(followerAccountUID: currentuid!, targetAccountUID: self.otherUser!.username, followerID: "0")
+                followDataManager.insertFollower(follower23)
+                self.flwbtn.setTitle("Unfollow", for: .normal)
+                self.flwbtn.setTitleColor(.systemRed, for: .normal)
+                var flwNumber  = Int((self.flwnum.titleLabel?.text)!)
+                self.flwnum.setTitle(String(flwNumber! + 1), for: .normal)
+            }
+        })
+        
     }
     
     
@@ -108,8 +139,18 @@ class OthersProfileViewController: UIViewController {
 
 extension OthersProfileViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
+//        collectionView.deselectItem(at: indexPath, animated: true)
+        let vc = UIStoryboard(name: "Posts", bundle: nil).instantiateViewController(identifier: "PostInfoViewController") as! PostInfoViewController
+        let myIndexPath1 = self.collectionView.indexPathsForSelectedItems
+        let myIndexPath = myIndexPath1![0]
         
+        if(myIndexPath != nil){
+            let post = postList[myIndexPath.row]
+            vc.postItem = post
+//            vc.isFromProfile = "1"
+//            vc.isFromOtherProfile = otherUser!
+            self.show(vc, sender: self)
+        }
         print ("CVCell Tapped!")
     }
 }

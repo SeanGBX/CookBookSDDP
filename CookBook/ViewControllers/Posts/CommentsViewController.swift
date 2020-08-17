@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseStorage
+import Kingfisher
 
 //class IntrinsicCommentTableView: UITableView {
 //
@@ -77,16 +78,7 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
             user in
             self.userList = user
             for i in self.userList {
-                let imageRef = Storage.storage().reference(withPath: "postImages/CC789BDD-7784-4A9C-B51B-F969504A59FB.jpg")
-                imageRef.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
-                    if let error = error {
-                        print("Error downloading image: \(error.localizedDescription)")
-                        return
-                    }
-                    if let data = data {
-                        self!.userImage.image = UIImage(data: data)
-                    }
-                }
+                self.userImage.kf.setImage(with: URL(string: i.imageName), placeholder: UIImage(named: "DefaultProfile"))
             }
         }
     }
@@ -104,20 +96,9 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
             self.postUserList = user
             for i in self.postUserList{
                 cell.commentLabel.text = p.comment
-                let imageRef1 = Storage.storage().reference(withPath: "postImages/CC789BDD-7784-4A9C-B51B-F969504A59FB.jpg")
-                imageRef1.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
-                    if let error = error {
-                        print("Error downloading image: \(error.localizedDescription)")
-                        return
-                    }
-                    if let data = data {
-                        cell.commentImage.image = UIImage(data: data)
-                    }
-                }
+                cell.commentImage.kf.setImage(with: URL(string: i.imageName), placeholder: UIImage(named: "DefaultProfile"))
             }
         }
-//        cell.commentLabel.text = "\(p.username)  \(p.comment)"
-//        cell.commentImage.image = UIImage(named: "dunkirk")
         cell.commentImage.layer.cornerRadius =  userImage.frame.size.width / 2
         cell.commentImage.clipsToBounds = true
         return cell

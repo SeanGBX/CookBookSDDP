@@ -10,6 +10,10 @@ import UIKit
 import FirebaseAuth
 import FirebaseUI
 
+protocol CustomCellLoadDataProfile: class {
+    func loadAllFollowing()
+}
+
 class ProfileCellA: UITableViewCell {
 
     
@@ -18,6 +22,7 @@ class ProfileCellA: UITableViewCell {
     
     var followerAccountUID: String?
     var uniqueFollower: [Followers]?
+    weak var delegate: CustomCellLoadDataProfile?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,6 +37,11 @@ class ProfileCellA: UITableViewCell {
 
     @IBAction func FollowTapped(_ sender: Any) {
         loadUniqueFollowing()
+//        self.delegate?.loadData()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+            self.delegate?.loadAllFollowing()
+            print("reloadData")
+        })
     }
     
     func loadUniqueFollowing() {
@@ -40,9 +50,12 @@ class ProfileCellA: UITableViewCell {
         
         followDataManager.deleteFollower(currentuid!,targetAccountUID: followerAccountUID!, onComplete: {
             follower in
-            self.uniqueFollower = follower
-            followDataManager.actuallyDeleteFollower(follower: self.uniqueFollower!)
-            
+                self.uniqueFollower = follower
+                followDataManager.actuallyDeleteFollower(follower: self.uniqueFollower!)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+                    self.delegate?.loadAllFollowing()
+                    print("reloadData")
+                })
         })
     }
     
