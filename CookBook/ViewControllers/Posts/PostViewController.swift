@@ -132,12 +132,14 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var westernCount = 0
         var mexicanCount = 0
         var middleECount = 0
+        var europeanCount = 0
+        var africanCount = 0
         var cheapCount = 0
-        var moderatePCount = 80
+        var moderatePCount = 0
         var expensiveCount = 0
-        var quickCount = 35
-        var moderateCount = 60
-        var longCount = 40
+        var quickCount = 0
+        var moderateCount = 0
+        var longCount = 0
         var categoryCount = [String: Int]()
         likePostDataManager.loadLikesByUser(username, onComplete: {
             like in
@@ -154,6 +156,12 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 }
                 if i.cookStyle.lowercased() == "middle-eastern"{
                     middleECount += 1
+                }
+                if i.cookStyle.lowercased() == "european"{
+                    europeanCount += 1
+                }
+                if i.cookStyle.lowercased() == "african"{
+                    africanCount += 1
                 }
                 if i.budget.lowercased() == "cheap"{
                     cheapCount += 1
@@ -179,6 +187,8 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
             categoryCount["Western"] = westernCount
             categoryCount["Mexican"] = mexicanCount
             categoryCount["Middle-Eastern"] = middleECount
+            categoryCount["European"] = europeanCount
+            categoryCount["African"] = africanCount
             categoryCount["Cheap"] = cheapCount
             categoryCount["Moderately-Priced"] = moderatePCount
             categoryCount["Expensive"] = expensiveCount
@@ -216,12 +226,14 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
             var westernCount = 0
             var mexicanCount = 0
             var middleECount = 0
+            var europeanCount = 0
+            var africanCount = 0
             var cheapCount = 0
-            var moderatePCount = 80
+            var moderatePCount = 0
             var expensiveCount = 0
-            var quickCount = 35
-            var moderateCount = 60
-            var longCount = 40
+            var quickCount = 0
+            var moderateCount = 0
+            var longCount = 0
             var categoryCount = [String: Int]()
             likePostDataManager.loadLikesByUser(username, onComplete: {
                 like in
@@ -237,6 +249,12 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     }
                     if i.cookStyle.lowercased() == "middle-eastern"{
                         middleECount += 1
+                    }
+                    if i.cookStyle.lowercased() == "european"{
+                        europeanCount += 1
+                    }
+                    if i.cookStyle.lowercased() == "african"{
+                        africanCount += 1
                     }
                     if i.budget.lowercased() == "cheap"{
                         cheapCount += 1
@@ -262,6 +280,8 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 categoryCount["Western"] = westernCount
                 categoryCount["Mexican"] = mexicanCount
                 categoryCount["Middle-Eastern"] = middleECount
+                categoryCount["European"] = europeanCount
+                categoryCount["African"] = africanCount
                 categoryCount["Cheap"] = cheapCount
                 categoryCount["Moderately-Priced"] = moderatePCount
                 categoryCount["Expensive"] = expensiveCount
