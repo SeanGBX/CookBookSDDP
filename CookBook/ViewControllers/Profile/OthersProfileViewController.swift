@@ -30,6 +30,10 @@ class OthersProfileViewController: UIViewController {
     
     var postList :[Posts] = []
     
+    var screenSize: CGRect!
+    var screenWidth: CGFloat!
+    var screenHeight: CGFloat!
+    
     var currentUse = Auth.auth().currentUser?.uid
     
     
@@ -63,8 +67,14 @@ class OthersProfileViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
+        screenSize = UIScreen.main.bounds
+        screenWidth = screenSize.size.width
+        screenHeight = screenSize.size.height
+        
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 128, height: 128)
+        layout.itemSize = CGSize(width: screenWidth/3 , height: screenWidth/3)
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
         collectionView.collectionViewLayout = layout
         
         loadOthersProfile()
@@ -179,6 +189,10 @@ extension OthersProfileViewController: UICollectionViewDataSource{
             }
             if let data = data {
                 cell.imageView.image = UIImage(data: data)
+                cell.layer.borderColor = UIColor.white.cgColor
+                cell.layer.borderWidth = 1.5
+                cell.frame.size.width = self!.screenWidth/3
+                cell.frame.size.height = self!.screenWidth/3
             }
         }
         
@@ -188,6 +202,6 @@ extension OthersProfileViewController: UICollectionViewDataSource{
 
 extension OthersProfileViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 128, height: 128)
+        return CGSize(width: UIScreen.main.bounds.width/3 , height: UIScreen.main.bounds.width/3)
     }
 }

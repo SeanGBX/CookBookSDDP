@@ -34,7 +34,7 @@ class LoginViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        checkUserInfo()
+        checkAutologin()
     }
     
     @objc func dismissKey() {
@@ -55,18 +55,34 @@ class LoginViewController: UIViewController {
     }
     
     func validateFields(){
+        var error = ""
+        
         //check if email field is empty
         if email.text?.isEmpty == true {
-            print("Email Field is Empty!")
-            return
+            error += "Email field cannot be empty! \n"
         }
+
         //check if password field is empty
         if password.text?.isEmpty == true {
-            print("Email Field is Empty!")
-            return
+            error += "Password field cannot be empty! \n"
         }
         
-        login()
+        if error != ""{
+            let alert = UIAlertController(title: error, message: nil, preferredStyle: .alert)
+
+            
+            alert.addAction(UIAlertAction(
+                title: "OK",
+                style: .default,
+                handler: {
+                action in
+
+            }))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            login()
+        }
+
     }
     
     func login(){
@@ -89,7 +105,29 @@ class LoginViewController: UIViewController {
             vc.modalPresentationStyle = .overFullScreen
             present(vc, animated: true)
         }
+        else {
+            let alert = UIAlertController(title: "Login Error", message: "Email or Password is incorrect.", preferredStyle: .alert)
+
+            
+            alert.addAction(UIAlertAction(
+                title: "OK",
+                style: .default,
+                handler: {
+                action in
+
+            }))
+            self.present(alert, animated: true, completion: nil);            print("user not found or wrong password")
+        }
     }
     
+    
+    func checkAutologin() {
+    if Auth.auth().currentUser != nil {
+         let storyboard = UIStoryboard(name: "Main", bundle: nil)
+         let vc = storyboard.instantiateViewController(identifier: "mainHome")
+        vc.modalPresentationStyle = .overFullScreen
+        present(vc, animated: true)
+        }
+    }
     
 }

@@ -73,13 +73,35 @@ class EditProfileViewController: UIViewController {
     }
     
     func validateFields(){
-        //check if email field is empty
+        var error = ""
+        
+        
         if displayname.text?.isEmpty == true {
-            print("displayname Field is Empty!")
-            return
+            error += "Display Name cannot be empty!"
+        }
+         if bio.text?.isEmpty == true {
+                   error += "Bio cannot be empty!"
+               }
+        if bio.text.count > 50 {
+            error += "Bio cannot have more than 50 characters!"
         }
         
-        save()
+        if error != ""{
+            let alert = UIAlertController(title: error, message: nil, preferredStyle: .alert)
+
+            
+            alert.addAction(UIAlertAction(
+                title: "OK",
+                style: .default,
+                handler: {
+                action in
+
+            }))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            save()
+        }
+        
     }
     
     func save(){

@@ -29,6 +29,10 @@ class ProfileViewController: UIViewController{
     
     var postList :[Posts] = []
     
+    var screenSize: CGRect!
+    var screenWidth: CGFloat!
+    var screenHeight: CGFloat!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,7 +42,7 @@ class ProfileViewController: UIViewController{
         collectionView.dataSource = self
         
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 128, height: 128)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width/3 , height: UIScreen.main.bounds.width/3)
         collectionView.collectionViewLayout = layout
         	
         loadProfile()
@@ -53,9 +57,17 @@ class ProfileViewController: UIViewController{
         collectionView.delegate = self
         collectionView.dataSource = self
         
+        screenSize = UIScreen.main.bounds
+        screenWidth = screenSize.size.width
+        screenHeight = screenSize.size.height
+        
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 128, height: 128)
+        layout.itemSize = CGSize(width: screenWidth/3 , height: screenWidth/3)
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
         collectionView.collectionViewLayout = layout
+        
+        
         profileImage.layer.borderWidth = 1
         profileImage.layer.masksToBounds = false
         profileImage.layer.borderColor = UIColor.black.cgColor
@@ -207,6 +219,10 @@ extension ProfileViewController: UICollectionViewDataSource{
             }
             if let data = data {
                 cell.imageView.image = UIImage(data: data)
+                cell.layer.borderColor = UIColor.white.cgColor
+                cell.layer.borderWidth = 1.5
+                cell.frame.size.width = self!.screenWidth/3
+                cell.frame.size.height = self!.screenWidth/3
             }
         }
         
@@ -216,6 +232,6 @@ extension ProfileViewController: UICollectionViewDataSource{
 
 extension ProfileViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 128, height: 128)
+        return CGSize(width: UIScreen.main.bounds.width/3 , height: UIScreen.main.bounds.width/3)
     }
 }

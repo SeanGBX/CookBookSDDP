@@ -40,14 +40,36 @@ class SetupProfileViewController: UIViewController {
     
     
     @IBAction func SaveTapped(_ sender: Any) {
-        //check if displayname field is empty
+        var error = ""
+        
+        
         if displaynameText.text?.isEmpty == true {
-            displaynameError.isHidden = false
-            print("ERR:",displaynameError)
-            print("displayname field is empty!")
-            return
+            error += "Display Name cannot be empty!"
         }
-        fillProfile()
+        if bioText.text?.isEmpty == true {
+            error += "Bio cannot be empty!"
+        }
+        if bioText.text.count > 50 {
+            error += "Bio cannot have more than 50 characters!"
+        }
+        
+        if error != ""{
+            let alert = UIAlertController(title: error, message: nil, preferredStyle: .alert)
+
+            
+            alert.addAction(UIAlertAction(
+                title: "OK",
+                style: .default,
+                handler: {
+                action in
+
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
+        else {
+            fillProfile()
+        }
+
         
     }
     

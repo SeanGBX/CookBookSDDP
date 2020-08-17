@@ -43,27 +43,27 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         
         //check if email field is empty
         if email.text?.isEmpty == true {
-            error += "email field is empty! \n"
+            error += "Email field cannot be empty! \n"
         }
         //
         if email.text?.contains("@") == false {
-            error += "email field has no @! \n"
+            error += "email has bad format! \n"
         }
         //check if password field is empty
         if password.text?.isEmpty == true {
-            error += "password field is empty! \n"
+            error += "Password field cannot be empty! \n"
         }
         //check if password field is empty
         if password.text!.count < 6 {
-            error += "password field is less than 6 characters! \n"
+            error += "Password field is less than 6 characters! \n"
         }
         //check if password field is empty
         if confirmpassword.text?.isEmpty == true {
-            error += "cfmpassword field is empty! \n"
+            error += "Confirm Password field cannot be empty! \n"
         }
         //check if password field is equal to confirmpassword field
         if password.text != confirmpassword.text {
-            error += "password fields are different!"
+            error += "Passwords do not match!"
         }
         
         if error != ""{
