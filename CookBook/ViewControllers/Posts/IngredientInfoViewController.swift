@@ -15,7 +15,8 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     @IBOutlet weak var ingredientInfoName: UITextField!
     @IBOutlet weak var ingredientInfoMeasureVal: UITextField!
-    @IBOutlet weak var ingredientInfoMeasureType: UIPickerView!
+    @IBOutlet weak var unitTF: UITextField!
+    @IBOutlet weak var unitTFLabel: UILabel!
     @IBOutlet weak var ingredientInfoImage: UIImageView!
     @IBOutlet weak var addEditIngredientButton: UIButton!
     @IBOutlet weak var stepInfo: UITextField!
@@ -43,20 +44,32 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         "tsp",
         "oz",
     ]
+    
+    var unitPick = UIPickerView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        unitTF.inputView = unitPick
+        
+        unitPick.dataSource = self
+        unitPick.delegate = self
+
+        unitTF.text = measurementTypeData[0]
+        
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKey")
         
         view.addGestureRecognizer(tap)
+        
+        
 //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
 //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
 
         enableIngredientSwitch.isOn = false
         loadingBar.isHidden = true
         ingredientInfoMeasureVal.isHidden = true
-        ingredientInfoMeasureType.isHidden = true
+        unitTF.isHidden = true
+        unitTFLabel.isHidden = true
         ingredientInfoName.isHidden = true
         ingredientInfoImage.isHidden = true
         addIngredientImageButton.isHidden = true
@@ -80,9 +93,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
             ingredientInfoName.text = ingredientItem!.ingredient
             ingredientInfoMeasureVal.text = "\(ingredientItem!.measureVal)"
             stepInfo.text = ingredientItem!.step
-            let indexOfMeasureType:Int = measurementTypeData.firstIndex(of: ingredientItem!.measureType) ?? 0
-            
-            ingredientInfoMeasureType.selectRow(indexOfMeasureType ?? 0, inComponent: 0, animated: true)
+            unitTF.text = ingredientItem!.measureType
             
             if (segueIdentifier! == "EditIngredient"){
                 enableIngredientSwitch.isEnabled = false
@@ -93,7 +104,8 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
                     enableIngredientSwitch.isOn = true
                     
                     ingredientInfoMeasureVal.isHidden = false
-                    ingredientInfoMeasureType.isHidden = false
+                    unitTF.isHidden = false
+                    unitTFLabel.isHidden = false
                     ingredientInfoName.isHidden = false
                     ingredientInfoImage.isHidden = false
                     addIngredientImageButton.isHidden = false
@@ -112,6 +124,11 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return measurementTypeData[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        unitTF.text = measurementTypeData[row]
+        self.view.endEditing(true)
     }
     
     @objc func dismissKey() {
@@ -164,7 +181,11 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
             } else {
                 error1 += "Please enter a valid measurement value\n\n"
             }
-
+            
+            if (!measurementTypeData.contains(unitTF.text ?? "")){
+                error1 += "Please select a valid measurement unit\n\n"
+            }
+    
             if (areEqualImages() == true){
                 error1 += "Please add an image for your ingredient\n\n"
             }
@@ -199,9 +220,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
             ingredientItem!.ingredient = ingredientInfoName.text!
             ingredientItem!.measureVal = measureValue != nil ? measureValue! : 0
             
-            let pickerRow = ingredientInfoMeasureType.selectedRow(inComponent: 0)
-            let selectedPickerText = measurementTypeData[pickerRow]
-            ingredientItem!.measureType = selectedPickerText
+            ingredientItem!.measureType = unitTF.text!
             let randomID = UUID.init().uuidString
             let imagePath = "ingredientImages/\(randomID).jpg"
             let uploadRef = Storage.storage().reference(withPath: imagePath)
@@ -315,14 +334,16 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
     @IBAction func enableIngredient(_ sender: Any) {
         if (enableIngredientSwitch.isOn == true){
             ingredientInfoMeasureVal.isHidden = false
-            ingredientInfoMeasureType.isHidden = false
+            unitTF.isHidden = false
+            unitTFLabel.isHidden = false
             ingredientInfoName.isHidden = false
             ingredientInfoImage.isHidden = false
             addIngredientImageButton.isHidden = false
             ingredientNameLabel.isHidden = false
         } else {
             ingredientInfoMeasureVal.isHidden = true
-            ingredientInfoMeasureType.isHidden = true
+            unitTF.isHidden = true
+            unitTFLabel.isHidden = true
             ingredientInfoName.isHidden = true
             ingredientInfoImage.isHidden = true
             addIngredientImageButton.isHidden = true

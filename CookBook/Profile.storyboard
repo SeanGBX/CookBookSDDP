@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uLi-Yu-cpY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uLi-Yu-cpY">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -68,9 +68,18 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultprofile" translatesAutoresizingMaskIntoConstraints="NO" id="phZ-87-WQ3">
-                                <rect key="frame" x="143" y="173" width="128" height="128"/>
+                                <rect key="frame" x="143" y="157" width="128" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UMe-su-kVL">
+                                <rect key="frame" x="129" y="289" width="152.99999999999997" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Change profile picture"/>
+                                <connections>
+                                    <action selector="changePicBtn:" destination="FmL-Pr-T9b" eventType="touchUpInside" id="gtn-x1-Ufp"/>
+                                    <action selector="changePicBtn:" destination="oFC-X7-yox" eventType="touchUpInside" id="kWb-vq-pRu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="CJT-JT-4my"/>
@@ -78,6 +87,7 @@
                     <navigationItem key="navigationItem" title="Set-up Profile" id="IG1-fY-2Ie"/>
                     <connections>
                         <outlet property="bioText" destination="Zbd-he-EQG" id="kvm-zJ-l0P"/>
+                        <outlet property="displayimage" destination="phZ-87-WQ3" id="1Cm-Qt-r8h"/>
                         <outlet property="displaynameError" destination="KF1-P6-EUj" id="fwf-df-01s"/>
                         <outlet property="displaynameText" destination="Sf2-Ei-Fdo" id="ctv-gD-Dpy"/>
                     </connections>
@@ -338,6 +348,7 @@
                         <outlet property="flwnum" destination="EbS-e0-7eC" id="ERz-9K-RYH"/>
                         <outlet property="msgbtn" destination="X7f-G0-tDr" id="5oR-Lh-GLs"/>
                         <outlet property="postnum" destination="1Hm-eb-SaA" id="98u-9c-nDT"/>
+                        <outlet property="profileImage" destination="PQY-gl-ZpN" id="dq3-Co-mtY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7yB-Nj-cvp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

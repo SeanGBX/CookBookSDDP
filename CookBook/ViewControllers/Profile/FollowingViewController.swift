@@ -69,6 +69,7 @@ class FollowingViewController: UIViewController,UITableViewDelegate, UITableView
         let p = profileList[indexPath.row]
         cell.NameLabel?.text = p.displayName
         cell.followerAccountUID = p.UID
+        cell.ImageView.kf.setImage(with: URL(string: p.imageName), placeholder: UIImage(named: "defaultprofile"))
         cell.delegate = self
 
         return cell

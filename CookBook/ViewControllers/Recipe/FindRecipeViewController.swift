@@ -18,7 +18,7 @@ class FindRecipeViewController: UIViewController, UITextFieldDelegate, UIPickerV
     @IBOutlet weak var findRecipeButton: UIButton!
     var cuisineTitle: String = ""
     
-    var cuisinePickerData: [String] = ["Asian", "Western", "Mexican", "Middle-Eastern"]
+    var cuisinePickerData: [String] = ["Asian", "Western", "Mexican", "Middle-Eastern", "European", "African"]
     var budgetPickerData: [String] = ["Cheap", "Moderately-Priced", "Expensive"]
     var prepTimePickerData: [String] = ["Quick", "Moderate", "Long"]
     //var pickerView = UIPickerView()
@@ -135,7 +135,7 @@ class FindRecipeViewController: UIViewController, UITextFieldDelegate, UIPickerV
     @IBAction func findRecipeButtonPressed(_ sender: Any) {
         if (budgetTextField.text == "" && prepTimeTextField.text == "" || budgetTextField.text == "" && cuisineStyleTextField.text == "" || prepTimeTextField.text == "" && prepTimeTextField.text == "" && cuisineStyleTextField.text == "")
         {
-            let alert = UIAlertController(title: "There are missing field(s)", message: "Please field in all the missing fields.", preferredStyle: UIAlertController.Style.alert)
+            let alert = UIAlertController(title: "There are missing field(s)", message: "Please fill in all the missing fields.", preferredStyle: UIAlertController.Style.alert)
                        
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
                        

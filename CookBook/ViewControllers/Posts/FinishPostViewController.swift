@@ -11,16 +11,11 @@ import FirebaseStorage
 
 class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
-    
-    @IBOutlet weak var budgetPicker: UIPickerView!
-    
-    @IBOutlet weak var cookingStylePicker: UIPickerView!
-    
-    @IBOutlet weak var prepTimePicker: UIPickerView!
-    
     @IBOutlet weak var finalImage: UIImageView!
-    
     @IBOutlet weak var finalName: UILabel!
+    @IBOutlet weak var budgetTF: UITextField!
+    @IBOutlet weak var cookingStyleTF: UITextField!
+    @IBOutlet weak var prepTimeTF: UITextField!
     
     var postID: String?
     var postItem: Posts?
@@ -28,15 +23,43 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
     var ingredientList: [IngredientSteps]?
     
     var budgetData : [String] = ["Cheap","Moderately-Priced","Expensive"]
-    var cookStyleData : [String] = ["Asian", "Western", "Mexican", "Middle-Eastern"]
+    var cookStyleData : [String] = ["Asian", "Western", "Mexican", "Middle-Eastern", "European", "African"]
     var prepTimeData : [String] = ["Quick", "Moderate", "Long"]
+    
+    var budgetPick = UIPickerView()
+    var cookingStylePick = UIPickerView()
+    var prepTimePick = UIPickerView()
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: true);
         loadSpecificPost()
-        // Do any additional setup after loading the view.
+        budgetTF.inputView = budgetPick
+        cookingStyleTF.inputView = cookingStylePick
+        prepTimeTF.inputView = prepTimePick
+        
+        budgetPick.delegate = self
+        budgetPick.dataSource = self
+        cookingStylePick.delegate = self
+        cookingStylePick.dataSource = self
+        prepTimePick.delegate = self
+        prepTimePick.dataSource = self
+        
+        budgetPick.tag = 1
+        cookingStylePick.tag = 2
+        prepTimePick.tag = 3
+        
+        budgetTF.text = budgetData[0]
+        cookingStyleTF.text = cookStyleData[0]
+        prepTimeTF.text = prepTimeData[0]
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKey")
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKey() {
+        view.endEditing(true)
     }
     
     func loadSpecificPost(){
@@ -64,76 +87,128 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if (pickerView === budgetPicker) {
+        switch pickerView.tag {
+        case 1:
             return budgetData.count
-        }
-        else if (pickerView === cookingStylePicker) {
+            
+        case 2:
             return cookStyleData.count
-        }
-        else {
+            
+        case 3:
             return prepTimeData.count
+        default:
+            return 1
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if (pickerView === budgetPicker) {
+        switch pickerView.tag {
+        case 1:
             return budgetData[row]
-        }
-        else if (pickerView === cookingStylePicker) {
+        case 2:
             return cookStyleData[row]
-        }
-        else {
+        case 3:
             return prepTimeData[row]
+        default:
+            return ""
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch pickerView.tag {
+        case 1:
+            budgetTF.text = budgetData[row]
+            self.view.endEditing(true)
+        case 2:
+            cookingStyleTF.text = cookStyleData[row]
+            self.view.endEditing(true)
+        case 3:
+            prepTimeTF.text = prepTimeData[row]
+            self.view.endEditing(true)
+        default:
+            self.view.endEditing(true)
         }
     }
     
     
     @IBAction func postRecipeButton(_ sender: Any) {
+        var error = ""
         
-        let alert = UIAlertController(
-            title: "Are you sure you want to post this recipe?",
-            message: "",
-            preferredStyle: .alert
-        )
+        if (!budgetData.contains(budgetTF.text ?? "")){
+            error += "Please select a valid budget \n\n"
+        }
         
-        alert.addAction(
-            UIAlertAction(
-                title: "Cancel",
-                style: .destructive,
-                handler: nil
-        ))
+        if (!cookStyleData.contains(cookingStyleTF.text ?? "")){
+            error += "Please select a valid Cooking Style \n\n"
+        }
         
-        alert.addAction(
-            UIAlertAction(
-                title: "Yes",
-                style: .default,
-                handler: {
-                    action in
-                    self.postItem = Posts(recipeName: "", username: "", mealType: "", likes: 0, healthy: 0, tagBudget: "", tagStyle: "", tagPrep: "", postImage: "", postComplete: "1")
+        if (!prepTimeData.contains(prepTimeTF.text ?? "")){
+            error += "Please select a valid Preparation Time \n\n"
+        }
+            
+        if (error != "") {
+            let alert1 = UIAlertController(
+                        title: error,
+                        message: nil,
+                        preferredStyle: .alert
+                    )
                     
-                    let pickerRowBudget = self.budgetPicker.selectedRow(inComponent: 0)
-                    let selectedPickerTextBudget = self.budgetData[pickerRowBudget]
-                    self.postItem!.tagBudget = selectedPickerTextBudget
+                    alert1.addAction(
+                        UIAlertAction(
+                            title: "OK",
+                            style: .default,
+                            handler: nil
+                    ))
+            
+            self.present(alert1, animated: true, completion: nil)
+               
+              return
+        } else {
+            let alert = UIAlertController(
+                        title: "Are you sure you want to post this recipe?",
+                        message: "",
+                        preferredStyle: .alert
+                    )
+                    
+                    alert.addAction(
+                        UIAlertAction(
+                            title: "Cancel",
+                            style: .destructive,
+                            handler: nil
+                    ))
+                    
+                    alert.addAction(
+                        UIAlertAction(
+                            title: "Yes",
+                            style: .default,
+                            handler: {
+                                action in
+                                self.postItem = Posts(recipeName: "", username: "", mealType: "", likes: 0, healthy: 0, tagBudget: "", tagStyle: "", tagPrep: "", postImage: "", postComplete: "1")
+                                
+            //                    let pickerRowBudget = self.budgetPicker.selectedRow(inComponent: 0)
+            //                    let selectedPickerTextBudget = self.budgetData[pickerRowBudget]
+                                self.postItem!.tagBudget = self.budgetTF.text!
 
-                    let pickerRowStyle = self.cookingStylePicker.selectedRow(inComponent: 0)
-                    let selectedPickerTextCookStyle = self.cookStyleData[pickerRowStyle]
-                    self.postItem!.tagStyle = selectedPickerTextCookStyle
+            //                    let pickerRowStyle = self.cookingStylePicker.selectedRow(inComponent: 0)
+            //                    let selectedPickerTextCookStyle = self.cookStyleData[pickerRowStyle]
+                                self.postItem!.tagStyle = self.cookingStyleTF.text!
+                                
+            //                    let pickerRowPrep = self.prepTimePicker.selectedRow(inComponent: 0)
+            //                    let selectedPickerTextPrepTime = self.prepTimeData[pickerRowPrep]
+                                self.postItem!.tagPrep = self.prepTimeTF.text!
+                                
+                                let vc = self.storyboard?.instantiateViewController(identifier: "PostViewController") as! PostViewController
+                                
+                                postsDataManager.FinishPost(self.postID!, self.postItem!)
+                                self.show(vc, sender: self)
+                                //test if clicking alert works
+                        }
+                    ))
                     
-                    let pickerRowPrep = self.prepTimePicker.selectedRow(inComponent: 0)
-                    let selectedPickerTextPrepTime = self.prepTimeData[pickerRowPrep]
-                    self.postItem!.tagPrep = selectedPickerTextPrepTime
-                    
-                    let vc = self.storyboard?.instantiateViewController(identifier: "PostViewController") as! PostViewController
-                    
-                    postsDataManager.FinishPost(self.postID!, self.postItem!)
-                    self.show(vc, sender: self)
-                    //test if clicking alert works
-            }
-        ))
-        
-        self.present(alert, animated: true, completion: nil)
-         
-        return
+                    self.present(alert, animated: true, completion: nil)
+                     
+                    return
+        }
     }
     
     @IBAction func cancelPostCreate(_ sender: Any) {
