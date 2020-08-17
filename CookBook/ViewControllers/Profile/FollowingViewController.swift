@@ -26,6 +26,10 @@ class FollowingViewController: UIViewController,UITableViewDelegate, UITableView
         loadAllProfiles()
     }
     
+    func loadData() {
+        self.tableViewFollowing.reloadData()
+    }
+    
     func loadAllFollowing() {
         let currentUser = Auth.auth().currentUser
         let currentuid = currentUser?.uid
@@ -63,6 +67,7 @@ class FollowingViewController: UIViewController,UITableViewDelegate, UITableView
         
         let p = profileList[indexPath.row]
         cell.NameLabel?.text = p.displayName
+        cell.followerAccountUID = p.UID
 
         return cell
         

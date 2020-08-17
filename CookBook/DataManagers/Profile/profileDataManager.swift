@@ -58,6 +58,50 @@ class profileDataManager: NSObject {
         }
     }
     
+    static func calculateFollowing(_ profileUID: String, onComplete: ((Int) -> Void)?){
+        db.collection("followers").whereField("followerAccountUID", isEqualTo: profileUID).getDocuments(){
+        
+        (querySnapshot, err) in
+        var flwingList : [Followers] = []
+        
+        if let err = err{
+            print("Error getting documents: \(err)")
+        }
+        else{
+            for document in querySnapshot!.documents{
+                var flwing = try? document.data(as: Followers.self) as! Followers
+                
+                if flwing != nil{
+                    flwingList.append(flwing!)
+                }
+            }
+        }
+        onComplete?(flwingList.count)
+        }
+    }
+    
+    static func calculateFollowers(_ profileUID: String, onComplete: ((Int) -> Void)?){
+        db.collection("followers").whereField("targetAccountUID", isEqualTo: profileUID).getDocuments(){
+        
+        (querySnapshot, err) in
+        var flwList : [Followers] = []
+        
+        if let err = err{
+            print("Error getting documents: \(err)")
+        }
+        else{
+            for document in querySnapshot!.documents{
+                var flw = try? document.data(as: Followers.self) as! Followers
+                
+                if flw != nil{
+                    flwList.append(flw!)
+                }
+            }
+        }
+        onComplete?(flwList.count)
+        }
+    }
+    
     static func calculatePosts(_ profileUID: String, onComplete: ((Int) -> Void)?){
         db.collection("posts").whereField("username", isEqualTo: profileUID).whereField("postComplete", isEqualTo: "1").getDocuments(){
         
