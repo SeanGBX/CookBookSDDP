@@ -66,9 +66,10 @@ class FollowersViewController: UIViewController, UITableViewDelegate, UITableVie
         let cell: ProfileCell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell", for: indexPath) as! ProfileCell
         
             
-            let p = profileList[indexPath.row]
+        let p = profileList[indexPath.row]
         cell.NameLabel?.text = p.displayName
         cell.followerAccountUID = p.UID
+        cell.ImageView.kf.setImage(with: URL(string: p.imageName), placeholder: UIImage(named: "defaultprofile"))
 
         return cell
         

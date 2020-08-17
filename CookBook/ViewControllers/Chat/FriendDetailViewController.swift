@@ -100,6 +100,22 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
             otherUser.photoURL = followingList!.imageName
             currUser.displayName = currUserName
             currUser.senderId = currUserId
+            if isSharing{
+                let message =  Message(sender: currUser, messageId: createMessageId()!, sentDate: Date(), kind: .text(shareString))
+                chatDataManager.init().createNewConversation(with: currUserId, following: followingList!, currUserName: currUserName, currImage: currImage, firstMessage: message, msgType: "sharedpost", textMessage: shareString, completion: {
+                    success in
+                    if success {
+                        print("Post shared and started new convo")
+                        chatDataManager.appendChat(self.otherUserId, self.currUserId, self.messageList)
+
+                    }
+                    else{
+                        print("Failed to send")
+                    }
+                })
+                isSharing = false
+                isNewConversation = false
+            }
             self.navigationItem.title = followingList?.displayName
         }
         
@@ -370,14 +386,33 @@ extension FriendDetailViewController: UIImagePickerControllerDelegate, UINavigat
                 }
                 if let url = url{
                     print(url.absoluteString)
-                    self.messageList.append([
-                                          "date" : Self.dateFormatter.string(from: Date()),
-                                          "is_read": "true",
-                                          "message": url.absoluteString,
-                                          "sentBy": self.currUserId
-                                       ])
-                    chatDataManager.appendChat(self.otherUserId, self.currUserId, self.messageList)
-                    self.messagesCollectionView.reloadData()
+                    if self.isNewConversation{
+                        let message =  Message(sender: self.currUser, messageId: self.createMessageId()!, sentDate: Date(), kind: .text(url.absoluteString))
+                        chatDataManager.init().createNewConversation(with: self.currUserId, following: self.followingList!, currUserName: self.currUserName, currImage: self.currImage, firstMessage: message, msgType: "true", textMessage: url.absoluteString, completion: {
+                            success in
+                            if success {
+                                print("Post shared and started new convo")
+                                chatDataManager.appendChat(self.otherUserId, self.currUserId, self.messageList)
+
+                            }
+                            else{
+                                print("Failed to send")
+                            }
+                        })
+                        self.isNewConversation = false
+                    }
+                    else{
+                        self.messageList.append([
+                                              "date" : Self.dateFormatter.string(from: Date()),
+                                              "is_read": "true",
+                                              "message": url.absoluteString,
+                                              "sentBy": self.currUserId
+                                           ])
+                        chatDataManager.appendChat(self.otherUserId, self.currUserId, self.messageList)
+                        self.messagesCollectionView.reloadData()
+                    }
+
+                    
                 }
             })
         }
@@ -397,7 +432,7 @@ extension FriendDetailViewController: InputBarAccessoryViewDelegate {
         
         if isNewConversation {
             let message =  Message(sender: currUser, messageId: createMessageId()!, sentDate: Date(), kind: .text(text))
-            chatDataManager.init().createNewConversation(with: currUserId, following: followingList!, currUserName: currUserName, currImage: currImage, firstMessage: message, textMessage: text, completion: {
+            chatDataManager.init().createNewConversation(with: currUserId, following: followingList!, currUserName: currUserName, currImage: currImage, firstMessage: message, msgType: "false", textMessage: text, completion: {
                 success in
                 if success {
                     print("Message Sent")

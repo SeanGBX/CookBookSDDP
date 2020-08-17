@@ -187,7 +187,7 @@ extension chatDataManager{
     }
     
     
-    public func createNewConversation(with sentBy: String, following: Profile, currUserName: String, currImage: String, firstMessage: Message, textMessage: String, completion: @escaping (Bool) -> Void){
+    public func createNewConversation(with sentBy: String, following: Profile, currUserName: String, currImage: String, firstMessage: Message, msgType: String, textMessage: String, completion: @escaping (Bool) -> Void){
         let messageDate = firstMessage.sentDate
         let dateString = FriendDetailViewController.dateFormatter.string(from: messageDate)
         
@@ -199,6 +199,7 @@ extension chatDataManager{
         var secondName = ""
         var firstImage = ""
         var secondImage = ""
+        
         
         switch firstMessage.kind{
         case .text(let messageText):
@@ -246,7 +247,7 @@ extension chatDataManager{
             firstUserId: firstId, secondUserId: secondId, firstUserName: firstName, secondUserName: secondName, firstImage: firstImage, secondImage: secondImage, messages: [[
                 "date": dateString,
                 "message": textMessage,
-                "is_read": "false",
+                "is_read": msgType,
                 "sentBy": sentBy
                 ]]
         )

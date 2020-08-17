@@ -14,6 +14,7 @@ class SetupProfileViewController: UIViewController {
     @IBOutlet weak var displaynameText: UITextField!
     @IBOutlet weak var bioText: UITextView!
     @IBOutlet weak var displaynameError: UILabel!
+    @IBOutlet weak var displayimage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,11 @@ class SetupProfileViewController: UIViewController {
         bioText!.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
         bioText!.layer.borderWidth = 1
         bioText!.layer.cornerRadius = 5
+        displayimage.layer.borderWidth = 1
+        displayimage.layer.masksToBounds = false
+        displayimage.layer.borderColor = UIColor.black.cgColor
+        displayimage.layer.cornerRadius = displayimage.frame.height/2
+        displayimage.clipsToBounds = true
     }
     
     @objc func dismissKey() {
@@ -45,20 +51,88 @@ class SetupProfileViewController: UIViewController {
         
     }
     
+    @IBAction func changePicBtn(_ sender: Any) {
+         presentInputActionSheet()
+    }
     func fillProfile() {
         let user = Auth.auth().currentUser
         let uid = user?.uid
         let email = user?.email
-        
+        let randomID = UUID.init().uuidString
         //create profile with new data
-        let newpf = Profile(UID:uid!, email:email!, imageName: "", displayName:displaynameText.text!,bio:bioText.text!)
-        
-        profileDataManager.editProfile(newpf)
+       let uploadRef = Storage.storage().reference(withPath: "profile/\(randomID).jpg")
+       guard let imageData = displayimage.image?.jpegData(compressionQuality: 0.75) else{
+           return
+       }
+       let uploadMetaData = StorageMetadata.init()
+       uploadMetaData.contentType = "image/jpeg"
+       uploadRef.putData(imageData, metadata: uploadMetaData){
+           (downloadMetadata, error) in
+           if let error = error {
+               print("An error occured : \(error.localizedDescription)")
+           }
+           print(downloadMetadata)
+           
+           uploadRef.downloadURL(completion: {(url, error) in
+               if let error = error{
+                   print("An error occured : \(error.localizedDescription)")
+                   return
+               }
+               if let url = url{
+                   print(url.absoluteString)
+                   let newpf = Profile(UID:uid!, email:email!, imageName: url.absoluteString, displayName:self.displaynameText.text!,bio:self.bioText.text!)
+                          
+                   profileDataManager.editProfile(newpf)
+               }
+           })
+       }
         
         //redirect to home page
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
          let vc = storyboard.instantiateViewController(identifier: "mainHome")
         vc.modalPresentationStyle = .overFullScreen
         present(vc, animated: true)
+    }
+    
+    private func presentInputActionSheet(){
+                let actionSheet = UIAlertController()
+
+                actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
+                    let picker = UIImagePickerController()
+                    
+                    picker.sourceType = .camera
+                    picker.delegate = self
+                    picker.allowsEditing = true
+                    self?.present(picker, animated: true)
+                }))
+                actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { [weak self] _ in
+                    let picker = UIImagePickerController()
+                    picker.sourceType = .photoLibrary
+                    picker.delegate = self
+                    picker.allowsEditing = true
+                    self?.present(picker, animated: true)
+                }))
+                actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                if !UIImagePickerController.isSourceTypeAvailable(.camera){
+                    actionSheet.actions[0].isEnabled = false
+                }
+                present(actionSheet, animated: true)
+             }
+}
+      
+
+
+extension SetupProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
+        displayimage.image = image
+        picker.dismiss(animated: true, completion: nil)
+        
+        
+       
     }
 }

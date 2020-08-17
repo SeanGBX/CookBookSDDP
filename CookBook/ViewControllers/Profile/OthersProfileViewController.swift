@@ -19,9 +19,11 @@ class OthersProfileViewController: UIViewController {
     @IBOutlet weak var flwnum: UIButton!
     @IBOutlet weak var flwingnum: UIButton!
     
+    @IBOutlet weak var profileimage: UIImageView!
     @IBOutlet weak var flwbtn: UIButton!
     @IBOutlet weak var msgbtn: UIButton!
     
+    @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet var collectionView: UICollectionView!
     
     var otherUser: Posts?
@@ -45,7 +47,11 @@ class OthersProfileViewController: UIViewController {
                 self.flwbtn.setTitleColor(self.view.tintColor, for: .normal)
             }
         })
-
+        profileImage.layer.borderWidth = 1
+        profileImage.layer.masksToBounds = false
+        profileImage.layer.borderColor = UIColor.black.cgColor
+        profileImage.layer.cornerRadius = profileImage.frame.height/2
+        profileImage.clipsToBounds = true
         // Do any additional setup after loading the view.
     }
     
