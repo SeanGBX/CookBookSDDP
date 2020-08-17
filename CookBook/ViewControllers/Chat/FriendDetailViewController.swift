@@ -328,7 +328,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
                 print(post[0])
                 let vc = UIStoryboard(name: "Posts", bundle: nil).instantiateViewController(identifier: "PostInfoViewController") as! PostInfoViewController
                 vc.postItem = post[0]
-                vc.isFromProfile = "1"
+                vc.isMessage = "1"
                 self.show(vc, sender: self)
             }
             

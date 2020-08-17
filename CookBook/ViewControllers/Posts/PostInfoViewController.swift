@@ -81,6 +81,8 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var isFromProfile = ""
     var isFromOtherProfile: Posts? = nil
+    
+    var isMessage = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -319,10 +321,9 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         } else if (isFromProfile != ""){
             let vc = UIStoryboard(name: "Profile", bundle: nil).instantiateViewController(identifier: "Profile") as! ProfileViewController
             self.show(vc, sender: self)
-//        } else if (isFromOtherProfile != nil){
-//            let vc = UIStoryboard(name: "Profile", bundle: nil).instantiateViewController(identifier: "OthersProfile") as! OthersProfileViewController
-//            vc.otherUser = isFromOtherProfile!
-//            self.show(vc, sender: self)
+        } else if (isMessage != ""){
+            let vc = UIStoryboard(name: "Chat", bundle: nil).instantiateViewController(identifier: "ChatViewController") as! ChatViewController
+            self.show(vc, sender: self)
         } else {
             let vc = storyboard?.instantiateViewController(identifier: "PostViewController") as! PostViewController
             vc.loadRecommend()
