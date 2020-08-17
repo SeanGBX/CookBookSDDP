@@ -36,6 +36,7 @@ class RecipeViewController: UIViewController,  UITableViewDataSource, UITableVie
         }
         
         cell.recipeTitleLabel.text = "Recipe name: \(recipe.recipeName)"
+        //cell.recipeTitleLabel.text = "Likes: \(recipe.likes)"
         // cell.recipeStepsLabel.text = recipeSteps.step
         //cell.recipeStepsLabel.text = recipeStep.step
         
@@ -48,6 +49,7 @@ class RecipeViewController: UIViewController,  UITableViewDataSource, UITableVie
         cell.mealType = recipe.mealType
         cell.delegate = self
         cell.recipe = recipe
+        print(">> \(recipe.likes)")
         
         let image = Storage.storage().reference(withPath: recipe.postImage)
         image.getData(maxSize: 4 * 1024 * 1024) {
@@ -89,6 +91,7 @@ class RecipeViewController: UIViewController,  UITableViewDataSource, UITableVie
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var recipeTableView: UITableView!
     @IBOutlet weak var recipeNameLabel: UILabel!
+    
     var chosenCuisine: String = ""
     var budget: String = ""
     var prepTime: String = ""
@@ -164,7 +167,21 @@ class RecipeViewController: UIViewController,  UITableViewDataSource, UITableVie
             return recipe.recipeName.lowercased().contains(searchText.lowercased())
         }
         
+        updateLabel()
         recipeTableView.reloadData()
+    }
+    
+    func updateLabel() {
+        if filteredRecipes.isEmpty && isFiltering {
+            self.recipeNameLabel.text = "No recipes found!"
+            self.recipeNameLabel.isHidden = false
+            self.recipeTableView.isHidden = true
+        }
+        
+        else {
+            self.recipeNameLabel.isHidden = true
+            self.recipeTableView.isHidden = false
+        }
     }
     
     
