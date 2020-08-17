@@ -262,7 +262,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     
     override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
         
-        if action == NSSelectorFromString("delete:") {
+        if action == NSSelectorFromString("delete:") && messageList[indexPath.section]["sentBy"] == currUserId{
             return true
         }
         else if action == NSSelectorFromString("forward:"){

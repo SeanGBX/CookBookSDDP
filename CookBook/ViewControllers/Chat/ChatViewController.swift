@@ -18,6 +18,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     var convList : [Conversations] = []
     var followingList : [Profile] = []
     private var results: [Conversations] = []
+    private var following: [Followers] = []
     
     let currUserId = Auth.auth().currentUser!.uid
     
@@ -116,12 +117,15 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     
     override func viewDidAppear(_ animated: Bool) {
-        chatDataManager.loadChat(currUserId){
-            friendListFromFirestore in
-
-            self.followingList = friendListFromFirestore
-            
-            self.tableView.reloadData()
+        followDataManager.loadFollowing(currUserId) {
+            Following in
+            self.following = Following
+            chatDataManager.loadChat(self.currUserId, self.following){
+                UserListFromFirestore in
+                self.followingList = UserListFromFirestore
+                
+                self.tableView.reloadData()
+            }
         }
         self.spinner.dismiss()
     }

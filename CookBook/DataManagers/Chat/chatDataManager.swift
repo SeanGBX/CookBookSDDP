@@ -15,7 +15,7 @@ class chatDataManager: NSObject {
     
     static let db = Firestore.firestore()
     
-    static func loadChat(_ currUserId: String,onComplete: (([Profile]) -> Void)?){
+    static func loadChat(_ currUserId: String, _ Following: [Followers], onComplete: (([Profile]) -> Void)?){
         db.collection("profiles").getDocuments()
             {
                 (querySnapshot, err) in var followingList : [Profile] = []
@@ -29,7 +29,12 @@ class chatDataManager: NSObject {
                         var following = try? document.data(as: Profile.self) as! Profile
                         if following != nil{
                             if following!.UID != currUserId{
-                                followingList.append(following!)
+                                for i in Following{
+                                    if following!.UID == i.targetAccountUID{
+                                        followingList.append(following!)
+                                    }
+                                }
+                                
                             }
                             
                         }

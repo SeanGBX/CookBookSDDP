@@ -18,6 +18,7 @@ class NewConversationViewController: UIViewController{
     
     private var users : [Profile] = []
     private var results: [Profile] = []
+    private var following: [Followers] = []
     
     let currUserId = Auth.auth().currentUser!.uid
     
@@ -56,13 +57,17 @@ class NewConversationViewController: UIViewController{
     }
     
     func loadUsers(){
-        chatDataManager.loadChat(currUserId){
-            UserListFromFirestore in
-            
-            self.users = UserListFromFirestore
-            
-            self.tableView.reloadData()
+        followDataManager.loadFollowing(currUserId) {
+            Following in
+            self.following = Following
+            chatDataManager.loadChat(self.currUserId, self.following){
+                UserListFromFirestore in
+                self.users = UserListFromFirestore
+                
+                self.tableView.reloadData()
+            }
         }
+        
     }
     
     override func viewDidLoad() {
