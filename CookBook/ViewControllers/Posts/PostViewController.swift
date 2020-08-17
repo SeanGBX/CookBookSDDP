@@ -461,13 +461,15 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 vc.convItems = resultconv
                 vc.isSharing = true
                 vc.shareString = postId
-                self.navigationController?.pushViewController(vc, animated: true)
+                let navVC = UINavigationController(rootViewController: vc)
+                self.present(navVC, animated: true)
             }
             else{
                 vc.isNewConversation = true
                 vc.isSharing = true
                 vc.shareString = postId
-                self.navigationController?.pushViewController(vc, animated: true)
+                let navVC = UINavigationController(rootViewController: vc)
+                self.present(navVC, animated: true)
             }
         }
         

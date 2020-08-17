@@ -277,6 +277,9 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X7f-G0-tDr">
                                                         <rect key="frame" x="207" y="8" width="167" height="30"/>
                                                         <state key="normal" title="Message"/>
+                                                        <connections>
+                                                            <action selector="messageTapped:" destination="seJ-c5-oJx" eventType="touchUpInside" id="Z0K-nH-FxG"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <edgeInsets key="layoutMargins" top="8" left="40" bottom="8" right="40"/>
@@ -361,7 +364,7 @@
                         <outlet property="flwnum" destination="EbS-e0-7eC" id="ERz-9K-RYH"/>
                         <outlet property="msgbtn" destination="X7f-G0-tDr" id="5oR-Lh-GLs"/>
                         <outlet property="postnum" destination="1Hm-eb-SaA" id="98u-9c-nDT"/>
-                        <outlet property="profileImage" destination="PQY-gl-ZpN" id="dq3-Co-mtY"/>
+                        <outlet property="profileImage" destination="PQY-gl-ZpN" id="kRd-le-n0W"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7yB-Nj-cvp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

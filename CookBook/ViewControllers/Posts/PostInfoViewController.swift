@@ -322,8 +322,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
             let vc = UIStoryboard(name: "Profile", bundle: nil).instantiateViewController(identifier: "Profile") as! ProfileViewController
             self.show(vc, sender: self)
         } else if (isMessage != ""){
-            let vc = UIStoryboard(name: "Chat", bundle: nil).instantiateViewController(identifier: "ChatViewController") as! ChatViewController
-            self.show(vc, sender: self)
+            self.navigationController?.popToRootViewController(animated: true)
         } else {
             let vc = storyboard?.instantiateViewController(identifier: "PostViewController") as! PostViewController
             vc.loadRecommend()

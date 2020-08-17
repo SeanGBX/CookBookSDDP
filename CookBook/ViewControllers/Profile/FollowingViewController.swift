@@ -76,4 +76,11 @@ class FollowingViewController: UIViewController,UITableViewDelegate, UITableView
         
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = storyboard?.instantiateViewController(identifier: "OthersProfile") as! OthersProfileViewController
+        let p = profileList[indexPath.row]
+        vc.isFromFollow = p.UID
+        self.show(vc, sender: self)
+    }
+    
 }
