@@ -19,7 +19,7 @@ class OthersProfileViewController: UIViewController {
     @IBOutlet weak var flwnum: UIButton!
     @IBOutlet weak var flwingnum: UIButton!
     
-    @IBOutlet weak var profileimage: UIImageView!
+   
     @IBOutlet weak var flwbtn: UIButton!
     @IBOutlet weak var msgbtn: UIButton!
     
@@ -33,6 +33,7 @@ class OthersProfileViewController: UIViewController {
     var postList :[Posts] = []
     
     var currentUse = Auth.auth().currentUser?.uid
+    var otherUse = ""
     
     
     override func viewDidLoad() {
@@ -62,6 +63,7 @@ class OthersProfileViewController: UIViewController {
         profileImage.layer.borderColor = UIColor.black.cgColor
         profileImage.layer.cornerRadius = profileImage.frame.height/2
         profileImage.clipsToBounds = true
+        self.navigationController?.navigationItem.title = otherUser?.username
         // Do any additional setup after loading the view.
     }
     
@@ -94,6 +96,8 @@ class OthersProfileViewController: UIViewController {
         profileDataManager.loadProfile(uid) { profiledb in
             self.displayname.text = profiledb[0].displayName
             self.bio.text = profiledb[0].bio
+            self.otherUse = profiledb[0].UID
+            self.profileImage.kf.setImage(with: URL(string: profiledb[0].imageName), placeholder: UIImage(named: "defaultprofile"))
         }
         //set post num, flw num, flwing num
         profileDataManager.calculatePosts(uid) { posts in
@@ -126,6 +130,30 @@ class OthersProfileViewController: UIViewController {
             self.postList = posts
             self.collectionView.reloadData()
         }
+    }
+    @IBAction func messageTapped(_ sender: Any) {
+        let vc = FriendDetailViewController()
+        var resultconv : Conversations?
+        vc.navigationItem.largeTitleDisplayMode = .never
+        chatDataManager.loadSpecificChat(otherUse, currentUse!){
+            specificConv in
+            resultconv = specificConv
+            
+            
+        }
+        chatDataManager.findSpecificChat(otherUse, currentUse!){
+            isSuccessful in
+            if isSuccessful{
+                vc.isNewConversation = false
+                vc.convItems = resultconv
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            else{
+                vc.isNewConversation = true
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+        
     }
     
     @IBAction func followTapped(_ sender: Any) {
