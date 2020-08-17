@@ -24,7 +24,7 @@ class FollowersViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        loadAllProfiles()
+       // loadAllProfiles()
     }
     
     func loadData() {
@@ -38,12 +38,8 @@ class FollowersViewController: UIViewController, UITableViewDelegate, UITableVie
         followDataManager.loadFollowers(currentuid!) {
             flwdb in
             self.followerList = flwdb
-        }
-    }
-    
-    
-    func loadAllProfiles(){
-         for i in self.followerList {
+            
+            for i in self.followerList {
             profileDataManager.loadProfile(i.followerAccountUID){
             profiledb in
                 self.profileList.append(profiledb[0])
@@ -51,6 +47,14 @@ class FollowersViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }
     }
+}
+    
+    
+   //func loadAllProfiles(){
+         
+    //        }
+    //    }
+    //}
 
     
     func tableView(_ tableView: UITableView,

@@ -37,6 +37,7 @@ class FollowingViewController: UIViewController,UITableViewDelegate, UITableView
         followDataManager.loadFollowing(currentuid!) {
             flwingdb in
             self.followingList = flwingdb
+            
              for i in self.followingList {
                 profileDataManager.loadProfile(i.targetAccountUID){
                 profiledb in

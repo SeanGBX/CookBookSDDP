@@ -663,16 +663,6 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jUy-Pk-2RS">
-                                                    <rect key="frame" x="262" y="36" width="117" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Remove Follower">
-                                                        <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="FollowTapped:" destination="53q-zV-The" eventType="touchUpInside" id="MUi-go-DDQ"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
@@ -735,16 +725,6 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FfE-MA-whN">
-                                                    <rect key="frame" x="322" y="36" width="60" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Unfollow">
-                                                        <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="FollowTapped:" destination="WQ6-j0-hzD" eventType="touchUpInside" id="VGc-fJ-4LV"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
