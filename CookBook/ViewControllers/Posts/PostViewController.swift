@@ -398,16 +398,16 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.postItem = p
         cell.delegate = self
         
-        let imageRef = Storage.storage().reference(withPath: p.postImage)
-        imageRef.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
-            if let error = error {
-                print("Error downloading image: \(error.localizedDescription)")
-                return
-            }
-            if let data = data {
-                cell.postImage.image = UIImage(data: data)
-            }
-        }
+//        let imageRef = Storage.storage().reference(withPath: p.postImage)
+//        imageRef.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
+//            if let error = error {
+//                print("Error downloading image: \(error.localizedDescription)")
+//                return
+//            }
+//            if let data = data {
+//                cell.postImage.image = UIImage(data: data)
+//            }
+//        }
         
         cell.loadCell()
         
@@ -461,13 +461,15 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 vc.convItems = resultconv
                 vc.isSharing = true
                 vc.shareString = postId
-                self.navigationController?.pushViewController(vc, animated: true)
+                let navVC = UINavigationController(rootViewController: vc)
+                self.present(navVC, animated: true)
             }
             else{
                 vc.isNewConversation = true
                 vc.isSharing = true
                 vc.shareString = postId
-                self.navigationController?.pushViewController(vc, animated: true)
+                let navVC = UINavigationController(rootViewController: vc)
+                self.present(navVC, animated: true)
             }
         }
         

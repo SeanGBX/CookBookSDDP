@@ -264,6 +264,9 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X7f-G0-tDr">
                                                         <rect key="frame" x="207" y="8" width="167" height="30"/>
                                                         <state key="normal" title="Message"/>
+                                                        <connections>
+                                                            <action selector="messageTapped:" destination="seJ-c5-oJx" eventType="touchUpInside" id="LGY-Z0-KwO"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <edgeInsets key="layoutMargins" top="8" left="40" bottom="8" right="40"/>
