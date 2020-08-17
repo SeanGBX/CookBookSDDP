@@ -36,6 +36,11 @@ class EditProfileViewController: UIViewController {
         loadProfile()
     }
     
+//    override func viewDidDisappear(_ animated: Bool) {
+//        let vc = storyboard?.instantiateViewController(identifier:"Profile") as! ProfileViewController
+//        vc.loadProfile()
+//    }
+    
     @objc func dismissKey() {
         view.endEditing(true)
     }
@@ -114,8 +119,9 @@ class EditProfileViewController: UIViewController {
         
         //redirect to profile page
         let vc = storyboard?.instantiateViewController(identifier:"Profile") as! ProfileViewController
+        vc.loadProfile()
         self.show(vc, sender: self)
-        
+
     }
     
    private func presentInputActionSheet(){

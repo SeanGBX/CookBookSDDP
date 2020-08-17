@@ -39,55 +39,48 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func SignUpTapped(_ sender: Any) {
-        
-        let alert = UIAlertController(title: "Alert", message: "Message", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {
-            action in
-            switch action.style{
-            case .default:
-                print("default")
-                
-            case .cancel:
-                print("cancel")
-                
-            case .destructive:
-                print("destructive")
-            }
-        }))
+        var error = ""
         
         //check if email field is empty
         if email.text?.isEmpty == true {
-            self.present(alert, animated: true, completion: nil)
-            print("email field is empty!")
-            return
+            error += "email field is empty! \n"
         }
         //
         if email.text?.contains("@") == false {
-            print("email field has no @!")
-            return
+            error += "email field has no @! \n"
         }
         //check if password field is empty
         if password.text?.isEmpty == true {
-            print("password field is empty!")
-            return
+            error += "password field is empty! \n"
         }
         //check if password field is empty
         if password.text!.count < 6 {
-            print("password field is less than 6 characters!")
-            return
+            error += "password field is less than 6 characters! \n"
         }
         //check if password field is empty
         if confirmpassword.text?.isEmpty == true {
-            print("cfmpassword field is empty!")
-            return
+            error += "cfmpassword field is empty! \n"
         }
         //check if password field is equal to confirmpassword field
         if password.text != confirmpassword.text {
-            print("password fields are different!")
-            return
+            error += "password fields are different!"
         }
         
-        signUP()
+        if error != ""{
+            let alert = UIAlertController(title: error, message: nil, preferredStyle: .alert)
+
+            
+            alert.addAction(UIAlertAction(
+                title: "OK",
+                style: .default,
+                handler: {
+                action in
+
+            }))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            signUP()
+        }
     }
     
     func signUP() {
