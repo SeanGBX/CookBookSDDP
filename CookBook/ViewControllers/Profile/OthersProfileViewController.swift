@@ -28,6 +28,8 @@ class OthersProfileViewController: UIViewController {
     
     var otherUser: Posts?
     
+    var isFromFollow = ""
+    
     var postList :[Posts] = []
     
     var currentUse = Auth.auth().currentUser?.uid
@@ -36,8 +38,16 @@ class OthersProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        var uid = ""
+        if isFromFollow != "" {
+            uid = isFromFollow
+        } else {
+            let otheruid = otherUser!.username
+            uid = otheruid
+        }
+        
         loadOthersProfile()
-        followDataManager.deleteFollower(currentUse!, targetAccountUID: otherUser!.username, onComplete: {
+        followDataManager.deleteFollower(currentUse!, targetAccountUID: uid, onComplete: {
             unfollow in
             if (unfollow.count > 0){
                 self.flwbtn.setTitle("Unfollow", for: .normal)
@@ -74,9 +84,13 @@ class OthersProfileViewController: UIViewController {
 
     func loadOthersProfile() {
         //set displayname and bio
-
-        let otheruid = otherUser!.username
-        let uid = otheruid
+        var uid = ""
+        if isFromFollow != "" {
+            uid = isFromFollow
+        } else {
+            let otheruid = otherUser!.username
+            uid = otheruid
+        }
         profileDataManager.loadProfile(uid) { profiledb in
             self.displayname.text = profiledb[0].displayName
             self.bio.text = profiledb[0].bio
@@ -99,8 +113,13 @@ class OthersProfileViewController: UIViewController {
     }
     
     func loadUserPosts() {
-        let otheruid = otherUser!.username
-        let uid = otheruid
+        var uid = ""
+        if isFromFollow != "" {
+            uid = isFromFollow
+        } else {
+            let otheruid = otherUser!.username
+            uid = otheruid
+        }
 
         //set postList
         profileDataManager.getUserPosts(uid) { posts in
@@ -113,14 +132,18 @@ class OthersProfileViewController: UIViewController {
         let currentUser = Auth.auth().currentUser
         let currentuid = currentUser?.uid
         
-
-        let otheruid = otherUser!.username
-        let uid = otheruid
+        var uid = ""
+        if isFromFollow != "" {
+            uid = isFromFollow
+        } else {
+            let otheruid = otherUser!.username
+            uid = otheruid
+        }
         
 //        let newflw = Followers(followerAccountUID: currentuid!, targetAccountUID: otherUser!.username, followerID: "0")
 //        followDataManager.insertFollower(newflw)
         
-        followDataManager.deleteFollower(currentuid!, targetAccountUID: otherUser!.username, onComplete: {
+        followDataManager.deleteFollower(currentuid!, targetAccountUID: uid, onComplete: {
             unfollow in
             if (unfollow.count > 0){
                 followDataManager.actuallyDeleteFollower(follower: unfollow)
@@ -129,7 +152,7 @@ class OthersProfileViewController: UIViewController {
                 self.flwbtn.setTitleColor(self.view.tintColor, for: .normal)
                 self.flwnum.setTitle(String(flwNumber! - 1), for: .normal)
             } else {
-                var follower23 = Followers(followerAccountUID: currentuid!, targetAccountUID: self.otherUser!.username, followerID: "0")
+                var follower23 = Followers(followerAccountUID: currentuid!, targetAccountUID: uid, followerID: "0")
                 followDataManager.insertFollower(follower23)
                 self.flwbtn.setTitle("Unfollow", for: .normal)
                 self.flwbtn.setTitleColor(.systemRed, for: .normal)
