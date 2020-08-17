@@ -31,6 +31,8 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let username: String = Auth.auth().currentUser!.uid
     var userList: [Profile] = []
     var commentList: [PostComment] = []
+    var following: [Followers] = []
+    var followerPosts: [Posts] = []
     
     lazy var refresher: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -68,11 +70,61 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
        if (segmentedControl.selectedSegmentIndex == 0){
             loadRecommend1()
        } else if (segmentedControl.selectedSegmentIndex == 1){
-            loadCompletePosts1()
+            loadFollowerPosts1()
        } else if (segmentedControl.selectedSegmentIndex == 2){
             loadCompletePostsByHealthy1()
        }
     }
+    
+    func loadFollowerPosts(){
+        var followerPostList: [Posts] = []
+        followDataManager.loadFollowing(username, onComplete: {
+            following in
+            self.following = following
+            postsDataManager.loadCompletePosts(onComplete: {
+                post in
+                self.followerPosts = post
+                for i in self.following{
+                    for j in self.followerPosts{
+                        if i.targetAccountUID == j.username{
+                            if !followerPostList.contains(j){
+                                followerPostList.append(j)
+                            }
+                        }
+                    }
+                }
+                self.postList = followerPostList
+                self.tableView.reloadData()
+            })
+        })
+    }
+    
+    @objc
+    func loadFollowerPosts1(){
+           var followerPostList: [Posts] = []
+           followDataManager.loadFollowing(username, onComplete: {
+               following in
+               self.following = following
+               postsDataManager.loadCompletePosts(onComplete: {
+                   post in
+                   self.followerPosts = post
+                   for i in self.following{
+                       for j in self.followerPosts{
+                           if i.targetAccountUID == j.username{
+                               if !followerPostList.contains(j){
+                                   followerPostList.append(j)
+                               }
+                           }
+                       }
+                   }
+                   self.postList = followerPostList
+                   self.tableView.reloadData()
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)){
+                        self.refresher.endRefreshing()
+                    }
+               })
+           })
+       }
     
     func loadRecommend(){
         
@@ -371,7 +423,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if (segmentedControl.selectedSegmentIndex == 0){
             loadRecommend()
         } else if (segmentedControl.selectedSegmentIndex == 1){
-            loadCompletePosts()
+             loadFollowerPosts()
         } else if (segmentedControl.selectedSegmentIndex == 2){
             loadCompletePostsByHealthy()
         }
@@ -384,19 +436,42 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
            preferredStyle: .alert
        )
         
-       alert.addAction(
-           UIAlertAction(
-               title: "Cancel",
-               style: .default,
-               handler: nil)
-       )
-        
         alert.addAction(
             UIAlertAction(
-                title: "Unfollow",
+                title: "Cancel",
                 style: .default,
                 handler: nil)
         )
+        
+        if (self.username != username1){
+            followDataManager.deleteFollower(self.username, targetAccountUID: username1, onComplete: {
+                unfollow in
+                if (unfollow.count > 0){
+                    alert.addAction(
+                        UIAlertAction(
+                            title: "Unfollow",
+                            style: .default,
+                            handler: {
+                                handler in
+                                followDataManager.actuallyDeleteFollower(follower: unfollow)
+                                
+                        })
+                    )
+                } else {
+                    alert.addAction(
+                        UIAlertAction(
+                            title: "Follow",
+                            style: .default,
+                            handler: {
+                                handler in
+                                var follower23 = Followers(followerAccountUID: self.username, targetAccountUID: username1, followerID: "0")
+                                followDataManager.insertFollower(follower23)
+                                
+                        })
+                    )
+                }
+            })
+        }
         
         if (username1 == username){
             IngredientsDataManager.loadIngredients(id, onComplete: {
@@ -433,7 +508,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                         if (self.segmentedControl.selectedSegmentIndex == 0){
                                             self.loadRecommend()
                                         } else if (self.segmentedControl.selectedSegmentIndex == 1){
-                                            self.loadCompletePosts()
+                                            self.loadFollowerPosts()
                                         } else if(self.segmentedControl.selectedSegmentIndex == 2){
                                             self.loadCompletePostsByHealthy()
                                         }

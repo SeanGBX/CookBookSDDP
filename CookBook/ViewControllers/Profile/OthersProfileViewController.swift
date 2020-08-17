@@ -54,9 +54,8 @@ class OthersProfileViewController: UIViewController {
     @IBAction func followTapped(_ sender: Any) {
         let currentUser = Auth.auth().currentUser
         let currentuid = currentUser?.uid
-        let uid = currentuid
         
-        let newflw = Followers(followerAccountUID: currentuid!, targetAccountUID: uid!, followerID: "0")
+        let newflw = Followers(followerAccountUID: currentuid!, targetAccountUID: otherUser!.username, followerID: "0")
         followDataManager.insertFollower(newflw)
     }
     

@@ -158,8 +158,18 @@ class ProfileViewController: UIViewController{
 
 extension ProfileViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
+//        collectionView.deselectItem(at: indexPath, animated: true)
+        let vc = UIStoryboard(name: "Posts", bundle: nil).instantiateViewController(identifier: "PostInfoViewController") as! PostInfoViewController
+        let myIndexPath1 = self.collectionView.indexPathsForSelectedItems
+        let myIndexPath = myIndexPath1![0]
         
+        if(myIndexPath != nil){
+            let post = postList[myIndexPath.row]
+            vc.postItem = post
+            vc.isFromProfile = "1"
+            //vc.isFromOtherProfile = otherUser!
+            self.show(vc, sender: self)
+        }
         print ("CVCell Tapped!")
     }
 }

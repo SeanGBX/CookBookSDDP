@@ -25,7 +25,7 @@ class RecipeViewController: UIViewController,  UITableViewDataSource, UITableVie
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeCell
         
         let recipe: Posts
-        //let recipeSteps: IngredientSteps
+        //let recipeStep: IngredientSteps
         
         if isFiltering {
             recipe = filteredRecipes[indexPath.row]
@@ -35,9 +35,12 @@ class RecipeViewController: UIViewController,  UITableViewDataSource, UITableVie
             recipe = recipeList[indexPath.row]
         }
         
-        cell.recipeTitleLabel.text = recipe.recipeName
+        cell.recipeTitleLabel.text = "Recipe name: \(recipe.recipeName)"
         // cell.recipeStepsLabel.text = recipeSteps.step
-        cell.layer.borderColor = UIColor.purple.cgColor
+        //cell.recipeStepsLabel.text = recipeStep.step
+        
+        let labelConstraint = NSLayoutConstraint(item: cell.recipeTitleLabel, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 40)
+        cell.recipeTitleLabel.addConstraint(labelConstraint)
         
         cell.cuisine = recipe.tagStyle
         cell.budget = recipe.tagBudget
@@ -56,8 +59,8 @@ class RecipeViewController: UIViewController,  UITableViewDataSource, UITableVie
             
             if let data = data {
                 cell.recipeImage.image = UIImage(data: data)
-                let imageViewWidthConstraint = NSLayoutConstraint(item: cell.recipeImage, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 210)
-                let imageViewHeightConstraint = NSLayoutConstraint(item: cell.recipeImage, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 210)
+                let imageViewWidthConstraint = NSLayoutConstraint(item: cell.recipeImage, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 150)
+                let imageViewHeightConstraint = NSLayoutConstraint(item: cell.recipeImage, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 100)
                 cell.recipeImage.addConstraints([imageViewWidthConstraint, imageViewHeightConstraint])
             }
         }
