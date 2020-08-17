@@ -331,6 +331,36 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    private func createNewConversation(result: Profile, postId: String){
+        let vc = FriendDetailViewController()
+        var resultconv : Conversations?
+        vc.followingList = result
+        vc.navigationItem.largeTitleDisplayMode = .never
+        
+        chatDataManager.loadSpecificChat(result.UID, username){
+            specificConv in
+            resultconv = specificConv
+            
+            
+        }
+        chatDataManager.findSpecificChat(result.UID, username){
+            isSuccessful in
+            if isSuccessful{
+                vc.isNewConversation = false
+                vc.convItems = resultconv
+                vc.isSharing = true
+                vc.shareString = postId
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            else{
+                vc.isNewConversation = true
+                vc.isSharing = true
+                vc.shareString = postId
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+        
+    }
     
     @IBAction func moreOptionButton(_ sender: Any) {
         let alert = UIAlertController(
@@ -345,6 +375,20 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
                    style: .default,
                    handler: nil)
            )
+            alert.addAction(
+                UIAlertAction(
+                    title: "Share",
+                    style: .default,
+                    handler: {
+                        handler in
+                        let vc = NewConversationViewController()
+                        vc.completion = { [weak self] result in
+                            self?.createNewConversation(result: result, postId: self!.postItem!.postId)
+                        }
+                        let navVC = UINavigationController(rootViewController: vc)
+                        self.present(navVC, animated: true)
+                })
+            )
             
         if (self.username != postItem!.username){
             followDataManager.deleteFollower(self.username, targetAccountUID: postItem!.username, onComplete: {

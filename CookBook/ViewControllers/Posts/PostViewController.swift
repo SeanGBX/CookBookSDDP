@@ -60,7 +60,10 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         loadRecommend()
         postScrollView.refreshControl = refresher
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     
+    }
 //    override func viewWillLayoutSubviews() {
 //        super.updateViewConstraints()
 //        self.heightConstraint?.constant = self.tableView.intrinsicContentSize.height

@@ -22,6 +22,11 @@ class ProfileCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        ImageView.layer.borderWidth = 1
+        ImageView.layer.masksToBounds = false
+        ImageView.layer.borderColor = UIColor.black.cgColor
+        ImageView.layer.cornerRadius = ImageView.frame.height/2
+        ImageView.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
