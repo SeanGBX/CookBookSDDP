@@ -39,9 +39,31 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func SignUpTapped(_ sender: Any) {
+        
+        let alert = UIAlertController(title: "Alert", message: "Message", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {
+            action in
+            switch action.style{
+            case .default:
+                print("default")
+                
+            case .cancel:
+                print("cancel")
+                
+            case .destructive:
+                print("destructive")
+            }
+        }))
+        
         //check if email field is empty
         if email.text?.isEmpty == true {
+            self.present(alert, animated: true, completion: nil)
             print("email field is empty!")
+            return
+        }
+        //
+        if email.text?.contains("@") == false {
+            print("email field has no @!")
             return
         }
         //check if password field is empty
@@ -49,6 +71,22 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             print("password field is empty!")
             return
         }
+        //check if password field is empty
+        if password.text!.count < 6 {
+            print("password field is less than 6 characters!")
+            return
+        }
+        //check if password field is empty
+        if confirmpassword.text?.isEmpty == true {
+            print("cfmpassword field is empty!")
+            return
+        }
+        //check if password field is equal to confirmpassword field
+        if password.text != confirmpassword.text {
+            print("password fields are different!")
+            return
+        }
+        
         signUP()
     }
     
