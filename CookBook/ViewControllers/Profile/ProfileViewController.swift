@@ -20,6 +20,7 @@ class ProfileViewController: UIViewController{
     @IBOutlet weak var postnum: UILabel!
     @IBOutlet weak var flwnum: UIButton!
     @IBOutlet weak var flwingnum: UIButton!
+    @IBOutlet weak var profileImage: UIImageView!
     
     @IBOutlet weak var flwbtn: UIButton!
     @IBOutlet weak var msgbtn: UIButton!
@@ -39,7 +40,7 @@ class ProfileViewController: UIViewController{
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 128, height: 128)
         collectionView.collectionViewLayout = layout
-        
+        	
         loadProfile()
         loadUserPosts()
     }
@@ -69,6 +70,7 @@ class ProfileViewController: UIViewController{
         profileDataManager.loadProfile(uid!) { profiledb in
             self.displayname.text = profiledb[0].displayName
             self.bio.text = profiledb[0].bio
+            self.profileImage.kf.setImage(with: URL(string: profiledb[0].imageName), placeholder: UIImage(named: "defaultprofile"))
         }
         //set post num 
         profileDataManager.calculatePosts(uid!) { posts in

@@ -182,7 +182,7 @@ extension chatDataManager{
     }
     
     
-    public func createNewConversation(with sentBy: String, following: Profile, currUserName: String, firstMessage: Message, textMessage: String, completion: @escaping (Bool) -> Void){
+    public func createNewConversation(with sentBy: String, following: Profile, currUserName: String, currImage: String, firstMessage: Message, textMessage: String, completion: @escaping (Bool) -> Void){
         let messageDate = firstMessage.sentDate
         let dateString = FriendDetailViewController.dateFormatter.string(from: messageDate)
         
@@ -192,6 +192,8 @@ extension chatDataManager{
         var secondId = ""
         var firstName = ""
         var secondName = ""
+        var firstImage = ""
+        var secondImage = ""
         
         switch firstMessage.kind{
         case .text(let messageText):
@@ -219,20 +221,24 @@ extension chatDataManager{
             conversationId = "\(following.UID)_\(sentBy)"
             firstId = following.UID
             firstName = following.displayName
+            firstImage = following.imageName
             secondId = sentBy
             secondName = currUserName
+            secondImage = currImage
         }
         else{
             print("\(sentBy)_\(following.UID)")
             conversationId = "\(sentBy)_\(following.UID)"
             firstId = sentBy
             firstName = currUserName
+            firstImage = currImage
             secondId = following.UID
             secondName = following.displayName
+            secondImage = following.imageName
         }
         
         let newConversationData = Conversations(
-            firstUserId: firstId, secondUserId: secondId, firstUserName: firstName, secondUserName: secondName, imageName: "defaultprofile", messages: [[
+            firstUserId: firstId, secondUserId: secondId, firstUserName: firstName, secondUserName: secondName, firstImage: firstImage, secondImage: secondImage, messages: [[
                 "date": dateString,
                 "message": textMessage,
                 "is_read": "false",

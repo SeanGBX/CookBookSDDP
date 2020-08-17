@@ -28,7 +28,11 @@ class EditProfileViewController: UIViewController {
         bio!.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
         bio!.layer.borderWidth = 1
         bio!.layer.cornerRadius = 5
-        
+        displayimage.layer.borderWidth = 1
+        displayimage.layer.masksToBounds = false
+        displayimage.layer.borderColor = UIColor.black.cgColor
+        displayimage.layer.cornerRadius = displayimage.frame.height/2
+        displayimage.clipsToBounds = true
         loadProfile()
     }
     
@@ -43,6 +47,7 @@ class EditProfileViewController: UIViewController {
         profileDataManager.loadProfile(uid!) { profiledb in
             self.displayname.text = profiledb[0].displayName
             self.bio.text = profiledb[0].bio
+            self.displayimage.kf.setImage(with: URL(string: profiledb[0].imageName), placeholder: UIImage(named: "defaultprofile"))
         }
     }
     

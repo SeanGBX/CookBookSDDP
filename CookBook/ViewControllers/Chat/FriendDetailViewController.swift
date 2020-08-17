@@ -58,8 +58,10 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     
     var currUserName = ""				
     let currUserId = Auth.auth().currentUser!.uid
+    var currImage = ""
     var otherUserName = ""
     var otherUserId = ""
+    var otherImage = ""
     
     var currUser = Sender(photoURL:"default", senderId: "curr", displayName: "")
     var otherUser = Sender(photoURL: "default", senderId: "other", displayName: "")
@@ -71,17 +73,19 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
         UIMenuController.shared.menuItems = [customMenuItem]
         profileDataManager.loadProfile(currUserId) { profiledb in
             self.currUserName = profiledb[0].displayName
+            self.currImage = profiledb[0].imageName
         }
         
         if !isNewConversation{
             if convItems?.firstUserId != currUserId{
                 otherUserName = convItems!.firstUserName
                 otherUserId = convItems!.firstUserId
+                otherImage = convItems!.firstImage
             }
             else{
                 otherUserName = convItems!.secondUserName
                 otherUserId = convItems!.secondUserId
-
+                otherImage = convItems!.secondImage
             }
             otherUser.displayName = otherUserName
             otherUser.photoURL = "default"
@@ -93,7 +97,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
             otherUserName = followingList!.displayName
             otherUserId = followingList!.UID
             otherUser.displayName = followingList!.displayName
-            otherUser.photoURL = "defaultprofile"
+            otherUser.photoURL = followingList!.imageName
             currUser.displayName = currUserName
             currUser.senderId = currUserId
             self.navigationItem.title = followingList?.displayName
@@ -230,10 +234,10 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
         let sender = message.sender
         if sender.senderId == "other"
         {
-            avatarView.image = UIImage(named: "defaultprofile")
+            avatarView.kf.setImage(with: URL(string: otherImage), placeholder: UIImage(named: "defaultprofile"))
         }
         else{
-            avatarView.image = UIImage(named: "ryantan")
+            avatarView.kf.setImage(with: URL(string: currImage), placeholder: UIImage(named: "defaultprofile"))
         }
     }
     
@@ -245,7 +249,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
                 return
             }
             imageView.kf.indicatorType = .activity
-            imageView.kf.setImage(with: url)
+            imageView.kf.setImage(with: url, placeholder: UIImage(named: "Default"))
         default:
             break
         }
@@ -351,7 +355,7 @@ extension FriendDetailViewController: InputBarAccessoryViewDelegate {
         
         if isNewConversation {
             let message =  Message(sender: currUser, messageId: createMessageId()!, sentDate: Date(), kind: .text(text))
-            chatDataManager.init().createNewConversation(with: currUserId, following: followingList!, currUserName: currUserName, firstMessage: message, textMessage: text, completion: {
+            chatDataManager.init().createNewConversation(with: currUserId, following: followingList!, currUserName: currUserName, currImage: currImage, firstMessage: message, textMessage: text, completion: {
                 success in
                 if success {
                     print("Message Sent")

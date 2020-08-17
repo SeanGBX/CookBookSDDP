@@ -238,15 +238,15 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             
         }
         if p.firstUserId != currUserId{
-             cell.friendnameLabel.text = p.firstUserName
+            cell.friendnameLabel.text = p.firstUserName
+            cell.friendImage.kf.setImage(with: URL(string: p.firstImage), placeholder: UIImage(named: "defaultprofile"))
         }
         else{
             cell.friendnameLabel.text = p.secondUserName
-
+            cell.friendImage.kf.setImage(with: URL(string: p.secondImage), placeholder: UIImage(named: "defaultprofile"))
         }
        
         cell.friendtextLabel.text = p.messages[countOfList - 1]["message"]
-        cell.friendImage.image = UIImage(named: p.imageName)
         cell.friendImage.layer.borderWidth = 1
         cell.friendImage.layer.masksToBounds = false
         cell.friendImage.layer.borderColor = UIColor.black.cgColor
