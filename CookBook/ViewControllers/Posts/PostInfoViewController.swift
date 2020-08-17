@@ -78,6 +78,9 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     var isPrepTime = ""
     var isMealtype = ""
     weak var delegate: getSegment?
+    
+    var isFromProfile = ""
+    var isFromOtherProfile: Posts? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -322,8 +325,14 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
             vc.cuisineStyle = isMealtype
             self.show(vc, sender: self)
             
-        }
-        else {
+        } else if (isFromProfile != ""){
+            let vc = UIStoryboard(name: "Profile", bundle: nil).instantiateViewController(identifier: "Profile") as! ProfileViewController
+            self.show(vc, sender: self)
+        } else if (isFromOtherProfile != nil){
+            let vc = UIStoryboard(name: "Profile", bundle: nil).instantiateViewController(identifier: "OthersProfile") as! OthersProfileViewController
+            vc.otherUser = isFromOtherProfile!
+            self.show(vc, sender: self)
+        } else {
             let vc = storyboard?.instantiateViewController(identifier: "PostViewController") as! PostViewController
             vc.loadRecommend()
             self.show(vc, sender: self)
@@ -345,12 +354,35 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
                    handler: nil)
            )
             
-            alert.addAction(
-                UIAlertAction(
-                    title: "Unfollow",
-                    style: .default,
-                    handler: nil)
-            )
+        if (self.username != postItem!.username){
+            followDataManager.deleteFollower(self.username, targetAccountUID: postItem!.username, onComplete: {
+                    unfollow in
+                    if (unfollow.count > 0){
+                        alert.addAction(
+                            UIAlertAction(
+                                title: "Unfollow",
+                                style: .default,
+                                handler: {
+                                    handler in
+                                    followDataManager.actuallyDeleteFollower(follower: unfollow)
+                                    
+                            })
+                        )
+                    } else {
+                        alert.addAction(
+                            UIAlertAction(
+                                title: "Follow",
+                                style: .default,
+                                handler: {
+                                    handler in
+                                    var follower23 = Followers(followerAccountUID: self.username, targetAccountUID: self.postItem!.username, followerID: "0")
+                                    followDataManager.insertFollower(follower23)
+                                    
+                            })
+                        )
+                    }
+                })
+            }
             
             if (postItem!.username == username){
                 IngredientsDataManager.loadIngredients(postItem!.postId, onComplete: {
@@ -386,9 +418,9 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
                                             IngredientsDataManager.deleteIngredientByPost(ingredients: ingredientItemList)
                                             let vc = self.storyboard?.instantiateViewController(identifier: "PostViewController") as! PostViewController
                                             if (self.delegate?.getSegmentIndex() == 0){
-                                                vc.loadCompletePosts()
+                                                vc.loadRecommend()
                                             } else if (self.delegate?.getSegmentIndex() == 1){
-                                                vc.loadCompletePosts()
+                                                vc.loadFollowerPosts()
                                             } else if(self.delegate?.getSegmentIndex() == 2){
                                                 vc.loadCompletePostsByHealthy()
                                             }

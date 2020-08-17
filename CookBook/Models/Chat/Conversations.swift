@@ -13,10 +13,11 @@ class Conversations: NSObject, Codable{
     var secondUserId: String
     var firstUserName: String
     var secondUserName: String
-    var imageName: String
+    var firstImage: String
+    var secondImage: String
     var messages: [[String: String]]
     
-    init(firstUserId: String, secondUserId: String, firstUserName: String, secondUserName: String, imageName: String, messages: [[String: String]] = [[
+    init(firstUserId: String, secondUserId: String, firstUserName: String, secondUserName: String, firstImage: String, secondImage: String, messages: [[String: String]] = [[
         "date": "",
         "message": "",
         "is_read": "false",
@@ -27,7 +28,8 @@ class Conversations: NSObject, Codable{
         self.secondUserId = secondUserId
         self.firstUserName = firstUserName
         self.secondUserName = secondUserName
-        self.imageName = imageName
+        self.firstImage = firstImage
+        self.secondImage = secondImage
         self.messages = messages
     }
 }

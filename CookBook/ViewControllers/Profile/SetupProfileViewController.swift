@@ -19,7 +19,7 @@ class SetupProfileViewController: UIViewController {
         super.viewDidLoad()
         
         //dismiss keyboard function
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKey")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(RegisterViewController.dismissKey))
         view.addGestureRecognizer(tap)
         
         //bioText Styling
@@ -51,7 +51,7 @@ class SetupProfileViewController: UIViewController {
         let email = user?.email
         
         //create profile with new data
-        let newpf = Profile(UID:uid!, email:email!, displayName:displaynameText.text!,bio:bioText.text!)
+        let newpf = Profile(UID:uid!, email:email!, imageName: "", displayName:displaynameText.text!,bio:bioText.text!)
         
         profileDataManager.editProfile(newpf)
         

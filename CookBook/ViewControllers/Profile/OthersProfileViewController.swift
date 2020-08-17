@@ -95,10 +95,12 @@ class OthersProfileViewController: UIViewController {
         let currentUser = Auth.auth().currentUser
         let currentuid = currentUser?.uid
         
+
         let otheruid = otherUser!.username
         let uid = otheruid
         
         let newflw = Followers(followerAccountUID: currentuid!, targetAccountUID: uid, followerID: "0")
+        let newflw = Followers(followerAccountUID: currentuid!, targetAccountUID: otherUser!.username, followerID: "0")
         followDataManager.insertFollower(newflw)
     }
     

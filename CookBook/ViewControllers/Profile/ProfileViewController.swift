@@ -20,6 +20,7 @@ class ProfileViewController: UIViewController{
     @IBOutlet weak var postnum: UILabel!
     @IBOutlet weak var flwnum: UIButton!
     @IBOutlet weak var flwingnum: UIButton!
+    @IBOutlet weak var profileImage: UIImageView!
     
     @IBOutlet weak var flwbtn: UIButton!
     @IBOutlet weak var msgbtn: UIButton!
@@ -30,6 +31,18 @@ class ProfileViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        collectionView.register(PostCollectionViewCell.nib(), forCellWithReuseIdentifier: PostCollectionViewCell.identifier)
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 128, height: 128)
+        collectionView.collectionViewLayout = layout
+        	
+        loadProfile()
+        loadUserPosts()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,6 +70,7 @@ class ProfileViewController: UIViewController{
         profileDataManager.loadProfile(uid!) { profiledb in
             self.displayname.text = profiledb[0].displayName
             self.bio.text = profiledb[0].bio
+            self.profileImage.kf.setImage(with: URL(string: profiledb[0].imageName), placeholder: UIImage(named: "defaultprofile"))
         }
         //set post num, flw num, flwing num
         profileDataManager.calculatePosts(uid!) { posts in
@@ -155,8 +169,18 @@ class ProfileViewController: UIViewController{
 
 extension ProfileViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
+//        collectionView.deselectItem(at: indexPath, animated: true)
+        let vc = UIStoryboard(name: "Posts", bundle: nil).instantiateViewController(identifier: "PostInfoViewController") as! PostInfoViewController
+        let myIndexPath1 = self.collectionView.indexPathsForSelectedItems
+        let myIndexPath = myIndexPath1![0]
         
+        if(myIndexPath != nil){
+            let post = postList[myIndexPath.row]
+            vc.postItem = post
+            vc.isFromProfile = "1"
+            //vc.isFromOtherProfile = otherUser!
+            self.show(vc, sender: self)
+        }
         print ("CVCell Tapped!")
     }
 }

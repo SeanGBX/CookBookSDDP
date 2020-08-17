@@ -16,6 +16,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="HAx-pE-yZj" kind="relationship" relationship="rootViewController" id="r6W-yC-VvE"/>
@@ -104,7 +107,7 @@
             </objects>
             <point key="canvasLocation" x="1673.913043478261" y="922.82608695652186"/>
         </scene>
-        <!--Friend Detail View Controller-->
+        <!--Chat-->
         <scene sceneID="Zhp-XI-7if">
             <objects>
                 <viewController id="k33-Tv-fgO" customClass="FriendDetailViewController" customModule="CookBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -114,13 +117,14 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="hgI-64-Lpu"/>
                     </view>
-                    <navigationItem key="navigationItem" id="knh-7T-e46"/>
+                    <navigationItem key="navigationItem" title="Chat" id="knh-7T-e46"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="flI-kF-NMZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2596" y="923"/>
         </scene>
     </scenes>
+    <color key="tintColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <resources>
         <image name="bubble.left.and.bubble.right" catalog="system" width="128" height="96"/>
     </resources>
