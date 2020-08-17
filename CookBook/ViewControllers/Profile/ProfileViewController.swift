@@ -56,7 +56,11 @@ class ProfileViewController: UIViewController{
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 128, height: 128)
         collectionView.collectionViewLayout = layout
-        
+        profileImage.layer.borderWidth = 1
+        profileImage.layer.masksToBounds = false
+        profileImage.layer.borderColor = UIColor.black.cgColor
+        profileImage.layer.cornerRadius = profileImage.frame.height/2
+        profileImage.clipsToBounds = true
         loadProfile()
         loadUserPosts()
         

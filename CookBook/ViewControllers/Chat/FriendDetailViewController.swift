@@ -50,10 +50,11 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     }()
     
     public var isNewConversation = false
+    public var isSharing = false
+    public var shareString = ""
     
     var convItems : Conversations?
     var followingList : Profile?
-    
     var messageList : [[String: String]] = []
     
     var currUserName = ""				
@@ -69,13 +70,12 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     var messages = [MessageType]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        let customMenuItem = UIMenuItem(title: "Forward", action: #selector(MessageCollectionViewCell.forward(_:)))
+        let customMenuItem = UIMenuItem(title: "Go", action: #selector(MessageCollectionViewCell.go(_:)))
         UIMenuController.shared.menuItems = [customMenuItem]
         profileDataManager.loadProfile(currUserId) { profiledb in
             self.currUserName = profiledb[0].displayName
             self.currImage = profiledb[0].imageName
         }
-        
         if !isNewConversation{
             if convItems?.firstUserId != currUserId{
                 otherUserName = convItems!.firstUserName
@@ -135,6 +135,14 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
                 if i["is_read"] == "false"{
                      messages.append(Message(sender: otherUser, messageId: "", sentDate: Date(), kind: .text(i["message"]!)))
                 }
+                else if i["is_read"] == "sharedpost"{
+                     messages.append(Message(
+                         sender: otherUser,
+                         messageId: "\(messageList.count + 1)",
+                         sentDate: Date(),
+                         kind: .attributedText(NSAttributedString(string: "Long press to go to this post :\(i["message"])", attributes: [NSAttributedString.Key.foregroundColor: UIColor.blue]))
+                     ))
+                }
                 else{
                     messages.append(Message(
                         sender: currUser,
@@ -149,6 +157,14 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
                 if i["is_read"] == "false"{
                      messages.append(Message(sender: currUser, messageId: "", sentDate: Date(), kind: .text(i["message"]!)))
                 }
+                else if i["is_read"] == "sharedpost"{
+                     messages.append(Message(
+                         sender: currUser,
+                         messageId: "\(messageList.count + 1)",
+                         sentDate: Date(),
+                         kind: .attributedText(NSAttributedString(string: "Long press to go to this post:\(i["message"]!)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.blue]))
+                     ))
+                }
                 else{
                     messages.append(Message(
                         sender: currUser,
@@ -162,6 +178,22 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
         }
         
         messageList = convItems!.messages
+        if isSharing{
+            messageList.append([
+                "date" : Self.dateFormatter.string(from: Date()),
+                "is_read": "sharedpost",
+                "message": shareString,
+                "sentBy": currUserId
+            ])
+            messages.append(Message(
+                sender: currUser,
+                messageId: "\(messageList.count + 1)",
+                sentDate: Date(),
+                kind: .attributedText(NSAttributedString(string: "Long press to go to this post :\(shareString)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.blue]))
+            ))
+            chatDataManager.appendChat(otherUserId, currUserId, messageList)
+            isSharing = false
+        }
         self.messagesCollectionView.reloadData()
         self.messagesCollectionView.scrollToBottom()
     }
@@ -265,7 +297,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
         if action == NSSelectorFromString("delete:") && messageList[indexPath.section]["sentBy"] == currUserId{
             return true
         }
-        else if action == NSSelectorFromString("forward:"){
+        else if action == NSSelectorFromString("go:") && messageList[indexPath.section]["is_read"] == "sharedpost"{
             return true
         }
         else {
@@ -288,8 +320,18 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
             self.messagesCollectionView.reloadData()
             print("Deleting \(messages[indexPath.section])")
         }
-        else if action == NSSelectorFromString("forward:"){
-            print("Forwarding")
+        else if action == NSSelectorFromString("go:"){
+            
+            let postId = messageList[indexPath.section]["message"]
+            postsDataManager.loadSpecificPost(postId!) {
+                post in
+                print(post[0])
+                let vc = UIStoryboard(name: "Posts", bundle: nil).instantiateViewController(identifier: "PostInfoViewController") as! PostInfoViewController
+                vc.postItem = post[0]
+                vc.isFromProfile = "1"
+                self.show(vc, sender: self)
+            }
+            
         }
         else {
             super.collectionView(collectionView, performAction: action, forItemAt: indexPath, withSender: sender)
@@ -413,14 +455,14 @@ extension MessageCollectionViewCell {
         }
     }
     
-    @objc func forward(_ sender: Any?) {
+    @objc func go(_ sender: Any?) {
         
         // Get the collectionView
         if let collectionView = self.superview as? UICollectionView {
             // Get indexPath
             if let indexPath = collectionView.indexPath(for: self) {
                 // Trigger action
-                collectionView.delegate?.collectionView?(collectionView, performAction: #selector(MessageCollectionViewCell.forward(_:)), forItemAt: indexPath, withSender: sender)
+                collectionView.delegate?.collectionView?(collectionView, performAction: #selector(MessageCollectionViewCell.go(_:)), forItemAt: indexPath, withSender: sender)
             }
         }
     }

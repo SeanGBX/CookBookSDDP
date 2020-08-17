@@ -15,7 +15,7 @@ protocol CustomCellLoadData: class {
 //    func loadCompletePosts()
     func loadCompletePostsByHealthy()
     func loadFollowerPosts()
-    func showAlert(_ id: String, _ username: String)
+    func showAlert(_ id: String, _ username: String, _ postId: String)
     func getSegmentIndex() -> Int
     func moveToComments(postItem: Posts)
     func moveToProfile(pos: Posts)
@@ -173,7 +173,7 @@ class PostCell: UITableViewCell {
     }
     
     @IBAction func deletePostButton(_ sender: Any) {
-        delegate?.showAlert(postID!, postItem!.username)
+        delegate?.showAlert(postID!, postItem!.username, postItem!.postId)
     }
     
     
