@@ -10,7 +10,7 @@ import UIKit
 import FirebaseUI
 import FirebaseAuth
 
-class FollowingViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
+class FollowingViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, CustomCellLoadDataProfile{
         
     @IBOutlet weak var tableViewFollowing: UITableView!
     
@@ -23,7 +23,7 @@ class FollowingViewController: UIViewController,UITableViewDelegate, UITableView
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        loadAllProfiles()
+//        loadAllProfiles()
     }
     
     func loadData() {
@@ -37,19 +37,20 @@ class FollowingViewController: UIViewController,UITableViewDelegate, UITableView
         followDataManager.loadFollowing(currentuid!) {
             flwingdb in
             self.followingList = flwingdb
-        }
-    }
-    
-    
-    func loadAllProfiles(){
-         for i in self.followingList {
-            profileDataManager.loadProfile(i.targetAccountUID){
-            profiledb in
-                self.profileList.append(profiledb[0])
-                self.tableViewFollowing.reloadData()
+             for i in self.followingList {
+                profileDataManager.loadProfile(i.targetAccountUID){
+                profiledb in
+                    self.profileList.append(profiledb[0])
+                    self.tableViewFollowing.reloadData()
+                }
             }
         }
     }
+    
+    
+//    func loadAllProfiles(){
+//
+//    }
 
 
     
@@ -68,6 +69,7 @@ class FollowingViewController: UIViewController,UITableViewDelegate, UITableView
         let p = profileList[indexPath.row]
         cell.NameLabel?.text = p.displayName
         cell.followerAccountUID = p.UID
+        cell.delegate = self
 
         return cell
         

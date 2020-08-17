@@ -351,17 +351,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.userList = user
             for i in self.userList{
                 cell.goToProfileButton.setTitle(i.displayName, for: .normal)
-                cell.goToProfileButton.setTitle(i.displayName, for: .normal)
-                let imageRef1 = Storage.storage().reference(withPath: "postImages/CC789BDD-7784-4A9C-B51B-F969504A59FB.jpg")
-                imageRef1.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
-                    if let error = error {
-                        print("Error downloading image: \(error.localizedDescription)")
-                        return
-                    }
-                    if let data = data {
-                        cell.userImage.image = UIImage(data: data)
-                    }
-                }
+                cell.userImage.kf.setImage(with: URL(string: i.imageName), placeholder: UIImage(named: "DefaultProfile"))
             }
         }
         commentDataManager.loadUserComments(p.postId, onComplete: {

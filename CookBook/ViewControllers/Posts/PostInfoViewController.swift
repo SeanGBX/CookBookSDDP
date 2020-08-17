@@ -187,16 +187,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
             print(self.postItem!.username)
             for i in self.userList{
                 self.goToProfileButton.setTitle(i.displayName, for: .normal)
-                let imageRef1 = Storage.storage().reference(withPath: "postImages/CC789BDD-7784-4A9C-B51B-F969504A59FB.jpg")
-                imageRef1.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
-                    if let error = error {
-                        print("Error downloading image: \(error.localizedDescription)")
-                        return
-                    }
-                    if let data = data {
-                        self!.userImage.image = UIImage(data: data)
-                    }
-                }
+                self.userImage.kf.setImage(with: URL(string: i.imageName), placeholder: UIImage(named: "DefaultProfile"))
             }
         }
     
@@ -328,10 +319,10 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         } else if (isFromProfile != ""){
             let vc = UIStoryboard(name: "Profile", bundle: nil).instantiateViewController(identifier: "Profile") as! ProfileViewController
             self.show(vc, sender: self)
-        } else if (isFromOtherProfile != nil){
-            let vc = UIStoryboard(name: "Profile", bundle: nil).instantiateViewController(identifier: "OthersProfile") as! OthersProfileViewController
-            vc.otherUser = isFromOtherProfile!
-            self.show(vc, sender: self)
+//        } else if (isFromOtherProfile != nil){
+//            let vc = UIStoryboard(name: "Profile", bundle: nil).instantiateViewController(identifier: "OthersProfile") as! OthersProfileViewController
+//            vc.otherUser = isFromOtherProfile!
+//            self.show(vc, sender: self)
         } else {
             let vc = storyboard?.instantiateViewController(identifier: "PostViewController") as! PostViewController
             vc.loadRecommend()
