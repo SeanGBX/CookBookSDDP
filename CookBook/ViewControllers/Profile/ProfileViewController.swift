@@ -30,18 +30,6 @@ class ProfileViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        collectionView.register(PostCollectionViewCell.nib(), forCellWithReuseIdentifier: PostCollectionViewCell.identifier)
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 128, height: 128)
-        collectionView.collectionViewLayout = layout
-        
-        loadProfile()
-        loadUserPosts()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,10 +58,21 @@ class ProfileViewController: UIViewController{
             self.displayname.text = profiledb[0].displayName
             self.bio.text = profiledb[0].bio
         }
-        //set post num 
+        //set post num, flw num, flwing num
         profileDataManager.calculatePosts(uid!) { posts in
             self.postnum.text = String(posts)
             print("TOTAL POST:",self.postnum.text)
+            print("-------------------------")
+        }
+        profileDataManager.calculateFollowers(uid!) { flw in
+            self.flwnum.setTitle(String(flw), for: .normal)
+            print("TOTAL FLW:",self.flwnum.titleLabel?.text)
+        }
+        profileDataManager.calculateFollowing(uid!) { flwing in
+            self.flwingnum.setTitle(String(flwing), for: .normal)
+            print("-------------------------")
+            print("TOTAL FLWING:",self.flwingnum.titleLabel?.text)
+            
         }
     }
     
@@ -129,11 +128,11 @@ class ProfileViewController: UIViewController{
         present(vc, animated: true)
     }
 
-    @IBAction func otherProfileTapped(_ sender: Any) {
-        //redirect to edit profile page
-            let vc = storyboard?.instantiateViewController(identifier:"OthersProfile") as! OthersProfileViewController
-            self.show(vc, sender: self)
-    }
+    //@IBAction func otherProfileTapped(_ sender: Any) {
+    //    //redirect to edit profile page
+    //        let vc = storyboard?.instantiateViewController(identifier:"OthersProfile") as! OthersProfileViewController
+    //        self.show(vc, sender: self)
+    //}
     
     @IBAction func editProfileTapped(_ sender: Any) {
         //redirect to edit profile page
