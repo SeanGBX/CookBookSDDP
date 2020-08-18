@@ -22,6 +22,7 @@ class ProfileCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        //Profile Picture Styling
         ImageView.layer.borderWidth = 1
         ImageView.layer.masksToBounds = false
         ImageView.layer.borderColor = UIColor.black.cgColor
@@ -43,9 +44,11 @@ class ProfileCell: UITableViewCell {
     }
     
     func loadUniqueFollower() {
+        //get currentuser UID
         let currentUser = Auth.auth().currentUser
         let currentuid = currentUser?.uid
         
+        //delete follower object
         followDataManager.deleteFollower(followerAccountUID!, targetAccountUID: currentuid!, onComplete: {
             follower in
             self.uniqueFollower = follower

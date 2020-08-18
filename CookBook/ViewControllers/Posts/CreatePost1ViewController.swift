@@ -23,6 +23,7 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
     let username: String = Auth.auth().currentUser!.uid
     var selectedPost: [Posts] = []
     
+    //meal type picker data
     var mealTypeData: [String] = [
         "Main Course",
         "Sauces & Sides",
@@ -32,15 +33,18 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
         "Brunch"
     ]
     
+    //load post by postid and set data
     func loadSpecificPost(id: String){
         postsDataManager.loadSpecificPost(id){
             post in
             for i in post{
                 self.postItem = i
             }
+            //set data based on retrieve post
             let indexOfMeasureType:Int = self.mealTypeData.firstIndex(of: self.postItem!.mealType) ?? 0
             
             self.createPostPicker.selectRow(indexOfMeasureType ?? 0, inComponent: 0, animated: true)
+            
             self.createPostRecipeName.text = self.postItem!.recipeName
             let imageRef = Storage.storage().reference(withPath: self.postItem!.postImage)
             imageRef.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
@@ -55,6 +59,7 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
         }
     }
     
+    //check if post exists for editing or adding
     func postExists(id: String){
         postsDataManager.loadSpecificPost(id){
             post in
@@ -67,6 +72,7 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
         myPictureSwitch.isOn = false
         progressToIngredientsButton.setTitleColor(UIColor.gray, for: .normal)
         
+        //drop keyboard
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKey")
 
         view.addGestureRecognizer(tap)
@@ -84,10 +90,12 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
         return mealTypeData[row]
     }
     
+    //drop keyboard
     @objc func dismissKey() {
         view.endEditing(true)
     }
     
+    //check if user has changed image
     func areEqualImages() -> Bool {
         let image1 = #imageLiteral(resourceName: "Default").pngData()
         let image2 = createPostImage.image?.pngData()
@@ -99,6 +107,7 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
     }
     
     @IBAction func progressToIngredients(_ sender: Any) {
+        //validation
         if (myPictureSwitch.isOn == true ){
             var error: String = ""
                 
@@ -129,6 +138,7 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
               return
            }
                 
+            //retrieve post info from fields
            postItem = Posts(recipeName: "", username: "", mealType: "", likes: 0, healthy: 0, tagBudget: "", tagStyle: "", tagPrep: "", postImage: "", postComplete: "0")
             
            postItem!.recipeName = createPostRecipeName.text!
@@ -154,9 +164,11 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
            }
            postItem!.postImage = imagePath
             
+            //initiate ingredient vc
            let vc =
                storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
             
+            //if post doesnt exists add post
             if (selectedPost.count == 0){
                 postsDataManager.insertPost(postItem!){
                     postId in
@@ -164,6 +176,7 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
                     vc.postID = self.newID!
                     self.show(vc, sender: self)
                 }
+                //if post exists edit post
             } else {
                 postsDataManager.editPost(self.newID!, postItem!){
                     postId in
@@ -174,6 +187,7 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
             }
             
         } else {
+            //handle if my picture switch is off
            let alertMyPic = UIAlertController(
                title: "Please switch on the 'This is my picture' switch",
                message: "",
@@ -193,6 +207,7 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
         }
     }
     
+    //add image
     @IBAction func AddImageButton(_ sender: Any) {
         let alert1 = UIAlertController(
             title: "How would you like to add a picture?",
@@ -253,7 +268,7 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
         picker.dismiss(animated: true)
     }
     
-    
+    //change ui when switch is on/off
     @IBAction func myPicSwitchClick(_ sender: Any) {
         if (myPictureSwitch.isOn == true){
             progressToIngredientsButton.setTitleColor(UIColor.systemIndigo, for: .normal)
@@ -262,6 +277,7 @@ class CreatePost1ViewController: UIViewController, UIPickerViewDelegate, UIPicke
         }
     }
     
+    //back button code
     @IBAction func backButtonClick(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(identifier: "PostViewController") as! PostViewController
         self.show(vc, sender: self)

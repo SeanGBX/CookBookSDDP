@@ -36,16 +36,12 @@ class EditProfileViewController: UIViewController {
         loadProfile()
     }
     
-//    override func viewDidDisappear(_ animated: Bool) {
-//        let vc = storyboard?.instantiateViewController(identifier:"Profile") as! ProfileViewController
-//        vc.loadProfile()
-//    }
     
     @objc func dismissKey() {
         view.endEditing(true)
     }
    
-    
+    //fill input fields with data
     func loadProfile() {
         let user = Auth.auth().currentUser
         let uid = user?.uid
@@ -75,17 +71,20 @@ class EditProfileViewController: UIViewController {
     func validateFields(){
         var error = ""
         
-        
+        //check if displayname is empty
         if displayname.text?.isEmpty == true {
             error += "Display Name cannot be empty!"
         }
+        //check if bio is empty
          if bio.text?.isEmpty == true {
                    error += "Bio cannot be empty!"
                }
+        //check if bio.count is greater than 50
         if bio.text.count > 50 {
             error += "Bio cannot have more than 50 characters!"
         }
         
+        //show alert error msg
         if error != ""{
             let alert = UIAlertController(title: error, message: nil, preferredStyle: .alert)
 
@@ -104,13 +103,11 @@ class EditProfileViewController: UIViewController {
         
     }
     
+    //set profile object with new values
     func save(){
         let user = Auth.auth().currentUser
         let uid = user?.uid
         let email = user?.email
-        //create profile with new data
-       
-        
         let randomID = UUID.init().uuidString
         let uploadRef = Storage.storage().reference(withPath: "profile/\(randomID).jpg")
         guard let imageData = displayimage.image?.jpegData(compressionQuality: 0.75) else{
@@ -146,6 +143,7 @@ class EditProfileViewController: UIViewController {
 
     }
     
+    //get image from gallery
    private func presentInputActionSheet(){
          let actionSheet = UIAlertController()
 

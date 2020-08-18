@@ -36,6 +36,7 @@ class ProfileViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //collectionview initialisation and settings
         collectionView.register(PostCollectionViewCell.nib(), forCellWithReuseIdentifier: PostCollectionViewCell.identifier)
         
         collectionView.delegate = self
@@ -44,7 +45,7 @@ class ProfileViewController: UIViewController{
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: UIScreen.main.bounds.width/3 , height: UIScreen.main.bounds.width/3)
         collectionView.collectionViewLayout = layout
-        	
+        
         loadProfile()
         loadUserPosts()
     }
@@ -52,6 +53,7 @@ class ProfileViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        //collectionview initialisation and settings
         collectionView.register(PostCollectionViewCell.nib(), forCellWithReuseIdentifier: PostCollectionViewCell.identifier)
         
         collectionView.delegate = self
@@ -67,12 +69,13 @@ class ProfileViewController: UIViewController{
         layout.minimumInteritemSpacing = 0
         collectionView.collectionViewLayout = layout
         
-        
+        //profile picture styling
         profileImage.layer.borderWidth = 1
         profileImage.layer.masksToBounds = false
         profileImage.layer.borderColor = UIColor.black.cgColor
         profileImage.layer.cornerRadius = profileImage.frame.height/2
         profileImage.clipsToBounds = true
+        
         loadProfile()
         loadUserPosts()
         
@@ -107,6 +110,7 @@ class ProfileViewController: UIViewController{
     }
     
     func loadUserPosts() {
+        //get currentuser uid
         let user = Auth.auth().currentUser
         let uid = user?.uid
 
@@ -158,11 +162,6 @@ class ProfileViewController: UIViewController{
         present(vc, animated: true)
     }
 
-    //@IBAction func otherProfileTapped(_ sender: Any) {
-    //    //redirect to edit profile page
-    //        let vc = storyboard?.instantiateViewController(identifier:"OthersProfile") as! OthersProfileViewController
-    //        self.show(vc, sender: self)
-    //}
     
     @IBAction func editProfileTapped(_ sender: Any) {
         //redirect to edit profile page
@@ -185,7 +184,6 @@ class ProfileViewController: UIViewController{
 
 extension ProfileViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        collectionView.deselectItem(at: indexPath, animated: true)
         let vc = UIStoryboard(name: "Posts", bundle: nil).instantiateViewController(identifier: "PostInfoViewController") as! PostInfoViewController
         let myIndexPath1 = self.collectionView.indexPathsForSelectedItems
         let myIndexPath = myIndexPath1![0]
@@ -194,7 +192,6 @@ extension ProfileViewController: UICollectionViewDelegate{
             let post = postList[myIndexPath.row]
             vc.postItem = post
             vc.isFromProfile = "1"
-            //vc.isFromOtherProfile = otherUser!
             self.show(vc, sender: self)
         }
         print ("CVCell Tapped!")
@@ -203,10 +200,12 @@ extension ProfileViewController: UICollectionViewDelegate{
 
 extension ProfileViewController: UICollectionViewDataSource{
     
+    //collectionview rows
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return postList.count
     }
     
+    //set cell data
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCollectionViewCell.identifier, for: indexPath) as! PostCollectionViewCell
         
@@ -231,6 +230,7 @@ extension ProfileViewController: UICollectionViewDataSource{
 }
 
 extension ProfileViewController: UICollectionViewDelegateFlowLayout{
+    //collectionview styling
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: UIScreen.main.bounds.width/3 , height: UIScreen.main.bounds.width/3)
     }

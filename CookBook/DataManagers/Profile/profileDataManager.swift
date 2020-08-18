@@ -14,6 +14,7 @@ class profileDataManager: NSObject {
     
     static let db = Firestore.firestore()
     
+    //get array of all profile objects
     static func loadAllProfiles(onComplete: (([Profile]) -> Void)?){
     db.collection("profiles").getDocuments(){
         
@@ -36,6 +37,7 @@ class profileDataManager: NSObject {
         }
     }
     
+    //get one profile object of this UID
     static func loadProfile(_ profileUID: String, onComplete: (([Profile]) -> Void)?){
     db.collection("profiles").whereField("UID", isEqualTo: profileUID).getDocuments(){
         
@@ -58,6 +60,7 @@ class profileDataManager: NSObject {
         }
     }
     
+    //calculate number of following this UID has
     static func calculateFollowing(_ profileUID: String, onComplete: ((Int) -> Void)?){
         db.collection("followers").whereField("followerAccountUID", isEqualTo: profileUID).getDocuments(){
         
@@ -80,6 +83,7 @@ class profileDataManager: NSObject {
         }
     }
     
+    //calculate number of followers this UID has
     static func calculateFollowers(_ profileUID: String, onComplete: ((Int) -> Void)?){
         db.collection("followers").whereField("targetAccountUID", isEqualTo: profileUID).getDocuments(){
         
@@ -102,6 +106,7 @@ class profileDataManager: NSObject {
         }
     }
     
+    //calculate number of posts this UID has
     static func calculatePosts(_ profileUID: String, onComplete: ((Int) -> Void)?){
         db.collection("posts").whereField("username", isEqualTo: profileUID).whereField("postComplete", isEqualTo: "1").getDocuments(){
         
@@ -124,6 +129,7 @@ class profileDataManager: NSObject {
         }
     }
     
+    //get array of posts this UID has
     static func getUserPosts(_ profileUID: String, onComplete: (([Posts]) -> Void)?){
         db.collection("posts").whereField("username", isEqualTo: profileUID).whereField("postComplete", isEqualTo: "1").getDocuments(){
         
@@ -146,6 +152,7 @@ class profileDataManager: NSObject {
         }
     }
     
+    //create Profile Object
     static func insertProfile(_ profile: Profile){
         //create document and set values
         try? db.collection("profiles")
@@ -162,6 +169,7 @@ class profileDataManager: NSObject {
         }
     }
     
+    //delete Profile Object
     static func deleteProfile (profile: Profile){
         //delete profile by uid
         db.collection("profiles").document(profile.UID).delete() {
@@ -175,6 +183,7 @@ class profileDataManager: NSObject {
         }
     }
     
+    //set Profile Object with new values
     static func editProfile(_ profile: Profile){
         //set profile values by uid
         try? db.collection("profiles")

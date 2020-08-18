@@ -32,6 +32,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
     var ingredientIndex: Int?
     var ingredientID: String?
     
+    //data for measurement type
     var measurementTypeData : [String] = [
         "ml",
         "l",
@@ -45,18 +46,23 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         "oz",
     ]
     
+    //create picker to set tf inputView
     var unitPick = UIPickerView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //set unitTF inputView
         unitTF.inputView = unitPick
         
+        //set picker delegates and data sources
         unitPick.dataSource = self
         unitPick.delegate = self
-
+        
+        //set default selection for unitTF
         unitTF.text = measurementTypeData[0]
         
+        //drop keyboard and input
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKey")
         
         view.addGestureRecognizer(tap)
@@ -64,7 +70,8 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         
 //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
 //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-
+        
+        //set initial hidden/unhidden UI
         enableIngredientSwitch.isOn = false
         loadingBar.isHidden = true
         ingredientInfoMeasureVal.isHidden = true
@@ -76,6 +83,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         ingredientNameLabel.isHidden = true
     }
     
+    //set data on viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         if ingredientItem != nil {
             let imageRef = Storage.storage().reference(withPath: ingredientItem!.ingredientImage)
@@ -95,6 +103,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
             stepInfo.text = ingredientItem!.step
             unitTF.text = ingredientItem!.measureType
             
+            //if editing hide/unhide
             if (segueIdentifier! == "EditIngredient"){
                 enableIngredientSwitch.isEnabled = false
                 enableIngredientSwitch.isHidden = true
@@ -126,11 +135,13 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         return measurementTypeData[row]
     }
     
+    //set unitTF text based on unitTF and drop inputView
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         unitTF.text = measurementTypeData[row]
         self.view.endEditing(true)
     }
     
+    //dropKeyboard
     @objc func dismissKey() {
         view.endEditing(true)
     }
@@ -149,10 +160,12 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
 //        }
 //    }
     
+    //check if measureVal is an integer
     func isInteger() -> Bool {
         return CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: ingredientInfoMeasureVal.text!))
     }
     
+    //check if user has changed image
     func areEqualImages() -> Bool {
         let image1 = #imageLiteral(resourceName: "Default").pngData()
         let image2 = ingredientInfoImage.image?.pngData()
@@ -164,6 +177,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
     
     @IBAction func addEditIngredient(_ sender: Any) {
+        //validation
         var error1 = ""
         let measureValue = Int(ingredientInfoMeasureVal.text!)
         
@@ -175,8 +189,12 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
                 error1 += "Please enter an ingredient name\n\n"
             }
             if (isInteger() == true){
-                if (measureValue! <= 0){
-                    error1 += "Please enter a measurement value above 0\n\n"
+                if ingredientInfoMeasureVal.text != ""{
+                    if (measureValue! <= 0 || ingredientInfoMeasureVal.text == ""){
+                        error1 += "Please enter a measurement value above 0\n\n"
+                    }
+                } else {
+                    error1 += "Please enter a valid measurement value\n\n"
                 }
             } else {
                 error1 += "Please enter a valid measurement value\n\n"
@@ -214,8 +232,10 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
                return
         }
         
+        //initialize ingredient vc
         let vc = storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
         
+        //set ingredient data if switch is on
         if (enableIngredientSwitch.isOn == true){
             ingredientItem!.ingredient = ingredientInfoName.text!
             ingredientItem!.measureVal = measureValue != nil ? measureValue! : 0
@@ -236,14 +256,17 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
             }
             self.ingredientItem!.ingredientImage = imagePath
         } else {
+            //set empty if switch isnt on
             ingredientItem!.ingredient = ""
             ingredientItem!.measureVal = 0
             ingredientItem!.measureType = "ml"
         }
         
+        //set step data
         ingredientItem!.step = stepInfo.text!
         ingredientItem!.postId = postID!
         
+        //add or edit ingredient based on "segue"
         if (segueIdentifier! == "AddIngredient"){
             IngredientsDataManager.insertIngredient(ingredientItem!)
         }
@@ -251,9 +274,12 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
             IngredientsDataManager.editIngredient(ingredientItem!)
         }
         
+        //set postID for ingredient retrieval
         vc.postID = self.postID!
+        //disable button to prevent multiple click
         addEditIngredientButton.isEnabled = false
         
+        //go to ingredient vc, reload data and show loading bar
         loadingBar.isHidden = false
         loadingBar.setProgress(3, animated: true)
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
@@ -262,7 +288,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         })
     }
     
-    
+    //delete ingredient with confirmation and show vc based on edit or add
     @IBAction func deleteIngredient(_ sender: Any) {
         if (segueIdentifier! == "AddIngredient"){
             let vc = storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
@@ -331,6 +357,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         }
     }
     
+    //add ingredient switch hide/unhide
     @IBAction func enableIngredient(_ sender: Any) {
         if (enableIngredientSwitch.isOn == true){
             ingredientInfoMeasureVal.isHidden = false
@@ -351,7 +378,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         }
     }
     
-    
+    //add ingredient image
     @IBAction func addIngredientImage(_ sender: Any) {
         let alert1 = UIAlertController(
                    title: "How would you like to add a picture?",
@@ -412,6 +439,7 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
         picker.dismiss(animated: true)
     }
     
+    //custom back button to allow edit post
     @IBAction func backButtonClick(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
         vc.postID = self.postID

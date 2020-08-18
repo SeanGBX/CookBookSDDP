@@ -132,6 +132,8 @@ class FindRecipeViewController: UIViewController, UITextFieldDelegate, UIPickerV
     //    }
     //}
     
+    
+    // Click function for the button to find recipes
     @IBAction func findRecipeButtonPressed(_ sender: Any) {
         if (budgetTextField.text == "" && prepTimeTextField.text == "" || budgetTextField.text == "" && cuisineStyleTextField.text == "" || prepTimeTextField.text == "" && prepTimeTextField.text == "" && cuisineStyleTextField.text == "")
         {
@@ -179,6 +181,7 @@ class FindRecipeViewController: UIViewController, UITextFieldDelegate, UIPickerV
     }
     
     
+    // Back button function to perform the action of going back to the previous  page
     @IBAction func backButton(_ sender: Any) {
         let vc = UIStoryboard(name: "Meal", bundle: nil).instantiateViewController(identifier: "MealRecipe") as! ViewController
         

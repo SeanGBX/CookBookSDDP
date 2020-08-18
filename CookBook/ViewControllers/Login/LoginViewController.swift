@@ -8,14 +8,12 @@
 
 import UIKit
 import FirebaseUI
-import GoogleSignIn
 
 
 
 
 class LoginViewController: UIViewController {
     
-    @IBOutlet var googleSignInBtn: GIDSignInButton!
     
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
@@ -26,11 +24,7 @@ class LoginViewController: UIViewController {
         //dismiss keyboard function
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKey")
         view.addGestureRecognizer(tap)
-        
-        //Google SignIn
-        GIDSignIn.sharedInstance()?.presentingViewController = self
 
-        // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -120,7 +114,7 @@ class LoginViewController: UIViewController {
         }
     }
     
-    
+    //autologin function
     func checkAutologin() {
     if Auth.auth().currentUser != nil {
          let storyboard = UIStoryboard(name: "Main", bundle: nil)

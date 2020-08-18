@@ -47,10 +47,16 @@ class PostCell: UITableViewCell {
     let alertService = AlertService()
     
     func loadCell() {
+        //loadLikeCounts
         loadLikes(id: postID!)
+        //loadHealthyCounts
         loadHealthy(id: postID!)
+        //check if user has liked
         loadUserLikes(id: postID!)
+        //check if user has marked healthy
         loadUserHealthy(id: postID!)
+        
+        //circle image
         userImage.layer.cornerRadius =  userImage.frame.size.width / 2
         userImage.clipsToBounds = true
     }
@@ -63,8 +69,10 @@ class PostCell: UITableViewCell {
     override func prepareForReuse() {
         self.likeButton.setImage(#imageLiteral(resourceName: "icons8-love-48-2"), for: .normal)
         self.healthyButton.setImage(#imageLiteral(resourceName: "icons8-kawaii-broccoli-50"), for: .normal)
+        //reset like and healthy button on reuse
     }
     
+    //load like count
     func loadLikes(id: String){
         likePostDataManager.loadLikesByPost(id){
             likeList in
@@ -72,6 +80,7 @@ class PostCell: UITableViewCell {
         }
     }
     
+    //load healhty count
     func loadHealthy(id: String){
         healthyPostDataManager.loadHealthyByPost(id){
             healthyList in
@@ -79,6 +88,7 @@ class PostCell: UITableViewCell {
         }
     }
     
+    //check if user has liked
     func loadUserLikes(id: String){
         likePostDataManager.loadUniqueLikes(id, username){
             uniqueLikeList in
@@ -91,6 +101,7 @@ class PostCell: UITableViewCell {
         }
     }
     
+    //check if user has marked healthy
     func loadUserHealthy(id: String){
         healthyPostDataManager.loadUniqueHealthy(id, username){
             uniqueHealthyList in
@@ -103,15 +114,21 @@ class PostCell: UITableViewCell {
         }
     }
     
+    
     @IBAction func likeButtonClick(_ sender: Any) {
+        //declare post vc
         let vc = UIStoryboard(name: "Posts", bundle: .main).instantiateViewController(identifier: "PostViewController") as! PostViewController
         likePostItem = LikePost(postId: postID!, username: username, budget: postItem!.tagBudget, prepTime: postItem!.tagPrep, cookStyle: postItem!.tagStyle)
+        
+        //if user has not liked post
         if (userLikes.count == 0) {
             print("-.-\(userLikes.count)")
             print(username)
+            //add like and change image
             likeButton.setImage(#imageLiteral(resourceName: "icons8-love-48"), for: .normal)
             likePostDataManager.insertLike(likePostItem!)
             postsDataManager.insertPostLike(postID!){
+                //fire TableView refresh based on segment index
                 let index = self.delegate?.getSegmentIndex()
                 if (index! == 0){
                     self.delegate?.loadRecommend()
@@ -122,11 +139,13 @@ class PostCell: UITableViewCell {
                 }
             }
         }
-        
+        //if user has liked post
         else if (userLikes.count > 0) {
+            //remove like and set image
             likeButton.setImage(#imageLiteral(resourceName: "icons8-love-48-2"), for: .normal)
             likePostDataManager.deleteLike(userLikes)
             postsDataManager.deletePostLike(postID!){
+                //fire tableView refresh based on segment index
                 let index = self.delegate?.getSegmentIndex()
                 if (index! == 0){
                     self.delegate?.loadRecommend()
@@ -139,6 +158,7 @@ class PostCell: UITableViewCell {
         }
     }
     
+    //repeat like button logic for healthy button
     @IBAction func healthyButtonClick(_ sender: Any) {
         healthyPostItem = HealthyPost(postId: postID!, username: username)
         if (userHealthy.count == 0) {
@@ -172,16 +192,17 @@ class PostCell: UITableViewCell {
         }
     }
     
+    //call showAlert from PostViewController
     @IBAction func deletePostButton(_ sender: Any) {
         delegate?.showAlert(postID!, postItem!.username, postItem!.postId)
     }
     
-    
+    //open comments
     @IBAction func commentButtonClick(_ sender: Any) {
         delegate?.moveToComments(postItem: postItem!)
     }
     
-    
+    //open profile
     @IBAction func goToProfileButtonClick(_ sender: Any) {
         delegate?.moveToProfile(pos: postItem!)
     }

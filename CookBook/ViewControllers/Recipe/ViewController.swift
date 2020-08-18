@@ -46,7 +46,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var dessertButton: UIButton!
     @IBOutlet weak var findRecipeButton: UIButton!
     
-    
+    // Button function to enter into selected meal type
     @IBAction func brunchButtonPressed(_ sender: Any) {
         if (cuisineView.isHidden == true) {
             cuisinTitle.text = brunchLabel.text
@@ -66,6 +66,7 @@ class ViewController: UIViewController {
         }
     }
     
+    // Button pressed function for user clicking the appetizer button
     @IBAction func appetizerButtonPressed(_ sender: Any) {
         if (cuisineView.isHidden == true) {
             cuisinTitle.text = appetizerLabel.text
@@ -85,6 +86,7 @@ class ViewController: UIViewController {
         }
     }
     
+    // Button function for the main course meal type
     @IBAction func mainButtonPressed(_ sender: Any) {
         if (cuisineView.isHidden == true) {
             cuisinTitle.text = mainLabel.text
@@ -104,6 +106,7 @@ class ViewController: UIViewController {
         }
     }
     
+    // Button function for the sauce & sides meal type
     @IBAction func sauceSidesButtonPressed(_ sender: Any) {
         if (cuisineView.isHidden == true) {
             cuisinTitle.text = sauceSideLabel.text
@@ -123,6 +126,7 @@ class ViewController: UIViewController {
         }
     }
     
+    // Button click function for the drink meal type
     @IBAction func drinkButtonPressed(_ sender: Any) {
         if (cuisineView.isHidden == true) {
             cuisinTitle.text = drinkLabel.text
@@ -142,7 +146,7 @@ class ViewController: UIViewController {
         }
     }
     
-    
+    // Button function for the dessert meal type
     @IBAction func dessertButtonPressed(_ sender: Any) {
         if (cuisineView.isHidden == true) {
             cuisinTitle.text = dessertLabel.text

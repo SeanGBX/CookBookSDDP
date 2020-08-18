@@ -10,6 +10,7 @@ import UIKit
 import FirebaseStorage
 import FirebaseAuth
 
+//intrinsic table for step autogrow
 class IntrinsicStepItemTableView: UITableView {
 
     override var contentSize:CGSize {
@@ -25,6 +26,7 @@ class IntrinsicStepItemTableView: UITableView {
 
 }
 
+//intrinsic table for ingredient autogrow
 class IntrinsicIngredientItemTableView: UITableView {
 
     override var contentSize:CGSize {
@@ -40,6 +42,7 @@ class IntrinsicIngredientItemTableView: UITableView {
 
 }
 
+//get segment from postvc protocol
 protocol getSegment: class {
     func getSegmentIndex() -> Int
 }
@@ -98,12 +101,13 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         self.navigationItem.setHidesBackButton(true, animated: true);
     }
     
+    //load post info by post id
     func loadSpecificPost(){
         postsDataManager.loadSpecificPost(postItem!.postId){
             post in
             self.selectedPost = post
             for i in self.selectedPost{
-                commentDataManager.loadUserComments(self.postItem!.postId, onComplete: {
+                commentDataManager.loadPostComments(self.postItem!.postId, onComplete: {
                     comment in
                     self.postInfoLCH.text = "\(i.likes) likes, \(comment.count) comment(s), \(i.healthy) users find this healthy"
                 })
@@ -111,12 +115,14 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    //set table height for autogrow
     override func viewWillLayoutSubviews() {
         super.updateViewConstraints()
         self.ingredientTableConstraints?.constant = self.ingredientTable.intrinsicContentSize.height
         self.stepTableConstraints?.constant = self.stepTable.intrinsicContentSize.height
     }
     
+    //load like count
     func loadLikes(id: String){
         likePostDataManager.loadLikesByPost(id){
             likeList in
@@ -124,6 +130,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    //load healthy count
     func loadHealthy(id: String){
         healthyPostDataManager.loadHealthyByPost(id){
             healthyList in
@@ -131,6 +138,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    //check if user has liked post and set UI accordingly
     func loadUserLikes(id: String){
         likePostDataManager.loadUniqueLikes(id, username){
             uniqueLikeList in
@@ -141,6 +149,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    //check if user has marked post as healthy and set UI
     func loadUserHealthy(id: String){
         healthyPostDataManager.loadUniqueHealthy(id, username){
             uniqueHealthyList in
@@ -151,6 +160,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    //load ingredient for post
     func loadIngredients(){
         IngredientsDataManager.loadCompleteIngredients(postItem!.postId){
             ingredientFromFirestore in
@@ -160,6 +170,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    //load steps for post
     func loadSteps(){
         IngredientsDataManager.loadOnlySteps(postItem!.postId){
             stepFromFirestore in
@@ -169,6 +180,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    //set data on view appear based on post
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -183,6 +195,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
         
+        //get profile info from poster UID
         profileDataManager.loadProfile(postItem!.username){
             user in
             self.userList = user
@@ -192,7 +205,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
                 self.userImage.kf.setImage(with: URL(string: i.imageName), placeholder: UIImage(named: "DefaultProfile"))
             }
         }
-    
+        
         postInfoRecipeName.text = postItem?.recipeName
         profileDataManager.loadProfile(postItem!.username){
             user in
@@ -201,16 +214,18 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
                 self.goToProfileButton.setTitle(i.displayName, for: .normal)
             }
         }
-        commentDataManager.loadUserComments(postItem!.postId, onComplete: {
+        //load comment count
+        commentDataManager.loadPostComments(postItem!.postId, onComplete: {
             comment in
             self.postInfoLCH.text = "\(self.postItem!.likes) likes, \(comment.count) comment(s), \(self.postItem!.healthy) users find this healthy"
         })
         postInfoTags.text = "\(postItem!.tagBudget), \(postItem!.tagStyle), \(postItem!.tagPrep)"
         
+        //set navigation title to name of recipe
         self.navigationItem.title = postItem?.recipeName
     }
 
-    
+    //set number of rows in section based on table
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (tableView == ingredientTable) {
             return ingredientList.count
@@ -221,6 +236,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    //set step and ingredient data based on table
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
         if (tableView == ingredientTable) {
@@ -251,7 +267,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    
+    //go to comments
     @IBAction func postInfoCommentClick(_ sender: Any) {
         let vcComments = storyboard?.instantiateViewController(identifier: "CommentsViewController") as! CommentsViewController
         
@@ -262,6 +278,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBAction func postInfoLikeClick(_ sender: Any) {
         likePostItem = LikePost(postId: postItem!.postId, username: username, budget: postItem!.tagBudget, prepTime: postItem!.tagPrep, cookStyle: postItem!.tagStyle)
+        //if user has not liked post, add like and change ui
         if (userLikes.count == 0) {
             likeButton.setImage(#imageLiteral(resourceName: "icons8-love-48"), for: .normal)
             likePostDataManager.insertLike(likePostItem!)
@@ -270,6 +287,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
         
+            //if user has liked post delete like and change ui
         else if (userLikes.count > 0) {
             likeButton.setImage(#imageLiteral(resourceName: "icons8-love-48-2"), for: .normal)
             likePostDataManager.deleteLike(userLikes)
@@ -280,6 +298,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         loadUserLikes(id: postItem!.postId)
     }
     
+    //repeat like logic for ingredinets
     @IBAction func postInfoHealthyClick(_ sender: Any) {
         healthyPostItem = HealthyPost(postId: postItem!.postId, username: username)
         if (userHealthy.count == 0) {
@@ -300,6 +319,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         loadUserHealthy(id: postItem!.postId)
     }
     
+    //deselect row ui
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == ingredientTable{
             ingredientTable.deselectRow(at: indexPath, animated: true)
@@ -308,7 +328,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    
+    //custom back button
     @IBAction func backButtonClicked(_ sender: Any) {
         if (isCuisine != "") {
             let vc = UIStoryboard(name: "Recipes", bundle: nil).instantiateViewController(identifier: "RecipeViewController") as! RecipeViewController
@@ -330,6 +350,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    //share
     private func createNewConversation(result: Profile, postId: String){
         let vc = FriendDetailViewController()
         var resultconv : Conversations?
@@ -361,6 +382,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         
     }
     
+    //show more options
     @IBAction func moreOptionButton(_ sender: Any) {
         let alert = UIAlertController(
                title: "Actions",
@@ -374,6 +396,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
                    style: .default,
                    handler: nil)
            )
+        //share
             alert.addAction(
                 UIAlertAction(
                     title: "Share",
@@ -389,6 +412,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
                 })
             )
             
+        //if current user is not poster show unfollow/follow
         if (self.username != postItem!.username){
             followDataManager.deleteFollower(self.username, targetAccountUID: postItem!.username, onComplete: {
                     unfollow in
@@ -419,6 +443,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
                 })
             }
             
+        //if current user is poster show delete
             if (postItem!.username == username){
                 IngredientsDataManager.loadIngredients(postItem!.postId, onComplete: {
                     ingredients in
@@ -448,6 +473,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
                                         title: "Yes",
                                         style: .default,
                                         handler: {
+                                            //delete go to post vc and refresh page according to segue
                                             handler in
                                             postsDataManager.deletePost(self.postItem!.postId)
                                             IngredientsDataManager.deleteIngredientByPost(ingredients: ingredientItemList)
@@ -478,6 +504,7 @@ class PostInfoViewController: UIViewController, UITableViewDataSource, UITableVi
            return
         }
     
+    //go to profile page
     @IBAction func goToProfileButtonClick(_ sender: Any) {
         let profilevc = UIStoryboard(name: "Profile", bundle: nil).instantiateViewController(identifier: "OthersProfile") as! OthersProfileViewController
         profilevc.otherUser = postItem!
