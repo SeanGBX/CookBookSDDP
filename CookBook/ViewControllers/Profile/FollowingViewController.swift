@@ -22,14 +22,12 @@ class FollowingViewController: UIViewController,UITableViewDelegate, UITableView
         loadAllFollowing()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-//        loadAllProfiles()
-    }
-    
+    //reload tableview
     func loadData() {
         self.tableViewFollowing.reloadData()
     }
     
+    //load followings of UID
     func loadAllFollowing() {
         let currentUser = Auth.auth().currentUser
         let currentuid = currentUser?.uid
@@ -48,20 +46,14 @@ class FollowingViewController: UIViewController,UITableViewDelegate, UITableView
         }
     }
     
-    
-//    func loadAllProfiles(){
-//
-//    }
-
-
-    
+   //tableView rows
     func tableView(_ tableView: UITableView,
     numberOfRowsInSection section: Int) -> Int
     {
         return profileList.count
     }
     
-    
+    //set cell data
     func tableView(_ tableView: UITableView,
     cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
@@ -77,6 +69,7 @@ class FollowingViewController: UIViewController,UITableViewDelegate, UITableView
         
     }
     
+    //cell onselect go to profile page
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(identifier: "OthersProfile") as! OthersProfileViewController
         let p = profileList[indexPath.row]

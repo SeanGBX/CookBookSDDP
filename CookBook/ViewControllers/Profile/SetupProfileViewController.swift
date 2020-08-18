@@ -42,17 +42,20 @@ class SetupProfileViewController: UIViewController {
     @IBAction func SaveTapped(_ sender: Any) {
         var error = ""
         
-        
+        //check if displayname is empty
         if displaynameText.text?.isEmpty == true {
             error += "Display Name cannot be empty!"
         }
+        //check if bioText is empty
         if bioText.text?.isEmpty == true {
             error += "Bio cannot be empty!"
         }
+        //check if bioText.count is greater than 50
         if bioText.text.count > 50 {
             error += "Bio cannot have more than 50 characters!"
         }
         
+        //show alert error msg
         if error != ""{
             let alert = UIAlertController(title: error, message: nil, preferredStyle: .alert)
 
@@ -76,12 +79,12 @@ class SetupProfileViewController: UIViewController {
     @IBAction func changePicBtn(_ sender: Any) {
          presentInputActionSheet()
     }
+    //create profile
     func fillProfile() {
         let user = Auth.auth().currentUser
         let uid = user?.uid
         let email = user?.email
         let randomID = UUID.init().uuidString
-        //create profile with new data
        let uploadRef = Storage.storage().reference(withPath: "profile/\(randomID).jpg")
        guard let imageData = displayimage.image?.jpegData(compressionQuality: 0.75) else{
            return
@@ -116,6 +119,7 @@ class SetupProfileViewController: UIViewController {
         present(vc, animated: true)
     }
     
+    //select image from gallery 
     private func presentInputActionSheet(){
                 let actionSheet = UIAlertController()
 

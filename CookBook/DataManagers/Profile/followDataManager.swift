@@ -13,6 +13,7 @@ import FirebaseFirestoreSwift
 class followDataManager: NSObject {
     static let db = Firestore.firestore()
     
+    //get array of follower objects where UID is the targetAccountUID
     static func loadFollowers(_ profileUID: String, onComplete: (([Followers]) -> Void)?){
     db.collection("followers").whereField("targetAccountUID", isEqualTo: profileUID).getDocuments(){
         
@@ -35,6 +36,7 @@ class followDataManager: NSObject {
         }
     }
     
+    //get array of follower objects where UID is the followerAccountUID
     static func loadFollowing(_ profileUID: String, onComplete: (([Followers]) -> Void)?){
     db.collection("followers").whereField("followerAccountUID", isEqualTo: profileUID).getDocuments(){
         
@@ -57,6 +59,7 @@ class followDataManager: NSObject {
         }
     }
     
+    //create follower object
     static func insertFollower(_ follower: Followers){
         var addedDocument = try? db.collection("followers").addDocument(from: follower, encoder: Firestore.Encoder())
         
@@ -78,6 +81,7 @@ class followDataManager: NSObject {
         }
     }
     
+    //retrieve follower object that need to be deleted
     static func deleteFollower(_ followerAccountUID: String, targetAccountUID: String, onComplete: (([Followers]) -> Void)?){
         db.collection("followers").whereField("followerAccountUID", isEqualTo: followerAccountUID).whereField("targetAccountUID", isEqualTo: targetAccountUID).getDocuments(){
            
@@ -100,9 +104,9 @@ class followDataManager: NSObject {
            }
        }
     
+    //delete follower object
     static func actuallyDeleteFollower (follower: [Followers]){
         for i in follower {
-        //delete profile by uid
             db.collection("followers").document(i.followerID).delete() {
             err in
 

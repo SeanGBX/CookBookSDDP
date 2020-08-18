@@ -45,7 +45,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         if email.text?.isEmpty == true {
             error += "Email field cannot be empty! \n"
         }
-        //
+        //check if email has bad format
         if email.text?.contains("@") == false {
             error += "email has bad format! \n"
         }
@@ -53,7 +53,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         if password.text?.isEmpty == true {
             error += "Password field cannot be empty! \n"
         }
-        //check if password field is empty
+        //check if password field has less than 6 characters
         if password.text!.count < 6 {
             error += "Password field is less than 6 characters! \n"
         }
@@ -66,6 +66,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             error += "Passwords do not match!"
         }
         
+        //show alert error msg
         if error != ""{
             let alert = UIAlertController(title: error, message: nil, preferredStyle: .alert)
 

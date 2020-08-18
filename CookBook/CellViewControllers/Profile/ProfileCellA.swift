@@ -27,6 +27,7 @@ class ProfileCellA: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        //Profile Picture Styling
         ImageView.layer.borderWidth = 1
         ImageView.layer.masksToBounds = false
         ImageView.layer.borderColor = UIColor.black.cgColor
@@ -42,7 +43,6 @@ class ProfileCellA: UITableViewCell {
 
     @IBAction func FollowTapped(_ sender: Any) {
         loadUniqueFollowing()
-//        self.delegate?.loadData()
         DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
             self.delegate?.loadAllFollowing()
             print("reloadData")
@@ -50,9 +50,11 @@ class ProfileCellA: UITableViewCell {
     }
     
     func loadUniqueFollowing() {
+        //get currentuser UID
         let currentUser = Auth.auth().currentUser
         let currentuid = currentUser?.uid
         
+        //delete follower object
         followDataManager.deleteFollower(currentuid!,targetAccountUID: followerAccountUID!, onComplete: {
             follower in
                 self.uniqueFollower = follower
