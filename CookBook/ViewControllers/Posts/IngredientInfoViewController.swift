@@ -189,8 +189,12 @@ class IngredientInfoViewController: UIViewController, UIPickerViewDelegate, UIPi
                 error1 += "Please enter an ingredient name\n\n"
             }
             if (isInteger() == true){
-                if (measureValue! <= 0){
-                    error1 += "Please enter a measurement value above 0\n\n"
+                if ingredientInfoMeasureVal.text != ""{
+                    if (measureValue! <= 0 || ingredientInfoMeasureVal.text == ""){
+                        error1 += "Please enter a measurement value above 0\n\n"
+                    }
+                } else {
+                    error1 += "Please enter a valid measurement value\n\n"
                 }
             } else {
                 error1 += "Please enter a valid measurement value\n\n"
