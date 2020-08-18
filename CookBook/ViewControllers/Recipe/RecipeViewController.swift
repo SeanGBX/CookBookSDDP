@@ -21,6 +21,7 @@ class RecipeViewController: UIViewController,  UITableViewDataSource, UITableVie
         }
     }
     
+    // Table view for the displaying of recipe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeCell
         
@@ -70,10 +71,13 @@ class RecipeViewController: UIViewController,  UITableViewDataSource, UITableVie
         return cell
     }
     
+    // function to return the height for each cell
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 260.0
     }
     
+    
+    // function to load the recipe information from the database
     func loadRecipeInfo(_ post: Posts, _ chosenCuisine: String, _ budget: String, _ prepTime: String, _ mealType: String) {
         let vc = UIStoryboard(name: "Posts", bundle: nil).instantiateViewController(identifier: "PostInfoViewController") as! PostInfoViewController
         
@@ -128,6 +132,7 @@ class RecipeViewController: UIViewController,  UITableViewDataSource, UITableVie
         // Do any additional setup after loading the view.
     }
     
+    // function to load recipes from the database and to be place into the list
     func loadRecipes() {
         RecipeDataManager.loadRecipes(self.chosenCuisine, budget: self.budget, prepTime: self.prepTime, cuisineStyle: self.cuisineStyle) {
             recipeListFromFirestore in
@@ -157,11 +162,13 @@ class RecipeViewController: UIViewController,  UITableViewDataSource, UITableVie
         }
     }
     
+    // function to update the search results whenever data is being input into the search bar
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         filterContentForSearchText(searchBar.text!)
     }
     
+    // function to filter the correct recipe from the search result
     func filterContentForSearchText(_ searchText: String, category: Posts? = nil) {
         filteredRecipes = recipeList.filter { (recipe: Posts) -> Bool in
             return recipe.recipeName.lowercased().contains(searchText.lowercased())
@@ -171,6 +178,7 @@ class RecipeViewController: UIViewController,  UITableViewDataSource, UITableVie
         recipeTableView.reloadData()
     }
     
+    // function to update the label text when the search bar could not find any recipes
     func updateLabel() {
         if filteredRecipes.isEmpty && isFiltering {
             self.recipeNameLabel.text = "No recipes found!"
@@ -185,6 +193,7 @@ class RecipeViewController: UIViewController,  UITableViewDataSource, UITableVie
     }
     
     
+    // Back button function to go back to the previous page
     @IBAction func backButton(_ sender: Any) {
         let vc = UIStoryboard(name: "FindRecipe", bundle: nil).instantiateViewController(identifier: "FindRecipeViewController") as! FindRecipeViewController
         
