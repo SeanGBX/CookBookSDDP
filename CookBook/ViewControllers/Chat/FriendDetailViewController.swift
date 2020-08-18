@@ -76,6 +76,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
             self.currUserName = profiledb[0].displayName
             self.currImage = profiledb[0].imageName
         }
+        // If its a new convo
         if !isNewConversation{
             if convItems?.firstUserId != currUserId{
                 otherUserName = convItems!.firstUserName

@@ -13,6 +13,7 @@
                 <navigationController id="PYZ-0l-1be" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="ChefBot" image="person" catalog="system" id="qpl-rW-I7q"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hVl-iv-Qgc">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
@@ -97,6 +98,7 @@
                 <navigationController id="scu-yV-uni" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="ChefBot" image="person" catalog="system" id="vfz-7j-GtE"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="f5E-NA-EJ1">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
@@ -116,36 +118,46 @@
             <objects>
                 <viewController id="pzh-kW-F8N" customClass="ChefBotViewController" customModule="CookBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5a0-T6-yCx">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ask ChefBot any question related to cooking or our app and he will be sure to answer you!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" minimumFontSize="16" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Bu-Mn-Qlr">
-                                <rect key="frame" x="52" y="306" width="310" height="79"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="79" id="rtm-le-5Tr"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SsT-ro-exK">
-                                <rect key="frame" x="143" y="393" width="128" height="36"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Start Chatting!"/>
-                                <connections>
-                                    <action selector="startBotConvo:" destination="pzh-kW-F8N" eventType="touchUpInside" id="vxo-Ii-aWB"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="cp5-Np-tfc">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="qZV-s0-HjS">
+                                        <rect key="frame" x="15" y="0.0" width="384.5" height="387"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ask ChefBot any question related to cooking or our app and he will be sure to answer you!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" minimumFontSize="16" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Bu-Mn-Qlr">
+                                                <rect key="frame" x="0.0" y="308" width="384.5" height="79"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="xpD-Mr-9e9">
+                                        <rect key="frame" x="143" y="387" width="128" height="387"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SsT-ro-exK">
+                                                <rect key="frame" x="0.0" y="0.0" width="128" height="74"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <inset key="contentEdgeInsets" minX="0.0" minY="50" maxX="0.0" maxY="0.0"/>
+                                                <state key="normal" title="Start Chatting!"/>
+                                                <connections>
+                                                    <action selector="startBotConvo:" destination="pzh-kW-F8N" eventType="touchUpInside" id="vxo-Ii-aWB"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="1Bu-Mn-Qlr" firstAttribute="centerX" secondItem="5a0-T6-yCx" secondAttribute="centerX" id="27S-LR-Khx"/>
-                            <constraint firstItem="1Bu-Mn-Qlr" firstAttribute="leading" secondItem="MEb-wi-NtT" secondAttribute="leading" constant="52" id="J8u-C9-thu"/>
-                            <constraint firstItem="SsT-ro-exK" firstAttribute="top" secondItem="1Bu-Mn-Qlr" secondAttribute="bottom" constant="8" id="JkP-J0-zeo"/>
-                            <constraint firstItem="1Bu-Mn-Qlr" firstAttribute="centerX" secondItem="SsT-ro-exK" secondAttribute="centerX" id="WQM-8B-DcG"/>
-                            <constraint firstItem="1Bu-Mn-Qlr" firstAttribute="top" secondItem="MEb-wi-NtT" secondAttribute="top" constant="218" id="foY-zq-jk2"/>
-                            <constraint firstItem="SsT-ro-exK" firstAttribute="top" secondItem="1Bu-Mn-Qlr" secondAttribute="bottom" constant="8" id="zTz-Dn-WRM"/>
-                            <constraint firstItem="MEb-wi-NtT" firstAttribute="trailing" secondItem="1Bu-Mn-Qlr" secondAttribute="trailing" constant="52" id="zu2-LH-jPp"/>
+                            <constraint firstItem="cp5-Np-tfc" firstAttribute="trailing" secondItem="MEb-wi-NtT" secondAttribute="trailing" id="N1Z-gC-dfi"/>
+                            <constraint firstItem="cp5-Np-tfc" firstAttribute="leading" secondItem="MEb-wi-NtT" secondAttribute="leading" id="QZM-en-DHZ"/>
+                            <constraint firstItem="cp5-Np-tfc" firstAttribute="top" secondItem="MEb-wi-NtT" secondAttribute="top" id="TVg-Uj-KxE"/>
+                            <constraint firstItem="cp5-Np-tfc" firstAttribute="bottom" secondItem="MEb-wi-NtT" secondAttribute="bottom" id="odj-48-SJe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MEb-wi-NtT"/>
                     </view>
@@ -153,7 +165,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BSg-Vg-Ivs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1780" y="767"/>
+            <point key="canvasLocation" x="1779.7101449275365" y="766.74107142857144"/>
         </scene>
     </scenes>
     <resources>
