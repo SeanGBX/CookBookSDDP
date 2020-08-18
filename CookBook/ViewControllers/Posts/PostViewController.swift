@@ -10,6 +10,7 @@ import UIKit
 import FirebaseStorage
 import FirebaseAuth
 
+//intrinsic post table for autogrow
 class IntrinsicPostTableView: UITableView {
 
     override var contentSize:CGSize {
@@ -34,6 +35,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var following: [Followers] = []
     var followerPosts: [Posts] = []
     
+    //refresh control declare
     lazy var refresher: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(allCalls), for: .valueChanged)
@@ -53,11 +55,13 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.dataSource = self
         
         self.navigationItem.setHidesBackButton(true, animated: true);
+        //set segmented control ui
         let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemIndigo]
         segmentedControl.setTitleTextAttributes(titleTextAttributes, for: .normal)
         segmentedControl.setTitleTextAttributes(titleTextAttributes, for: .selected)
         
         loadRecommend()
+        //set refresher to scroll view
         postScrollView.refreshControl = refresher
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -69,6 +73,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
 //        self.heightConstraint?.constant = self.tableView.intrinsicContentSize.height
 //    }
     
+    //set refresher function to refresh based on segment index
     @objc func allCalls(_ sender:UIRefreshControl) {
        if (segmentedControl.selectedSegmentIndex == 0){
             loadRecommend1()
@@ -79,6 +84,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
        }
     }
     
+    //load posts by follower
     func loadFollowerPosts(){
         var followerPostList: [Posts] = []
         followDataManager.loadFollowing(username, onComplete: {
@@ -102,6 +108,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         })
     }
     
+    //load posts by follower for refresher
     @objc
     func loadFollowerPosts1(){
            var followerPostList: [Posts] = []
@@ -122,6 +129,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
                    }
                    self.postList = followerPostList
                    self.tableView.reloadData()
+                //purposeful refresher delay for UI purposes
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)){
                         self.refresher.endRefreshing()
                     }
@@ -129,6 +137,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
            })
        }
     
+    //load recommended
     func loadRecommend(){
         
         var asianCount = 0
@@ -147,6 +156,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         likePostDataManager.loadLikesByUser(username, onComplete: {
             like in
 //            likes = like
+            //load like by user, add to tag counter if user has liked a post with tag
             for i in like {
                 if i.cookStyle.lowercased() == "asian"{
                     asianCount += 1
@@ -185,7 +195,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     longCount += 1
                 }
             }
-            
+            //place fields with respective counts into dictionary
             categoryCount["Asian"] = asianCount
             categoryCount["Western"] = westernCount
             categoryCount["Mexican"] = mexicanCount
@@ -198,12 +208,15 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
             categoryCount["Quick"] = quickCount
             categoryCount["Moderate"] = moderateCount
             categoryCount["Long"] = longCount
+            //order dictionary based on descending count
             var sortedCount = categoryCount.sorted { $0.1 > $1.1 }
+            //create list and append field names in order of like count
             var recommendFields: [String] = []
             for i in sortedCount{
                 recommendFields.append(i.key)
             }
             var recommendedPosts: [Posts] = []
+            //append posts into list in order of field from sorted list
             postsDataManager.loadCompletePosts(){
                 postListFromFirestore in
                 var list = postListFromFirestore
@@ -216,12 +229,14 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         }
                     }
                 }
+                //refresh and set post list to sorted posts
                 self.postList = recommendedPosts
                 self.tableView.reloadData()
             }
         })
     }
     
+    //load recommend for refresher
     @objc
     func loadRecommend1(){
             
@@ -318,6 +333,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
             })
         }
     
+    //load all complete posts
     func loadCompletePosts(){
         postsDataManager.loadCompletePosts(){
             postListFromFirestore in
@@ -326,6 +342,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
+    //load posts order by healthy
     func loadCompletePostsByHealthy(){
         postsDataManager.loadCompletePostsByHealthy(){
             postListFromFirestore in
@@ -334,6 +351,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
+    //load all complete posts for refresher
     @objc
     func loadCompletePosts1(){
         postsDataManager.loadCompletePosts(){
@@ -346,6 +364,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
+    //load posts order by healthy for refresher
     @objc
     func loadCompletePostsByHealthy1(){
         postsDataManager.loadCompletePostsByHealthy(){
@@ -362,6 +381,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return postList.count
     }
     
+    //set data in post cells based on index
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostCell
@@ -369,6 +389,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let p = postList[indexPath.row]
         print("\(indexPath.row)")
         cell.recipeName.text = p.recipeName
+        //retrieve profile info
         profileDataManager.loadProfile(p.username){
             user in
             self.userList = user
@@ -377,7 +398,8 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 cell.userImage.kf.setImage(with: URL(string: i.imageName), placeholder: UIImage(named: "DefaultProfile"))
             }
         }
-        commentDataManager.loadUserComments(p.postId, onComplete: {
+        //load post comments and set first 2 comments
+        commentDataManager.loadPostComments(p.postId, onComplete: {
             comment in
             self.commentList = comment
             cell.CLHLabel.text = "\(p.likes) likes, \(comment.count) comment(s), \(p.healthy) users find this healthy"
@@ -409,12 +431,14 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
         
+        //change ui and count of likes
         cell.loadCell()
         
         
         return cell
     }
     
+    //go to respective post based on cell
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "ViewPostInfo"){
             let PostInfoViewController = segue.destination as! PostInfoViewController
@@ -427,11 +451,13 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
+    //deselect row ui
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
     
+    //refresh page for segment control switch
     @IBAction func segmentedControlSwitch(_ sender: Any) {
         if (segmentedControl.selectedSegmentIndex == 0){
             loadRecommend()
@@ -442,6 +468,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
+    //share to messages
     private func createNewConversation(result: Profile, postId: String){
         let vc = FriendDetailViewController()
         var resultconv : Conversations?
@@ -475,6 +502,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     
+    //show alert, same code as postInfo with retrieved data from cell
     func showAlert(_ id: String, _ username1: String, _ postId: String){
        let alert = UIAlertController(
            title: "Actions",
@@ -592,10 +620,12 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
        return
     }
     
+    //get segment index
     func getSegmentIndex() -> Int{
         return segmentedControl.selectedSegmentIndex
     }
     
+    //go to post comments
     func moveToComments(postItem: Posts){
         let vcComments = storyboard?.instantiateViewController(identifier: "CommentsViewController") as! CommentsViewController
         
@@ -603,6 +633,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.show(vcComments, sender: self)
     }
     
+    //go to post profile
     func moveToProfile(pos: Posts){
         let profilevc = UIStoryboard(name: "Profile", bundle: nil).instantiateViewController(identifier: "OthersProfile") as! OthersProfileViewController
         profilevc.otherUser = pos

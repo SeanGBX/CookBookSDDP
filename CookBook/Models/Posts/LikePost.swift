@@ -17,7 +17,7 @@ class LikePost: NSObject, Codable {
     var cookStyle: String
     var likeId: String
     
-    
+    //store tags for algo
     init (postId: String, username: String, budget: String, prepTime: String, cookStyle: String, likeId: String = "")
     {
         self.postId = postId

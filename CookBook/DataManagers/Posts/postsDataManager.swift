@@ -14,6 +14,7 @@ class postsDataManager: NSObject {
     
     static let db = Firestore.firestore()
     
+    //load All Posts
     static func loadPosts(onComplete: (([Posts]) -> Void)?){
         db.collection("posts").getDocuments(){
             
@@ -36,6 +37,7 @@ class postsDataManager: NSObject {
         }
     }
     
+    //load post by postId
     static func loadSpecificPost(_ postID: String, onComplete: (([Posts]) -> Void)?){
         db.collection("posts").whereField("postId", isEqualTo: postID).getDocuments(){
             
@@ -59,6 +61,7 @@ class postsDataManager: NSObject {
         }
     }
     
+    //load only complete posts
     static func loadCompletePosts(onComplete: (([Posts]) -> Void)?){
         db.collection("posts").whereField("postComplete", isEqualTo: "1").getDocuments(){
             
@@ -81,6 +84,7 @@ class postsDataManager: NSObject {
         }
     }
     
+    //load posts in descending order of healthy count
     static func loadCompletePostsByHealthy(onComplete: (([Posts]) -> Void)?){
         db.collection("posts").whereField("postComplete", isEqualTo: "1").order(by: "healthy", descending: true).getDocuments(){
             
@@ -103,6 +107,7 @@ class postsDataManager: NSObject {
         }
     }
     
+    //edit post
     static func editPost(_ postID: String, _ post: Posts, onComplete: ((String)-> Void)?){
         post.postId = postID
         try? db.collection("posts")
@@ -120,6 +125,7 @@ class postsDataManager: NSObject {
         }
     }
     
+    //retrieve post id and store
     static func storePostID(_ ID: String) -> String {
         var selectedPost =
             try? db.collection("posts")
@@ -129,6 +135,7 @@ class postsDataManager: NSObject {
         return selectedID!
     }
     
+    //add post
     static func insertPost(_ post: Posts, onComplete: ((String)-> Void)?){
         var addedDocument = try? db.collection("posts").addDocument(from: post, encoder: Firestore.Encoder())
         
@@ -149,6 +156,7 @@ class postsDataManager: NSObject {
         }
     }
     
+    //update tags and set post as complete
     static func FinishPost(_ postID: String, _ post: Posts){
         try? db.collection("posts")
             .document(postID)
@@ -169,6 +177,7 @@ class postsDataManager: NSObject {
         }
     }
 
+    //delete post
     static func deletePost (_ postID: String){
         db.collection("posts").document(postID).delete() {
             err in
@@ -181,6 +190,7 @@ class postsDataManager: NSObject {
         }
     }
     
+    //like post counter add
     static func insertPostLike(_ postID: String, onComplete: (()-> Void)?){
         let post = db
         try? db.collection("posts")
@@ -200,6 +210,7 @@ class postsDataManager: NSObject {
         }
     }
     
+    //like post counter reduce
     static func deletePostLike(_ postID: String, onComplete: (()-> Void)?){
         try? db.collection("posts")
             .document(postID)
@@ -218,6 +229,7 @@ class postsDataManager: NSObject {
         }
     }
     
+    //healthy post counter add
     static func insertPostHealthy(_ postID: String, onComplete: (()-> Void)?){
         try? db.collection("posts")
             .document(postID)
@@ -236,6 +248,7 @@ class postsDataManager: NSObject {
         }
     }
     
+    //healthy post counter reduce
     static func deletePostHealthy(_ postID: String, onComplete: (()-> Void)?){
         try? db.collection("posts")
             .document(postID)
@@ -251,30 +264,6 @@ class postsDataManager: NSObject {
                 print("Document successfully fixed")
                 onComplete?()
             }
-        }
-    }
-    
-    //Post Recommendation AI
-    static func RecommendationAI(_ username: String, onComplete: (([Posts]) -> Void)?){
-        
-        db.collection("posts").whereField("postComplete", isEqualTo: "1").order(by: "healthy").getDocuments(){
-            
-            (querySnapshot, err) in
-            var postList : [Posts] = []
-            
-            if let err = err{
-                print("Error getting documents: \(err)")
-            }
-            else{
-                for document in querySnapshot!.documents{
-                    var post = try? document.data(as: Posts.self) as! Posts
-                    
-                    if post != nil{
-                        postList.append(post!)
-                    }
-                }
-            }
-            onComplete?(postList)
         }
     }
 }

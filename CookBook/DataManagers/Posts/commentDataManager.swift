@@ -14,6 +14,7 @@ class commentDataManager: NSObject {
     
     static let db = Firestore.firestore()
     
+    //load all comments
     static func loadComments(onComplete: (([PostComment]) -> Void)?){
         db.collection("postComments").getDocuments(){
             
@@ -36,7 +37,8 @@ class commentDataManager: NSObject {
         }
     }
     
-    static func loadUserComments(_ postID: String, onComplete: (([PostComment]) -> Void)?){
+    //load comments by post
+    static func loadPostComments(_ postID: String, onComplete: (([PostComment]) -> Void)?){
         db.collection("postComments").whereField("postId", isEqualTo: postID).getDocuments(){
             
             (querySnapshot, err) in
@@ -57,7 +59,8 @@ class commentDataManager: NSObject {
             onComplete?(commentList)
         }
     }
-
+    
+    //retrieve comment id based on id string
     static func storeCommentID(_ ID: String) -> String {
         var selectedComment =
             try? db.collection("postComments")
@@ -67,11 +70,13 @@ class commentDataManager: NSObject {
         return selectedID!
     }
 
+    // add comment
     static func insertComment(_ comment: PostComment, onComplete: (()-> Void)?){
         var addedDocument = try? db.collection("postComments").addDocument(from: comment, encoder: Firestore.Encoder())
         
+        //retrieve comment document id and set as commentID field
         comment.commentId = String(addedDocument?.documentID ?? "")
-
+        
         try? db.collection("postComments")
             .document(String(comment.commentId))
             .setData(from: comment, encoder: Firestore.Encoder())
@@ -87,6 +92,7 @@ class commentDataManager: NSObject {
         }
     }
 
+    //edit comment
     static func editComment(_ comment: PostComment){
         try? db.collection("postComments")
             .document(comment.commentId)
@@ -102,6 +108,7 @@ class commentDataManager: NSObject {
         }
     }
 
+    // delete comment
     static func deleteComment (comment: PostComment){
         db.collection("postComments").document(comment.commentId).delete() {
             err in

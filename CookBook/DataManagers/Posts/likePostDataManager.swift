@@ -14,6 +14,7 @@ class likePostDataManager: NSObject {
     
     static let db = Firestore.firestore()
     
+    //add like with tags
     static func insertLike(_ like: LikePost){
         var addedDocument = try? db.collection("postLikes").addDocument(from: like, encoder: Firestore.Encoder())
         
@@ -34,6 +35,7 @@ class likePostDataManager: NSObject {
         }
     }
     
+    //remove like
     static func deleteLike (_ likeList: [LikePost]){
         for i in likeList{
             db.collection("postLikes").document(i.likeId).delete() {
@@ -48,6 +50,7 @@ class likePostDataManager: NSObject {
         }
     }
     
+    //load like by user and post (unique)
     static func loadUniqueLikes(_ postID: String, _ username: String, onComplete: (([LikePost]) -> Void)?){
         db.collection("postLikes").whereField("postId", isEqualTo: postID).whereField("username", isEqualTo: username).getDocuments(){
             
@@ -70,6 +73,7 @@ class likePostDataManager: NSObject {
         }
     }
     
+    //load likes by post
     static func loadLikesByPost(_ postID: String, onComplete: (([LikePost]) -> Void)?){
         db.collection("postLikes").whereField("postId", isEqualTo: postID).getDocuments(){
             
@@ -92,8 +96,7 @@ class likePostDataManager: NSObject {
         }
     }
     
-    //Recommendation AI
-    
+    //load likes by user
     static func loadLikesByUser(_ username: String, onComplete: (([LikePost]) -> Void)?){
         db.collection("postLikes").whereField("username", isEqualTo: username).getDocuments(){
             
@@ -116,28 +119,6 @@ class likePostDataManager: NSObject {
         }
     }
     
-    static func loadLikesByUserWestern(_ username: String, onComplete: (([LikePost]) -> Void)?){
-        db.collection("postLikes")
-            .whereField("username", isEqualTo: username)
-            .whereField("cookStyle", isEqualTo: "Western").getDocuments(){
-            
-            (querySnapshot, err) in
-            var likeList : [LikePost] = []
-            
-            if let err = err{
-                print("Error getting documents: \(err)")
-            }
-            else{
-                for document in querySnapshot!.documents{
-                    var like = try? document.data(as: LikePost.self) as! LikePost
-                    
-                    if like != nil{
-                        likeList.append(like!)
-                    }
-                }
-            }
-            onComplete?(likeList)
-        }
-    }
+
 
 }

@@ -48,31 +48,39 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //drop keyboard
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKey")
 
         view.addGestureRecognizer(tap)
         
+        //circle image
         userImage.layer.cornerRadius =  userImage.frame.size.width / 2
         userImage.clipsToBounds = true
+        //get current user image
         loadCurrentUserImage()
+        //retrieve comments
         loadComments()
     }
     
+    //drop keyboard
     @objc func dismissKey() {
         view.endEditing(true)
     }
     
+    //retrieve comments
     func loadComments(){
-        commentDataManager.loadUserComments(postItem!.postId, onComplete: {
+        commentDataManager.loadPostComments(postItem!.postId, onComplete: {
             comment in
             self.postCommentList = comment
             self.commentsTable.reloadData()
+            //display comment count
             if (self.postCommentList.count != 0){
                 self.noLabel.text = "\(self.postCommentList.count) comment(s)"
             }
         })
     }
     
+    //load current user image
     func loadCurrentUserImage(){
         profileDataManager.loadProfile(username){
             user in
@@ -91,6 +99,7 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! CommentCell
         
         let p = postCommentList[indexPath.row]
+        //load profile info and set
         profileDataManager.loadProfile(p.username){
             user in
             self.postUserList = user
@@ -99,6 +108,7 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
                 cell.commentImage.kf.setImage(with: URL(string: i.imageName), placeholder: UIImage(named: "DefaultProfile"))
             }
         }
+        //circle image
         cell.commentImage.layer.cornerRadius =  userImage.frame.size.width / 2
         cell.commentImage.clipsToBounds = true
         return cell
@@ -106,6 +116,7 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @IBAction func backButtonClick(_ sender: Any) {
+        //back to relevant vc based on previous vc
         if (fromInfo == "1"){
             let vc = storyboard?.instantiateViewController(identifier: "PostInfoViewController") as! PostInfoViewController
             vc.postItem = postItem!
@@ -116,7 +127,7 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    
+    //add comment
     @IBAction func addCommentButton(_ sender: Any) {
         commentItem = PostComment(postId: postItem!.postId, comment: userComment.text!, username: username)
         

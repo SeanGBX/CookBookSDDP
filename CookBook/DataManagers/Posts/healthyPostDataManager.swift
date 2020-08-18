@@ -14,6 +14,7 @@ class healthyPostDataManager: NSObject {
     
     static let db = Firestore.firestore()
     
+    //add healthy
     static func insertHealthy(_ healthy: HealthyPost){
         var addedDocument = try? db.collection("postHealthy").addDocument(from: healthy, encoder: Firestore.Encoder())
         
@@ -34,6 +35,7 @@ class healthyPostDataManager: NSObject {
         }
     }
     
+    //delete healthy
     static func deleteHealthy (_ healthyList: [HealthyPost]){
         for i in healthyList{
             db.collection("postHealthy").document(i.healthyId).delete() {
@@ -48,6 +50,7 @@ class healthyPostDataManager: NSObject {
         }
     }
     
+    //load healthy by user and post
     static func loadUniqueHealthy(_ postID: String, _ username: String, onComplete: (([HealthyPost]) -> Void)?){
         db.collection("postHealthy").whereField("postId", isEqualTo: postID).whereField("username", isEqualTo: username).getDocuments(){
             
@@ -70,6 +73,7 @@ class healthyPostDataManager: NSObject {
         }
     }
     
+    //load healthy by post
     static func loadHealthyByPost(_ postID: String, onComplete: (([HealthyPost]) -> Void)?){
         db.collection("postHealthy").whereField("postId", isEqualTo: postID).getDocuments(){
             

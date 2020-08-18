@@ -22,10 +22,15 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
     var selectedPost: [Posts] = []
     var ingredientList: [IngredientSteps]?
     
+    //budget TF data
     var budgetData : [String] = ["Cheap","Moderately-Priced","Expensive"]
+    //cook style TF data
     var cookStyleData : [String] = ["Asian", "Western", "Mexican", "Middle-Eastern", "European", "African"]
+    //prep time TF data
     var prepTimeData : [String] = ["Quick", "Moderate", "Long"]
     
+    
+    //declare pickers for input view
     var budgetPick = UIPickerView()
     var cookingStylePick = UIPickerView()
     var prepTimePick = UIPickerView()
@@ -34,11 +39,15 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: true);
+        //load info for post being added
         loadSpecificPost()
+        
+        //set input view of TF to picker
         budgetTF.inputView = budgetPick
         cookingStyleTF.inputView = cookingStylePick
         prepTimeTF.inputView = prepTimePick
         
+        //set delegates and data sources
         budgetPick.delegate = self
         budgetPick.dataSource = self
         cookingStylePick.delegate = self
@@ -46,22 +55,27 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
         prepTimePick.delegate = self
         prepTimePick.dataSource = self
         
+        //set tags to pickers
         budgetPick.tag = 1
         cookingStylePick.tag = 2
         prepTimePick.tag = 3
         
+        //default text for TFs
         budgetTF.text = budgetData[0]
         cookingStyleTF.text = cookStyleData[0]
         prepTimeTF.text = prepTimeData[0]
         
+        //drop inputView
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKey")
         view.addGestureRecognizer(tap)
     }
     
+    //drop inputView
     @objc func dismissKey() {
         view.endEditing(true)
     }
     
+    //load post by id and set data
     func loadSpecificPost(){
         postsDataManager.loadSpecificPost(self.postID!){
             postFromFirestore in
@@ -86,6 +100,7 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
         return 1
     }
     
+    //set number of rows based on picker tags and data count
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch pickerView.tag {
         case 1:
@@ -101,6 +116,7 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
         }
     }
     
+    //set title for row based on picker tags and data count
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch pickerView.tag {
         case 1:
@@ -114,6 +130,7 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
         }
     }
     
+    //set tf texts based on picker tags and drop inputView
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView.tag {
         case 1:
@@ -133,7 +150,7 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
     
     @IBAction func postRecipeButton(_ sender: Any) {
         var error = ""
-        
+        //validation
         if (!budgetData.contains(budgetTF.text ?? "")){
             error += "Please select a valid budget \n\n"
         }
@@ -164,6 +181,7 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
                
               return
         } else {
+            //post recipe (update tags and complete) with confirmation
             let alert = UIAlertController(
                         title: "Are you sure you want to post this recipe?",
                         message: "",
@@ -211,6 +229,7 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
         }
     }
     
+    //delete post if cancelled and go to post vc
     @IBAction func cancelPostCreate(_ sender: Any) {
         postsDataManager.deletePost(postID!)
         IngredientsDataManager.deleteIngredientByPost(ingredients: ingredientList!)
@@ -218,7 +237,7 @@ class FinishPostViewController: UIViewController, UIPickerViewDataSource, UIPick
         self.show(vc, sender: self)
     }
     
-    
+    //custom back button to allow edit mid creation
     @IBAction func backButtonClick(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(identifier: "IngredientViewController") as! IngredientViewController
         vc.postID = self.postID

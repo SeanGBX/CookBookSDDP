@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseStorage
 
+//intrinsic ingredient tableView for autoHeight
 final class IntrinsicIngredientTableView: UITableView {
 
     override var contentSize:CGSize {
@@ -40,6 +41,7 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
         
         self.navigationItem.setHidesBackButton(true, animated: true);
         loadIngredients()
+        // hide/unhide ingredients if user has posts
         if (ingredientItemList.count > 0){
 //            noLabel.isHidden = true
             nextButton.isHidden = false
@@ -56,6 +58,7 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
 //    }
     
     func loadIngredients(){
+        //reload table data and hide/unhide next button
         IngredientsDataManager.loadIngredients(self.postID!){
             ingredientListFromFirestore in
             self.ingredientItemList = ingredientListFromFirestore
@@ -75,6 +78,7 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //set cell info
         let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientItemCell", for: indexPath) as! IngredientItemCell
         let p = ingredientItemList[indexPath.row]
         if (p.step.count > 40){
@@ -97,7 +101,7 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+        //go to ingredient info for edit and add
         if (segue.identifier == "EditIngredient"){
             let ingredientInfoViewController = segue.destination as!
                 IngredientInfoViewController
@@ -123,7 +127,7 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     @IBAction func proceedToSteps(_ sender: Any) {
-        
+        //validaiton to ensure user has created at least one ingredient and step
         var notEmptyIngredients = 0
         
         for i in ingredientItemList{
@@ -132,7 +136,7 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
             }
         }
         
-        
+        //validation if user has added nothing
         if (ingredientItemList.count == 0){
             
            let alert = UIAlertController(
@@ -153,6 +157,7 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
            return
             
         } else {
+            //go to finalPost vc if validation passes
             if (notEmptyIngredients > 0){
                 let vc = storyboard?.instantiateViewController(identifier: "FinishPostViewController") as! FinishPostViewController
                 
@@ -181,7 +186,7 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-    
+    //cancel and delete post creation
     @IBAction func cancelCreatePost(_ sender: Any) {
         postsDataManager.deletePost(postID!)
         IngredientsDataManager.deleteIngredientByPost(ingredients: ingredientItemList)
@@ -189,10 +194,12 @@ class IngredientViewController: UIViewController, UITableViewDataSource, UITable
         self.show(vc, sender: self)
     }
     
+    //deselect row UI
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         ingredientTableView.deselectRow(at: indexPath, animated: true)
     }
     
+    //custom back button to allow post edit
     @IBAction func backButtonClick(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(identifier: "CreatePost1ViewController") as! CreatePost1ViewController
         vc.loadSpecificPost(id: self.postID!)
