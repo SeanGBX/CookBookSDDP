@@ -20,7 +20,7 @@ class Conversations: NSObject, Codable{
     init(firstUserId: String, secondUserId: String, firstUserName: String, secondUserName: String, firstImage: String, secondImage: String, messages: [[String: String]] = [[
         "date": "",
         "message": "",
-        "is_read": "false",
+        "msgType": "false",
         "sentBy": ""]]
     )
     {

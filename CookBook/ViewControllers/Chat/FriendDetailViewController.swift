@@ -76,7 +76,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
             self.currUserName = profiledb[0].displayName
             self.currImage = profiledb[0].imageName
         }
-        // If its a new convo
+        // If its a not new convo take info from conversation, if it is take it from followingList
         if !isNewConversation{
             if convItems?.firstUserId != currUserId{
                 otherUserName = convItems!.firstUserName
@@ -101,6 +101,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
             otherUser.photoURL = followingList!.imageName
             currUser.displayName = currUserName
             currUser.senderId = currUserId
+            //If the message a sharedmessage append message for a new convo
             if isSharing{
                 let message =  Message(sender: currUser, messageId: createMessageId()!, sentDate: Date(), kind: .text(shareString))
                 chatDataManager.init().createNewConversation(with: currUserId, following: followingList!, currUserName: currUserName, currImage: currImage, firstMessage: message, msgType: "sharedpost", textMessage: shareString, completion: {
@@ -108,7 +109,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
                     if success {
                         print("Post shared and started new convo")
                         chatDataManager.appendChat(self.otherUserId, self.currUserId, self.messageList)
-
+                        
                     }
                     else{
                         print("Failed to send")
@@ -119,18 +120,21 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
             }
             self.navigationItem.title = followingList?.displayName
         }
-        
+        //Set messageKit delegates
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         messageInputBar.delegate = self
+        //Navbar styling
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.tintColor = UIColor.white
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = UIColor.systemIndigo
         appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
         navigationItem.standardAppearance = appearance
+        //create input button
         setupInputButton()
+        //Conversation observer to update live when there is a change
         startListeningForConversation()
         
         //        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKey")
@@ -145,20 +149,21 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     }
     
     private func refreshView(){
+        //Populate chat with messages
         messages = []
         var image = UIImage(named: "ryantan")
         for i in convItems!.messages{
             if i["sentBy"] == otherUserId{
-                if i["is_read"] == "false"{
-                     messages.append(Message(sender: otherUser, messageId: "", sentDate: Date(), kind: .text(i["message"]!)))
+                if i["msgType"] == "false"{
+                    messages.append(Message(sender: otherUser, messageId: "", sentDate: Date(), kind: .text(i["message"]!)))
                 }
-                else if i["is_read"] == "sharedpost"{
-                     messages.append(Message(
-                         sender: otherUser,
-                         messageId: "\(messageList.count + 1)",
-                         sentDate: Date(),
-                         kind: .attributedText(NSAttributedString(string: "Long press to go to this post :\(i["message"])", attributes: [NSAttributedString.Key.foregroundColor: UIColor.blue]))
-                     ))
+                else if i["msgType"] == "sharedpost"{
+                    messages.append(Message(
+                        sender: otherUser,
+                        messageId: "\(messageList.count + 1)",
+                        sentDate: Date(),
+                        kind: .attributedText(NSAttributedString(string: "Long press to go to this post :\(i["message"])", attributes: [NSAttributedString.Key.foregroundColor: UIColor.blue]))
+                    ))
                 }
                 else{
                     messages.append(Message(
@@ -171,16 +176,16 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
                 
             }
             else{
-                if i["is_read"] == "false"{
-                     messages.append(Message(sender: currUser, messageId: "", sentDate: Date(), kind: .text(i["message"]!)))
+                if i["msgType"] == "false"{
+                    messages.append(Message(sender: currUser, messageId: "", sentDate: Date(), kind: .text(i["message"]!)))
                 }
-                else if i["is_read"] == "sharedpost"{
-                     messages.append(Message(
-                         sender: currUser,
-                         messageId: "\(messageList.count + 1)",
-                         sentDate: Date(),
-                         kind: .attributedText(NSAttributedString(string: "Long press to go to this post:\(i["message"]!)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.blue]))
-                     ))
+                else if i["msgType"] == "sharedpost"{
+                    messages.append(Message(
+                        sender: currUser,
+                        messageId: "\(messageList.count + 1)",
+                        sentDate: Date(),
+                        kind: .attributedText(NSAttributedString(string: "Long press to go to this post:\(i["message"]!)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.blue]))
+                    ))
                 }
                 else{
                     messages.append(Message(
@@ -195,10 +200,11 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
         }
         
         messageList = convItems!.messages
+        //If the message is a shared message
         if isSharing{
             messageList.append([
                 "date" : Self.dateFormatter.string(from: Date()),
-                "is_read": "sharedpost",
+                "msgType": "sharedpost",
                 "message": shareString,
                 "sentBy": currUserId
             ])
@@ -216,6 +222,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     }
     
     private func setupInputButton(){
+        // Add image button
         let button = InputBarButtonItem()
         button.setSize(CGSize(width: 35, height: 35), animated: false)
         button.setImage(UIImage(systemName: "plus"), for: .normal)
@@ -227,28 +234,29 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     }
     
     private func presentInputActionSheet(){
-       let actionSheet = UIAlertController()
-
-       actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
-           let picker = UIImagePickerController()
-           
-           picker.sourceType = .camera
-           picker.delegate = self
-           picker.allowsEditing = true
-           self?.present(picker, animated: true)
-       }))
-       actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { [weak self] _ in
-           let picker = UIImagePickerController()
-           picker.sourceType = .photoLibrary
-           picker.delegate = self
-           picker.allowsEditing = true
-           self?.present(picker, animated: true)
-       }))
-       actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-       if !UIImagePickerController.isSourceTypeAvailable(.camera){
-           actionSheet.actions[0].isEnabled = false
-       }
-       present(actionSheet, animated: true)
+        //add UIAlert for the image button
+        let actionSheet = UIAlertController()
+        
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
+            let picker = UIImagePickerController()
+            
+            picker.sourceType = .camera
+            picker.delegate = self
+            picker.allowsEditing = true
+            self?.present(picker, animated: true)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { [weak self] _ in
+            let picker = UIImagePickerController()
+            picker.sourceType = .photoLibrary
+            picker.delegate = self
+            picker.allowsEditing = true
+            self?.present(picker, animated: true)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        if !UIImagePickerController.isSourceTypeAvailable(.camera){
+            actionSheet.actions[0].isEnabled = false
+        }
+        present(actionSheet, animated: true)
     }
     
     private func startListeningForConversation(){
@@ -258,14 +266,14 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
             self.refreshView()
         }
         
-       
+        
     }
     
     
-//    @objc func dismissKey() {
-//        view.endEditing(true)
-//        print("")
-//    }
+    //    @objc func dismissKey() {
+    //        view.endEditing(true)
+    //        print("")
+    //    }
     
     func currentSender() -> SenderType {
         return currUser
@@ -280,6 +288,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     }
     
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+        //Set image inside the chat
         let sender = message.sender
         if sender.senderId == "other"
         {
@@ -291,6 +300,7 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     }
     
     func configureMediaMessageImageView(_ imageView: UIImageView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+        //Show the image if the message is a photo kind
         switch message.kind{
         case .photo(let photoItem):
             guard let url = photoItem.url else {
@@ -304,17 +314,12 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        
+        // Long press functions
         if action == NSSelectorFromString("delete:") && messageList[indexPath.section]["sentBy"] == currUserId{
             return true
         }
-        else if action == NSSelectorFromString("go:") && messageList[indexPath.section]["is_read"] == "sharedpost"{
+        else if action == NSSelectorFromString("go:") && messageList[indexPath.section]["msgType"] == "sharedpost"{
             return true
         }
         else {
@@ -324,11 +329,11 @@ class FriendDetailViewController: MessagesViewController, MessagesDataSource, Me
     }
     
     override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-        
+        //Long press function actions
         if action == NSSelectorFromString("delete:") {
             messageList[indexPath.section] = [
                 "date" : Self.dateFormatter.string(from: Date()),
-                "is_read": "false",
+                "msgType": "false",
                 "message": "• Message Deleted •",
                 "sentBy": currUserId
             ]
@@ -369,7 +374,7 @@ extension FriendDetailViewController: UIImagePickerControllerDelegate, UINavigat
         let uploadRef = Storage.storage().reference(withPath: "conversations/\(randomID).jpg")
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage,
             let imageData = image.jpegData(compressionQuality: 0.75) else{
-            return
+                return
         }
         let uploadMetaData = StorageMetadata.init()
         uploadMetaData.contentType = "image/jpeg"
@@ -394,7 +399,7 @@ extension FriendDetailViewController: UIImagePickerControllerDelegate, UINavigat
                             if success {
                                 print("Post shared and started new convo")
                                 chatDataManager.appendChat(self.otherUserId, self.currUserId, self.messageList)
-
+                                
                             }
                             else{
                                 print("Failed to send")
@@ -404,20 +409,20 @@ extension FriendDetailViewController: UIImagePickerControllerDelegate, UINavigat
                     }
                     else{
                         self.messageList.append([
-                                              "date" : Self.dateFormatter.string(from: Date()),
-                                              "is_read": "true",
-                                              "message": url.absoluteString,
-                                              "sentBy": self.currUserId
-                                           ])
+                            "date" : Self.dateFormatter.string(from: Date()),
+                            "msgType": "true",
+                            "message": url.absoluteString,
+                            "sentBy": self.currUserId
+                        ])
                         chatDataManager.appendChat(self.otherUserId, self.currUserId, self.messageList)
                         self.messagesCollectionView.reloadData()
                     }
-
+                    
                     
                 }
             })
         }
-       
+        
     }
 }
 
@@ -438,7 +443,7 @@ extension FriendDetailViewController: InputBarAccessoryViewDelegate {
                 if success {
                     print("Message Sent")
                     chatDataManager.appendChat(self.otherUserId, self.currUserId, self.messageList)
-
+                    
                 }
                 else{
                     print("Failed to send")
@@ -449,7 +454,7 @@ extension FriendDetailViewController: InputBarAccessoryViewDelegate {
         else{
             messageList.append([
                 "date" : Self.dateFormatter.string(from: Date()),
-                "is_read": "false",
+                "msgType": "false",
                 "message": text,
                 "sentBy": currUserId
             ])
@@ -460,7 +465,7 @@ extension FriendDetailViewController: InputBarAccessoryViewDelegate {
                 kind: .text(text)
             ))
             chatDataManager.appendChat(otherUserId, currUserId, messageList)
-
+            
         }
     }
     

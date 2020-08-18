@@ -26,30 +26,39 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     let searchController = UISearchController(searchResultsController: nil)
     
+    //View for when there is no results in search
     private let noResultsLabel: UILabel = {
-           let label = UILabel()
-           label.isHidden = true
-           label.text = "No Results"
-           label.textAlignment = .center
-           label.textColor = .darkGray
-           label.font = .systemFont(ofSize: 21, weight: .medium)
-           
-           return label
-       }()
+        let label = UILabel()
+        label.isHidden = true
+        label.text = "No Results"
+        label.textAlignment = .center
+        label.textColor = .darkGray
+        label.font = .systemFont(ofSize: 21, weight: .medium)
+        
+        return label
+    }()
     
     var isFiltering: Bool {
-      return searchController.isActive && !isSearchBarEmpty
+        //check if the user is searching
+        return searchController.isActive && !isSearchBarEmpty
     }
     
     var isSearchBarEmpty: Bool {
-      return searchController.searchBar.text?.isEmpty ?? true
+        //check if the searchbar is empty
+        return searchController.searchBar.text?.isEmpty ?? true
     }
     
     func filterContentForSearchText(_ searchText: String) {
+        //filter the list if it appears in the search
         let text = searchText.trimmingCharacters(in: .whitespaces)
         results = convList.filter { (conv: Conversations) -> Bool in
-            return conv.secondUserName.lowercased().contains(text.lowercased())
+            if conv.firstUserId == currUserId{
+                return conv.secondUserName.lowercased().contains(text.lowercased())
             }
+            else{
+                return conv.firstUserName.lowercased().contains(text.lowercased())
+            }
+        }
         if text == ""{
             results = convList
         }
@@ -58,17 +67,19 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     func updateUI(){
+        // If the results is empty show is hidden label view
         if results.isEmpty && isFiltering{
-                   self.noResultsLabel.isHidden = false
-                   self.tableView.isHidden = true
-               }
-               else{
-                   self.noResultsLabel.isHidden = true
-                   self.tableView.isHidden = false
-               }
+            self.noResultsLabel.isHidden = false
+            self.tableView.isHidden = true
+        }
+        else{
+            self.noResultsLabel.isHidden = true
+            self.tableView.isHidden = false
+        }
     }
     
     func addSearchBar(){
+        // Programically add searchbar
         navigationItem.searchController = searchController
         let searchField = searchController.searchBar.searchTextField
         searchField.backgroundColor = .systemBackground
@@ -84,12 +95,12 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     func loadChat(){
         chatDataManager.loadConversations(currUserId){
             convListFromFirestore in
-
+            
             self.convList = convListFromFirestore
             
             self.tableView.reloadData()
         }
-
+        
         
     }
     
@@ -114,9 +125,10 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-
+    
     
     override func viewDidAppear(_ animated: Bool) {
+        //load following
         followDataManager.loadFollowing(currUserId) {
             Following in
             self.following = Following
@@ -131,36 +143,41 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     override func viewDidLayoutSubviews() {
+        //Configure noresultlabel ui
         super.viewDidLayoutSubviews()
         noResultsLabel.frame = CGRect(x: view.frame.width/4, y: (view.frame.height-200)/2, width: view.frame.width/2, height: 100)
     }
     
     private func startListeningForConversation(){
+        //Conversation observer
         chatDataManager.getAllListenConversation(currUserId){
             convListFromFirestore in
-
+            
             self.convList = convListFromFirestore
             
             self.tableView.reloadData()
         }
         self.spinner.dismiss()
-        }
+    }
     
     @IBAction func didTapEditButton(_ sender: Any) {
+        //Edit button
         self.tableView.setEditing(!tableView.isEditing, animated: true)
-                      if tableView.isEditing{
-                       self.editButton.title = "Done"
-                      }
-                      else{
-                       self.editButton.title = "Edit"
-                      }
+        if tableView.isEditing{
+            self.editButton.title = "Done"
+        }
+        else{
+            self.editButton.title = "Edit"
+        }
     }
     
     @objc func dismissKey() {
+        // Dismiss keyboard
         view.endEditing(true)
     }
     
     @objc private func didTapComposeButton(){
+        //Add conversations
         let vc = NewConversationViewController()
         vc.completion = { [weak self] result in
             self?.createNewConversation(result: result)
@@ -170,18 +187,21 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     private func createNewConversation(result: Profile){
+        //Push FriendDetailViewController
         let vc = FriendDetailViewController()
         var resultconv : Conversations?
         vc.followingList = result
         vc.navigationItem.largeTitleDisplayMode = .never
         
         chatDataManager.loadSpecificChat(result.UID, currUserId){
+            //Load chat with id
             specificConv in
             resultconv = specificConv
             
             
         }
         chatDataManager.findSpecificChat(result.UID, currUserId){
+            //Check if chat exists in db
             isSuccessful in
             if isSuccessful{
                 vc.isNewConversation = false
@@ -197,24 +217,25 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-           if editingStyle == .delete
-           {
-               let conv = convList[indexPath.row]
-
-               var otherUserId = ""
-               if conv.firstUserId != currUserId{
-                    otherUserId = conv.firstUserId
-                }
-               else{
-                    otherUserId = conv.secondUserId
-
-                }
-               convList.remove(at: indexPath.row)
-               chatDataManager.deleteConv(otherUserId, currUserId)
-               
-               tableView.deleteRows(at: [indexPath], with: .automatic)
-           }
-       }
+        //Deleting using table view
+        if editingStyle == .delete
+        {
+            let conv = convList[indexPath.row]
+            
+            var otherUserId = ""
+            if conv.firstUserId != currUserId{
+                otherUserId = conv.firstUserId
+            }
+            else{
+                otherUserId = conv.secondUserId
+                
+            }
+            convList.remove(at: indexPath.row)
+            chatDataManager.deleteConv(otherUserId, currUserId)
+            
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering {
@@ -229,6 +250,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //Configure tabel cell UI
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as! FriendCell
         let p : Conversations
         let countOfList: Int
@@ -249,7 +271,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.friendnameLabel.text = p.secondUserName
             cell.friendImage.kf.setImage(with: URL(string: p.secondImage), placeholder: UIImage(named: "defaultprofile"))
         }
-       
+        
         cell.friendtextLabel.text = p.messages[countOfList - 1]["message"]
         cell.friendImage.layer.borderWidth = 1
         cell.friendImage.layer.masksToBounds = false
@@ -270,6 +292,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func prepare(for segue: UIStoryboardSegue,
                           sender: Any?)
     {
+        //ShowFriendDetail segue
         if(segue.identifier == "ShowFriendDetails")
         {
             let detailViewController = segue.destination as! FriendDetailViewController
@@ -287,9 +310,9 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
 }
 
 extension ChatViewController: UISearchResultsUpdating {
-  func updateSearchResults(for searchController: UISearchController) {
-    let searchBar = searchController.searchBar
-    filterContentForSearchText(searchBar.text!)
-  }
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContentForSearchText(searchBar.text!)
+    }
 }
 

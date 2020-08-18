@@ -14,7 +14,7 @@ import FirebaseStorage
 class chatDataManager: NSObject {
     
     static let db = Firestore.firestore()
-    
+    //load all following
     static func loadChat(_ currUserId: String, _ Following: [Followers], onComplete: (([Profile]) -> Void)?){
         db.collection("profiles").getDocuments()
             {
@@ -43,7 +43,7 @@ class chatDataManager: NSObject {
                 onComplete?(followingList)
         }
     }
-    
+    //finds the chat in the db
     static func loadSpecificChat(_ userId: String, _ currUserId : String, onComplete: ((Conversations) -> Void)?){
         var conversationId = ""
         if userId < currUserId{
@@ -73,7 +73,7 @@ class chatDataManager: NSObject {
                
            }
        }
-    
+    //Finds the chat in the db and returns a bool
     static func findSpecificChat(_ userId: String, _ currUserId: String, onComplete: ((Bool) -> Void)?){
         var conversationId = ""
         if userId < currUserId{
@@ -106,7 +106,7 @@ class chatDataManager: NSObject {
         }
     }
     
-    
+    //update messages to db
     static func appendChat(_ otherUserId: String, _ currUserId: String, _ sentmsg: [[String:String]]) {
         var conversationId = ""
         if otherUserId < currUserId{
@@ -130,6 +130,7 @@ class chatDataManager: NSObject {
                 }
     }
     
+    //delete convo
     static func deleteConv(_ otherUserId: String, _ currUserId: String)
     {
         var conversationId = ""
@@ -160,6 +161,7 @@ class chatDataManager: NSObject {
 
 extension chatDataManager{
     
+    //load all convo
     static func loadConversations(_ currUserId: String, onComplete: (([Conversations]) -> Void)?){
         db.collection("conversations").getDocuments()
             {
@@ -186,12 +188,11 @@ extension chatDataManager{
         }
     }
     
-    
+    //Creating new convo
     public func createNewConversation(with sentBy: String, following: Profile, currUserName: String, currImage: String, firstMessage: Message, msgType: String, textMessage: String, completion: @escaping (Bool) -> Void){
         let messageDate = firstMessage.sentDate
         let dateString = FriendDetailViewController.dateFormatter.string(from: messageDate)
         
-        var message = ""
         var conversationId = ""
         var firstId = ""
         var secondId = ""
@@ -200,27 +201,6 @@ extension chatDataManager{
         var firstImage = ""
         var secondImage = ""
         
-        
-        switch firstMessage.kind{
-        case .text(let messageText):
-            message = messageText
-        case .attributedText(_):
-            break
-        case .photo(_):
-            break
-        case .video(_):
-            break
-        case .location(_):
-            break
-        case .emoji(_):
-            break
-        case .audio(_):
-            break
-        case .contact(_):
-            break
-        case .custom(_):
-            break
-        }
         
         if following.UID < sentBy{
             print("\(following.UID)_\(sentBy)")
@@ -247,7 +227,7 @@ extension chatDataManager{
             firstUserId: firstId, secondUserId: secondId, firstUserName: firstName, secondUserName: secondName, firstImage: firstImage, secondImage: secondImage, messages: [[
                 "date": dateString,
                 "message": textMessage,
-                "is_read": msgType,
+                "msgType": msgType,
                 "sentBy": sentBy
                 ]]
         )
@@ -268,6 +248,7 @@ extension chatDataManager{
         
         
     }
+    //Conversation listener when conversation is update it will fire
     static func getAllListenConversation(_ currUserId: String, onComplete: (([Conversations]) -> Void)?){
         db.collection("conversations").addSnapshotListener
             {
@@ -294,7 +275,7 @@ extension chatDataManager{
                 onComplete?(convList)
         }
     }
-    
+    // get only a specific conversation when it is updated
     static func getListenConversation(_ userId: String, _ currUserId : String, onComplete: ((Conversations) -> Void)?){
     var conversationId = ""
     if userId < currUserId{
@@ -320,15 +301,6 @@ extension chatDataManager{
         onComplete?(conv!)
          
      }
-    }
-    
-    
-    public func getAllMessagesForConversation(with id: String, completion: @escaping (Result<String, Error>) -> Void){
-        
-    }
-    
-    public func sendMessage(to conversation: String, message:Message, completion: @escaping (Bool) -> Void){
-        
     }
     
 }

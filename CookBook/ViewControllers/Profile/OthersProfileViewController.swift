@@ -31,6 +31,7 @@ class OthersProfileViewController: UIViewController {
     var isFromFollow = ""
     
     var postList :[Posts] = []
+    var profile : Profile?
     
     var screenSize: CGRect!
     var screenWidth: CGFloat!
@@ -108,6 +109,8 @@ class OthersProfileViewController: UIViewController {
             self.bio.text = profiledb[0].bio
             self.otherUse = profiledb[0].UID
             self.profileImage.kf.setImage(with: URL(string: profiledb[0].imageName), placeholder: UIImage(named: "defaultprofile"))
+            self.profile = profiledb[0]
+            
         }
         //set post num, flw num, flwing num
         profileDataManager.calculatePosts(uid) { posts in
@@ -145,10 +148,11 @@ class OthersProfileViewController: UIViewController {
         let vc = FriendDetailViewController()
         var resultconv : Conversations?
         vc.navigationItem.largeTitleDisplayMode = .never
+        vc.followingList = profile
         chatDataManager.loadSpecificChat(otherUse, currentUse!){
             specificConv in
             resultconv = specificConv
-            
+            print(resultconv)
             
         }
         chatDataManager.findSpecificChat(otherUse, currentUse!){
